@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 75px;
+    background-color: #666;
+    &__wrapper {
+        display: flex;
+    }
+    &__link, &__button {
+        cursor: pointer;
+        margin: 15px;
+        padding: 0px;
+        height: 30px;
+        background-color: #0000;
+        text-decoration: none;
+        color: #FFFFFF;
+        display: flex;
+        justify-content: center;
+        border: none;
+    }
+}
+
+.link_orange {
+    color: #F57520;
+}
+
+.search_img {
+    width: 30px;
+    height: 30px;
+}
