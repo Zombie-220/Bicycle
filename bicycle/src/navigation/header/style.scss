@@ -1,8 +1,12 @@
 .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     padding: 0px 75px;
-    background-color: #666;
+    background-color: #0000;
     &__wrapper {
         display: flex;
     }
@@ -16,7 +20,12 @@
         color: #FFFFFF;
         display: flex;
         justify-content: center;
+        align-items: center;
         border: none;
+        font-family: 'Inter-Light';
+        transition: 350ms;
+        &:hover { opacity: 0.66; }
+        &:active { opacity: 0.33; }
     }
 }
 

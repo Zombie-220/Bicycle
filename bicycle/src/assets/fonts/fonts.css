@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Bebas-Neue-Bold';
+    src: url('./BebasNeue/BebasNeue-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Bebas-Neue-Regular';
+    src: url('./BebasNeue/BebasNeue-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Bebas-Neue-Book';
+    src: url('./BebasNeue/BebasNeue-Book.ttf');
+}
+
+@font-face {
+    font-family: 'Bebas-Neue-Light';
+    src: url('./BebasNeue/BebasNeue-Light.ttf');
+}
+
+
+
+@font-face {
+    font-family: 'Inter-Bold';
+    src: url('./Inter/Inter-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Inter-Regular';
+    src: url('./Inter/Inter-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Inter-Light';
+    src: url('./Inter/Inter-Light.ttf');
+}
