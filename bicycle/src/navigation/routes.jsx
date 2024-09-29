@@ -1,17 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
+
 import { Layout } from "./layout";
-import ErrorElement from "./errorElements";
-import { Auth } from "../pages/auth/auth";
 import { Main } from "../pages/main";
 import { Register } from "../pages/register/register";
+import { ErrorPage } from "./errorPage";
 
 export const routes = createBrowserRouter([{
     Component: Layout,
-    errorElement: <ErrorElement />,
-    children: [{
-        path: "/auth",
-        Component: Auth,
-    },
+    errorElement: <ErrorPage />,
+    children: [
     {
         path: "/",
         Component: Main,

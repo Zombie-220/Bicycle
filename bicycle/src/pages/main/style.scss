@@ -33,4 +33,23 @@
             &:active { background-color: #F5752044; }
         }
     }
+    &__slider {
+        padding: 0px 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #131313;
+        &__element {
+            background-color: #131313;
+            color: #fff;
+        }
+        &__activeElement { background-color: #2E2E2E; }
+        &__link {
+            color: #F57520;
+            text-decoration: none;
+            transition: 350ms;
+            &:hover { opacity: 0.66; }
+            &:active { opacity: 0.33; }
+        }
+    }
 }
