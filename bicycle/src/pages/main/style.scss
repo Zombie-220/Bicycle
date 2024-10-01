@@ -52,4 +52,12 @@
             &:active { opacity: 0.33; }
         }
     }
+    &__imageSlider {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__image {
+            width: 15%;
+        }
+    }
 }
