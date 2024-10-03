@@ -5,17 +5,25 @@ import { useEffect, useState } from 'react';
 import './style.scss'
 import '../../assets/fonts/fonts.css'
 
-import { getBicycleData } from '../../api/getBicycleData';
+import { DivSlider } from '../../components/divSlider';
+
 import { Card } from '../../components/card';
 
 import { SliderData } from '../../components/slider-loop/SliderData';
 import ImageSlider from '../../components/slider-loop/ImageSlider';
 
-function Main() {
+import { getPost } from '../../requests/request';
+import image from '../../assets/images/Bianchi AQUILA L DURA ACE DI2 TEAM JUMBO 2021.png'
+
+const Main = () => {
     const [bicycleData, setCardData] = useState([])
 
     useEffect(() => {
-        setCardData(getBicycleData());
+        getPost().then((data) => {
+            if (data.data && data.status === 200) {
+                setCardData(data.data)
+            }
+        })
     }, [])
 
     return (
@@ -26,29 +34,16 @@ function Main() {
                 <p className='main__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
                 <Link to='/bicycle' className='main__welcomeDiv__link'>Подробнее</Link>
             </div>
-            {/* <div className='main__slider'>
-                <div className='main__slider__element'>
-                    <p className='main__slider__text'>Экстремальное<br/>вождение на горном<br/>велосипеде</p>
-                    <Link className='main__slider__link'>Подробнее</Link>
-                </div>
-                <div className='main__slider__element'>
-                    <p className='main__slider__text'>Велосипеды<br/>для профессионалов</p>
-                    <Link className='main__slider__link'>Подробнее</Link>
-                </div>
-                <div className='main__slider__element'>
-                    <p className='main__slider__text'>Долгая поездка<br/>на шоссейном велосипеде</p>
-                    <Link className='main__slider__link'>Подробнее</Link>
-                </div>
-            </div> */}
-            <ImageSlider slides={SliderData} />;
-            {/* {bicycleData.map((data, index) => (
-                <Card
-                    imageURL={image}
-                    name={data.name}
-                    price={data.price}
-                />
-            ))} */}
-
+            <DivSlider />
+            {/* {bicycleData.map((data, index) => {
+                return (
+                    <Card
+                        imageURL={image}
+                        name={data.name}
+                        price={data.price}
+                    />
+                )
+            })} */}
         </div>
     );
 };
