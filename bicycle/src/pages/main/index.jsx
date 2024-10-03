@@ -7,43 +7,15 @@ import '../../assets/fonts/fonts.css'
 
 import { DivSlider } from '../../components/divSlider';
 
-import { Card } from '../../components/card';
-
-import { SliderData } from '../../components/slider-loop/SliderData';
-import ImageSlider from '../../components/slider-loop/ImageSlider';
-
-import { getPost } from '../../requests/request';
-import image from '../../assets/images/Bianchi AQUILA L DURA ACE DI2 TEAM JUMBO 2021.png'
-
 const Main = () => {
-    const [bicycleData, setCardData] = useState([])
-
-    useEffect(() => {
-        getPost().then((data) => {
-            if (data.data && data.status === 200) {
-                setCardData(data.data)
-            }
-        })
-    }, [])
-
     return (
         <div className='main'>
-
             <div className='main__welcomeDiv'>
                 <h1 className='main__welcomeDiv__header'>ЭЛЕКТРО<br/>ВЕЛОСИПЕДЫ</h1>
                 <p className='main__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
                 <Link to='/bicycle' className='main__welcomeDiv__link'>Подробнее</Link>
             </div>
-            {/* <DivSlider /> */}
-            {/* {bicycleData.map((data, index) => {
-                return (
-                    <Card
-                        imageURL={image}
-                        name={data.name}
-                        price={data.price}
-                    />
-                )
-            })} */}
+            <DivSlider/>
         </div>
     );
 };
