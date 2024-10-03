@@ -1,0 +1,31 @@
+.divSlider {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    &__element {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        font-family: 'Inter-Light';
+        width: 33%;
+        background-color: #131313;
+        padding: 20px 80px;
+        & a { display: none; }
+        &-active {
+            color: inherit; 
+            background-color: #2E2E2E;
+            border-radius: 0px 0px 10px 0px;
+            width: inherit;
+            & a { display: block; }
+        }
+    }
+    &__link {
+        color: #F57520;
+        text-decoration: none;
+        transition: 350ms;
+        font-family: 'Inter-Light';
+        &:hover { opacity: 0.66; }
+        &:active { opacity: 0.33; }
+    }
+}

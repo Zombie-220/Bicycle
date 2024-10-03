@@ -34,7 +34,7 @@ const Main = () => {
                 <p className='main__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
                 <Link to='/bicycle' className='main__welcomeDiv__link'>Подробнее</Link>
             </div>
-            <DivSlider />
+            {/* <DivSlider /> */}
             {/* {bicycleData.map((data, index) => {
                 return (
                     <Card

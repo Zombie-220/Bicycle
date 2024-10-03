@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 
 import icon from '../../assets/icons/icon.svg'
-import search from '../../assets/icons/search.svg'
-import user from '../../assets/icons/user.svg'
-import favorites from '../../assets/icons/favorites.svg'
-import cart from '../../assets/icons/cart.svg'
-import rightMenu from '../../assets/icons/rightMenu.svg'
+import search from '../../assets/icons/header/search.svg'
+import user from '../../assets/icons/header/user.svg'
+import favorites from '../../assets/icons/header/favorites.svg'
+import cart from '../../assets/icons/header/cart.svg'
+import rightMenu from '../../assets/icons/header/rightMenu.svg'
 
 import './style.scss'
 
