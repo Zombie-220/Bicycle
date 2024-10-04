@@ -10,14 +10,14 @@ export const DivSlider = () => {
 
     setTimeout(() => {
         if ( dynamicClass1 === 'active' ) {
-            setDynamicClass2('active')
+            setDynamicClass2('active');
             setDynamicClass1('');
         } else if ( dynamicClass2 === 'active' ) {
-            setDynamicClass3('active')
+            setDynamicClass3('active');
             setDynamicClass2('');
         } else if ( dynamicClass3 === 'active' ) {
-            setDynamicClass1('active')
-            setDynamicClass3('')
+            setDynamicClass1('active');
+            setDynamicClass3('');
         }
     }, 3000);
 
