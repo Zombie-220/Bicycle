@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
-import './style.scss'
-import '../../assets/fonts/fonts.css'
 
 import { DivSlider } from '../../components/divSlider';
+import { LoopImageSlider } from '../../components/loopImageSlider/loopImageSlider';
+import { Card } from '../../components/card';
+import { getNewItems } from '../../requests/request';
+
+import './style.scss';
+import '../../assets/fonts/fonts.css';
+
+import newItemsImage from '../../assets/images/image.png';
+import countryImage from '../../assets/images/country.png';
 
 const Main = () => {
+    const [newItems, setNewItems] = useState([])
+
+    useEffect(() => {
+        getNewItems().then((data) => {
+            if (data.data && data.status === 200) {
+                setNewItems(data.data)
+            }
+        }).catch((error) => { console.log(error) })
+    }, [])
+
     return (
         <div className='main'>
             <div className='main__welcomeDiv'>
@@ -15,7 +30,27 @@ const Main = () => {
                 <p className='main__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
                 <Link to='/bicycle' className='main__welcomeDiv__link'>Подробнее</Link>
             </div>
-            <DivSlider/>
+            <DivSlider />
+            <LoopImageSlider />
+            <div className='main__newItems'>
+                <h2 className='main__newItems__header'>НОВИНКИ</h2>
+                <div className='main__newItems__cards'>
+                    {
+                        newItems.map((data, index) => {
+                            return (
+                                <Card
+                                    key={index}
+                                    imageIMG={newItemsImage}
+                                    countryIMG={countryImage}
+                                    name={data.name}
+                                    price={data.price}
+                                    status={data.status}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </div>
         </div>
     );
 };

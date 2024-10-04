@@ -33,4 +33,18 @@
             &:active { background-color: #F5752044; }
         }
     }
+    &__newItems {
+        background-color: #F8F8F8;
+        padding: 5px 80px 80px 80px;
+        margin-bottom: 50px;
+        &__header {
+            font-size: 64px;
+            font-family: 'Bebas-Neue-Regular';
+        }
+        &__cards {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+    }
 }
