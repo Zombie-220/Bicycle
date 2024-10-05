@@ -47,4 +47,11 @@
             align-items: flex-start;
         }
     }
+    &__catalog {
+        &__header {
+            color: #101010;
+            font-family: 'Bebas-Neue-Bold';
+            margin: 0px;
+        }
+    }
 }
