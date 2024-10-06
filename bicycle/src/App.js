@@ -1,13 +1,17 @@
-import './App.css';
-
 import { RouterProvider } from "react-router-dom";
+import { getRoutes } from "./navigation/routes";
+import { createContext, useState } from "react";
 
-import { routes } from './navigation/routes';
+export const AuthContext = createContext(null);
 
-function App() {
+export const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
+  const routes = getRoutes(isAuth);
+
   return (
-    <RouterProvider router={routes}/>
+    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
+      <RouterProvider router={routes} />
+    </AuthContext.Provider>
   );
-}
-
-export default App;
+};

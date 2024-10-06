@@ -12,7 +12,7 @@ import '../../assets/fonts/fonts.css';
 import newItemsImage from '../../assets/images/image.png';
 import countryImage from '../../assets/images/country.png';
 
-const Main = () => {
+export const Main = () => {
     const [newItems, setNewItems] = useState([])
 
     useEffect(() => {
@@ -71,5 +71,3 @@ const Main = () => {
         </div>
     );
 };
-
-export default Main;

@@ -9,6 +9,10 @@ export const getNewItems = () => {
     return baseURL("/newItems");
 }
 
+export const getAuth = () => {
+    return baseURL("/profile");
+}
+
 export const getProfile = () => {
     return baseURL(`/profile`)
 }
