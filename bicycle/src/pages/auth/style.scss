@@ -1,0 +1,82 @@
+.auth {
+    &__headerBackground {
+        width: 100%;
+        height: 60px;
+        background-color: #101010;
+    }
+    &__wrapper {
+        width: 400px;
+        margin: 100px auto;
+        display: flex;
+        flex-direction: column;
+        &__header {
+            &__login, &__signup {
+                cursor: pointer;
+                font-size: 20px;
+                font-family: "Inter-Regular";
+                background-color: #0000;
+                border: none;
+                padding: 0px;
+                margin-right: 30px;
+            }
+            &__login {
+                color: #101010;
+            }
+            &__signup {
+                color: #B3B3B3;
+            }
+        }
+        &__text {
+            margin: 30px 0px 5px 0px;
+            color: #4C4C4C;
+            font-family: "inter-Regular";
+        }
+        &__input {
+            height: 24px;
+            padding: 3px 8px;
+            font-size: 16px;
+            background-color: #F8F8F8;
+            border: none;
+            border-radius: 10px;
+            font-family: "Inter-Light";
+            &:focus { outline: none; }
+        }
+        &__enterButton {
+            margin: 30px 0px;
+            background-color: #F57520;
+            font-size: 16px;
+            font-family: 'Inter-Regular';
+            color: #fff;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 350ms;
+            &:hover { background-color: #F5752099; }
+            &:active { background-color: #F5752033; }
+        }
+        &__lowerBox {
+            display: flex;
+            &__checkbox {
+                border: 1px solid #B3B3B3;
+                margin: 1px 5px 0px 0px;
+                cursor: pointer;
+            }
+            &__text {
+                margin: 0px;
+                flex: 2;
+                color: #4C4C4C;
+                font-family: 'Inter-Regular';
+            }
+            &__link {
+                flex: 1;
+                color: #101010;
+                text-decoration: none;
+                transition: 350ms;
+                font-family: 'Inter-Regular';
+                &:hover { opacity: 0.66; }
+                &:active { opacity: 0.33; }
+            }
+        }
+    }
+}

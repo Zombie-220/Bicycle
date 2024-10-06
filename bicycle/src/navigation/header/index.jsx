@@ -17,10 +17,10 @@ export const Header = () => {
                 <Link to={'/tradeIn'} className='header__link link_orange'>TRADE IN</Link>
                 <Link to={'/bicycle'} className='header__link'>ВЕЛОСИПЕДЫ</Link>
                 <Link to={'/'} className='header__link'>ЗАПЧАСТИ</Link>
-                <Link to={'/'} className='header__link'>АКСЕСУАРЫ</Link>
+                <Link to={'/'} className='header__link'>АКСЕCСУАРЫ</Link>
                 <Link to={'/'} className='header__link'>ВЕЛОСТАНКИ</Link>
                 <button className='header__button search_img'> <img src={search} alt="searchImg" /> </button>
-                <Link to={'/'} className='header__link'> <img src={user} alt="user" /> </Link>
+                <Link to={'/auth'} className='header__link'> <img src={user} alt="user" /> </Link>
                 <Link to={'/'} className='header__button'> <img src={favorites} alt="favorites" /> </Link>
                 <Link to={'/'} className='header__button'> <img src={cart} alt="cart" /> </Link>
                 <Link to={'/'} className='header__button'> <img src={rightMenu} alt="rightMenu" /> </Link>

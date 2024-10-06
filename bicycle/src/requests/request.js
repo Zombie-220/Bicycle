@@ -8,3 +8,7 @@ export const baseURL = axios.create({
 export const getNewItems = () => {
     return baseURL("/newItems");
 }
+
+export const getProfile = () => {
+    return baseURL(`/profile`)
+}
