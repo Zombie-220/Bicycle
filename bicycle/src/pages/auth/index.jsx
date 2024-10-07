@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { AuthContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "../../requests/request";
+import { Link } from "react-router-dom";
 
 import './style.scss';
 
@@ -10,8 +11,8 @@ export const Auth = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const [userName, setUserName] = useState('test');
-    const [userPassword, setUserPassword] = useState('testPass123');
+    const [userName, setUserName] = useState('');
+    const [userPassword, setUserPassword] = useState('');
 
     const onSubmit = (data) => {
         getAuth().then(({data}) => {
@@ -27,7 +28,7 @@ export const Auth = () => {
             <div className="auth__wrapper">
                 <div className="auth__wrapper__header">
                     <button className="auth__wrapper__header__login">Войти</button>
-                    <button className="auth__wrapper__header__signup">Регистрация</button>
+                    <Link to={'/register'} className="auth__wrapper__header__signup">Регистрация</Link>
                 </div>
                 <p className="auth__wrapper__text">Имя пользователя</p>
                 <input type="text" className="auth__wrapper__input" onChange={(elem) => { setUserName(elem.target.value) }}/>
