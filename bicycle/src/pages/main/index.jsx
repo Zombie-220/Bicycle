@@ -55,23 +55,6 @@ export const Main = () => {
                     }
                 </div>
             </div>
-            <div className='main__catalog'>
-                <h2 className='main__catalog__header'>ВЕЛОСИПЕДЫ</h2>
-                <div className='main__catalog__firstFloor'>
-                    <Link>ВЕЛОСИПЕДЫ</Link>
-                    <div className='main__catalog__outerWrapper'>
-                        <Link>TRADE-IN</Link>
-                        <div className='main__catalog__outerWrapper__innerWrapper'>
-                            <Link className='main__catalog__outerWrapper__innerWrapper__firstElem'>ЗАПЧАСТИ</Link>
-                            <Link className='main__catalog__outerWrapper__innerWrapper__secondElem'>АКСЕССУАРЫ</Link>
-                        </div>
-                        <div className='main__catalog__outerWrapper__innerWrapper'>
-                            <Link className='main__catalog__outerWrapper__innerWrapper__firstElem'>ЭКИПИРОВКА</Link>
-                            <Link className='main__catalog__outerWrapper__innerWrapper__secondElem'>ВЕЛОСТАНКИ</Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };
