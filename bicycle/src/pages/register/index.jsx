@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { AuthContext } from "../../App";
+import { ValidateInput } from "../../components/ValidateInput";
 
 import './style.scss'
 
@@ -10,6 +12,8 @@ export const Register = () => {
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [againuserPassword, setAgainUserPassword] = useState('');
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     function onSubmit() {
         console.log({
@@ -36,6 +40,18 @@ export const Register = () => {
                 <input type="password" className="register__wrapper__input" onChange={(elem) => { setUserPassword(elem.target.value) }}/>
                 <p className="register__wrapper__text">Подтвердите пароль</p>
                 <input type="password" className="register__wrapper__input" onChange={(elem) => { setAgainUserPassword(elem.target.value) }}/>
+
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <ValidateInput
+                        label={"Номер телефона"}
+                        errors={errors}
+                        name={"phone"}
+                        register={register}
+                        validate={{ required: true }}
+                    />
+                    <button>test</button>
+                </form>
+
                 <button className="register__wrapper__enterButton" onClick={onSubmit}>Регистрация</button>
             </div>
         </div>

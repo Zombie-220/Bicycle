@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 
-import { DivSlider } from '../../components/divSlider';
-import { LoopImageSlider } from '../../components/loopImageSlider/loopImageSlider';
+import { DivSlider } from '../../components/DivSlider';
+import { LoopImageSlider } from '../../components/LoopImageSlider';
 import { Card } from '../../components/card';
 import { getNewItems } from '../../requests/request';
 import { AuthContext } from '../../App';
