@@ -10,9 +10,14 @@ export const getNewItems = () => {
 }
 
 export const getAuth = () => {
-    return baseURL("/profile");
+    return baseURL("/auth");
 }
 
 export const getProfile = () => {
-    return baseURL(`/profile`)
+    return baseURL(`/profile`);
+}
+
+export const checkToken = ({token}) => {
+    console.log(token)
+    return baseURL(`/check-token?token=${token}`);
 }

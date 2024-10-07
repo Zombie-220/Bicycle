@@ -6,27 +6,18 @@ import { getAuth } from "../../requests/request";
 
 import './style.scss';
 
-import { getProfile } from "../../requests/request";
-
 export const Auth = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [userName, setUserName] = useState('test');
     const [userPassword, setUserPassword] = useState('testPass123');
-    
-    function Login() {
-        console.log({
-            "username": userName,
-            "password": userPassword
-        })
-    }
 
     const onSubmit = (data) => {
         getAuth().then(({data}) => {
             navigate('/');
             setIsAuth(true);
-            localStorage.setItem("token", data.token)
+            localStorage.setItem("token", data[0].token)
         })
     }
 
