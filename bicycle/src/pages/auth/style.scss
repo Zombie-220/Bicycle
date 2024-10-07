@@ -66,6 +66,8 @@
                 border: 1px solid #B3B3B3;
                 margin: 1px 5px 0px 0px;
                 cursor: pointer;
+                accent-color: #F57520;
+                &:active { color: #f00; }
             }
             &__text {
                 margin: 0px;

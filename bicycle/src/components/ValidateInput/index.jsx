@@ -1,26 +1,24 @@
 import React from "react";
 import { getTextError } from "../../helpers/validate-text/validate-text";
 
+import "./style.scss";
+
 export const ValidateInput = ({
-    initialValue = null,
     register,
     name,
-    placeholder = "Введите значение",
     errors = [],
-    label,
+    textLabel,
     validate = {},
+    type,
+    changeValue
 }) => {
     return (
-        <div style={{ marginBottom: 16 }}>
-            <div>{label}</div>
-            <input
-                type="text"
-                placeholder={placeholder}
-                {...register(name, validate)}
-                defaultValue={initialValue}
-                style={{ minWidth: 300, borderRadius: 4, minHeight: 30, padding: 4 }}
-            />
-            <div style={{ color: "red" }}>
+        <div className="validateInput">
+            <div className="validateInput__text">{textLabel}</div>
+            <input className={errors[name] ? "validateInput__input input_error" : "validateInput__input"}
+                type={type}
+                {...register(name, validate)} onChange={changeValue}/>
+            <div className="validateInput__error">
                 {errors[name] && getTextError(errors[name]?.type)}
             </div>
         </div>
