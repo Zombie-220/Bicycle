@@ -31,22 +31,8 @@
                 &:active { opacity: 1; }
             }
         }
-        &__text {
-            margin: 30px 0px 5px 0px;
-            color: #4C4C4C;
-            font-family: "inter-Regular";
-        }
-        &__input {
-            height: 24px;
-            padding: 3px 8px;
-            font-size: 16px;
-            background-color: #F8F8F8;
-            border: none;
-            border-radius: 10px;
-            font-family: "Inter-Light";
-            &:focus { outline: none; }
-        }
         &__enterButton {
+            width: 100%;
             margin: 30px 0px;
             background-color: #F57520;
             font-size: 16px;
@@ -57,6 +43,7 @@
             border-radius: 10px;
             cursor: pointer;
             transition: 350ms;
+            padding: 0px;
             &:hover { background-color: #F5752099; }
             &:active { background-color: #F5752033; }
         }

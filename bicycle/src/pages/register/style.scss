@@ -50,5 +50,10 @@
         &__inputs {
             width: 100%;
         }
+        &__errorMessage {
+            color: #F53A20;
+            font-family: 'Inter-Regular';
+            font-size: 16px;
+        }
     }
 }

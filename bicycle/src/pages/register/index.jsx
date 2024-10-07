@@ -11,16 +11,19 @@ export const Register = () => {
     const [username, setUsername] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [againuserPassword, setAgainUserPassword] = useState('');
+    const [againUserPassword, setagainUserPassword] = useState('');
+    const [isRegistrationError, setIsRegistrationError] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     function onSubmit() {
+        if (userPassword === againUserPassword) { setIsRegistrationError(false); }
+        else { setIsRegistrationError(true); }
         console.log({
             "username": username,
             "userEmail": userEmail,
             "userPassword": userPassword,
-            "againuserPassword": againuserPassword
+            "againUserPassword": againUserPassword
         });
     };
 
@@ -67,8 +70,9 @@ export const Register = () => {
                         register={register}
                         validate={{ required: true }}
                         type={"password"}
-                        changeValue={(elem) => { setAgainUserPassword(elem.target.value) }}
+                        changeValue={(elem) => { setagainUserPassword(elem.target.value) }}
                     />
+                    {isRegistrationError && (<p className="register__wrapper__errorMessage">Пароли не совпадают</p>)}
                     <button className="register__wrapper__enterButton">Регистрация</button>
                 </form>
             </div>
