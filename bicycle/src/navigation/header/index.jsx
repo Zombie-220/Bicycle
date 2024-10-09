@@ -25,7 +25,7 @@ export const Header = () => {
             <Link className='header__link'> <img src={icon} alt="logo" /> </Link>
             <div className='header__wrapper'>
                 <Link to={'/bicycle'} className='header__link'>ВЕЛОСИПЕДЫ</Link>
-                <Link to={'/parts'} className='header__link'>ЗАПЧАСТИ</Link>
+                <Link to={'/products'} className='header__link'>ЗАПЧАСТИ</Link>
                 <Link to={'/gears'} className='header__link'>АКСЕССУАРЫ</Link>
                 <Link to={'/bikeRacks'} className='header__link'>ВЕЛОСТАНКИ</Link>
                 {!isAuth && (<Link to={'/auth'} className='header__link'>ВОЙТИ</Link>)}

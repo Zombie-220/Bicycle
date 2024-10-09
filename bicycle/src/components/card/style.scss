@@ -68,3 +68,10 @@
 
 .card__status__red { color: #F53A20; }
 .card__status__green { color: #4D932C; }
+
+.test {
+    display: flex;
+    & button {
+        flex: 1;
+    }
+}

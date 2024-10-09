@@ -28,6 +28,10 @@ export const Card = ({imageIMG, countryIMG, name, price, status}) => {
                 <img src={clickIcon} alt={clickIcon} className='card__link__img'/>
                 <p className='card__link__text'>В 1 клик</p>
             </Link>
+            <div className='test'>
+                <button>Удалить</button>
+                <button>Изменить</button>
+            </div>
         </div>
     )
 }
