@@ -7,6 +7,9 @@ import { LoopImageSlider } from '../../components/LoopImageSlider';
 import { Card } from '../../components/card';
 import { getNewItems } from '../../requests/request';
 import { AuthContext } from '../../App';
+import { removeOneNewItems } from '../../requests/request';
+import { CreateProduct } from '../../components/ModalWindow/CreateProduct';
+import { EditProduct } from '../../components/ModalWindow/EditProduct';
 
 import './style.scss';
 import '../../assets/fonts/fonts.css';
@@ -17,6 +20,23 @@ import countryImage from '../../assets/images/country.png';
 export const Main = () => {
     const [newItems, setNewItems] = useState([])
     const { isAuth, setIsAuth } = useContext(AuthContext);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEdit, setIsEdit] = useState({ status: false, id: null });
+
+    const addProduct = () => {
+        setIsModalOpen(true);
+    };
+
+    const onCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const removeProduct = (id) => {
+        removeOneNewItems(id).then(({}) => {
+            setNewItems((prevValue) =>
+            prevValue.filter((product) => product.id !== id)
+        );}).catch(() => alert("Ошибка"));
+    };
 
     useEffect(() => {
         getNewItems().then((data) => {
@@ -38,6 +58,7 @@ export const Main = () => {
             <LoopImageSlider />
             <div className='main__newItems'>
                 <h2 className='main__newItems__header'>НОВИНКИ</h2>
+                <button onClick={addProduct}>Добавить карточку</button>
                 <div className='main__newItems__cards'>
                     {
                         newItems.map((data, index) => {
@@ -49,12 +70,30 @@ export const Main = () => {
                                     name={data.name}
                                     price={data.price}
                                     status={data.status}
+                                    id={index}
+                                    onEdit={setIsEdit}
+                                    onRemove={removeProduct}
                                 />
                             )
                         })
                     }
                 </div>
             </div>
+            <CreateProduct
+                setProducts={setNewItems}
+                onCloseModal={onCloseModal}
+                isModalOpen={isModalOpen}
+            />
+            {isEdit.status && (
+                <EditProduct
+                    setProducts={setNewItems}
+                    onCloseModal={setIsEdit}
+                    isModalOpen={isEdit.status}
+                    initialValues={ newItems.filter((product) => product.id === isEdit.id)[0] }
+                    setIsEdit={setIsEdit}
+                    id={isEdit.id}
+                />)
+            }            
         </div>
     );
 };

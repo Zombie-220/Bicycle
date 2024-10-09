@@ -9,7 +9,7 @@ export const ValidateInput = ({
     errors = [],
     textLabel,
     validate = {},
-    type,
+    type="text",
     changeValue
 }) => {
     return (

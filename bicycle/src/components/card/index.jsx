@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCallback } from 'react';
 
 import './style.scss';
 import clickIcon from './icon/click.svg';
 
-export const Card = ({imageIMG, countryIMG, name, price, status}) => {
+export const Card = ({imageIMG, countryIMG, name, price, status, id, onEdit, onRemove}) => {
     const [cardStatusColor, setCardStatusColor] = useState('card__status__red');
     const [show, setShow] = useState(false);
+
+    const removeProduct = useCallback(() => {
+        onRemove(id);
+    }, [id, onRemove]);
+    
+    const editProduct = useCallback(() => {
+        onEdit({ status: true, id });
+    }, [id, onEdit]);
 
     useEffect(() => {
         if ( status === 'В наличии' ) { setCardStatusColor('card__status__green'); }
@@ -29,8 +38,8 @@ export const Card = ({imageIMG, countryIMG, name, price, status}) => {
                 <p className='card__link__text'>В 1 клик</p>
             </Link>
             <div className='test'>
-                <button>Удалить</button>
-                <button>Изменить</button>
+                <button onClick={removeProduct}>Удалить</button>
+                <button onClick={editProduct}>Изменить</button>
             </div>
         </div>
     )

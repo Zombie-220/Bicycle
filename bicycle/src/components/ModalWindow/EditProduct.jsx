@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { ValidateInput } from "../../components/ValidateInput";
+import { ValidateInput } from "../ValidateInput";
 import ReactModal from "react-modal";
-import { editProduct } from "../../requests/products";
+import { editNewItems } from "../../requests/request";
 import { useState } from "react";
 
 const customStyles = {
@@ -36,7 +36,7 @@ export const EditProduct = (props) => {
   });
 
   const onSubmit = (data) => {
-    editProduct({ ...data, id })
+    editNewItems({ ...data, id })
       .then(({ data }) => {
         setProducts((prevValue) => [
           ...prevValue.map((product) => {
@@ -72,7 +72,7 @@ export const EditProduct = (props) => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <ValidateInput
                 register={register}
-                name={"title"}
+                name={"name"}
                 label={"Наименование"}
                 validate={{ required: true }}
                 errors={errors}

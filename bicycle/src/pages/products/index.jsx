@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { CreateProduct } from "./CreateProduct";
-import { getProducts } from "../../requests/products";
+import { CreateProduct } from "../../components/ModalWindow/CreateProduct";
+import { getNewItems } from "../../requests/request";
 import { CardProduct } from "../../components/CardPoduct";
-import { removeOneProduct } from "../../requests/products";
-import { EditProduct } from "./EditProduct";
+import { removeOneNewItems } from "../../requests/request";
+import { EditProduct } from "../../components/ModalWindow/EditProduct";
 
 import "./style.scss";
 
@@ -18,7 +18,7 @@ export const Products = () => {
   };
 
   useEffect(() => {
-    getProducts()
+    getNewItems()
       .then(({ data }) => {
         setProducts(data.map((elem) => ({ ...elem, price: 10 })));
       })
@@ -26,7 +26,7 @@ export const Products = () => {
   }, []);
 
   const removeProduct = (id) => {
-    removeOneProduct(id)
+    removeOneNewItems(id)
       .then(({}) => {
         setProducts((prevValue) =>
           prevValue.filter((product) => product.id !== id)

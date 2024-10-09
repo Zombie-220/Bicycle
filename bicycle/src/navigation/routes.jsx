@@ -22,10 +22,10 @@ const notAuthPages = [
       path: "/register",
       Component: Register
     },
-    {
-      path: "/products",
-      Component: Products
-    }
+    // {
+    //   path: "/products",
+    //   Component: Products
+    // }
 ];
 
 export const getRoutes = (isAuth) => {
