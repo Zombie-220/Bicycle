@@ -5,7 +5,6 @@ import { Layout } from "./layout";
 import { Auth } from "../pages/auth";
 import { Register } from "../pages/register";
 import { Main } from "../pages/main"
-import { Products } from "../pages/products";
 
 const authPages = [
     {
@@ -21,11 +20,7 @@ const notAuthPages = [
     {
       path: "/register",
       Component: Register
-    },
-    // {
-    //   path: "/products",
-    //   Component: Products
-    // }
+    }
 ];
 
 export const getRoutes = (isAuth) => {
