@@ -19,7 +19,6 @@ export const getProfile = () => {
 };
 
 export const checkToken = ({token}) => {
-    console.log(token)
     return baseURL(`/check-token?token=${token}`);
 };
 

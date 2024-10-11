@@ -22,11 +22,9 @@ import newItemsImage from '../../assets/images/image.png';
 import countryImage from '../../assets/images/country.png';
 
 export const Main = () => {
-    // const [newItems, setNewItems] = useState([])
     const { isAuth, setIsAuth } = useContext(AuthContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState({ status: false, id: null });
-    // const [isLoading, setIsLoading] = useState(true);
 
     const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({
         url: getNewItemsURL
@@ -65,7 +63,6 @@ export const Main = () => {
 
                 <div className='main__newItems__cards'>
                     <Preloader isLoading={isLoading}>
-                        { console.log(newItems) }
                         {
                             newItems?.map((data, index) => {
                                 return (

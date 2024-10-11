@@ -23,6 +23,5 @@ export const GetHook = ({ url, isEmpty = false }) => {
         (filter) => {
             baseQuery(filter);
         }, [baseQuery]);
-    console.log(newItems)
     return { newItems, setNewItems, isLoading, error, useQuery };
 };
