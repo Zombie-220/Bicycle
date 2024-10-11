@@ -10,6 +10,10 @@ import { AuthContext } from '../../App';
 import { removeOneNewItems } from '../../requests/request';
 import { CreateProduct } from '../../components/ModalWindow/CreateProduct';
 import { EditProduct } from '../../components/ModalWindow/EditProduct';
+import { Preloader } from '../../components/Preloader';
+
+import { getNewItemsURL } from '../../requests/const';
+import { GetHook } from '../../hooks/getHook';
 
 import './style.scss';
 import '../../assets/fonts/fonts.css';
@@ -18,10 +22,15 @@ import newItemsImage from '../../assets/images/image.png';
 import countryImage from '../../assets/images/country.png';
 
 export const Main = () => {
-    const [newItems, setNewItems] = useState([])
+    // const [newItems, setNewItems] = useState([])
     const { isAuth, setIsAuth } = useContext(AuthContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState({ status: false, id: null });
+    // const [isLoading, setIsLoading] = useState(true);
+
+    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({
+        url: getNewItemsURL
+    });
 
     const addProduct = () => {
         setIsModalOpen(true);
@@ -38,14 +47,6 @@ export const Main = () => {
         );}).catch(() => alert("Ошибка"));
     };
 
-    useEffect(() => {
-        getNewItems().then((data) => {
-            if (data.data && data.status === 200) {
-                setNewItems(data.data)
-            }
-        }).catch((error) => { console.log(error) })
-    }, [])
-
     return (
         <div className='main'>
             <div className='main__welcomeDiv'>
@@ -59,24 +60,30 @@ export const Main = () => {
             <div className='main__newItems'>
                 <h2 className='main__newItems__header'>НОВИНКИ</h2>
                 <button onClick={addProduct}>Добавить карточку</button>
+                <button onClick={useQuery}>Перезагрузить запрос</button>
+                <button onClick={useQuery}>Получить данные</button>
+
                 <div className='main__newItems__cards'>
-                    {
-                        newItems.map((data, index) => {
-                            return (
-                                <Card
-                                    key={index}
-                                    imageIMG={newItemsImage}
-                                    countryIMG={countryImage}
-                                    name={data.name}
-                                    price={data.price}
-                                    status={data.status}
-                                    id={data.id}
-                                    onEdit={setIsEdit}
-                                    onRemove={removeProduct}
-                                />
-                            )
-                        })
-                    }
+                    <Preloader isLoading={isLoading}>
+                        { console.log(newItems) }
+                        {
+                            newItems?.map((data, index) => {
+                                return (
+                                    <Card
+                                        key={index}
+                                        imageIMG={newItemsImage}
+                                        countryIMG={countryImage}
+                                        name={data.name}
+                                        price={data.price}
+                                        status={data.status}
+                                        id={data.id}
+                                        onEdit={setIsEdit}
+                                        onRemove={removeProduct}
+                                    />
+                                )
+                            })
+                        }
+                    </Preloader>
                 </div>
             </div>
             <CreateProduct

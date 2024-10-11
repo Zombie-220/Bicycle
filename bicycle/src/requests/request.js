@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getNewItemsURL } from "./const";
 
 export const baseURL = axios.create({
     baseURL: "https://my-json-server.typicode.com/Zombie-220/fakeJson/",
@@ -6,7 +7,7 @@ export const baseURL = axios.create({
 });
 
 export const getNewItems = () => {
-    return baseURL("/newItems");
+    return baseURL(getNewItemsURL);
 };
 
 export const getAuth = () => {
