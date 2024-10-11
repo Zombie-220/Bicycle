@@ -70,7 +70,7 @@ export const Main = () => {
                                     name={data.name}
                                     price={data.price}
                                     status={data.status}
-                                    id={index}
+                                    id={data.id}
                                     onEdit={setIsEdit}
                                     onRemove={removeProduct}
                                 />

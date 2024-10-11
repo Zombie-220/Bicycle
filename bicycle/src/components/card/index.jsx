@@ -7,7 +7,6 @@ import clickIcon from './icon/click.svg';
 
 export const Card = ({imageIMG, countryIMG, name, price, status, id, onEdit, onRemove}) => {
     const [cardStatusColor, setCardStatusColor] = useState('card__status__red');
-    const [show, setShow] = useState(false);
 
     const removeProduct = useCallback(() => {
         onRemove(id);
