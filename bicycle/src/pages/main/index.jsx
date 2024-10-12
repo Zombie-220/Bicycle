@@ -12,14 +12,11 @@ import { CreateProduct } from '../../components/ModalWindow/CreateProduct';
 import { EditProduct } from '../../components/ModalWindow/EditProduct';
 import { Preloader } from '../../components/Preloader';
 
-import { getNewItemsURL } from '../../requests/const';
+import { getMainPageData } from '../../requests/const';
 import { GetHook } from '../../hooks/getHook';
 
 import './style.scss';
 import '../../assets/fonts/fonts.css';
-
-import newItemsImage from '../../assets/images/image.png';
-import countryImage from '../../assets/images/country.png';
 
 export const Main = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
@@ -27,7 +24,7 @@ export const Main = () => {
     const [isEdit, setIsEdit] = useState({ status: false, id: null });
 
     const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({
-        url: getNewItemsURL
+        url: getMainPageData
     });
 
     const addProduct = () => {
@@ -64,12 +61,12 @@ export const Main = () => {
                 <div className='main__newItems__cards'>
                     <Preloader isLoading={isLoading}>
                         {
-                            newItems?.map((data, index) => {
+                            newItems.newBicycles?.map((data, index) => {
                                 return (
                                     <Card
                                         key={index}
-                                        imageIMG={newItemsImage}
-                                        countryIMG={countryImage}
+                                        imageIMG={data.imagePath}
+                                        countryIMG={data.countryImage}
                                         name={data.name}
                                         price={data.price}
                                         status={data.status}

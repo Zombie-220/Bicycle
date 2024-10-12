@@ -23,11 +23,11 @@ export const Card = ({imageIMG, countryIMG, name, price, status, id, onEdit, onR
     return (
         <div className="card">
             <div className='card__relativeDiv'>
-                <img src={countryIMG} alt={countryIMG} className='card__relativeDiv__country'/>
+                <img src={countryIMG} alt="countryIMG" className='card__relativeDiv__country'/>
                 <p className={`card__relativeDiv__status ${cardStatusColor}`}>{status}</p>
             </div>
             <div className='card__wrapper'>
-                <img src={imageIMG} alt={countryIMG} className="card__wrapper__image"/>
+                <img src={imageIMG} alt="bicycleIMG" className="card__wrapper__image"/>
                 <p className="card__wrapper__name">{name}</p>
                 <p className="card__wrapper__price">{price} ₽</p>
             </div>

@@ -1,1 +1,1 @@
-export const getNewItemsURL = "/newItems";
+export const getMainPageData = "/mainPageData";
