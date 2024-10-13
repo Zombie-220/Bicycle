@@ -80,6 +80,33 @@ export const Main = () => {
                     </Preloader>
                 </div>
             </div>
+            <div className='main__catalog'>
+                <p className='main__catalog__header'>КАТАЛОГ</p>
+                <Link to={'/bicycle'} className='main__catalog__link'><p className='main__catalog__link__text'>ВЕЛОСИПЕДЫ</p></Link>
+                <div className='main__catalog__container'>
+                    <Link to={'/tradeIn'} className='main__catalog__container__link'>
+                        <p className='main__catalog__container__link__text'>TRADE-IN</p>
+                    </Link>
+                    <div className='main__catalog__container__wrapper'>
+                        <Link to={'/parts'} className='main__catalog__container__wrapper__link main__catalog__miniSection' id='main__catalog__parts'>
+                            <p className='main__catalog__container__wrapper__link__text'>ЗАПЧАСТИ</p>
+                        </Link>
+                        <Link to={'/accessories'} className='main__catalog__container__wrapper__link' id='main__catalog__accessories'>
+                            <p className='main__catalog__container__wrapper__link__text'>АКСЕССУАРЫ</p>
+                        </Link>
+                    </div>
+                    <div className='main__catalog__container__wrapper'>
+                        <Link to={'/equipment'} className='main__catalog__container__wrapper__link' id='main__catalog__equipment'>
+                            <p className='main__catalog__container__wrapper__link__text'>ЭКИПИРОВКА</p>
+                        </Link>
+                        <Link to={'/bikeRacks'} className='main__catalog__container__wrapper__link main__catalog__miniSection' id='main__catalog__bikeRacks'>
+                            <p className='main__catalog__container__wrapper__link__text'>ВЕЛОСТАНКИ</p>
+                        </Link>
+                    </div>
+
+                </div>
+            </div>
+
             <CreateProduct
                 setProducts={setNewItems}
                 onCloseModal={onCloseModal}
