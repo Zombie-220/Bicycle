@@ -1,12 +1,39 @@
-.loopImageSlider {
-    margin: 50px 0px;
+.loopImageSliderContainer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     overflow-x: hidden;
-    & img {
-        height: 80px;
-        width: 250px;
-        margin: 0px 30px;
+    &__imageContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        & img { margin: 0px 30px }
     }
+}
+
+#wiliev {
+    width: 300px;
+    height: 125px;
+}
+#wahoo {
+    width: 230px;
+    height: 75px;
+}
+#trek {
+    width: 240px;
+    height: 100px;
+}
+#topeak {
+    width: 315px;
+    height: 125px;
+}
+#tacx {
+    width: 125px;
+    height: 125px;
+}
+#sram {
+    width: 245px;
+    height: 60px;
+}
+#shimano {
+    width: 260px;
+    height: 200px;
 }

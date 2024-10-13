@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import './style.scss';
 import wiliev from '../../assets/images/home/slider/wiliev.svg'
 import wahoo from '../../assets/images/home/slider/wahoo.svg'
@@ -8,15 +10,34 @@ import sram from '../../assets/images/home/slider/sram.svg'
 import shimano from '../../assets/images/home/slider/shimano.svg'
 
 export const LoopImageSlider = () => {
+	const moveSlider = () => {
+
+	}
+
+	// setTimeout(() => {
+	// 	addChild()
+	// }, 1000);
+
 	return (
-		<div className="loopImageSlider">
-			<img src={wiliev} alt={wiliev} />
-			<img src={wahoo} alt={wahoo} />
-			<img src={trek} alt={trek} />
-			<img src={topeak} alt={topeak} />
-			<img src={tacx} alt={tacx} />
-			<img src={sram} alt={sram} />
-			<img src={shimano} alt={shimano} />
+		<div className='loopImageSliderContainer'>
+			<div className="loopImageSliderContainer__imageContainer">
+				<img src={wiliev} alt={'wiliev'} id='wiliev'/>
+				<img src={wahoo} alt={'wahoo'} id='wahoo'/>
+				<img src={trek} alt={'trek'} id='trek'/>
+				<img src={topeak} alt={'topeak'} id='topeak'/>
+				<img src={tacx} alt={'tacx'} id='tacx'/>
+				<img src={sram} alt={'sram'} id='sram'/>
+				<img src={shimano} alt={'shimano'} id='shimano'/>
+			</div>
+			<div className="loopImageSliderContainer__imageContainer">
+				<img src={wiliev} alt={'wiliev'} id='wiliev'/>
+				<img src={wahoo} alt={'wahoo'} id='wahoo'/>
+				<img src={trek} alt={'trek'} id='trek'/>
+				<img src={topeak} alt={'topeak'} id='topeak'/>
+				<img src={tacx} alt={'tacx'} id='tacx'/>
+				<img src={sram} alt={'sram'} id='sram'/>
+				<img src={shimano} alt={'shimano'} id='shimano'/>
+			</div>
 		</div>
 	)
 }
