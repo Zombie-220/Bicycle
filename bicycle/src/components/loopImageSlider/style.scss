@@ -37,3 +37,34 @@
     width: 260px;
     height: 200px;
 }
+
+@media (max-width: 790px) {
+    #wiliev {
+        width: 130px;
+        height: 60px;
+    }
+    #wahoo {
+        width: 120px;
+        height: 40px;
+    }
+    #trek {
+        width: 125px;
+        height: 50px;
+    }
+    #topeak {
+        width: 160px;
+        height: 65px;
+    }
+    #tacx {
+        width: 82px;
+        height: 82px;
+    }
+    #sram {
+        width: 155px;
+        height: 40px;
+    }
+    #shimano {
+        width: 156px;
+        height: 120px;
+    }
+}

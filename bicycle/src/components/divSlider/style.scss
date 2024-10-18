@@ -32,3 +32,23 @@
     min-height: 120px;
     & a { display: block; }
 }
+
+@media (max-width: 940px) {
+    .divSlider{
+        &__element {
+            padding: 10px 40px;
+        }
+    }
+}
+
+@media (max-width: 690px) {
+    .divSlider{
+        &__element {
+            padding: 5px 20px;
+        }
+    }
+}
+
+@media (max-width: 580px) {
+    .divSlider { display: none; }
+}

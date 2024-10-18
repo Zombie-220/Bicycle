@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getMainPageData } from "./const";
+import { NewBicycles } from "./const";
 
 export const baseURL = axios.create({
     baseURL: "https://my-json-server.typicode.com/Zombie-220/fakeJson/",
@@ -7,7 +7,7 @@ export const baseURL = axios.create({
 });
 
 export const getNewItems = () => {
-    return baseURL(getMainPageData);
+    return baseURL(NewBicycles);
 };
 
 export const getAuth = () => {
@@ -23,13 +23,13 @@ export const checkToken = ({token}) => {
 };
 
 export const addedNewItems = (data) => {
-    return baseURL.post("/newItems", data);
+    return baseURL.post("/newBicycles", data);
 };
 
 export const removeOneNewItems = (id) => {
-    return baseURL.delete(`/newItems/${id}`);
+    return baseURL.delete(`/newBicycles/${id}`);
 };
 
 export const editNewItems = (data) => {
-    return baseURL.patch(`/newItems/${data.id}`, data);
+    return baseURL.patch(`/newBicycles/${data.id}`, data);
 };

@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 
 import { DivSlider } from '../../components/DivSlider';
 import { LoopImageSlider } from '../../components/LoopImageSlider';
 import { Card } from '../../components/card';
-import { getNewItems } from '../../requests/request';
 import { AuthContext } from '../../App';
 import { removeOneNewItems } from '../../requests/request';
 import { CreateProduct } from '../../components/ModalWindow/CreateProduct';
 import { EditProduct } from '../../components/ModalWindow/EditProduct';
 import { Preloader } from '../../components/Preloader';
 
-import { getMainPageData } from '../../requests/const';
+import { NewBicycles } from '../../requests/const';
 import { GetHook } from '../../hooks/getHook';
 
 import './style.scss';
@@ -24,7 +23,7 @@ export const Main = () => {
     const [isEdit, setIsEdit] = useState({ status: false, id: null });
 
     const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({
-        url: getMainPageData
+        url: NewBicycles
     });
 
     const addProduct = () => {
@@ -61,7 +60,7 @@ export const Main = () => {
                 <div className='main__newItems__cards'>
                     <Preloader isLoading={isLoading}>
                         {
-                            newItems.newBicycles?.map((data, index) => {
+                            newItems?.map((data, index) => {
                                 return (
                                     <Card
                                         key={index}
@@ -78,6 +77,29 @@ export const Main = () => {
                             })
                         }
                     </Preloader>
+                </div>
+                <div className='main__newItems__mobileCards'>
+                    <div className='main__newItems__mobileCards__wrapper' style={{display: 'none'}}>
+                        <Preloader isLoading={isLoading}>
+                            {
+                                newItems?.map((data, index) => {
+                                    return (
+                                        <Card
+                                            key={index}
+                                            imageIMG={data.imagePath}
+                                            countryIMG={data.countryImage}
+                                            name={data.name}
+                                            price={data.price}
+                                            status={data.status}
+                                            id={data.id}
+                                            onEdit={setIsEdit}
+                                            onRemove={removeProduct}
+                                        />
+                                    )
+                                })
+                            }
+                        </Preloader>
+                    </div>
                 </div>
             </div>
             <div className='main__catalog'>

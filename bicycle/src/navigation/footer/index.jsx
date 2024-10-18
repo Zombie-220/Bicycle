@@ -8,7 +8,7 @@ import mailIcon from '../../assets/icons/footer/mail.svg'
 
 export const Footer = () => {
     return (
-        <div className='footer'>
+        <div className='footer' style={{display: 'none'}}>
             <div className='footer__upSection'>
                 <div className='footer__upSection__section footer__upSection__section__right'>
                     <img src={logo} alt={logo} className='footer__upSection__section__logo'/>

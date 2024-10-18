@@ -21,7 +21,7 @@ export const Header = () => {
     };
 
     return (
-        <header className='header'>
+        <header className='header' style={{display: 'none'}}>
             <Link className='header__link'> <img src={icon} alt="logo" /> </Link>
             <div className='header__wrapper'>
                 <Link to={'/bicycle'} className='header__link'>ВЕЛОСИПЕДЫ</Link>

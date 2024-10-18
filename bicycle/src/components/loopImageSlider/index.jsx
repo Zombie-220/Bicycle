@@ -13,10 +13,15 @@ export const LoopImageSlider = () => {
 	const [margin, setMargin] = useState(0);
 
 	setTimeout(() => {
-		if (margin <= -2135) { setMargin(0) }
-		else { setMargin(margin-1) }
+		let width = 790;
+		if (width >= 790) {
+			if (margin <= -2135) { setMargin(0) }
+			else { setMargin(margin-1) }
+		} else {
+			if (margin <= -1348) { setMargin(0) }
+			else { setMargin(margin-1) }
+		}
 	}, 20);
-
 	return (
 		<div className='loopImageSliderContainer' style={{marginLeft: `${margin}px`}}>
 			<div className="loopImageSliderContainer__imageContainer" id='imageContainer_1'>
