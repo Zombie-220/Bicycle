@@ -1,6 +1,7 @@
 .loopImageSliderContainer {
     display: flex;
     overflow-x: hidden;
+    transition: 10ms;
     &__imageContainer {
         display: flex;
         justify-content: space-around;

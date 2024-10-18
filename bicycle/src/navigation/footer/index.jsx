@@ -8,13 +8,13 @@ import mailIcon from '../../assets/icons/footer/mail.svg'
 
 export const Footer = () => {
     return (
-        <div className='footer' style={{display: 'none'}}>
+        <div className='footer'>
             <div className='footer__upSection'>
-                <div className='footer__upSection__section footer__upSection__section__right'>
+                <div className='footer__upSection__section'>
                     <img src={logo} alt={logo} className='footer__upSection__section__logo'/>
                     <p className='footer__upSection__section__text'>Компания World-bikes<br/>специализируется на продаже<br/>товаров для велосипедного спорта.</p>
                 </div>
-                <div className='footer__upSection__section'>
+                <div className='footer__upSection__section adaptive'>
                     <h2  className='footer__upSection__section__header'>Каталог</h2>
                     <Link className='footer__upSection__section__link'>Trade-In</Link>
                     <Link className='footer__upSection__section__link footer__upSection__link__orange'>Велосипеды</Link>
@@ -23,7 +23,7 @@ export const Footer = () => {
                     <Link className='footer__upSection__section__link'>Велостнаки</Link>
                     <Link className='footer__upSection__section__link'>Аксесуары</Link>
                 </div>
-                <div className='footer__upSection__section'>
+                <div className='footer__upSection__section adaptive'>
                     <h2 className='footer__upSection__section__header'>Для клиента</h2>
                     <Link className='footer__upSection__section__link'>О нас</Link>
                     <Link className='footer__upSection__section__link'>Доставка и оплата</Link>

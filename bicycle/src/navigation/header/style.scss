@@ -28,6 +28,14 @@
         &:hover { opacity: 0.66; }
         &:active { opacity: 0.33; }
     }
+    &__burgerMenu {
+        display: none;
+        background-color: #0000;
+        border: none;
+        width: 30px;
+        height: 30px;
+        margin: 15px;
+    }
 }
 
 .link_orange {
@@ -37,4 +45,21 @@
 .search_img {
     width: 30px;
     height: 30px;
+}
+
+@media (max-width: 1090px) {
+    .adaptive {
+        display: none;
+    }
+    .header {
+        &__burgerMenu { display: block; }
+    }
+}
+@media (max-width: 790px) {
+    .secondAdaptive { display: none; }
+    .header { padding: 0px 20px; }
+}
+
+@media (max-width: 550px) {
+    .header__link img { width: 60px; }
 }

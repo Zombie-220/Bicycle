@@ -13,7 +13,7 @@ export const LoopImageSlider = () => {
 	const [margin, setMargin] = useState(0);
 
 	setTimeout(() => {
-		let width = 790;
+		let width = window.innerWidth;
 		if (width >= 790) {
 			if (margin <= -2135) { setMargin(0) }
 			else { setMargin(margin-1) }
