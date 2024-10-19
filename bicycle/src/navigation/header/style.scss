@@ -7,9 +7,7 @@
     justify-content: space-between;
     padding: 0px 75px;
     background-color: #0000;
-    &__wrapper {
-        display: flex;
-    }
+    &__wrapper { display: flex; }
     &__link, &__button {
         cursor: pointer;
         margin: 15px;
@@ -17,7 +15,7 @@
         height: 30px;
         background-color: #0000;
         text-decoration: none;
-        color: #FFFFFF;
+        color: #fff;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -28,7 +26,8 @@
         &:hover { opacity: 0.66; }
         &:active { opacity: 0.33; }
     }
-    &__burgerMenu {
+    &__burgerMenuButton {
+        cursor: pointer;
         display: none;
         background-color: #0000;
         border: none;
@@ -36,11 +35,21 @@
         height: 30px;
         margin: 15px;
     }
+    &__authHeader {
+        font-size: 40px;
+        font-family: 'Bebas-Neue-Bold';
+        margin: 10px 0px;
+    }
 }
 
-.link_orange {
-    color: #F57520;
+.burgerMenuWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+.link_orange { color: #F57520; }
+.link_black { color: #101010; }
 
 .search_img {
     width: 30px;
@@ -48,11 +57,9 @@
 }
 
 @media (max-width: 1090px) {
-    .adaptive {
-        display: none;
-    }
+    .adaptive { display: none; }
     .header {
-        &__burgerMenu { display: block; }
+        &__burgerMenuButton { display: block; }
     }
 }
 @media (max-width: 790px) {

@@ -3,28 +3,33 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../App";
 import { ValidateInput } from "../../components/ValidateInput";
+import { useNavigate } from "react-router-dom";
 
 import './style.scss'
 
 export const Register = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
-    const [username, setUsername] = useState('');
+    const [userName, setuserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [againUserPassword, setagainUserPassword] = useState('');
+    const [againUserPassword, setAgainUserPassword] = useState('');
     const [isRegistrationError, setIsRegistrationError] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const navigate = useNavigate();
+
     function onSubmit() {
-        if (userPassword === againUserPassword) { setIsRegistrationError(false); }
+        if (userPassword === againUserPassword) {
+            setIsRegistrationError(false);
+            setIsAuth(true);
+            navigate('/')
+            localStorage.setItem("user", JSON.stringify({
+                "name": userName,
+                "password": userPassword
+            }))
+        }
         else { setIsRegistrationError(true); }
-        console.log({
-            "username": username,
-            "userEmail": userEmail,
-            "userPassword": userPassword,
-            "againUserPassword": againUserPassword
-        });
     };
 
     return (
@@ -39,11 +44,11 @@ export const Register = () => {
                     <ValidateInput 
                         textLabel={"Имя пользователя"}
                         errors={errors}
-                        name={"username"}
+                        name={"userName"}
                         register={register}
                         validate={{ required: true }}
                         type={"text"}
-                        changeValue={(elem) => { setUsername(elem.target.value) }}
+                        changeValue={(elem) => { setuserName(elem.target.value) }}
                     />
                     <ValidateInput 
                         textLabel={"E-mail"}
@@ -70,7 +75,7 @@ export const Register = () => {
                         register={register}
                         validate={{ required: true }}
                         type={"password"}
-                        changeValue={(elem) => { setagainUserPassword(elem.target.value) }}
+                        changeValue={(elem) => { setAgainUserPassword(elem.target.value) }}
                     />
                     {isRegistrationError && (<p className="register__wrapper__errorMessage">Пароли не совпадают</p>)}
                     <button className="register__wrapper__enterButton">Регистрация</button>

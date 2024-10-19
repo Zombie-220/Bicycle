@@ -2,7 +2,6 @@ import { useContext } from "react";
 import React, { useState } from "react";
 import { AuthContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { getAuth } from "../../requests/request";
 import { Link } from "react-router-dom";
 import { ValidateInput } from "../../components/ValidateInput";
 import { useForm } from "react-hook-form";
@@ -17,16 +16,14 @@ export const Auth = () => {
     const [userPassword, setUserPassword] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
-        // getAuth().then(({data}) => {
-        //     navigate('/');
-        //     setIsAuth(true);
-        //     localStorage.setItem("token", data[0].token)
-        // });
-        console.log({
-            "name": userName,
-            "password": userPassword
-        })
+    const onSubmit = () => {
+        var userData = JSON.parse(localStorage.getItem('user'))
+        if (userData.name == userName && userData.password == userPassword) {
+            setIsAuth(true);
+            navigate('/')
+        } else {
+            console.log("x")
+        }
     }
 
     return (
@@ -45,7 +42,7 @@ export const Auth = () => {
                         register={register}
                         validate={{ required: true }}
                         type={"text"}
-                        changeValue={(elem) => { setUserName(elem.target.value) }}  
+                        changeValue={(elem) => { setUserName(elem.target.value) }}
                     />
                     <ValidateInput
                         textLabel={"Пароль"}
@@ -54,7 +51,7 @@ export const Auth = () => {
                         register={register}
                         validate={{ required: true }}
                         type={"password"}
-                        changeValue={(elem) => { setUserPassword(elem.target.value) }}  
+                        changeValue={(elem) => { setUserPassword(elem.target.value) }}
                     />
                     <button className="auth__wrapper__enterButton">Войти</button>
                 </form>
