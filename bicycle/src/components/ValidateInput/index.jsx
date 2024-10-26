@@ -4,7 +4,7 @@ import { getTextError } from "../../helpers/validate-text/validate-text";
 import "./style.scss";
 
 export const ValidateInput = ({
-    register,
+    formFunction,
     name,
     errors = [],
     textLabel,
@@ -15,7 +15,7 @@ export const ValidateInput = ({
         <div className="validateInput">
             <div className="validateInput__text">{textLabel}</div>
             <input className={errors[name] ? "validateInput__input input_error" : "validateInput__input"}
-                type={type} {...register(name, validate)}/>
+                type={type} {...formFunction(name, validate)}/>
             <div className="validateInput__error">
                 {errors[name] && getTextError(errors[name]?.type)}
             </div>

@@ -35,26 +35,37 @@
         height: 30px;
         margin: 15px;
     }
-    &__authHeader {
-        font-size: 40px;
-        font-family: 'Bebas-Neue-Bold';
-        margin: 10px 0px;
+    &__burgerMenuWrapper {
+        display: flex;
+        flex-direction: column;
+        &__header {
+            font-size: 30px;
+            font-family: 'Bebas-Neue-Regular';
+            margin: 0px;
+        }
+        &__link {
+            display: block;
+            cursor: pointer;
+            margin: 15px;
+            padding: 0px;
+            height: 30px;
+            background-color: #0000;
+            text-decoration: none;
+            color: #101010;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            font-family: 'Inter-Light';
+            font-size: 16px;
+            transition: 350ms;
+            &:hover { opacity: 0.66; }
+            &:active { opacity: 0.33; }
+        }
     }
 }
 
-.burgerMenuWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
 .link_orange { color: #F57520; }
-.link_black { color: #101010; }
-
-.search_img {
-    width: 30px;
-    height: 30px;
-}
 
 @media (max-width: 1090px) {
     .adaptive { display: none; }

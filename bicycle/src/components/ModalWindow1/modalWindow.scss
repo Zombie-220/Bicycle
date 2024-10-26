@@ -51,3 +51,9 @@
     &--exiting, &--exited {opacity: 0;}
     &--exiting &__wrapper__content, &--exited &__wrapper__content {transform: translateX(50px);}
 }
+
+@media (max-width: 600px) {
+    .modal__wrapper__content {
+        max-width: 300px;
+    }
+}

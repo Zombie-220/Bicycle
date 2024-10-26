@@ -7,20 +7,15 @@ import { Register } from "../pages/register";
 import { Main } from "../pages/main"
 
 const authPages = [
-    {
+  {
 
-    },
+  },
 ];
 
 const notAuthPages = [
-    {
-      path: "/auth",
-      Component: Auth
-    },
-    {
-      path: "/register",
-      Component: Register
-    }
+  {
+
+  }
 ];
 
 export const getRoutes = (isAuth) => {

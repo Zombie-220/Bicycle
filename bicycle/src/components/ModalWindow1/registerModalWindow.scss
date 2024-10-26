@@ -1,4 +1,4 @@
-.authModal {
+.registerModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -43,7 +43,10 @@
                 background-color: transparent;
                 border: none;
             }
-            &__authBody {
+            &__regBody {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 &__header {
                     color: #101010;
                     font-family: "Inter-Regular";
@@ -73,35 +76,6 @@
                         &:hover { background-color: #F5752099; }
                         &:active { background-color: #F5752033; }
                     }
-                    &__lowerBox {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        &__checkbox {
-                            border: 1px solid #B3B3B3;
-                            margin: 1px 5px 0px 0px;
-                            cursor: pointer;
-                            accent-color: #F57520;
-                            &:active { color: #f00; }
-                        }
-                        &__text {
-                            margin: 0px;
-                            flex: 1;
-                            color: #4C4C4C;
-                            font-family: 'Inter-Regular';
-                            text-align: left;
-                        }
-                        &__link {
-                            flex: 1;
-                            color: #101010;
-                            text-decoration: none;
-                            transition: 350ms;
-                            font-family: 'Inter-Regular';
-                            text-align: right;
-                            &:hover { opacity: 0.66; }
-                            &:active { opacity: 0.33; }
-                        }
-                    }
                 }
             }
         }
@@ -110,13 +84,13 @@
     &--entering &__wrapper__content, &--entered &__wrapper__content {transform: translateY(0);}
     
     &--exiting, &--exited {opacity: 0;}
-    &--exiting &__wrapper__content, &--exited &__wrapper__content {transform: translateY(50px);}
+    &--exiting &__wrapper__content, &--exited &__wrapper__content {transform: translateY(-50px);}
 }
 
 @media (max-width: 600px) {
-    .authModal__wrapper__content {
+    .registerModal__wrapper__content {
         max-width: 90%;
-        &__authBody {
+        &__regBody {
             width: 90%;
             &__wrapper {
                 margin: 0px;
