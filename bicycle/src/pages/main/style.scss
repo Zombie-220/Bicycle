@@ -45,14 +45,7 @@
             justify-content: space-between;
             align-items: flex-start;
         }
-        &__mobileCards {
-            display: none;
-            overflow-x: hidden;
-            &__wrapper {
-                display: flex;
-                justify-content: space-between;
-            }
-        }
+        &__mobileCards { display: none; }
     }
     &__catalog {
         margin: 0px 80px;
@@ -130,9 +123,7 @@
                     font-family: 'Bebas-Neue-Bold';
                     display: flex;
                     transition: 350ms;
-                    &__text {
-                        margin: 0px;
-                    }
+                    &__text { margin: 0px; }
                     &:hover { opacity: 0.66; }
                     &:active { opacity: 0.33; }
                 }
@@ -148,27 +139,21 @@
     background-position: top 0px right 0px;
     align-items: center;
     margin: 0px 10px 10px 0px;
-    p {
-        margin-left: 40px;
-    }
+    p { margin-left: 40px; }
 }
 #main__catalog__accessories {
     background-image: url('../../assets/images/home/catalog/accessories.svg');
     background-repeat: no-repeat;
     background-position: top -190px right -60px;
     align-items: end;
-    p {
-        margin: 0px 0px 10px 40px;
-    }
+    p { margin: 0px 0px 10px 40px; }
 }
 #main__catalog__equipment {
     background-image: url('../../assets/images/home/catalog/equipment.svg');
     background-repeat: no-repeat;
     background-position: top 40px right 0px;
     margin: 0px 0px 10px 0px;
-    p {
-        margin: 20px 0px 0px 40px;
-    }
+    p { margin: 20px 0px 0px 40px; }
 }
 #main__catalog__bikeRacks {
     flex: 4;
@@ -176,9 +161,7 @@
     background-repeat: no-repeat;
     background-position: top -30px right -80px;
     align-items: center;
-    p {
-        margin: 0px 0px 0px 40px;
-    }
+    p { margin: 0px 0px 0px 40px; }
 }
 
 @media (max-width: 1200px) {
@@ -261,9 +244,7 @@
             padding: 5px 40px 80px 40px;
             &__header { font-size: 50px; }
             &__cards { display: none; }
-            &__mobileCards {
-                display: block;
-            }
+            &__mobileCards { display: block; }
         }
         &__catalog {
             margin: 0px 40px;

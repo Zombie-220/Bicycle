@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
 
 import { DivSlider } from '../../components/DivSlider';
 import { LoopImageSlider } from '../../components/LoopImageSlider';
@@ -10,6 +9,7 @@ import { removeOneNewItems } from '../../requests/request';
 import { CreateProduct } from '../../components/ModalWindow/CreateProduct';
 import { EditProduct } from '../../components/ModalWindow/EditProduct';
 import { Preloader } from '../../components/Preloader';
+import { SwipeSlider } from '../../components/SwipeSlider';
 
 import { NewBicycles } from '../../requests/const';
 import { GetHook } from '../../hooks/getHook';
@@ -40,6 +40,16 @@ export const Main = () => {
             prevValue.filter((product) => product.id !== id)
         );}).catch(() => alert("Ошибка"));
     };
+
+    const childRef = useRef(null);
+    const [childSize, setChildSize] = useState({ width: 0, height: 0 });
+  
+    useEffect(() => {
+        if (childRef.current) {
+            const rect = childRef.current.getBoundingClientRect();
+            setChildSize({ width: rect.width, height: rect.height });
+        }
+    }, []);
 
     return (
         <div className='main'>
@@ -72,6 +82,7 @@ export const Main = () => {
                                         id={data.id}
                                         onEdit={setIsEdit}
                                         onRemove={removeProduct}
+                                        ref={childRef}
                                     />
                                 )
                             })
@@ -79,8 +90,8 @@ export const Main = () => {
                     </Preloader>
                 </div>
                 <div className='main__newItems__mobileCards'>
-                    <div className='main__newItems__mobileCards__wrapper' style={{display: 'none'}}>
-                        <Preloader isLoading={isLoading}>
+                    <Preloader isLoading={isLoading}>
+                        <SwipeSlider childSize={200}>
                             {
                                 newItems?.map((data, index) => {
                                     return (
@@ -92,14 +103,14 @@ export const Main = () => {
                                             price={data.price}
                                             status={data.status}
                                             id={data.id}
-                                            onEdit={setIsEdit}
-                                            onRemove={removeProduct}
+                                            onEdit={null}
+                                            onRemove={null}
                                         />
                                     )
                                 })
                             }
-                        </Preloader>
-                    </div>
+                        </SwipeSlider>
+                    </Preloader>
                 </div>
             </div>
             <div className='main__catalog'>

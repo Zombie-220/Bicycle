@@ -1,0 +1,32 @@
+.swipeSlider {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    &__visibleSlide {
+        width: 250px;
+        overflow-x: hidden;
+        margin: auto;
+        &__allSlides {
+            display: flex;
+            position: relative;
+            top: 0px;
+            transition: 350ms;
+        }
+        &__arrows {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            top: -160px;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+    }
+}
+
+@media (max-width: 350px) {
+    .swipeSlider__visibleSlide {
+        width: 200px;
+    }
+}

@@ -49,7 +49,6 @@
     }
     &__link {
         margin-bottom: 10px;
-        display: flex;
         justify-content: center;
         align-items: center;
         align-self: center;
@@ -99,5 +98,18 @@
                 height: 30px;
             }
         }
+    }
+}
+
+@media (max-width: 790px) {
+    .card {
+        min-width: 250px;
+        &__link { width: auto; }
+    }
+}
+
+@media (max-width: 350px) {
+    .card {
+        min-width: 200px;
     }
 }
