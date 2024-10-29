@@ -17,16 +17,16 @@ export const SwipeSlider = ({ children, childSize }) => {
         if (-leftPosition < (numberOfChilds*childSize)-childSize) { setLeftPosition(leftPosition-childSize); }
         else { setLeftPosition(0); }
     }
-    console.log(childSize)
+
     return (
         <div className='swipeSlider'>
-            <div className='swipeSlider__visibleSlide'>
-                <div className='swipeSlider__visibleSlide__allSlides' style={{left: `${leftPosition}px`}}>
-                    {children}
-                </div>
+            <div className='swipeSlider__visibleSlide' style={{width: `${childSize}px`}}>
                 <div className='swipeSlider__visibleSlide__arrows'>
                     <div onClick={moveToLeft} id='swipeSlider_leftArrow'><img src={leftArrow} alt="left" /></div>
                     <div onClick={moveToRight} id='swipeSlider_rightArrow'><img src={rightArrow} alt="right" /></div>
+                </div>
+                <div className='swipeSlider__visibleSlide__allSlides' style={{left: `${leftPosition}px`}}>
+                    {children}
                 </div>
             </div>
         </div>

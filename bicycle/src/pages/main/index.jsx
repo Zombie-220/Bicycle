@@ -22,17 +22,9 @@ export const Main = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState({ status: false, id: null });
 
-    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({
-        url: NewBicycles
-    });
-
-    const addProduct = () => {
-        setIsModalOpen(true);
-    };
-
-    const onCloseModal = () => {
-        setIsModalOpen(false);
-    };
+    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: NewBicycles });
+    const addProduct = () => { setIsModalOpen(true); };
+    const onCloseModal = () => { setIsModalOpen(false); };
 
     const removeProduct = (id) => {
         removeOneNewItems(id).then(({}) => {
@@ -41,14 +33,15 @@ export const Main = () => {
         );}).catch(() => alert("Ошибка"));
     };
 
-    const childRef = useRef(null);
-    const [childSize, setChildSize] = useState({ width: 0, height: 0 });
-  
+    const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     useEffect(() => {
-        if (childRef.current) {
-            const rect = childRef.current.getBoundingClientRect();
-            setChildSize({ width: rect.width, height: rect.height });
-        }
+        const handleResize = () => {
+            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     return (
@@ -82,7 +75,6 @@ export const Main = () => {
                                         id={data.id}
                                         onEdit={setIsEdit}
                                         onRemove={removeProduct}
-                                        ref={childRef}
                                     />
                                 )
                             })
@@ -91,21 +83,22 @@ export const Main = () => {
                 </div>
                 <div className='main__newItems__mobileCards'>
                     <Preloader isLoading={isLoading}>
-                        <SwipeSlider childSize={200}>
+                        <SwipeSlider childSize={windowSize.width>=350 ? 250:200}>
                             {
                                 newItems?.map((data, index) => {
                                     return (
-                                        <Card
-                                            key={index}
-                                            imageIMG={data.imagePath}
-                                            countryIMG={data.countryImage}
-                                            name={data.name}
-                                            price={data.price}
-                                            status={data.status}
-                                            id={data.id}
-                                            onEdit={null}
-                                            onRemove={null}
-                                        />
+                                        <div key={index}>
+                                            <Card
+                                                imageIMG={data.imagePath}
+                                                countryIMG={data.countryImage}
+                                                name={data.name}
+                                                price={data.price}
+                                                status={data.status}
+                                                id={data.id}
+                                                onEdit={null}
+                                                onRemove={null}
+                                            />
+                                        </div>
                                     )
                                 })
                             }

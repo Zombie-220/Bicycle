@@ -3,7 +3,6 @@
     justify-content: space-around;
     align-items: center;
     &__visibleSlide {
-        width: 250px;
         overflow-x: hidden;
         margin: auto;
         &__allSlides {
@@ -17,7 +16,7 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
-            top: -160px;
+            top: 160px;
             left: 0;
             right: 0;
             z-index: 1;

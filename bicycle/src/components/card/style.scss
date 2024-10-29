@@ -111,5 +111,8 @@
 @media (max-width: 350px) {
     .card {
         min-width: 200px;
+        &__wrapper__name {
+            font-size: 16px;
+        }
     }
 }
