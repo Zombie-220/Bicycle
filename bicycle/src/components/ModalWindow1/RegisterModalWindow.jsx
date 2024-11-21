@@ -11,7 +11,7 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
     const onWrapperClick = (event) => {if (event.target.classList.contains("registerModal__wrapper")) {onClose()}}
 
     const { isAuth, setIsAuth } = useContext(AuthContext);
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm();
 
     function onSubmit(data) {
         if (data.password === data.confirmPassword) {
@@ -22,7 +22,6 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
                 "name": data.name,
                 "email": data.email,
                 "password": data.password,
-                "confirmPassword": data.confirmPassword
             }))
         }
     };
@@ -70,7 +69,7 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
                                         validate={{ required: true }}
                                         type={"password"}
                                     />
-                                    <button className="registerModal__wrapper__content__regBody__wrapper__enterButton">Регистрация</button>
+                                    <button className="registerModal__wrapper__content__regBody__wrapper__enterButton" disabled={!isValid}>Регистрация</button>
                                 </form>
                             </div>
                         </div>

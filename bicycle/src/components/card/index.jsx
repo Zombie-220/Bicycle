@@ -34,15 +34,14 @@ export const Card = ({bicycleIMG, countryIMG, name, price, status, id, onEdit, o
                 <p className="card__wrapper__name">{name}</p>
                 <p className="card__wrapper__price">{price} ₽</p>
             </div>
-
             <Link className='card__link'>
                 <img src={clickIcon} alt={clickIcon} className='card__link__img'/>
                 <p className='card__link__text'>В 1 клик</p>
             </Link>
-            <div className='test'>
+            {/* <div className='test'>
                 <button onClick={removeProduct}>Удалить</button>
                 <button onClick={editProduct}>Изменить</button>
-            </div>
+            </div> */}
         </div>
     )
 }

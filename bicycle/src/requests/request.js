@@ -2,7 +2,7 @@ import axios from "axios";
 import { NewBicycles } from "./const";
 
 export const baseURL = axios.create({
-    baseURL: "https://my-json-server.typicode.com/Zombie-220/fakeJson/",
+    baseURL: "http://localhost:5000",
     headers: {},
 });
 

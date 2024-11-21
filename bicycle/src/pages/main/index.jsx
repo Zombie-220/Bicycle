@@ -14,6 +14,8 @@ import { SwipeSlider } from '../../components/SwipeSlider';
 import { NewBicycles } from '../../requests/const';
 import { GetHook } from '../../hooks/getHook';
 
+import test from '../../assets/images/home/slider/shimano.svg';
+
 import './style.scss';
 import '../../assets/fonts/fonts.css';
 
@@ -56,9 +58,9 @@ export const Main = () => {
             <LoopImageSlider />
             <div className='main__newItems'>
                 <h2 className='main__newItems__header'>НОВИНКИ</h2>
-                <button onClick={addProduct}>Добавить карточку</button>
+                {/* <button onClick={addProduct}>Добавить карточку</button>
                 <button onClick={useQuery}>Перезагрузить запрос</button>
-                <button onClick={useQuery}>Получить данные</button>
+                <button onClick={useQuery}>Получить данные</button> */}
 
                 <div className='main__newItems__cards'>
                     <Preloader isLoading={isLoading}>
@@ -133,7 +135,7 @@ export const Main = () => {
                 </div>
             </div>
 
-            <CreateProduct
+            {/* <CreateProduct
                 setProducts={setNewItems}
                 onCloseModal={onCloseModal}
                 isModalOpen={isModalOpen}
@@ -147,7 +149,7 @@ export const Main = () => {
                     setIsEdit={setIsEdit}
                     id={isEdit.id}
                 />)
-            }            
+            } */}
         </div>
     );
 };

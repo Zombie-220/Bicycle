@@ -67,7 +67,7 @@ export const EditProduct = (props) => {
         </div>
         <div>
           {errorForm ? (
-            <div>Произошла ощибка изменения</div>
+            <div>Произошла ошибка изменения</div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
               <ValidateInput

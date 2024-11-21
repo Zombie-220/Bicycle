@@ -72,6 +72,11 @@
                         padding: 0px;
                         &:hover { background-color: #F5752099; }
                         &:active { background-color: #F5752033; }
+                        &:disabled {
+                            cursor: unset;
+                            background-color: #f0f0f0;
+                            color: #4C4C4C;
+                        }
                     }
                 }
             }
