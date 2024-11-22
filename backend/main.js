@@ -1,8 +1,7 @@
 import express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
 import cors from 'cors';
-
-import { logger } from './logger/logger.js';
+import bodyParser from 'body-parser';
 
 const app = express();
 const port = 5000;
@@ -13,25 +12,32 @@ let db;
 
 MongoClient.connect(url)
 .then(client => {
-    console.log('Connected to MongoDB');
+    console.log('success: Connected to MongoDB');
     db = client.db(dbName);
 }).catch(err => {
-    console.error('Failed to connect to MongoDB', err);
+    console.log('error: Failed to connect to MongoDB');
+    process.exit(1);
 });
 
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/newBicycles', async (req, res) => {
     try {
         const items = await db.collection('newBicycles').find().toArray();
         res.json(items);
-        logger.info('success: GET * FROM newBicycle');
+        console.log('success: newBicycle');
     } catch (err) {
         res.status(500).json({ message: err.message });
-        logger.error('failed: GET * FROM newBicycle');
+        console.log('failed: GET * FROM newBicycle');
     }
 });
 
+app.post('/test', (req, res) => {
+    console.log(req.body);
+    res.json({result: "XX"});
+});
+
 app.listen(port, () => {
-    logger.info(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });

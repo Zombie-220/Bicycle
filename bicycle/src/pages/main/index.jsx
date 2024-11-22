@@ -14,10 +14,10 @@ import { SwipeSlider } from '../../components/SwipeSlider';
 import { NewBicycles } from '../../requests/const';
 import { GetHook } from '../../hooks/getHook';
 
-import test from '../../assets/images/home/slider/shimano.svg';
-
 import './style.scss';
 import '../../assets/fonts/fonts.css';
+
+import axios from 'axios';
 
 export const Main = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
@@ -37,6 +37,20 @@ export const Main = () => {
 
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     useEffect(() => {
+
+
+        axios.post('http://localhost:5000/test', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+        })
+          .then(response => {
+            console.log(response.data);
+        })
+          .catch(error => {
+            console.error('Ошибка при выполнении POST-запроса:', error);
+        });
+
+
         const handleResize = () => {
             setWindowSize({ width: window.innerWidth, height: window.innerHeight });
         };
