@@ -13,10 +13,10 @@ export const Card = ({bicycleIMG, countryIMG, name, price, amount}) => {
             <div className='card__wrapper'>
                 <img src={bicycleIMG} alt="bicycleIMG" className="card__wrapper__image"/>
                 <p className="card__wrapper__name">{name}</p>
-                <p className="card__wrapper__price">{price} ₽</p>
+                <p className="card__wrapper__price">{price.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
             </div>
             <Link className='card__link'>
-                <img src={clickIcon} alt={clickIcon} className='card__link__img'/>
+                <img src={clickIcon} alt='clickIcon' className='card__link__img'/>
                 <p className='card__link__text'>В 1 клик</p>
             </Link>
         </div>
