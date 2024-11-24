@@ -1,1 +1,1 @@
-export const NewBicycles = "/newBicycles";
+export const NewBicycles = "/products/best";

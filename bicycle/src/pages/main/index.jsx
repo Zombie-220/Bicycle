@@ -1,13 +1,10 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DivSlider } from '../../components/DivSlider';
 import { LoopImageSlider } from '../../components/LoopImageSlider';
 import { Card } from '../../components/card';
 import { AuthContext } from '../../App';
-import { removeOneNewItems } from '../../requests/request';
-import { CreateProduct } from '../../components/ModalWindow/CreateProduct';
-import { EditProduct } from '../../components/ModalWindow/EditProduct';
 import { Preloader } from '../../components/Preloader';
 import { SwipeSlider } from '../../components/SwipeSlider';
 
@@ -17,40 +14,12 @@ import { GetHook } from '../../hooks/getHook';
 import './style.scss';
 import '../../assets/fonts/fonts.css';
 
-import axios from 'axios';
-
 export const Main = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isEdit, setIsEdit] = useState({ status: false, id: null });
-
     const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: NewBicycles });
-    const addProduct = () => { setIsModalOpen(true); };
-    const onCloseModal = () => { setIsModalOpen(false); };
-
-    const removeProduct = (id) => {
-        removeOneNewItems(id).then(({}) => {
-            setNewItems((prevValue) =>
-            prevValue.filter((product) => product.id !== id)
-        );}).catch(() => alert("Ошибка"));
-    };
 
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     useEffect(() => {
-
-
-        axios.post('http://localhost:5000/test', {
-            firstName: 'Fred',
-            lastName: 'Flintstone'
-        })
-          .then(response => {
-            console.log(response.data);
-        })
-          .catch(error => {
-            console.error('Ошибка при выполнении POST-запроса:', error);
-        });
-
-
         const handleResize = () => {
             setWindowSize({ width: window.innerWidth, height: window.innerHeight });
         };
@@ -72,10 +41,6 @@ export const Main = () => {
             <LoopImageSlider />
             <div className='main__newItems'>
                 <h2 className='main__newItems__header'>НОВИНКИ</h2>
-                {/* <button onClick={addProduct}>Добавить карточку</button>
-                <button onClick={useQuery}>Перезагрузить запрос</button>
-                <button onClick={useQuery}>Получить данные</button> */}
-
                 <div className='main__newItems__cards'>
                     <Preloader isLoading={isLoading}>
                         {
@@ -83,14 +48,11 @@ export const Main = () => {
                                 return (
                                     <Card
                                         key={index}
-                                        imageIMG={data.imagePath}
+                                        bicycleIMG={data.productImage}
                                         countryIMG={data.countryImage}
                                         name={data.name}
                                         price={data.price}
-                                        status={data.status}
-                                        id={data.id}
-                                        onEdit={setIsEdit}
-                                        onRemove={removeProduct}
+                                        amount={data.amount}
                                     />
                                 )
                             })
@@ -105,14 +67,11 @@ export const Main = () => {
                                     return (
                                         <div key={index}>
                                             <Card
-                                                imageIMG={data.imagePath}
+                                                bicycleIMG={data.productImage}
                                                 countryIMG={data.countryImage}
                                                 name={data.name}
                                                 price={data.price}
-                                                status={data.status}
-                                                id={data.id}
-                                                onEdit={null}
-                                                onRemove={null}
+                                                amount={data.amount}
                                             />
                                         </div>
                                     )
@@ -148,22 +107,6 @@ export const Main = () => {
 
                 </div>
             </div>
-
-            {/* <CreateProduct
-                setProducts={setNewItems}
-                onCloseModal={onCloseModal}
-                isModalOpen={isModalOpen}
-            />
-            {isEdit.status && (
-                <EditProduct
-                    setProducts={setNewItems}
-                    onCloseModal={setIsEdit}
-                    isModalOpen={isEdit.status}
-                    initialValues={ newItems.filter((product) => product.id === isEdit.id)[0] }
-                    setIsEdit={setIsEdit}
-                    id={isEdit.id}
-                />)
-            } */}
         </div>
     );
 };

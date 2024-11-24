@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../App';
-import { ModalWindow } from '../../components/ModalWindow1/ModalWindow';
-import { AuthModalWindow } from '../../components/ModalWindow1/AuthModalWindow';
-import { RegisterModalWindow } from '../../components/ModalWindow1/RegisterModalWindow';
+import { ModalWindow } from '../../components/ModalWindow/ModalWindow';
+import { AuthModalWindow } from '../../components/ModalWindow/AuthModalWindow';
+import { RegisterModalWindow } from '../../components/ModalWindow/RegisterModalWindow';
 
 import icon from '../../assets/icons/icon.svg';
 import user from '../../assets/icons/header/user.svg';

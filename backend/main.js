@@ -1,43 +1,27 @@
 import express from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 
-const app = express();
-const port = 5000;
-const url = 'mongodb://root:pass@localhost:27017/';
-const dbName = 'bicycle';
+import { logger } from './logger/logger.js';
+import { productRouter } from './groups/products.js';
 
-let db;
+export const app = express();
+export let DB;
 
-MongoClient.connect(url)
-.then(client => {
-    console.log('success: Connected to MongoDB');
-    db = client.db(dbName);
-}).catch(err => {
-    console.log('error: Failed to connect to MongoDB');
-    process.exit(1);
-});
+app.use(cors({
+    origin: 'http://localhost:5624',
+    methods: 'POST, GET, DELETE, PATCH'
+}));
 
-app.use(cors());
-app.use(bodyParser.json());
+MongoClient.connect('mongodb://root:pass@localhost:27017/').then(client => {
+    const port = 5481;
+    DB = client.db('bicycle');
 
-app.get('/newBicycles', async (req, res) => {
-    try {
-        const items = await db.collection('newBicycles').find().toArray();
-        res.json(items);
-        console.log('success: newBicycle');
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-        console.log('failed: GET * FROM newBicycle');
-    }
-});
+    logger.info('Connected to DB');
 
-app.post('/test', (req, res) => {
-    console.log(req.body);
-    res.json({result: "XX"});
-});
+    app.use(express.json());
+    
+    app.use('/products', productRouter);
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+    app.listen(port, () => { logger.info(`Server is running on http://localhost:${port}`); });
+}).catch(err => { logger.crit(`Connected to DB: ${err}`); });

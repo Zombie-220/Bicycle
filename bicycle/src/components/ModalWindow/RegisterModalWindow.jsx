@@ -6,6 +6,7 @@ import { ValidateInput } from "../../components/ValidateInput";
 import { AuthContext } from "../../App";
 
 import './registerModalWindow.scss';
+import { baseURL } from "../../requests/request";
 
 export const RegisterModalWindow = ({ isOpen, onClose }) => {
     const onWrapperClick = (event) => {if (event.target.classList.contains("registerModal__wrapper")) {onClose()}}
@@ -15,14 +16,19 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
 
     function onSubmit(data) {
         if (data.password === data.confirmPassword) {
-            setIsAuth(true);
-            onClose();
-            reset();
-            localStorage.setItem("user", JSON.stringify({
-                "name": data.name,
-                "email": data.email,
-                "password": data.password,
-            }))
+            baseURL.get(`/users/${data.name}`).then((res) => {
+                if (res.response) {
+                    // setIsAuth(true);
+                    // onClose();
+                    // reset();
+                    // baseURL.post('/users', {
+                    //     userName: data.name,
+                    //     password: data.password,
+                    //     email: data.email
+                    // }).then().catch((err) => { console.log(err); })
+                    console.log(res.response)
+                }
+            }).catch((err) => { console.log(err); })
         }
     };
 

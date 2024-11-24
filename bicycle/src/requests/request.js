@@ -2,7 +2,7 @@ import axios from "axios";
 import { NewBicycles } from "./const";
 
 export const baseURL = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "http://localhost:5481",
     headers: {},
 });
 
