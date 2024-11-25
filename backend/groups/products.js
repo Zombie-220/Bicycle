@@ -1,14 +1,29 @@
 import express from 'express';
-import cors from 'cors';
 
 import { DB } from '../main.js';
 import { logger } from '../logger/logger.js';
 
 export const productRouter = express.Router();
 
-productRouter.get('/best', async (req, res) => {
+productRouter.get('/all', async (req, res) => {
     try {
-        const items = await DB.collection('newBicycles').find().toArray();
+        const items = await DB.collection('bicycleProducts').find().toArray();
+
+        res.json(items);
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+});
+
+productRouter.get('/new', async (req, res) => {
+    try {
+        const collection = DB.collection('bicycleProducts');
+        const sortedItems = collection.find().sort({ addingData: 1 })
+        const items = await sortedItems.toArray();
+
         res.json(items);
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
 

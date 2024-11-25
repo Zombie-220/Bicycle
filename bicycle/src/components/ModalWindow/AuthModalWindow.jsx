@@ -1,25 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Transition } from 'react-transition-group';
 
 import { ValidateInput } from "../../components/ValidateInput";
 import { AuthContext } from "../../App";
+import { baseURL } from "../../requests/request";
 
 import './authModalWindow.scss';
 
 export const AuthModalWindow = ({ isOpen, onClose }) => {
     const onWrapperClick = (event) => {if (event.target.classList.contains("authModal__wrapper")) {onClose()}}
 
+    const [passwordErr, setPasswordErr] = useState('');
+
     const { isAuth, setIsAuth } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm();
 
     function onSubmit(data) {
-        if ((data.name === JSON.parse(localStorage.getItem("user")).name) && (data.password === JSON.parse(localStorage.getItem("user")).password)) {
-            setIsAuth(true);
-            onClose();
-            reset();
-        } else { console.log("X") }
+        baseURL.post('/users/login', { name: data.name, password: data.password }).then((resp) => {
+            console.log(resp.data.response);
+            if (resp.data.response) {
+                setIsAuth(true);
+                onClose();
+                reset();
+                setPasswordErr('');
+            } else { setPasswordErr('Введённые данные не корректны'); }
+        }).catch((err) => { setPasswordErr('Что-то пошло не так x_x.'); })
     };
 
     return (
@@ -49,6 +56,7 @@ export const AuthModalWindow = ({ isOpen, onClose }) => {
                                         validate={{ required: true }}
                                         type={"password"}
                                     />
+                                    <p className="authModal__wrapper__content__authBody__wrapper-text">{passwordErr}</p>
                                     <button className="authModal__wrapper__content__authBody__wrapper__enterButton" disabled={!isValid}>Войти</button>
                                 </form>
                                 <div className="authModal__wrapper__content__authBody__wrapper__lowerBox">

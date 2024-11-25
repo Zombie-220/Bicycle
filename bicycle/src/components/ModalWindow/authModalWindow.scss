@@ -78,11 +78,17 @@
                             color: #4C4C4C;
                         }
                     }
+                    &-text {
+                        font-family: 'Inter-Regular';
+                        color: #F53A20;
+                        margin: 0px;
+                    }
                     &__lowerBox {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                         &__checkbox {
+                            display: none;
                             border: 1px solid #B3B3B3;
                             margin: 1px 5px 0px 0px;
                             cursor: pointer;

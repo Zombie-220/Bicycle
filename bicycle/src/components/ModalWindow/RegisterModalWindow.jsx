@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Transition } from 'react-transition-group';
 
@@ -11,25 +11,24 @@ import { baseURL } from "../../requests/request";
 export const RegisterModalWindow = ({ isOpen, onClose }) => {
     const onWrapperClick = (event) => {if (event.target.classList.contains("registerModal__wrapper")) {onClose()}}
 
+    const [registerErr, setRegisterErr] = useState('');
+
     const { isAuth, setIsAuth } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm();
 
     function onSubmit(data) {
         if (data.password === data.confirmPassword) {
-            baseURL.get(`/users/${data.name}`).then((res) => {
-                if (res.response) {
-                    // setIsAuth(true);
-                    // onClose();
-                    // reset();
-                    // baseURL.post('/users', {
-                    //     userName: data.name,
-                    //     password: data.password,
-                    //     email: data.email
-                    // }).then().catch((err) => { console.log(err); })
-                    console.log(res.response)
-                }
-            }).catch((err) => { console.log(err); })
-        }
+            baseURL.post('/users/checkName', { name: data.name }).then((resp) => {
+                if (!resp.data.response) {
+                    baseURL.post('/users/add', { name: data.name, email: data.email, password: data.password }).then((resp) => {
+                        setIsAuth(true);
+                        onClose();
+                        reset();
+                        setRegisterErr('');
+                    }).catch((err) => { setRegisterErr('Что-то пошло не так >_<"'); });
+                } else { setRegisterErr("Пользователь уже существует"); }
+            }).catch((err) => { setRegisterErr('Что-то пошло не так x_x'); });
+        } else { setRegisterErr("Пароли не совпадают"); }
     };
 
     return (
@@ -75,6 +74,7 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
                                         validate={{ required: true }}
                                         type={"password"}
                                     />
+                                    <p className="registerModal__wrapper__content__regBody__wrapper-text">{registerErr}</p>
                                     <button className="registerModal__wrapper__content__regBody__wrapper__enterButton" disabled={!isValid}>Регистрация</button>
                                 </form>
                             </div>

@@ -8,7 +8,6 @@ import { AuthContext } from '../../App';
 import { Preloader } from '../../components/Preloader';
 import { SwipeSlider } from '../../components/SwipeSlider';
 
-import { NewBicycles } from '../../requests/const';
 import { GetHook } from '../../hooks/getHook';
 
 import './style.scss';
@@ -16,7 +15,7 @@ import '../../assets/fonts/fonts.css';
 
 export const Main = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
-    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: NewBicycles });
+    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: '/products/all' });
 
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     useEffect(() => {
