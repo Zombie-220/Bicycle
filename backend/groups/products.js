@@ -3,9 +3,9 @@ import express from 'express';
 import { DB } from '../main.js';
 import { logger } from '../logger/logger.js';
 
-export const productRouter = express.Router();
+export const ProductRouter = express.Router();
 
-productRouter.get('/all', async (req, res) => {
+ProductRouter.get('/all', async (req, res) => {
     try {
         const items = await DB.collection('bicycleProducts').find().toArray();
 
@@ -18,7 +18,7 @@ productRouter.get('/all', async (req, res) => {
     }
 });
 
-productRouter.get('/new', async (req, res) => {
+ProductRouter.get('/new', async (req, res) => {
     try {
         const collection = DB.collection('bicycleProducts');
         const sortedItems = collection.find().sort({ addingData: 1 })

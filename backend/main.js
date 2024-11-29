@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 import cors from 'cors';
 
 import { logger } from './logger/logger.js';
-import { productRouter } from './groups/products.js';
+import { ProductRouter } from './groups/products.js';
 import { usersRouter } from './groups/users.js';
 
 const port = 5481;
@@ -16,11 +16,11 @@ MongoClient.connect('mongodb://root:pass@localhost:27017/').then(client => {
     
     app.use(express.json());
     app.use(cors({
-        origin: 'http://localhost:5624',
+        origin: 'http://localhost:15924',
         methods: 'POST, GET, DELETE, PATCH'
     }));
 
-    app.use('/products', productRouter);
+    app.use('/products', ProductRouter);
     app.use('/users', usersRouter);
 
     app.listen(port, () => { logger.info(`Server is running on http://localhost:${port}`); });
