@@ -32,3 +32,16 @@ ProductRouter.get('/new', async (req, res) => {
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 });
+
+ProductRouter.get('/amount/:am', async (req, res) => {
+    try {
+        const collection = DB.collection('bicycleProducts');
+        const response = await collection.find().limit(parseInt(req.params.am)).toArray();
+
+        res.json(response);
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+});

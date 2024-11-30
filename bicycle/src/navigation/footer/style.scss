@@ -13,9 +13,13 @@
             width: 25%;
             display: flex;
             flex-direction: column;
-            &__logo {
-                width: 90px;
+            &-link {
                 margin-bottom: 65px;
+                transition: 350ms;
+                &:hover { opacity: 70%; }
+                &-logo {
+                    width: 90px;
+                }
             }
             &__link {
                 font-family: 'Inter-Light';

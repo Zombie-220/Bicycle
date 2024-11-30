@@ -15,7 +15,7 @@ import '../../assets/fonts/fonts.css';
 
 export const Main = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
-    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: '/products/all' });
+    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: '/products/amount/3' });
 
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     useEffect(() => {

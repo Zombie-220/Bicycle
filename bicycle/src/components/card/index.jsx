@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+
+import { AuthContext } from '../../App';
 
 import './style.scss';
 import clickIcon from './icon/click.svg';
 
 export const Card = ({bicycleIMG, countryIMG, name, price, amount}) => {
+    const { isAuth } = useContext(AuthContext);
+
     return (
         <div className="card">
             <div className='card__relativeDiv'>
@@ -15,7 +20,7 @@ export const Card = ({bicycleIMG, countryIMG, name, price, amount}) => {
                 <p className="card__wrapper__name">{name}</p>
                 <p className="card__wrapper__price">{price.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
             </div>
-            <Link className='card__link'>
+            <Link className='card__link' to={isAuth? '/order': '/auth'}>
                 <img src={clickIcon} alt='clickIcon' className='card__link__img'/>
                 <p className='card__link__text'>В 1 клик</p>
             </Link>

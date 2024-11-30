@@ -11,13 +11,15 @@ export const Footer = () => {
         <div className='footer'>
             <div className='footer__upSection'>
                 <div className='footer__upSection__section'>
-                    <img src={logo} alt={logo} className='footer__upSection__section__logo'/>
+                    <Link className='footer__upSection__section-link'>
+                        <img src={logo} alt={logo} className='footer__upSection__section-logo-logo'/>
+                    </Link>
                     <p className='footer__upSection__section__text'>Компания World-bikes<br/>специализируется на продаже<br/>товаров для велосипедного спорта.</p>
                 </div>
                 <div className='footer__upSection__section adaptive'>
                     <h2  className='footer__upSection__section__header'>Каталог</h2>
-                    <Link className='footer__upSection__section__link'>Trade-In</Link>
-                    <Link className='footer__upSection__section__link footer__upSection__link__orange'>Велосипеды</Link>
+                    <Link className='footer__upSection__section__link footer__upSection__link__orange' to='/'>Главная</Link>
+                    <Link className='footer__upSection__section__link' to='/bicycle'>Велосипеды</Link>
                     <Link className='footer__upSection__section__link'>Экипировка</Link>
                     <Link className='footer__upSection__section__link'>Запчасти</Link>
                     <Link className='footer__upSection__section__link'>Велостнаки</Link>
