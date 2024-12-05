@@ -8,7 +8,7 @@ import mailIcon from '../../assets/icons/footer/mail.svg'
 
 export const Footer = () => {
     return (
-        <div className='footer'>
+        <footer className='footer'>
             <div className='footer__upSection'>
                 <div className='footer__upSection__section'>
                     <Link className='footer__upSection__section-link'>
@@ -62,6 +62,6 @@ export const Footer = () => {
                 <p>© 2023 world bike</p>
                 <p>Пользовательское соглашение</p>
             </div>
-        </div>
+        </footer>
     );
 }

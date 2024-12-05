@@ -22,7 +22,7 @@ export const Bicycle = () => {
                 <div className='bicyclePage__main__welcome'>
                     <div className='bicyclePage__main__welcome-links'>
                         <Link to={'/'} className='bicyclePage__main__welcome-links-link'>Главная</Link>
-                        <p className='bicyclePage__main__welcome-links-text'> / </p>
+                        <p className='bicyclePage__main__welcome-links-text'>|</p>
                         <Link to='/bicycle' className='bicyclePage__main__welcome-links-link activeLink'>Велосипеды</Link>
                     </div>
                     <p className='bicyclePage__main__welcome-headerText'>ГОРНЫЕ ВЕЛОСИПЕДЫ</p>
@@ -34,6 +34,7 @@ export const Bicycle = () => {
                         return (
                             <Card
                                 key={index}
+                                id={data._id}
                                 bicycleIMG={data.productImage}
                                 countryIMG={data.countryImage}
                                 name={data.name}

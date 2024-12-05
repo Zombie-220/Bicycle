@@ -60,6 +60,7 @@
         text-decoration: none;
         display: none;
         transition: 350ms;
+        border: none;
         &__text { color: #fff; }
         &:hover { opacity: 0.66; }
         &:active { opacity: 0.33; }

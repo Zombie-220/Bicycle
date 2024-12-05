@@ -9,7 +9,7 @@ import { Order } from "../pages/order";
 const authPages = [
   {
     path: '/order',
-    Components: Order
+    Component: Order
   },
 ];
 

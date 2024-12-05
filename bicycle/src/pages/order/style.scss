@@ -4,4 +4,143 @@
         height: 60px;
         background-color: #000;
     }
+    &__wrapper {
+        margin: 0px 80px;
+        &__links {
+            display: flex;
+            margin: 40px 0px 0px 90px;
+            font-size: 14px;
+            &-link {
+                text-decoration: none;
+                color: #4c4c4c;
+                transition: 350ms;
+                &:hover { opacity: 70%; }
+            }
+            &-border { margin: 0px 5px; }
+        }
+        &__body {
+            display: flex;
+            justify-content: space-between;
+            &__leftSide { flex: 3; }
+            &__imgWrapper {
+                &-img {
+                    width: 100%;
+                    margin: 0px auto;
+                }
+            }
+            &__rightSide {
+                margin-top: 50px;
+                margin-left: 24px;
+                flex: 5;
+                &-productName {
+                    font-size: 40px;
+                    font-family: 'Bebas-Neue-Bold';
+                    margin: 0px;
+                }
+                &-amount, &-finalPrice {
+                    font-size: 16px;
+                    font-family: 'Inter-Regular';
+                }
+                &-cost {
+                    font-size: 40px;
+                    font-family: 'Inter-Bold';
+                    margin: 10px 0px;
+                }
+                &__counters {
+                    display: flex;
+                    margin-top: 15px;
+                    align-items: center;
+                    &-finalPrice {
+                        margin: 0px 0px 0px 10px;
+                    }
+                    &-wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid #E5E5E5;
+                        border-radius: 10px;
+                        &-minus, &-plus, &-counter {
+                            padding: 10px;
+                            border: none;
+                            background-color: #0000;
+                            color: #101010;
+                        }
+                        &-minus, &-plus { cursor: pointer; }
+                    }
+                    &-addToCart {
+                        cursor: pointer;
+                        color: #fff;
+                        background-color: #F57520;
+                        font-family: 'Inter-Regular';
+                        font-size: 16px;
+                        padding: 12px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        margin-left: 15px;
+                        transition: 350ms;
+                        &:hover { opacity: 60%; }
+                        &:disabled {
+                            cursor: unset;
+                            opacity: 90%;
+                        }
+                    }
+                }
+                &-text {
+                    color: #0D7F19;
+                    font-size: 16px;
+                    font-family: 'Inter-Regular';
+                    margin: 10px 0px 0px 0px;
+                }
+            }
+        }
+    }
+    &__sameProducts {
+        margin: 0px 80px;
+        &-header {
+            color: #101010;
+            font-size: 40px;
+            font-family: 'Bebas-Neue-Bold';
+        }
+    }
+}
+
+.activeLink { color: #F57520; }
+
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 300px;
+    font-size: 14px;
+}
+  
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+  
+.radio-inputs .radio input {
+    display: none;
+}
+  
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .15s ease-in-out;
+}
+  
+.radio-inputs .radio input:checked + .name {
+    background-color: #fff;
+    font-weight: 600;
 }

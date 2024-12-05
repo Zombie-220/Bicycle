@@ -4,9 +4,11 @@ import { createContext, useEffect, useState } from "react";
 import { getAuth } from "./requests/request";
 
 export const AuthContext = createContext(null);
+export const ProductContext = createContext(null);
 
 export const App = () => {
   const [isAuth, setIsAuth] = useState(true);
+  const [currentProduct, setCurrentProduct] = useState();
   const routes = getRoutes(isAuth);
 
   // useEffect(() => {
@@ -19,7 +21,9 @@ export const App = () => {
 
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-      <RouterProvider router={routes} />
+      <ProductContext.Provider value={{ currentProduct, setCurrentProduct }}>
+        <RouterProvider router={routes} />
+      </ProductContext.Provider>
     </AuthContext.Provider>
   );
 };

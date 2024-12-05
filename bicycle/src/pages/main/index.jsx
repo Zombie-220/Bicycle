@@ -47,6 +47,7 @@ export const Main = () => {
                                 return (
                                     <Card
                                         key={index}
+                                        id={data._id}
                                         bicycleIMG={data.productImage}
                                         countryIMG={data.countryImage}
                                         name={data.name}
@@ -66,6 +67,7 @@ export const Main = () => {
                                     return (
                                         <div key={index}>
                                             <Card
+                                                id={data._id}
                                                 bicycleIMG={data.productImage}
                                                 countryIMG={data.countryImage}
                                                 name={data.name}

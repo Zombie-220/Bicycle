@@ -1,13 +1,21 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 
 import { AuthContext } from '../../App';
+import { ProductContext } from '../../App';
 
 import './style.scss';
 import clickIcon from './icon/click.svg';
 
-export const Card = ({bicycleIMG, countryIMG, name, price, amount}) => {
+export const Card = ({ id, bicycleIMG, countryIMG, name, price, amount}) => {
     const { isAuth } = useContext(AuthContext);
+    const { currentProduct, setCurrentProduct } = useContext(ProductContext);
+    const navigate = useNavigate();
+
+    function changePage() {
+        setCurrentProduct(id);
+        navigate('/order');
+    }
 
     return (
         <div className="card">
@@ -20,10 +28,10 @@ export const Card = ({bicycleIMG, countryIMG, name, price, amount}) => {
                 <p className="card__wrapper__name">{name}</p>
                 <p className="card__wrapper__price">{price.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
             </div>
-            <Link className='card__link' to={isAuth? '/order': '/auth'}>
+            <button className='card__link' onClick={() => { changePage() }}>
                 <img src={clickIcon} alt='clickIcon' className='card__link__img'/>
                 <p className='card__link__text'>В 1 клик</p>
-            </Link>
+            </button>
         </div>
     )
 }
