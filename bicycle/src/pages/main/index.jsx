@@ -82,7 +82,7 @@ export const Main = () => {
                     </Preloader>
                 </div>
             </div>
-            <div className='main__catalog'>
+            {/* <div className='main__catalog'>
                 <p className='main__catalog__header'>КАТАЛОГ</p>
                 <Link to={'/bicycle'} className='main__catalog__link'><p className='main__catalog__link__text'>ВЕЛОСИПЕДЫ</p></Link>
                 <div className='main__catalog__container'>
@@ -105,9 +105,8 @@ export const Main = () => {
                             <p className='main__catalog__container__wrapper__link__text'>ВЕЛОСТАНКИ</p>
                         </Link>
                     </div>
-
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
