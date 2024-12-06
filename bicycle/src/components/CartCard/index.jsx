@@ -1,33 +1,36 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 
 import { baseURL } from '../../requests/request';
-import closeIcon from '../../assets/icons/close.svg';
+import { AddedProductsToCart } from '../../App';
 
 import './style.scss';
+import closeIcon from '../../assets/icons/close.svg';
 
 export const CartCard = ({ id, amountCard }) => {
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(amountCard);
+    const { addedProductToCart, setAddedProductToCart } = useContext(AddedProductsToCart);
 
     function minusAmount() {if (amount > 1) { setAmount(amount - 1); }}
     function plusAmount() {if (amount < product.amount) { setAmount(amount + 1); }}
 
     function deleteProduct() {
-        let allProducts = JSON.parse(localStorage.getItem('cartProducts'))
-        let newProducts = [];
+        let x = [];
 
-        allProducts.map((data) => {
-            if (id != data.productId) { newProducts.push(data); }
+        addedProductToCart.map((data) => {
+            if (data.productId != id) {
+                x.push(data);
+            }
         });
-        
-        localStorage.setItem('cartProducts', JSON.stringify(newProducts));
+
+        setAddedProductToCart(x);
     }
 
     useEffect(() => {
         baseURL(`/products/byId/${id}`).then((data) => {
             setProduct(data.data);
-        }).catch((err) => console.log(err))
-    }, [])
+        }).catch((err) => { console.log(err); })
+    }, [addedProductToCart, setAddedProductToCart]);
 
     return(
         <div className="cartCard">
@@ -38,7 +41,7 @@ export const CartCard = ({ id, amountCard }) => {
                 <p className="cartCard__counterContainer-amount">{amount}</p>
                 <button className="cartCard__counterContainer-plus" onClick={plusAmount}>+</button>
             </div>
-            <p className="cartCard-price">{(product.price*amount).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
+            <p className="cartCard-price">{(product.price*amount).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
             <button className="cartCard-deleteButton" onClick={deleteProduct}><img src={closeIcon} alt="closeIcon" className="cartCard-deleteButton-img" /></button>
         </div>
     );

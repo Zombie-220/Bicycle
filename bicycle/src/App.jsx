@@ -5,10 +5,12 @@ import { getAuth } from "./requests/request";
 
 export const AuthContext = createContext(null);
 export const ProductContext = createContext(null);
+export const AddedProductsToCart = createContext(null);
 
 export const App = () => {
   const [isAuth, setIsAuth] = useState(true);
   const [currentProduct, setCurrentProduct] = useState();
+  const [addedProductToCart, setAddedProductToCart] = useState([]);
   const routes = getRoutes(isAuth);
 
   // useEffect(() => {
@@ -19,10 +21,16 @@ export const App = () => {
   //   }
   // }, [])
 
+  useEffect(() => {
+    console.log(addedProductToCart);
+  }, [addedProductToCart, setAddedProductToCart]);
+
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>
       <ProductContext.Provider value={{ currentProduct, setCurrentProduct }}>
-        <RouterProvider router={routes} />
+        <AddedProductsToCart.Provider value={{ addedProductToCart, setAddedProductToCart }}>
+          <RouterProvider router={routes} />
+        </AddedProductsToCart.Provider>
       </ProductContext.Provider>
     </AuthContext.Provider>
   );

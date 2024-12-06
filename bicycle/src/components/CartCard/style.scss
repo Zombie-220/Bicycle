@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 70%;
+    width: 80%;
     margin: auto;
     border-bottom: 1px solid #E5E5E5;
     &-img { width: 200px; }
@@ -10,7 +10,7 @@
         font-family: 'Inter-Light';
         font-size: 18px;
         color: #101010;
-        width: 60%;
+        width: 40%;
         text-align: center;
         margin: 0px;
     }
@@ -33,7 +33,7 @@
         }
     }
     &-price {
-        font-family: 'Inter-Bold';
+        font-family: 'Inter-Regular';
         font-size: 20px;
         color: #101010;
     }

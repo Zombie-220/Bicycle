@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { SwipeSlider } from '../../components/SwipeSlider';
 import { Card } from '../../components/card';
-import { ProductContext } from '../../App';
+import { AddedProductsToCart, ProductContext } from '../../App';
 import { baseURL } from '../../requests/request';
 import { GetHook } from '../../hooks/getHook';
 import { Preloader } from '../../components/Preloader';
@@ -12,6 +12,7 @@ import './style.scss';
 
 export const Order = () => {
     const { currentProduct } = useContext(ProductContext);
+    const { addedProductToCart, setAddedProductToCart } = useContext(AddedProductsToCart);
     const { newItems, isLoading } = GetHook({ url: '/products/amount/4' });
     const [product, setProduct] = useState({});
     const [counter, setCounter] = useState(0);
@@ -32,23 +33,10 @@ export const Order = () => {
                 break;
             }
         }
-        console.log(selectedValue);
 
-        if (!localStorage.getItem('cartProducts')) {
-            localStorage.setItem('cartProducts', JSON.stringify([{
-                productId: product._id,
-                amount: counter,
-                size: selectedValue
-            }]));
-        } else {
-            let products = JSON.parse(localStorage.getItem('cartProducts'));
-            products.push({
-                productId: product._id,
-                amount: counter,
-                size: selectedValue
-            });
-            localStorage.setItem('cartProducts', JSON.stringify(products));
-        }
+        let x = addedProductToCart;
+        setAddedProductToCart([...x, {productId: product._id, amount: counter, size: selectedValue}]);
+
         setProductAdded(true);
     }
 
