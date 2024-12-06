@@ -1,0 +1,90 @@
+.adminCard {
+    background-color: #F6DADBE8;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    &__imageContainer {
+        margin-right: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        &-image {
+            width: 200px;
+            height: 100px;
+            height: auto;
+        }
+    }
+    &__textContainer {
+        flex: 2;
+        &-description, &-header {
+            font-size: 16px;
+            color: #2d2d2d;
+            opacity: 90%;
+            font-family: 'Inter-Regular';
+            font-weight: 400;
+            line-height: 22px;
+            margin: 0px;
+        }
+        &-header {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        &__textContainer {
+            display: flex;
+            &-bestBeforeDate, &-deliverCommission {
+                font-size: 16px;
+                color: #2d2d2d;
+                opacity: 90%;
+                font-family: 'Inter-Regular';
+                font-weight: 400;
+                line-height: 22px;
+                margin: 0px;
+                &-bold { font-weight: 700; }
+            }
+            &-header {
+                font-family: 'Inter-Regular';
+                color: #2d2d2d;
+                font-size: 24px;
+                font-weight: 700;
+                line-height: 28px;
+                margin: 0px 0px 6px 0px;
+            }
+            &-amount { margin-right: 18px; }
+        }
+        &__buttonContainer {
+            display: flex;
+            margin-top: 15px;
+            &-link {
+                background-color: #2F8C25;
+                color: #FFFFFF;
+                padding: 10px;
+                font-family: 'Inter-Regular';
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 20px;
+                border-radius: 8px;
+                text-decoration: none;
+                margin-right: 16px;
+                border: none;
+                cursor: pointer;
+            }
+            &-button {
+                cursor: pointer;
+                background-color: #8C3325;
+                color: #FFFFFF;
+                padding: 10px;
+                font-family: 'Inter-Light';
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 20px;
+                border-radius: 8px;
+                border: none;
+            }
+        }
+    }
+}

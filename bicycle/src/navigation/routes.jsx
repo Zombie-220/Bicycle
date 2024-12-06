@@ -7,6 +7,7 @@ import { Bicycle } from "../pages/bicycle";
 import { Order } from "../pages/order";
 import { CartPage } from "../pages/cart";
 import { AdminPage } from "../pages/admin";
+import { AddPage } from "../pages/addPage";
 
 const authPages = [
   {
@@ -23,6 +24,10 @@ const adminPages = [
   {
     path: 'admin',
     Component: AdminPage
+  },
+  {
+    path: 'addPage',
+    Component: AddPage
   }
 ];
 

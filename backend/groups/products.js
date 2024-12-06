@@ -58,3 +58,16 @@ ProductRouter.get('/byID/:id', async (req, res) => {
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 });
+
+ProductRouter.post('/delete', async(req, res) => {
+    try {
+        const collection = DB.collection('bicycleProducts');
+        const response = await collection.deleteOne({ _id: new ObjectId(req.body.productId) });
+
+        res.json({ 'status': 200 })
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+});
