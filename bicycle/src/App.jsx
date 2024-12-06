@@ -6,12 +6,14 @@ export const AuthContext = createContext(null);
 export const ProductContext = createContext(null);
 export const AddedProductsToCart = createContext(null);
 export const AdminContext = createContext(null);
+export const ChangeProductContext = createContext(null);
 
 export const App = () => {
   const [isAuth, setIsAuth] = useState(true);
   const [currentProduct, setCurrentProduct] = useState();
   const [addedProductToCart, setAddedProductToCart] = useState([]);
   const [isAdmin, setIsAdmin] = useState(true);
+  const [changedProduct, setChangedProduct] = useState('');
   const routes = getRoutes(isAuth, isAdmin);
 
   useEffect(() => {
@@ -23,7 +25,9 @@ export const App = () => {
       <ProductContext.Provider value={{ currentProduct, setCurrentProduct }}>
         <AddedProductsToCart.Provider value={{ addedProductToCart, setAddedProductToCart }}>
           <AdminContext.Provider value={{ isAdmin, setIsAdmin }}>
-            <RouterProvider router={routes} />
+            <ChangeProductContext.Provider value={{ changedProduct, setChangedProduct }}>
+              <RouterProvider router={routes} />
+            </ChangeProductContext.Provider>
           </AdminContext.Provider>
         </AddedProductsToCart.Provider>
       </ProductContext.Provider>

@@ -1,13 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
+
+import { ChangeProductContext } from '../../App';
 
 import './style.scss';
 
 export const AdminCard = ({ id, name, image, cost, amount, onRemove }) => {
+    const { changedProduct, setChangedProduct } = useContext(ChangeProductContext);
     const navigate = useNavigate();
 
     function changeProduct() {
-        localStorage.setItem('id', JSON.stringify(id));
+        setChangedProduct(id);
         navigate('/changePage');
     }
 

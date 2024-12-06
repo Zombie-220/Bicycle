@@ -71,3 +71,44 @@ ProductRouter.post('/delete', async(req, res) => {
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 });
+
+ProductRouter.post('/change', async(req, res) => {
+    try {
+        const collection = DB.collection('bicycleProducts');
+        const result = await collection.updateOne(
+            { _id: new ObjectId(req.body._id) },
+            { $set: {
+                name: req.body.name,
+                productImage: req.body.productImage,
+                countryImage: req.body.countryImage,
+                price: req.body.price,
+                amount: req.body.amount
+            }}
+        )
+
+        res.json({ 'status': 200 })
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+});
+
+ProductRouter.post('/add', async(req, res) => {
+    try {
+        const collection = DB.collection('bicycleProducts');
+        const result = await collection.insertOne({
+            name: req.body.name,
+            productImage: req.body.productImage,
+            countryImage: req.body.countryImage,
+            price: req.body.price,
+            amount: req.body.amount
+        })
+
+        res.json({ 'status': 200 })
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+});

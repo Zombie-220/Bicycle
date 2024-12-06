@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { baseURL } from '../../requests/request';
 
@@ -7,6 +8,7 @@ import './style.scss';
 
 export const AdminPage = () => {
     const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         baseURL('/products/all').then((data) => { setProducts(data.data); })
@@ -25,7 +27,7 @@ export const AdminPage = () => {
         <div className="adminPage">
             <div className='order__heeaderBackground'></div>
             <div className='adminPage__body'>
-                <button className='adminPage__body-button'>+ Добавить</button>
+                <button onClick={() => {navigate('/addPage')}} className='adminPage__body-button'>+ Добавить</button>
                 <div className='adminPage__body-wrapper'>
                     {products.map((data, index) => {
                         return(
