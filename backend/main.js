@@ -5,6 +5,7 @@ import cors from 'cors';
 import { logger } from './logger/logger.js';
 import { ProductRouter } from './groups/products.js';
 import { usersRouter } from './groups/users.js';
+import { ordersRouter } from './groups/orders.js';
 
 const port = 5481;
 export const app = express();
@@ -22,6 +23,7 @@ MongoClient.connect('mongodb://root:pass@localhost:27017/').then(client => {
 
     app.use('/products', ProductRouter);
     app.use('/users', usersRouter);
+    app.use('/orders', ordersRouter);
 
     app.listen(port, () => { logger.info(`Server is running on http://localhost:${port}`); });
 }).catch(err => { logger.crit(`Connected to DB: ${err}`); });

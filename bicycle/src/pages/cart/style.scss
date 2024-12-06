@@ -1,10 +1,36 @@
 .cartPage {
     &__body {
         margin: 0px 80px;
+        min-height: 500px;
     }
     &__check {
         display: flex;
         margin: 0px 80px;
         justify-content: center;
+        align-items: end;
+        &-result {
+            color: #101010;
+            font-size: 20px;
+            margin: 0px 15px;
+            font-family: 'Inter-Regular';
+        }
+        &-button {
+            cursor: pointer;
+            background-color: #F57520;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #fff;
+            &:disabled{
+                cursor: unset;
+                opacity: 80%;
+            }
+        }
     }
+}
+
+.customCartPageHeader {
+    margin-left: 90px;
+    margin-top: 10px;
 }

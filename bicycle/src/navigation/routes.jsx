@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
@@ -6,6 +6,7 @@ import { Main } from "../pages/main";
 import { Bicycle } from "../pages/bicycle";
 import { Order } from "../pages/order";
 import { CartPage } from "../pages/cart";
+import { AdminPage } from "../pages/admin";
 
 const authPages = [
   {
@@ -18,13 +19,17 @@ const authPages = [
   }
 ];
 
-const notAuthPages = [
+const adminPages = [
   {
-
+    path: 'admin',
+    Component: AdminPage
   }
 ];
 
-export const getRoutes = (isAuth) => {
+const notAuthPages = [];
+const notAdminPages = [];
+
+export const getRoutes = (isAuth, isAdmin) => {
   return createBrowserRouter([
     {
       Component: Layout,
@@ -40,6 +45,7 @@ export const getRoutes = (isAuth) => {
         },
 
         ...(isAuth ? authPages : notAuthPages),
+        ...(isAdmin? adminPages: notAdminPages)
       ],
     },
   ]);

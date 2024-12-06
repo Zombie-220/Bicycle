@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Transition } from 'react-transition-group';
 
+import { AdminContext } from "../../App";
 import { ValidateInput } from "../../components/ValidateInput";
 import { AuthContext } from "../../App";
 import { baseURL } from "../../requests/request";
@@ -15,18 +16,24 @@ export const AuthModalWindow = ({ isOpen, onClose }) => {
     const [passwordErr, setPasswordErr] = useState('');
 
     const { isAuth, setIsAuth } = useContext(AuthContext);
+    const { isAdmin, setIsAdmin } = useContext(AdminContext);
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm();
 
     function onSubmit(data) {
         baseURL.post('/users/login', { name: data.name, password: data.password }).then((resp) => {
-            console.log(resp.data.response);
             if (resp.data.response) {
                 setIsAuth(true);
                 onClose();
                 reset();
                 setPasswordErr('');
+                baseURL.get(`/users/isAdmin/${resp.data.id}`).then((data) => {
+                    if (data.data.response) { setIsAdmin(true) }
+                }).catch((err) => console.log(err))
             } else { setPasswordErr('Введённые данные не корректны'); }
         }).catch((err) => { setPasswordErr('Что-то пошло не так x_x.'); })
+        if (document.getElementById('check').checked) {
+            localStorage.setItem("token", JSON.stringify("hii"));
+        }
     };
 
     return (
@@ -60,7 +67,7 @@ export const AuthModalWindow = ({ isOpen, onClose }) => {
                                     <button className="authModal__wrapper__content__authBody__wrapper__enterButton" disabled={!isValid}>Войти</button>
                                 </form>
                                 <div className="authModal__wrapper__content__authBody__wrapper__lowerBox">
-                                    <input type="checkbox" className="authModal__wrapper__content__authBody__wrapper__lowerBox__checkbox"/>
+                                    <input type="checkbox" id="check" className="authModal__wrapper__content__authBody__wrapper__lowerBox__checkbox"/>
                                     <p className="authModal__wrapper__content__authBody__wrapper__lowerBox__text">Запомнить меня</p>
                                     <Link className="authModal__wrapper__content__authBody__wrapper__lowerBox__link">Забыли пароль?</Link>
                                 </div>
