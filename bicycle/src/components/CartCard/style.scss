@@ -1,0 +1,45 @@
+.cartCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+    border-bottom: 1px solid #E5E5E5;
+    &-img { width: 200px; }
+    &-name {
+        font-family: 'Inter-Light';
+        font-size: 18px;
+        color: #101010;
+        width: 60%;
+        text-align: center;
+        margin: 0px;
+    }
+    &__counterContainer {
+        display: flex;
+        border-radius: 10px;
+        padding: 5px;
+        border: 1px solid #E5E5E5;
+        &-minus, &-plus {
+            cursor: pointer;
+            background-color: #0000;
+            border: none;
+            font-size: 16px;
+        }
+        &-amount {
+            margin: 10px 16px;
+            font-family: 'Inter-Regular';
+            font-size: 16px;
+            color: #101010;
+        }
+    }
+    &-price {
+        font-family: 'Inter-Bold';
+        font-size: 20px;
+        color: #101010;
+    }
+    &-deleteButton {
+        cursor: pointer;
+        background-color: #0000;
+        border: none;
+    }
+}

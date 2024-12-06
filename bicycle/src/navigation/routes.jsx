@@ -5,12 +5,17 @@ import { Layout } from "./layout";
 import { Main } from "../pages/main";
 import { Bicycle } from "../pages/bicycle";
 import { Order } from "../pages/order";
+import { CartPage } from "../pages/cart";
 
 const authPages = [
   {
     path: '/order',
     Component: Order
   },
+  {
+    path: '/cart',
+    Component: CartPage
+  }
 ];
 
 const notAuthPages = [
