@@ -12,7 +12,7 @@ export const App = () => {
   const [isAuth, setIsAuth] = useState(true);
   const [currentProduct, setCurrentProduct] = useState();
   const [addedProductToCart, setAddedProductToCart] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [changedProduct, setChangedProduct] = useState('');
   const routes = getRoutes(isAuth, isAdmin);
 

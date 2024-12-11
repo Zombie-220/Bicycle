@@ -37,12 +37,12 @@ export const Header = () => {
         <header className='header'>
             <Link className='header__link'> <img src={icon} alt="logo" /> </Link>
             <div className='header__wrapper'>
-                {isAdmin && (<Link to={'/admin'} className='header__button link_orange'>Админ</Link>)}
+                {isAdmin && (<Link to={'/admin'} className='header__button link_orange secondAdaptive'>Админ</Link>)}
                 <Link to={'/bicycle'} className='header__link adaptive'>ВЕЛОСИПЕДЫ</Link>
                 {!isAuth && (<button className='header__link secondAdaptive' onClick={()=>{setAuthIsOpen(true)}}>ВОЙТИ</button>)}
                 {!isAuth && (<button className='header__link link_orange secondAdaptive' onClick={()=>{setRegisterIsOpen(true)}}>РЕГИСТРАЦИЯ</button>)}
-                {isAuth && (<Link to={'/cart'} className='header__button'> <img src={cart} alt="cart" /> </Link>)}
-                {isAuth && (<button className='header__link link_orange' onClick={logout}>ВЫЙТИ</button>)}
+                {isAuth && (<Link to={'/cart'} className='header__button secondAdaptive'> <img src={cart} alt="cart" /> </Link>)}
+                {isAuth && (<button className='header__link link_orange secondAdaptive' onClick={logout}>ВЫЙТИ</button>)}
                 <button className='header__burgerMenuButton' onClick={() => {setModalIsOpen(true)}}><img src={burgerMenu} alt="burgerMenu" /></button>
             </div>
             <ModalWindow isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
@@ -52,7 +52,7 @@ export const Header = () => {
                     <Link to={'/bicycle'} className='header__burgerMenuWrapper__link'>ВЕЛОСИПЕДЫ</Link>
                     {!isAuth && (<button className='header__burgerMenuWrapper__link' onClick={()=>{setAuthIsOpen(true); setModalIsOpen(false)}}>ВОЙТИ</button>)}
                     {!isAuth && (<button className='header__burgerMenuWrapper__link link_orange' onClick={()=>{setRegisterIsOpen(true); setModalIsOpen(false)}}>РЕГИСТРАЦИЯ</button>)}
-                    {isAuth && (<Link to={'/cart'} className='header__burgerMenuWrapper__link'> <img src={cart} alt="cart" /> </Link>)}
+                    {isAuth && (<Link to={'/cart'} className='header__burgerMenuWrapper__link'>КОРЗИНА</Link>)}
                     {isAuth && (<button className='header__burgerMenuWrapper__link' onClick={logout}>ВЫЙТИ</button>)}
                 </div>
             </ModalWindow>

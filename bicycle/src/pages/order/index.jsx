@@ -35,12 +35,13 @@ export const Order = () => {
         }
 
         let x = addedProductToCart;
-        setAddedProductToCart([...x, {productId: product._id, amount: counter, size: selectedValue}]);
-
+        setAddedProductToCart([...x, {productId: product._id, amount: counter, size: selectedValue, price: product.price}]);
         setProductAdded(true);
     }
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         if (currentProduct) {
             baseURL.get(`/products/byID/${currentProduct}`).then(resp => {
                 setProduct(resp.data);

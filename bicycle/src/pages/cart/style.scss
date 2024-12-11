@@ -34,3 +34,9 @@
     margin-left: 90px;
     margin-top: 10px;
 }
+
+@media (max-width: 830px) {
+    .cartPage__check { margin-top: 10px; }
+    .customCartPageHeader { margin-left: 0px; }
+    .order__wrapper__links { margin-left: 0px; }
+}

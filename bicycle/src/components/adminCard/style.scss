@@ -88,3 +88,22 @@
         }
     }
 }
+
+@media(max-width: 690px) {
+    .adminCard {
+        display: block;
+        &__imageContainer {
+            &-image {
+                margin: 10px auto;
+                width: 150px;
+            }
+        }
+        &__textContainer__textContainer, &__textContainer__buttonContainer {
+            display: block;
+            &-link, &-button {
+                display: block;
+                margin: auto;
+            }
+        }
+    }
+}

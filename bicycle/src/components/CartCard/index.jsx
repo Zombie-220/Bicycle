@@ -3,26 +3,43 @@ import { useContext, useEffect, useState } from 'react';
 import { baseURL } from '../../requests/request';
 import { AddedProductsToCart } from '../../App';
 
-import './style.scss';
 import closeIcon from '../../assets/icons/close.svg';
+import './style.scss';
 
 export const CartCard = ({ id, amountCard }) => {
     const [product, setProduct] = useState({});
     const [amount, setAmount] = useState(amountCard);
     const { addedProductToCart, setAddedProductToCart } = useContext(AddedProductsToCart);
 
-    function minusAmount() {if (amount > 1) { setAmount(amount - 1); }}
-    function plusAmount() {if (amount < product.amount) { setAmount(amount + 1); }}
+    function minusAmount() {if (amount > 1) {
+        let x = [];
+        addedProductToCart.map((data) => {
+            if (data.productId === id) {
+                x.push({...data, amount: data.amount - 1});
+            } else { x.push(data); }
+        });
+        setAmount(amount-1);
+        setAddedProductToCart(x);
+    }}
+
+    function plusAmount() {if (amount < product.amount) {
+        let x = [];
+        addedProductToCart.map((data) => {
+            if (data.productId === id) {
+                x.push({...data, amount: data.amount + 1});
+            } else { x.push(data); }
+        });
+        setAmount(amount+1);
+        setAddedProductToCart(x);
+    }}
 
     function deleteProduct() {
         let x = [];
-
         addedProductToCart.map((data) => {
             if (data.productId != id) {
                 x.push(data);
             }
         });
-
         setAddedProductToCart(x);
     }
 

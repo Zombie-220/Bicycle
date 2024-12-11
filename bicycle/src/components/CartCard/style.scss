@@ -43,3 +43,18 @@
         border: none;
     }
 }
+
+@media (max-width: 1052px) {
+    .cartCard-price {
+        width: 20%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 830px) {
+    .cartCard {
+        flex-direction: column;
+        width: 100%;
+        &-name, &-price { width: 100%; }
+    }
+}

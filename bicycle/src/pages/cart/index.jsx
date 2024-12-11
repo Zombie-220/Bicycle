@@ -1,32 +1,26 @@
 import { Link } from 'react-router-dom';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { CartCard } from '../../components/CartCard';
 import { baseURL } from '../../requests/request';
-
-import './style.scss';
-import { useContext, useEffect, useState } from 'react';
 import { AddedProductsToCart } from '../../App';
 
+import './style.scss';
+
 export const CartPage = () => {
-    const { addedProductToCart, setAddedProductToCart } = useContext(AddedProductsToCart);
-    const [products, setProducts] = useState([]);
+    const { addedProductToCart } = useContext(AddedProductsToCart);
     const [finalCost, setFinalCost] = useState(0);
 
     useEffect(() => {
-        setFinalCost(0);
-        setProducts(addedProductToCart);
-    }, [addedProductToCart, setAddedProductToCart]);
-
-    useEffect(() => {
-        products.map((productData) => {
-            baseURL(`products/byId/${productData.productId}`).then((data) => {
-                setFinalCost(finalCost + (data.data.price * productData.amount));
-            }).catch((err) => { console.log(err); })
-        })
-    }, [products, setProducts]);
+        let i = 0;
+        addedProductToCart.map((data) => {
+            i += data.price * data.amount;
+        });
+        setFinalCost(i);
+    }, [addedProductToCart]);
 
     function sendOrder() {
-        baseURL.post('orders/add', {
+        baseURL.post('/orders/add', {
             cost: finalCost,
             products: addedProductToCart.map((data) => { return (data.productId) })
         }).then((data) => {}).catch((err) => console.log(err))
@@ -41,16 +35,15 @@ export const CartPage = () => {
                     <p className='order__wrapper__links-border'>|</p>
                     <Link to='/cart' className='order__wrapper__links-link activeLink'>Корзина</Link>
                 </p>
-                <p className='order__wrapper__body__rightSide-productName customCartPageHeader'>Корзина</p>
+                <p className='order__wrapper__body__rightSide-productName customCartPageHeader' style={{zIndex: 10}}>Корзина</p>
                 <div className='cartPage__body__container'>
-                    {products.map((data, index) => {
+                    {addedProductToCart.map((data, index) => {
                         if (addedProductToCart.includes(data)) {
                             return(
                                 <CartCard
                                     key={index}
                                     id={data.productId}
                                     amountCard={data.amount}
-                                    size={data.size}
                                 />
                             );
                         }
@@ -59,7 +52,7 @@ export const CartPage = () => {
             </div>
             <div className='cartPage__check'>
                 <p className='cartPage__check-result'>Сумма заказа: {finalCost.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
-                <button className='cartPage__check-button' disabled={products.length > 0? false : true} onClick={sendOrder}>Оформить заказ</button>
+                <button className='cartPage__check-button' disabled={addedProductToCart.length > 0? false : true} onClick={sendOrder}>Оформить заказ</button>
             </div>
         </div>
     );

@@ -59,6 +59,30 @@ ProductRouter.get('/byID/:id', async (req, res) => {
     }
 });
 
+ProductRouter.get('/byId', async (req, res) => {
+    const filterParam = req.query.filter;
+    let filter;
+
+    try {
+        filter = (JSON.parse(filterParam));
+
+        const ids = filter.ids[0];
+
+        const collection = DB.collection('bicycleProducts');
+        let responseArray = [];
+        for (let i = 0; i < ids.length; i++) {
+            const response = await collection.findOne({ _id: new ObjectId(ids[i])});
+            responseArray.push(response.price);
+        }
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`)
+        res.json({ "response": responseArray });
+    } catch (err) {
+        logger.info(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+    
+});
+
 ProductRouter.post('/delete', async(req, res) => {
     try {
         const collection = DB.collection('bicycleProducts');
