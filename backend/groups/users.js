@@ -45,10 +45,11 @@ usersRouter.post('/checkName', async (req, res) => {
 usersRouter.post('/add', async (req, res) => {
     try {
         const body = { ...req.body, roles: ['user'] };
-
         const request = await DB.collection('users').insertOne(body);
 
-        res.json({ 'response': 200 })
+        const result = await DB.collection('users').findOne({ name: req.body.name });
+
+        res.json({ 'response': result })
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
         res.status(500).json({ message: err.message });

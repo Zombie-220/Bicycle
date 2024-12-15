@@ -1,15 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { CartCard } from '../../components/CartCard';
 import { baseURL } from '../../requests/request';
-import { AddedProductsToCart } from '../../App';
+import { AddedProductsToCart, AuthContext } from '../../App';
 
 import './style.scss';
 
 export const CartPage = () => {
-    const { addedProductToCart } = useContext(AddedProductsToCart);
+    const { addedProductToCart, setAddedProductToCart } = useContext(AddedProductsToCart);
+    const { isAuth } = useContext(AuthContext);
     const [finalCost, setFinalCost] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let i = 0;
@@ -22,8 +24,14 @@ export const CartPage = () => {
     function sendOrder() {
         baseURL.post('/orders/add', {
             cost: finalCost,
-            products: addedProductToCart.map((data) => { return (data.productId) })
-        }).then((data) => {}).catch((err) => console.log(err))
+            products: addedProductToCart.map((data) => { return ({id: data.productId, pricePerPiece: data.price, amount: data.amount, size: data.size? data.size:'M'}) }),
+            userId: isAuth
+        }).then(({ data }) => {
+            if (data.response == 200) {
+                // navigate('/');
+                // setAddedProductToCart([]);
+            }
+        }).catch((err) => console.log(err))
     }
 
     return (

@@ -21,7 +21,7 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
             baseURL.post('/users/checkName', { name: data.name }).then((resp) => {
                 if (!resp.data.response) {
                     baseURL.post('/users/add', { name: data.name, email: data.email, password: data.password }).then((resp) => {
-                        setIsAuth(true);
+                        setIsAuth(resp.data.response);
                         onClose();
                         reset();
                         setRegisterErr('');
@@ -29,6 +29,7 @@ export const RegisterModalWindow = ({ isOpen, onClose }) => {
                 } else { setRegisterErr("Пользователь уже существует"); }
             }).catch((err) => { setRegisterErr('Что-то пошло не так x_x'); });
         } else { setRegisterErr("Пароли не совпадают"); }
+        onClose();
     };
 
     return (

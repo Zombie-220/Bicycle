@@ -41,7 +41,6 @@ export const Order = () => {
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
         if (currentProduct) {
             baseURL.get(`/products/byID/${currentProduct}`).then(resp => {
                 setProduct(resp.data);

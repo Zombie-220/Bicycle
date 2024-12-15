@@ -5,7 +5,7 @@ import { ChangeProductContext } from '../../App';
 
 import './style.scss';
 
-export const AdminCard = ({ id, name, image, cost, amount, onRemove }) => {
+export const AdminBicycleCard = ({ id, name, image, cost = 0, amount, onRemove }) => {
     const { changedProduct, setChangedProduct } = useContext(ChangeProductContext);
     const navigate = useNavigate();
 

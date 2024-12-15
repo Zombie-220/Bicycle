@@ -75,7 +75,7 @@ export const AddProduct = () => {
                     styles={{ width: '96%', height: '20px' }}
                 />
                 <button className="addPage-button" disabled={!isValid}>Добавить</button>
-                <Link to="/admin" className="addPage-link">Назад</Link>
+                <Link to="/admin/bicycle" className="addPage-link">Назад</Link>
             </form>
         </div>
     );

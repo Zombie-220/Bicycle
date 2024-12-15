@@ -5,22 +5,23 @@
         min-height: 500px;
         border-radius: 10px;
         padding: 10px;
-        &-button {
-            cursor: pointer;
-            background-color: #2F8C25;
-            color: #fff;
-            font-size: 14px;
-            font-family: 'Inter-Bold';
-            padding: 8px 15px;
-            border: none;
-            margin: 10px;
-            border-radius: 10px;
-            transition: 350ms;
-            text-decoration: none;
-            &:hover { opacity: 80%; }
+        &__buttonWrapper {
+            &-button, &-link {
+                cursor: pointer;
+                background-color: #2F8C25;
+                color: #fff;
+                font-size: 14px;
+                font-family: 'Inter-Bold';
+                padding: 8px 15px;
+                border: none;
+                margin: 10px;
+                border-radius: 10px;
+                transition: 350ms;
+                text-decoration: none;
+                &:hover { opacity: 80%; }
+            }
+            &-link { background-color: #F57520; }
         }
-        &-wrapper {
-            margin: 0px 10px;
-        }
+        &-wrapper { margin: 0px 10px; }
     }
 }

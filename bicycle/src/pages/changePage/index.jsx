@@ -34,7 +34,7 @@ export const ChangePage = () => {
             price: data.price,
             amount: data.amount
         }).then(resp => {}).catch((err) => {console.log(err)})
-        navigate('/admin');
+        navigate('/admin/bicycle');
     }
 
     return (
@@ -87,7 +87,7 @@ export const ChangePage = () => {
                     styles={{ width: '96%', height: '20px' }}
                 />
                 <button className="changePage-button" disabled={!isValid}>Изменить</button>
-                <Link to="/admin" className="changePage-link">Назад</Link>
+                <Link to="/admin/bicycle" className="changePage-link">Назад</Link>
             </form>
         </div>
     );

@@ -23,15 +23,15 @@ const authPages = [
 
 const adminPages = [
   {
-    path: 'admin',
+    path: '/admin/:section',
     Component: AdminPage
   },
   {
-    path: 'changePage',
+    path: '/changePage',
     Component: ChangePage
   },
   {
-    path: 'addPage',
+    path: '/addPage',
     Component: AddProduct
   }
 ];
@@ -54,7 +54,7 @@ export const getRoutes = (isAuth, isAdmin) => {
           Component: Bicycle
         },
 
-        ...(isAuth ? authPages : notAuthPages),
+        ...(isAuth != '' ? authPages : notAuthPages),
         ...(isAdmin? adminPages: notAdminPages)
       ],
     },

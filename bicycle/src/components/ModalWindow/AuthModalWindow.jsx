@@ -22,18 +22,17 @@ export const AuthModalWindow = ({ isOpen, onClose }) => {
     function onSubmit(data) {
         baseURL.post('/users/login', { name: data.name, password: data.password }).then((resp) => {
             if (resp.data.response) {
-                setIsAuth(true);
+                setIsAuth(resp.data.id);
                 onClose();
                 reset();
                 setPasswordErr('');
                 baseURL.get(`/users/isAdmin/${resp.data.id}`).then((data) => {
                     if (data.data.response) { setIsAdmin(true) }
                 }).catch((err) => console.log(err))
+                if (document.getElementById('check').checked) { localStorage.setItem("token", JSON.stringify(resp.data.id)); }
             } else { setPasswordErr('Введённые данные не корректны'); }
         }).catch((err) => { setPasswordErr('Что-то пошло не так x_x.'); })
-        if (document.getElementById('check').checked) {
-            localStorage.setItem("token", JSON.stringify("hii"));
-        }
+        onClose();
     };
 
     return (

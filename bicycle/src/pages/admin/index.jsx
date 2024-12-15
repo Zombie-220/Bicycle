@@ -1,18 +1,28 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { baseURL } from '../../requests/request';
 
-import { AdminCard } from '../../components/adminCard';
+import { AdminBicycleCard } from '../../components/AdminBicycleCard';
+import { AdminOrderCard } from '../../components/AdminOrderCard';
 import './style.scss';
 
 export const AdminPage = () => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
+    const { section } = useParams();
 
     useEffect(() => {
-        baseURL('/products/all').then((data) => { setProducts(data.data); })
-    }, []);
+        setProducts([]);
+        switch (section) {
+            case 'bicycle':
+                baseURL('/products/all').then((data) => { setProducts(data.data); });
+                break;
+            case 'orders':
+                baseURL('/orders/all').then(({ data }) => { setProducts(data.items); });
+                break;
+        }
+    }, [section]);
 
     const removeProduct = (id) => {
         baseURL.post(`/products/delete`, { productId: id })
@@ -23,25 +33,46 @@ export const AdminPage = () => {
         }).catch((err) => { console.log(err) })        
     }
 
+    const navigateToBicycle = () => { navigate('/admin/bicycle'); }
+    const navigateToOrders = () => { navigate('/admin/orders'); }
+
     return (
         <div className="adminPage">
             <div className='order__heeaderBackground'></div>
             <div className='adminPage__body'>
-                <button onClick={() => {navigate('/addPage')}} className='adminPage__body-button'>+ Добавить</button>
+                <div className='adminPage__body__buttonWrapper'>
+                    <button onClick={() => {navigate('/addPage')}} className='adminPage__body__buttonWrapper-button'>+ Добавить Велосипед</button>
+                    <button className='adminPage__body__buttonWrapper-link' onClick={navigateToBicycle}>Велосипеды</button>
+                    <button className='adminPage__body__buttonWrapper-link' onClick={navigateToOrders}>Заказы</button>
+                </div>
                 <div className='adminPage__body-wrapper'>
-                    {products.map((data, index) => {
-                        return(
-                            <AdminCard
-                                key={index}
-                                id={data._id}
-                                name={data.name}
-                                image={data.productImage}
-                                cost={data.price}
-                                amount={data.amount}
-                                onRemove={removeProduct}
-                            />
-                        )
-                    })}
+                    {products != []? products.map((data, index) => {
+                        switch (section) {
+                            case 'bicycle':
+                                return(
+                                    <AdminBicycleCard
+                                        key={index}
+                                        id={data._id}
+                                        name={data.name}
+                                        image={data.productImage}
+                                        cost={data.price}
+                                        amount={data.amount}
+                                        onRemove={removeProduct}
+                                    />
+                                )
+                            case 'orders':
+                                return(
+                                    <AdminOrderCard
+                                        key={index}
+                                        id={data._id}
+                                        totalCost={data.totalCost}
+                                        orderInfo={data.orderInfo}
+                                        time={data.orderTime}
+                                        user={data.user}
+                                    />
+                                )
+                        }
+                    }) : <p>No Data</p>}
                 </div>
             </div>
         </div>
