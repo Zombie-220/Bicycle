@@ -4,7 +4,7 @@ import { baseURL } from '../../requests/request';
 
 import './style.scss';
 
-export const AdminOrderCard = ({ id='', totalCost=0, orderInfo=[], time=0, user='', status=1 }) => {
+export const AdminOrderCard = ({ id='', totalCost=0, orderInfo=[], time=0, user='', status=0 }) => {
     const [selectedOption, setSelectedOption] = useState(status);
 
     const ChangeOption = (status) => {
@@ -29,7 +29,7 @@ export const AdminOrderCard = ({ id='', totalCost=0, orderInfo=[], time=0, user=
                     return(
                         <div key={index} className='adminOrderCard__orderInfo-center-product'>
                             <p className='adminOrderCard__orderInfo-center-product-header'>ID товара: {data.id}</p>
-                            <p className='adminOrderCard__orderInfo-center-product-text'>Цена за штуку: {data.pricePerPiece}</p>
+                            <p className='adminOrderCard__orderInfo-center-product-text'>Цена за штуку: {data.pricePerPiece.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
                             <p className='adminOrderCard__orderInfo-center-product-text'>Количество: {data.amount} шт.</p>
                             <p className='adminOrderCard__orderInfo-center-product-text'>Размер рамы: {data.size}</p>
                         </div>

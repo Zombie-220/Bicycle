@@ -54,7 +54,7 @@ export const getRoutes = (isAuth, isAdmin) => {
           Component: Bicycle
         },
 
-        ...(isAuth != '' ? authPages : notAuthPages),
+        ...(isAuth === '' ? notAuthPages : authPages),
         ...(isAdmin? adminPages: notAdminPages)
       ],
     },
