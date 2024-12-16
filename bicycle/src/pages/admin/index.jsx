@@ -13,10 +13,9 @@ export const AdminPage = () => {
     const { section } = useParams();
 
     useEffect(() => {
-        setProducts([]);
         switch (section) {
             case 'bicycle':
-                baseURL('/products/all').then((data) => { setProducts(data.data); });
+                baseURL('/products/all').then(({ data }) => { setProducts(data); });
                 break;
             case 'orders':
                 baseURL('/orders/all').then(({ data }) => { setProducts(data.items); });
@@ -46,7 +45,7 @@ export const AdminPage = () => {
                     <button className='adminPage__body__buttonWrapper-link' onClick={navigateToOrders}>Заказы</button>
                 </div>
                 <div className='adminPage__body-wrapper'>
-                    {products != []? products.map((data, index) => {
+                    {products != [] ? products.map((data, index) => {
                         switch (section) {
                             case 'bicycle':
                                 return(
@@ -69,6 +68,7 @@ export const AdminPage = () => {
                                         orderInfo={data.orderInfo}
                                         time={data.orderTime}
                                         user={data.user}
+                                        status={data.status}
                                     />
                                 )
                         }

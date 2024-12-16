@@ -10,24 +10,20 @@ export const ChangeProductContext = createContext(null);
 
 export const App = () => {
   // 673f4871586c8caff684c4ab
-  const [isAuth, setIsAuth] = useState('');
+  const [isAuth, setIsAuth] = useState('673f4871586c8caff684c4ab');
   const [currentProduct, setCurrentProduct] = useState();
   const [addedProductToCart, setAddedProductToCart] = useState([
     { amount: 2, price: 649110, productId: "67460407aaf21301a79efd6d", size: "X" },
     { amount: 1, price: 649110, productId: "67461979aaf21301a79efd74", size: "XL" },
     { amount: 4, price: 649110, productId: "67461a21aaf21301a79efd76", size: undefined },
   ]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const [changedProduct, setChangedProduct] = useState('');
   const routes = getRoutes(isAuth, isAdmin);
 
   useEffect(() => {
     if (localStorage.getItem("token")) { setIsAuth(JSON.parse(localStorage.getItem("token"))); }
   }, [])
-
-  useEffect(() => {
-    console.log(isAuth)
-  }, [isAuth])
 
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>
