@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { baseURL } from '../../requests/request';
 
@@ -6,12 +6,25 @@ import './style.scss';
 
 export const AdminOrderCard = ({ id='', totalCost=0, orderInfo=[], time=0, user='', status=0 }) => {
     const [selectedOption, setSelectedOption] = useState(status);
+    const [date, setDate] = useState(0);
 
     const ChangeOption = (status) => {
         setSelectedOption(status);
         baseURL.post(`/orders/change/${id}`, {status: status})
         .then((data) => {  }).catch((err) => { console.log(err) });
     }
+    
+    useEffect(() => {
+        let temp_date = new Date(time);
+        let year = temp_date.getFullYear();
+        let month = temp_date.getMonth()+1;
+        let day = temp_date.getDate();
+        let hours = temp_date.getHours();
+        let minutes = temp_date.getMinutes();
+        let seconds = temp_date.getSeconds();
+
+        setDate([year, month, day, hours, minutes, seconds]);
+    }, [time])
 
     return(
         <div className='adminOrderCard'>
@@ -20,7 +33,7 @@ export const AdminOrderCard = ({ id='', totalCost=0, orderInfo=[], time=0, user=
                 <div className='adminOrderCard__orderInfo-left'>
                     <p className='adminOrderCard__orderInfo-left-id'>ID заказчика: {user}</p>
                     <p className='adminOrderCard__orderInfo-left-price'>Общая стоимость заказа: {totalCost.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
-                    <p className='adminOrderCard__orderInfo-left-time'>Время заказа: {time}</p>
+                    <p className='adminOrderCard__orderInfo-left-time'>Время заказа: {date[2]}.{date[1]}.{date[0]} {date[3]}:{date[4]}:{date[5]}</p>
                 </div>
             </div>
             <div className='adminOrderCard__orderInfo-center'>
