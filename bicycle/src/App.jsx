@@ -19,10 +19,12 @@ export const App = () => {
   const routes = getRoutes(isAuth, isAdmin);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) { setIsAuth(JSON.parse(localStorage.getItem("token"))); }
-    baseURL(`users/isAdmin/${JSON.parse(localStorage.getItem("token"))}`)
-    .then(({ data }) => {if (data.response) { setIsAdmin(true) }})
-    .catch((err) => { console.log(err) })
+    if (localStorage.getItem("token")) {
+      setIsAuth(JSON.parse(localStorage.getItem("token")));
+      baseURL(`users/isAdmin/${JSON.parse(localStorage.getItem("token"))}`)
+      .then(({ data }) => {if (data.response) { setIsAdmin(true) }})
+      .catch((err) => { console.log(err) })
+    }
   }, [])
 
   return (
