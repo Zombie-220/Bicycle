@@ -1,5 +1,5 @@
 import { createLogger, format, transports } from 'winston';
-const {combine, timestamp, colorize, printf, errors} = format;
+const {combine, timestamp, colorize, printf} = format;
 
 const customLevels = {
     levels: {
@@ -15,18 +15,27 @@ const customLevels = {
 }
 
 export const logger = createLogger({
-    level: 'info',
-    transports: [new transports.Console()],
-    exitOnError: false,
+    exitOnError: true,
     levels: customLevels.levels,
     format: combine(
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        printf(({ timestamp, level, message, stack }) => {
-            return `${level.toUpperCase()} -- ${timestamp}: ${message} ${stack ? '\n' + stack : ''}`;
+        printf(({ timestamp, level, message }) => {
+            return `${level.toUpperCase()} -- ${timestamp}: ${message}`;
         }),
-        colorize({
-            all: true,
-            colors: customLevels.colors
+    ),
+    transports: [
+        new transports.File({
+            filename: './logger/critical-errors.log',
+            level: 'crit',
+        }),
+        new transports.Console({
+            level: 'info',
+            format: combine(
+                colorize({
+                    all: true,
+                    colors: customLevels.colors
+                })
+            )
         })
-    )
+    ]
 });
