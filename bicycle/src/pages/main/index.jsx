@@ -7,25 +7,28 @@ import { Card } from '../../components/card';
 import { AuthContext } from '../../App';
 import { Preloader } from '../../components/Preloader';
 import { SwipeSlider } from '../../components/SwipeSlider';
-
-import { GetHook } from '../../hooks/getHook';
+import { baseURL } from '../../requests/request';
 
 import './style.scss';
 import '../../assets/fonts/fonts.css';
 
 export const Main = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
-    const { newItems, setNewItems, isLoading, error, useQuery } = GetHook({ url: '/products/amount/3' });
-
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+    const [isLoading, setIsLoading] = useState(true);
+    const [newBicycle, setNewBicycle] = useState([]);
+
     useEffect(() => {
+        baseURL('/products/amount/3').then(({ data }) => {
+            setNewBicycle(data);
+            setIsLoading(false);
+        }).catch((err) => { console.log(err); })
+
         const handleResize = () => {
             setWindowSize({ width: window.innerWidth, height: window.innerHeight });
         };
         window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+        return () => { window.removeEventListener('resize', handleResize); };
     }, []);
 
     return (
@@ -43,7 +46,7 @@ export const Main = () => {
                 <div className='main__newItems__cards'>
                     <Preloader isLoading={isLoading}>
                         {
-                            newItems?.map((data, index) => {
+                            newBicycle?.map((data, index) => {
                                 return (
                                     <Card
                                         key={index}
@@ -63,7 +66,7 @@ export const Main = () => {
                     <Preloader isLoading={isLoading}>
                         <SwipeSlider childSize={windowSize.width>=350 ? 250:200}>
                             {
-                                newItems?.map((data, index) => {
+                                newBicycle?.map((data, index) => {
                                     return (
                                         <div key={index}>
                                             <Card

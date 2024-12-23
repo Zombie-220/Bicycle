@@ -13,8 +13,10 @@ export const Card = ({ id, bicycleIMG, countryIMG, name, price, amount}) => {
     const navigate = useNavigate();
 
     function changePage() {
-        setCurrentProduct(id);
-        navigate('/order');
+        if (isAuth) {
+            setCurrentProduct(id);
+            navigate('/order');
+        } else { navigate('/auth'); }
     }
 
     return (
