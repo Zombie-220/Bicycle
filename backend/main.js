@@ -13,7 +13,6 @@ const DATABASE_PORT = 27017;
 export const app = express();
 /** @type {Db} */
 export let DB;
-export const UsersRouter = express.Router();
 
 MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(client => {
     DB = client.db('bicycle');

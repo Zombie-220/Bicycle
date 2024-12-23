@@ -1,10 +1,10 @@
-import express from 'express';
+import { Router } from 'express';
 import { ObjectId } from 'mongodb';
 
 import { DB } from '../main.js';
 import { logger } from '../logger/logger.js';
 
-export const usersRouter = express.Router();
+export const usersRouter = Router();
 
 usersRouter.post('/login', async (req, res) => {
     try {
