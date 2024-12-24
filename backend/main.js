@@ -4,7 +4,7 @@ import cors from 'cors';
 
 import { logger } from './logger/logger.js';
 import { ProductRouter } from './groups/products.js';
-import { usersRouter } from './groups/users.js';
+import { UsersRouter } from './groups/users.js';
 import { ordersRouter } from './groups/orders.js';
 
 const API_PORT = 5481;
@@ -24,8 +24,9 @@ MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(clie
         methods: 'POST, GET, DELETE, PATCH'
     }));
 
+    app.use('/users', UsersRouter);
+
     app.use('/products', ProductRouter);
-    app.use('/users', usersRouter);
     app.use('/orders', ordersRouter);
 
     app.listen(API_PORT, () => { logger.info(`Server is running on http://localhost:${API_PORT}`); });

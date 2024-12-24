@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import './style.scss'
 import logo from '../../assets/icons/icon.svg'
@@ -7,8 +8,16 @@ import navigationIcon from '../../assets/icons/footer/navigation.svg'
 import mailIcon from '../../assets/icons/footer/mail.svg'
 
 export const Footer = () => {
+    const [displayFooter, setDisplayFooter] = useState("block");
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === '/auth' || location.pathname === '/register') { setDisplayFooter('none'); } 
+        else { setDisplayFooter('block'); }
+    }, [location])
+
     return (
-        <footer className='footer'>
+        <footer className='footer' style={{display: displayFooter}}>
             <div className='footer__upSection'>
                 <div className='footer__upSection__section'>
                     <Link className='footer__upSection__section-link'>
@@ -16,7 +25,7 @@ export const Footer = () => {
                     </Link>
                     <p className='footer__upSection__section__text'>Компания World-bikes<br/>специализируется на продаже<br/>товаров для велосипедного спорта.</p>
                 </div>
-                {/* <div className='footer__upSection__section adaptive'>
+                <div className='footer__upSection__section adaptive'>
                     <h2  className='footer__upSection__section__header'>Каталог</h2>
                     <Link className='footer__upSection__section__link footer__upSection__link__orange' to='/'>Главная</Link>
                     <Link className='footer__upSection__section__link' to='/bicycle'>Велосипеды</Link>
@@ -34,7 +43,7 @@ export const Footer = () => {
                     <Link className='footer__upSection__section__link'>Веломастерская</Link>
                     <Link className='footer__upSection__section__link'>Хранение</Link>
                     <Link className='footer__upSection__section__link'>Гарантии</Link>
-                </div> */}
+                </div>
                 <div className='footer__upSection__section'>
                     <h2 className='footer__upSection__section__header'>Контакты</h2>
                     <div className='footer__upSection__section__miniSection'>

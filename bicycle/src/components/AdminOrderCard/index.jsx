@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 
 import './style.scss';
 
@@ -10,7 +10,7 @@ export const AdminOrderCard = ({ id='', totalCost=0, orderInfo=[], time=0, user=
 
     const ChangeOption = (status) => {
         setSelectedOption(status);
-        baseURL.post(`/orders/change/${id}`, {status: status})
+        API_URL.post(`/orders/change/${id}`, {status: status})
         .then((data) => {  }).catch((err) => { console.log(err) });
     }
     

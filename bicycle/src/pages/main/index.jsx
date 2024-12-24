@@ -7,7 +7,7 @@ import { Card } from '../../components/card';
 import { AuthContext } from '../../App';
 import { Preloader } from '../../components/Preloader';
 import { SwipeSlider } from '../../components/SwipeSlider';
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 
 import './style.scss';
 import '../../assets/fonts/fonts.css';
@@ -19,7 +19,7 @@ export const Main = () => {
     const [newBicycle, setNewBicycle] = useState([]);
 
     useEffect(() => {
-        baseURL('/products/amount/3').then(({ data }) => {
+        API_URL('/products/amount/3').then(({ data }) => {
             setNewBicycle(data);
             setIsLoading(false);
         }).catch((err) => { console.log(err); })

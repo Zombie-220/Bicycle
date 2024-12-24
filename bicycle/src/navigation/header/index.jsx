@@ -29,7 +29,6 @@ export const Header = () => {
     };
 
     useEffect(() => {
-        console.log(location)
         if (location.pathname !== '/') { setBackground('#101010'); }
         else { setBackground('#0000'); }
     }, [location]);

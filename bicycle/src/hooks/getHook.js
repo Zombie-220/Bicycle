@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { baseURL } from "../requests/request";
+import { API_URL } from "../requests/request";
 
 export const GetHook = ({ url, isEmpty = false }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +9,7 @@ export const GetHook = ({ url, isEmpty = false }) => {
     const baseQuery = useCallback(
         (filter = null) => {
         setIsLoading(true);
-        baseURL.get(url).then(({ data }) => {
+        API_URL.get(url).then(({ data }) => {
                 setNewItems(data)
             }).catch((baseError) => {console.log(baseError)})
             .finally(() => setIsLoading(false));

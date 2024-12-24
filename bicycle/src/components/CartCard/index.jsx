@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 import { AddedProductsToCart } from '../../App';
 
 import closeIcon from '../../assets/icons/close.svg';
@@ -44,7 +44,7 @@ export const CartCard = ({ id, amountCard }) => {
     }
 
     useEffect(() => {
-        baseURL(`/products/byId/${id}`).then((data) => {
+        API_URL(`/products/byId/${id}`).then((data) => {
             setProduct(data.data);
         }).catch((err) => { console.log(err); })
     }, [addedProductToCart, setAddedProductToCart]);

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 import { Card } from '../../components/card';
 
 import './style.scss';
@@ -10,7 +10,7 @@ export const Bicycle = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        baseURL.get('/products/all').then(resp => {
+        API_URL.get('/products/all').then(resp => {
             setProducts(resp.data)
         }).catch(err => {console.log(err)})
     }, []);

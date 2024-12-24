@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { SwipeSlider } from '../../components/SwipeSlider';
 import { Card } from '../../components/card';
 import { AddedProductsToCart, ProductContext } from '../../App';
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 import { GetHook } from '../../hooks/getHook';
 import { Preloader } from '../../components/Preloader';
 
@@ -42,7 +42,7 @@ export const Order = () => {
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         if (currentProduct) {
-            baseURL.get(`/products/byID/${currentProduct}`).then(resp => {
+            API_URL.get(`/products/byID/${currentProduct}`).then(resp => {
                 setProduct(resp.data);
                 setPrice(resp.data.price)
             }).catch(err => { console.log(err); })

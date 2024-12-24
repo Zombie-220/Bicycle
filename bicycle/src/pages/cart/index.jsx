@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { CartCard } from '../../components/CartCard';
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 import { AddedProductsToCart, AuthContext } from '../../App';
 
 import './style.scss';
@@ -22,7 +22,7 @@ export const CartPage = () => {
     }, [addedProductToCart]);
 
     function sendOrder() {
-        baseURL.post('/orders/add', {
+        API_URL.post('/orders/add', {
             cost: finalCost,
             products: addedProductToCart.map((data) => { return ({id: data.productId, pricePerPiece: data.price, amount: data.amount, size: data.size? data.size:'M'}) }),
             userId: isAuth

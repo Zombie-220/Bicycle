@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
@@ -9,6 +9,8 @@ import { CartPage } from "../pages/cart";
 import { AdminPage } from "../pages/admin";
 import { ChangePage } from "../pages/changePage";
 import { AddProduct } from "../pages/addProduct";
+import { AuthPage } from "../pages/auth";
+import { RegisterPage } from "../pages/register";
 
 const authPages = [
   {
@@ -36,7 +38,16 @@ const adminPages = [
   }
 ];
 
-const notAuthPages = [];
+const notAuthPages = [
+  {
+    path: '/auth',
+    Component: AuthPage
+  },
+  {
+    path: '/register',
+    Component: RegisterPage
+  }
+];
 const notAdminPages = [];
 
 export const getRoutes = (isAuth, isAdmin) => {

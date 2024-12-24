@@ -1,16 +1,15 @@
 import React from "react";
-import { getTextError } from "../../helpers/validate-text/validate-text";
 
 import "./style.scss";
 
-export const ValidateInput = ({
-    formFunction,
-    name,
-    errors = [],
-    textLabel,
-    validate = {},
-    type="text",
-}) => {
+const getTextError = (type) => {
+    switch (type) {
+        case "required": return "Поле обязательное для заполнения";
+        default: return `${type} - ошибка`;
+    }
+};
+
+export const ValidateInput = ({ formFunction, name, errors = [], textLabel, validate = {}, type="text" }) => {
     return (
         <div className="validateInput">
             <div className="validateInput__text">{textLabel}</div>

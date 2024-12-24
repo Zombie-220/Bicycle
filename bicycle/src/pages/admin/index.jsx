@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { baseURL } from '../../requests/request';
+import { API_URL } from '../../requests/request';
 
 import { AdminBicycleCard } from '../../components/AdminBicycleCard';
 import { AdminOrderCard } from '../../components/AdminOrderCard';
@@ -15,18 +15,18 @@ export const AdminPage = () => {
     useEffect(() => {
         switch (section) {
             case 'bicycle':
-                baseURL('/products/all').then(({ data }) => { setProducts(data); });
+                API_URL('/products/all').then(({ data }) => { setProducts(data); });
                 break;
             case 'orders':
-                baseURL('/orders/all').then(({ data }) => { setProducts(data.items); });
+                API_URL('/orders/all').then(({ data }) => { setProducts(data.items); });
                 break;
         }
     }, [section]);
 
     const removeProduct = (id) => {
-        baseURL.post(`/products/delete`, { productId: id })
+        API_URL.post(`/products/delete`, { productId: id })
         .then(() => {
-            baseURL('/products/all').then((data) => {
+            API_URL('/products/all').then((data) => {
                 setProducts(data.data);
             })
         }).catch((err) => { console.log(err) })        

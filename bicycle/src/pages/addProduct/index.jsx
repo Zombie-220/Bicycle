@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { ChangeProductContext } from "../../App";
-import { baseURL } from "../../requests/request";
+import { API_URL } from "../../requests/request";
 import { ValidateInput } from "../../components/ValidateInput";
 
 import './style.scss';
@@ -15,7 +15,7 @@ export const AddProduct = () => {
     const navigate = useNavigate();
 
     function onSubmit(data) {
-        baseURL.post('/products/add', {
+        API_URL.post('/products/add', {
             name: data.name,
             productImage: data.productImage,
             countryImage: data.countryImage,

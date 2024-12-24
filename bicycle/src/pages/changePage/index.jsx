@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { ChangeProductContext } from "../../App";
-import { baseURL } from "../../requests/request";
+import { API_URL } from "../../requests/request";
 import { ValidateInput } from "../../components/ValidateInput";
 
 import './style.scss';
@@ -15,7 +15,7 @@ export const ChangePage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        baseURL.get(`/products/byID/${changedProduct}`).then(resp => {
+        API_URL.get(`/products/byID/${changedProduct}`).then(resp => {
             setProduct(resp.data);
             setValue('name', resp.data.name);
             setValue('productImage', resp.data.productImage);
@@ -26,7 +26,7 @@ export const ChangePage = () => {
     }, [changedProduct, setChangedProduct]);
 
     function onSubmit(data) {
-        baseURL.post('/products/change', {
+        API_URL.post('/products/change', {
             _id: product._id,
             name: data.name,
             productImage: data.productImage,

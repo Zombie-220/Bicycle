@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { getRoutes } from "./navigation/routes";
 import { createContext, useEffect, useState } from "react";
-import { baseURL } from "./requests/request";
+import { API_URL } from "./requests/request";
 
 export const AuthContext = createContext(null);
 export const ProductContext = createContext(null);
@@ -21,7 +21,7 @@ export const App = () => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setIsAuth(JSON.parse(localStorage.getItem("token")));
-      baseURL(`users/isAdmin/${JSON.parse(localStorage.getItem("token"))}`)
+      API_URL(`users/isAdmin/${JSON.parse(localStorage.getItem("token"))}`)
       .then(({ data }) => {if (data.response) { setIsAdmin(true) }})
       .catch((err) => { console.log(err) })
     }
