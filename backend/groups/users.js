@@ -35,13 +35,14 @@ UsersRouter.post('/checkName', async (req, res) => {
 
         const collection = DB.collection('users');
         const user = await collection.findOne({ name: userName });
+        console.log(user);
 
         if (user != null) { res.json({ 'response': true }); }
         else { res.json({ 'response': false }); }
 
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: 'Something went wrong @_@' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 });
@@ -50,13 +51,14 @@ UsersRouter.post('/add', async (req, res) => {
     try {
         const body = { ...req.body, roles: ['user'] };
         const request = await DB.collection('users').insertOne(body);
+        console.log(request);
 
         const result = await DB.collection('users').findOne({ name: req.body.name });
 
-        res.json({ 'response': result })
+        res.status(201).json({ 'response': result })
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: 'Something went wrong @_@' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 });
