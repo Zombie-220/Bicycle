@@ -1,23 +1,31 @@
 import express from 'express';
-import { MongoClient, Db } from 'mongodb';
+import { MongoClient, Db, Collection } from 'mongodb';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 import { logger } from './logger/logger.js';
 import { ProductRouter } from './groups/products.js';
 import { UsersRouter } from './groups/users.js';
 import { ordersRouter } from './groups/orders.js';
 
-const API_PORT = 5481;
+dotenv.config();
+
+const API_PORT = process.env.API_PORT_ENV;
+const DATABASE_PORT = process.env.DATABASE_PORT_ENV;
 const ACCEPTED_ORIGINS = ['http://localhost:15924'];
-const DATABASE_PORT = 27017;
 export const app = express();
+
 /** @type {Db} */
 export let DB;
+/** @type {Collection} */
+export let UserCollection;
 
 MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(client => {
     DB = client.db('bicycle');
+    UserCollection = DB.collection('users');
+
     logger.info('Connected to DB');
-    
+
     app.use(express.json());
     app.use(cors({
         origin: ACCEPTED_ORIGINS,
