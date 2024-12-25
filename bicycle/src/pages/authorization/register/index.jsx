@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { ValidateInput } from '../../components/ValidateInput';
-import { API_URL } from '../../requests/request';
-import { AuthContext } from '../../App';
+import { ValidateInput } from '../../../components/ValidateInput';
+import { API_URL } from '../../../requests/request';
+import { AuthContext } from '../../../App';
 
 import './style.scss';
 

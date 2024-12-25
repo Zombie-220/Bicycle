@@ -9,8 +9,10 @@ import { CartPage } from "../pages/cart";
 import { AdminPage } from "../pages/admin";
 import { ChangePage } from "../pages/changePage";
 import { AddProduct } from "../pages/addProduct";
-import { AuthPage } from "../pages/auth";
-import { RegisterPage } from "../pages/register";
+
+import { AuthPage } from "../pages/authorization/auth";
+import { RegisterPage } from "../pages/authorization/register";
+import { RecoverPasswordPage } from "../pages/authorization/recoverPassword";
 
 const authPages = [
   {
@@ -20,6 +22,21 @@ const authPages = [
   {
     path: '/cart',
     Component: CartPage
+  }
+];
+
+const notAuthPages = [
+  {
+    path: '/auth',
+    Component: AuthPage
+  },
+  {
+    path: '/register',
+    Component: RegisterPage
+  },
+  {
+    path: '/auth/recover',
+    Component: RecoverPasswordPage
   }
 ];
 
@@ -38,16 +55,6 @@ const adminPages = [
   }
 ];
 
-const notAuthPages = [
-  {
-    path: '/auth',
-    Component: AuthPage
-  },
-  {
-    path: '/register',
-    Component: RegisterPage
-  }
-];
 const notAdminPages = [];
 
 export const getRoutes = (isAuth, isAdmin) => {

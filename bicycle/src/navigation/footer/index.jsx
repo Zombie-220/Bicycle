@@ -11,8 +11,14 @@ export const Footer = () => {
     const [displayFooter, setDisplayFooter] = useState("block");
     const location = useLocation();
 
+    const pathArrayToDisplayNone = [
+        '/auth',
+        '/register',
+        '/auth/recover'
+    ]
+
     useEffect(() => {
-        if (location.pathname === '/auth' || location.pathname === '/register') { setDisplayFooter('none'); } 
+        if (pathArrayToDisplayNone.includes(location.pathname)) { setDisplayFooter('none'); } 
         else { setDisplayFooter('block'); }
     }, [location])
 

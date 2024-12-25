@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { API_URL } from '../../requests/request';
-import { AuthContext, AdminContext } from '../../App';
-import { ValidateInput } from '../../components/ValidateInput';
+import { API_URL } from '../../../requests/request';
+import { AuthContext, AdminContext } from '../../../App';
+import { ValidateInput } from '../../../components/ValidateInput';
 
 import './style.scss';
 
@@ -66,7 +66,7 @@ export const AuthPage = () => {
                         </label>
                         <label className='authPage__body__footer__wrapper-label' htmlFor="idRemembeMe">Запомнить меня</label>
                     </div>
-                    <Link to={'/auth/recoverPassword'} className='authPage__body__footer-link'>Забыли пароль?</Link>
+                    <Link to={'/auth/recover'} className='authPage__body__footer-link'>Забыли пароль?</Link>
                 </div>
             </form>
         </div>
