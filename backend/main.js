@@ -1,5 +1,5 @@
 import express from 'express';
-import { MongoClient, Db, Collection } from 'mongodb';
+import { MongoClient, Collection } from 'mongodb';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -15,14 +15,18 @@ const DATABASE_PORT = process.env.DATABASE_PORT_ENV;
 const ACCEPTED_ORIGINS = ['http://localhost:15924'];
 export const app = express();
 
-/** @type {Db} */
-export let DB;
 /** @type {Collection} */
 export let UserCollection;
+/** @type {Collection} */
+export let ProductsCollection;
+/** @type {Collection} */
+export let OrderCollection;
 
 MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(client => {
-    DB = client.db('bicycle');
+    const DB = client.db('bicycle');
     UserCollection = DB.collection('users');
+    ProductsCollection = DB.collection('bicycleProducts');
+    OrderCollection = DB.collection('orders')
 
     logger.info('Connected to DB');
 
