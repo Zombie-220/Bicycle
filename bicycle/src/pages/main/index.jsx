@@ -1,10 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DivSlider } from '../../components/DivSlider';
 import { LoopImageSlider } from '../../components/LoopImageSlider';
 import { Card } from '../../components/card';
-import { AuthContext } from '../../App';
 import { Preloader } from '../../components/Preloader';
 import { SwipeSlider } from '../../components/SwipeSlider';
 import { API_URL } from '../../requests/request';
@@ -14,7 +13,6 @@ import './style.scss';
 import '../../assets/fonts/fonts.css';
 
 export const Main = () => {
-    const { isAuth, setIsAuth } = useContext(AuthContext);
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
     const [isLoading, setIsLoading] = useState(true);
     const [newBicycle, setNewBicycle] = useState([]);

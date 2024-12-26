@@ -1,6 +1,7 @@
+import React, { createContext, useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
+
 import { getRoutes } from "./navigation/routes";
-import { createContext, useEffect, useState } from "react";
 import { API_URL } from "./requests/request";
 
 export const AuthContext = createContext(null);
