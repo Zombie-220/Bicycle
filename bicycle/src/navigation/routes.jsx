@@ -2,28 +2,14 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
-import { Main } from "../pages/main";
-import { Bicycle } from "../pages/bicycle";
-import { Order } from "../pages/order";
-import { CartPage } from "../pages/cart";
-import { AdminPage } from "../pages/admin";
-import { ChangePage } from "../pages/changePage";
-import { AddProduct } from "../pages/addProduct";
+
+import { MainPage } from "../pages/main";
 
 import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";
 import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
 
-const authPages = [
-  {
-    path: '/order',
-    Component: Order
-  },
-  {
-    path: '/cart',
-    Component: CartPage
-  }
-];
+const authPages = [];
 
 const notAuthPages = [
   {
@@ -40,21 +26,7 @@ const notAuthPages = [
   }
 ];
 
-const adminPages = [
-  {
-    path: '/admin/:section',
-    Component: AdminPage
-  },
-  {
-    path: '/changePage',
-    Component: ChangePage
-  },
-  {
-    path: '/addPage',
-    Component: AddProduct
-  }
-];
-
+const adminPages = [];
 const notAdminPages = [];
 
 export const getRoutes = (isAuth, isAdmin) => {
@@ -65,11 +37,7 @@ export const getRoutes = (isAuth, isAdmin) => {
       children: [
         {
           path: "/",
-          Component: Main,
-        },
-        {
-          path: '/bicycle',
-          Component: Bicycle
+          Component: MainPage,
         },
 
         ...(isAuth === '' ? notAuthPages : authPages),

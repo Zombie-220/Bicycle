@@ -4,6 +4,8 @@ import { RouterProvider } from "react-router-dom";
 import { getRoutes } from "./navigation/routes";
 import { API_URL } from "./requests/request";
 
+import './assets/fonts/fonts.css';
+
 export const AuthContext = createContext(null);
 export const ProductContext = createContext(null);
 export const AddedProductsToCart = createContext(null);
