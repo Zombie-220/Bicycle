@@ -23,7 +23,7 @@ export const AuthPage = () => {
         }).then(({ data }) => {
             if (data.id) {
                 setIsAuth(data.id);
-                if (data.token) { localStorage.setItem('token', JSON.stringify(data.id)); }
+                if (data.token) { localStorage.setItem('token', JSON.stringify(data.token)); }
 
                 API_URL(`/users/isAdmin/${data.id}`).then(({ data }) => {
                     if (data.response) { setIsAdmin(true); }

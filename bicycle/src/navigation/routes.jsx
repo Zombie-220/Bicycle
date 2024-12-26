@@ -10,9 +10,9 @@ import { AdminPage } from "../pages/admin";
 import { ChangePage } from "../pages/changePage";
 import { AddProduct } from "../pages/addProduct";
 
-import { AuthPage } from "../pages/authorization/auth";
-import { RegisterPage } from "../pages/authorization/register";
-import { RecoverPasswordPage } from "../pages/authorization/recoverPassword";
+import { AuthPage } from "../pages/Authorization/auth";
+import { RegisterPage } from "../pages/Authorization/register";
+import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
 
 const authPages = [
   {
