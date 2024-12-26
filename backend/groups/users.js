@@ -8,15 +8,11 @@ export const UsersRouter = Router();
 
 UsersRouter.post('/login', async (req, res) => {
     try {
-        const userName = req.body.name;
-        const userPassword = req.body.password;
-        const sendToken = req.body.getToken;
-
-        const user = await UserCollection.findOne({ name: userName });
-        if (user != null) {
-            if (user.password == userPassword) {
-                if (sendToken) { res.json({ id: user._id, token: user._id }); }
-                else { res.json({ id: user._id }); }
+        const findUserByName = await UserCollection.findOne({ name: req.body.name });
+        if (findUserByName != null) {
+            if (findUserByName.password == req.body.password) {
+                if (req.body.getToken) { res.json({ id: findUserByName._id, token: findUserByName._id }); }
+                else { res.json({ id: findUserByName._id }); }
             }
             else { res.json({ message: 'Invalid username or password' }); }
         } else { res.json({ message: 'Invalid username or password' }); }

@@ -4,9 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import { logger } from './logger/logger.js';
-import { ProductRouter } from './groups/products.js';
 import { UsersRouter } from './groups/users.js';
-import { ordersRouter } from './groups/orders.js';
 
 dotenv.config();
 
@@ -17,16 +15,10 @@ export const app = express();
 
 /** @type {Collection} */
 export let UserCollection;
-/** @type {Collection} */
-export let ProductsCollection;
-/** @type {Collection} */
-export let OrderCollection;
 
 MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(client => {
     const DB = client.db('bicycle');
     UserCollection = DB.collection('users');
-    ProductsCollection = DB.collection('bicycleProducts');
-    OrderCollection = DB.collection('orders')
 
     logger.info('Connected to DB');
 
@@ -37,9 +29,6 @@ MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(clie
     }));
 
     app.use('/users', UsersRouter);
-
-    app.use('/products', ProductRouter);
-    app.use('/orders', ordersRouter);
 
     app.listen(API_PORT, () => { logger.info(`Server is running on http://localhost:${API_PORT}`); });
 }).catch(err => { logger.crit(`Connected to DB: ${err}`); });
