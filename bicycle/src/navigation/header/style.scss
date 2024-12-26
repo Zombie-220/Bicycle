@@ -19,9 +19,9 @@
         justify-content: center;
         align-items: center;
         border: none;
-        font-family: 'Inter-Light';
-        font-size: 16px;
-        transition: 350ms;
+        font-family: 'Inter-Regular';
+        font-size: 12px;
+        transition: 200ms;
         &:hover { opacity: 0.66; }
         &:active { opacity: 0.33; }
     }
@@ -34,49 +34,6 @@
         height: 30px;
         margin: 15px;
     }
-    &__burgerMenuWrapper {
-        display: flex;
-        flex-direction: column;
-        &__header {
-            font-size: 30px;
-            font-family: 'Bebas-Neue-Regular';
-            margin: 0px;
-        }
-        &__link {
-            display: block;
-            cursor: pointer;
-            margin: 15px;
-            padding: 0px;
-            height: 30px;
-            background-color: #0000;
-            text-decoration: none;
-            color: #101010;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            font-family: 'Inter-Light';
-            font-size: 16px;
-            transition: 350ms;
-            &:hover { opacity: 0.66; }
-            &:active { opacity: 0.33; }
-        }
-    }
 }
 
 .link_orange { color: #F57520; }
-
-@media (max-width: 1090px) {
-    .adaptive { display: none; }
-    .header {
-        &__burgerMenuButton { display: block; }
-    }
-}
-@media (max-width: 790px) {
-    .secondAdaptive { display: none; }
-    .header { padding: 0px 20px; }
-}
-
-@media (max-width: 550px) {
-    .header__link img { width: 60px; }
-}

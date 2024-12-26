@@ -9,18 +9,18 @@
         flex-direction: column;
         justify-content: center;
         color: #fff;
-        font-family: 'Inter-Light';
+        font-family: 'Inter-Medium';
         width: 33%;
         background-color: #101010;
         padding: 20px 80px;
-        transition: 350ms;
+        transition: 200ms;
         & a { display: none; }
     }
     &__link {
         color: #F57520;
         text-decoration: none;
-        transition: 350ms;
-        font-family: 'Inter-Light';
+        transition: 200ms;
+        font-family: 'Inter-Medium';
         &:hover { opacity: 0.66; }
         &:active { opacity: 0.33; }
     }

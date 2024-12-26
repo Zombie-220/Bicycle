@@ -12,7 +12,7 @@ dotenv.config();
 
 const API_PORT = process.env.API_PORT_ENV;
 const DATABASE_PORT = process.env.DATABASE_PORT_ENV;
-const ACCEPTED_ORIGINS = ['http://localhost:15924'];
+const ACCEPTED_ORIGINS = ['http://localhost:15924', 'https://localhost:15924'];
 export const app = express();
 
 /** @type {Collection} */

@@ -8,6 +8,7 @@ import { AuthContext } from '../../App';
 import { Preloader } from '../../components/Preloader';
 import { SwipeSlider } from '../../components/SwipeSlider';
 import { API_URL } from '../../requests/request';
+import { DiffLink } from '../../components/DiffLink';
 
 import './style.scss';
 import '../../assets/fonts/fonts.css';
@@ -36,8 +37,7 @@ export const Main = () => {
             <div className='main__welcomeDiv'>
                 <h1 className='main__welcomeDiv__header'>ЭЛЕКТРО<br/>ВЕЛОСИПЕДЫ</h1>
                 <p className='main__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
-                {isAuth == '' && (<Link to='/auth' className='main__welcomeDiv__link'>Подробнее</Link>)}
-                {isAuth != '' && (<Link to='/bicycle' className='main__welcomeDiv__link'>Подробнее</Link>)}
+                <DiffLink to={'/catalog/bicycle'} orTo={'/auth'} className='main__welcomeDiv__link'>Подробнее</DiffLink>
             </div>
             <DivSlider />
             <LoopImageSlider />
@@ -64,7 +64,7 @@ export const Main = () => {
                 </div>
                 <div className='main__newItems__mobileCards'>
                     <Preloader isLoading={isLoading}>
-                        <SwipeSlider childSize={windowSize.width>=350 ? 250:200}>
+                        <SwipeSlider childSize={windowSize.width>=350 ? 250:200}>   
                             {
                                 newBicycle?.map((data, index) => {
                                     return (
@@ -85,7 +85,7 @@ export const Main = () => {
                     </Preloader>
                 </div>
             </div>
-            {/* <div className='main__catalog'>
+            <div className='main__catalog'>
                 <p className='main__catalog__header'>КАТАЛОГ</p>
                 <Link to={'/bicycle'} className='main__catalog__link'><p className='main__catalog__link__text'>ВЕЛОСИПЕДЫ</p></Link>
                 <div className='main__catalog__container'>
@@ -109,7 +109,7 @@ export const Main = () => {
                         </Link>
                     </div>
                 </div>
-            </div> */}
+            </div>
         </div>
     );
 };

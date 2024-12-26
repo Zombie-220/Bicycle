@@ -1,9 +1,7 @@
 @font-face {
-    font-family: 'Bebas-Neue-Cyrillic';
-    src: url('./BebasNeue/Bebas-Neue-Cyrillic.ttf');
+    font-family: 'Bebas-Neue-Bold';
+    src: url('./BebasNeue/Bebas-Neue-Bold.ttf');
 }
-
-
 
 @font-face {
     font-family: 'Inter-Regular';

@@ -10,12 +10,12 @@
             font-size: 80px;
             font-family: 'Bebas-Neue-Bold';
             padding: 185px 0px 0px 80px;
-            letter-spacing: 3px;
+            letter-spacing: 10px;
         }
         &__text {
             color: #fff;
             margin: 0px;
-            font-family: 'Bebas-Neue-Book';
+            font-family: 'Inter-Light';
             padding: 20px 0px 40px 80px;
             letter-spacing: 2px;
         }
@@ -26,8 +26,8 @@
             background-color: #F57520;
             padding: 16px 45px;
             border-radius: 10px;
-            transition: 350ms;
-            font-family: 'Inter-Regular';
+            transition: 200ms;
+            font-family: 'Inter-Medium';
             &:hover { background-color: #F5752088; }
             &:active { background-color: #F5752044; }
         }
@@ -38,7 +38,7 @@
         margin-bottom: 50px;
         &__header {
             font-size: 64px;
-            font-family: 'Bebas-Neue-Regular';
+            font-family: 'Bebas-Neue-Bold';
         }
         &__cards {
             display: flex;
@@ -162,189 +162,4 @@
     background-position: top -30px right -80px;
     align-items: center;
     p { margin: 0px 0px 0px 40px; }
-}
-
-@media (max-width: 1200px) {
-    .main {
-        &__catalog {
-            &__link {
-                background-position: top -10px left 240px;
-            }
-        }
-    }
-}
-
-@media (max-width: 1040px) {
-    .main {
-        &__catalog {
-            &__link { background-position: top 0px right -240px; }
-            &__container {
-                flex-direction: column;
-                &__link {
-                    min-height: 225px;
-                    width: 100%;
-                    padding: 0px;
-                    display: flex;
-                    align-items: center;
-                    background-position: top 10px right -50px;
-                    background-size: 80%;
-                    &__text {
-                        margin: 0px 0px 0px 60px;
-                        text-align: left;
-                        display: flex;
-                    }
-                }
-                &__wrapper {
-                    margin: 10px 0px 0px 0px;
-                    width: 100%;
-                    flex: 1;
-                    flex-direction: row;
-                    &__link { min-height: 225px; }
-                }
-            }
-        }
-    }
-    #main__catalog__parts, #main__catalog__equipment {
-        margin: 0px 10px 0px 0px;
-        flex: 1;
-        align-items: start;
-    }
-    #main__catalog__accessories, #main__catalog__bikeRacks {
-        flex: 1;
-        align-items: start;
-        & p { margin: 20px 0px 0px 40px; }
-    }
-    #main__catalog__parts {
-        background-position: bottom 0px right 0px;
-        align-items: start;
-        & p { margin: 20px 0px 0px 40px; }
-    }
-    #main__catalog__accessories { background-position: top 0px right -40px; }
-    #main__catalog__bikeRacks { background-position: top 50px right -40px; }
-    #main__catalog__equipment { background-position: top 80px right -20px; }
-}
-
-@media (max-width: 960px) {
-    .main {
-        &__welcomeDiv { background-position: top; }
-    }
-}
-
-@media (max-width: 790px) {
-    .main {
-        &__welcomeDiv {
-            &__header {
-                font-size: 60px;
-                padding-left: 40px;
-            }
-            &__text { padding-left: 40px; }
-            &__link { margin-left: 40px; }
-        }
-        &__newItems {
-            padding: 5px 40px 80px 40px;
-            &__header { font-size: 50px; }
-            &__cards { display: none; }
-            &__mobileCards { display: block; }
-        }
-        &__catalog {
-            margin: 0px 40px;
-            &__link {
-                align-items: start;
-                &__text { font-size: 40px; }
-            }
-            &__container {
-                &__link {
-                    &__text { font-size: 40px; }
-                }
-                &__wrapper {
-                    &__link {
-                        &__text { font-size: 40px; }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 550px) {
-    #main__catalog__parts, #main__catalog__bikeRacks,
-    #main__catalog__accessories, #main__catalog__equipment
-    { & p {
-        margin: 20px 0px 0px 20px;
-        font-size: 30px;
-    }}
-    #main__catalog__parts {
-        background-size: 40%;
-        background-position: bottom 0px right 0px;
-    }
-    #main__catalog__bikeRacks {
-        background-size: 50%;
-        background-position: bottom 0px right -20px;
-    }
-    #main__catalog__accessories {
-        background-size: 60%;
-        background-position: bottom 0px right -20px;
-    }
-    #main__catalog__equipment {
-        background-size: 60%;
-        background-position: bottom 0px right -20px;
-    }
-    .main {
-        &__welcomeDiv {
-            &__header { font-size: 40px; }
-        }
-        &__newItems {
-            &__header { font-size: 40px; }
-        }
-        &__catalog {
-            &__header { font-size: 40px; }
-            &__link {
-                height: 130px;
-                background-size: 80%;
-                background-position: top 0px right 0px;
-                &__text {
-                    font-size: 30px;
-                    margin: 0px 0px 0px 20px;
-                }
-            }
-            &__container {
-                &__link {
-                    min-height: 130px;
-                    background-position: top 0px right 0px;
-                    &__text {
-                        font-size: 30px;
-                        margin: 0px 0px 0px 30px;
-                    }
-                }
-                &__wrapper { &__link { min-height: 130px; }}
-            }
-        }
-    }
-}
-
-@media (max-width: 420px) {
-    #main__catalog__parts, #main__catalog__bikeRacks,
-    #main__catalog__accessories, #main__catalog__equipment
-    { & p {
-        margin: 10px 0px 0px 10px;
-        font-size: 20px;
-    }}
-    .main {
-        &__catalog {
-            &__link {
-                &__text {
-                    font-size: 20px;
-                    margin: 0px 0px 0px 10px;
-                }
-            }
-            &__container {
-                &__link {
-                    &__text {
-                        font-size: 20px;
-                        margin: 0px 0px 0px 10px;
-                    }
-                }
-            }
-        }
-    }
 }

@@ -33,21 +33,16 @@ export const Footer = () => {
                 </div>
                 <div className='footer__upSection__section adaptive'>
                     <h2  className='footer__upSection__section__header'>Каталог</h2>
-                    <Link className='footer__upSection__section__link footer__upSection__link__orange' to='/'>Главная</Link>
-                    <Link className='footer__upSection__section__link' to='/bicycle'>Велосипеды</Link>
-                    <Link className='footer__upSection__section__link'>Экипировка</Link>
-                    <Link className='footer__upSection__section__link'>Запчасти</Link>
-                    <Link className='footer__upSection__section__link'>Велостнаки</Link>
-                    <Link className='footer__upSection__section__link'>Аксесуары</Link>
+                    <Link className='footer__upSection__section__link footer__upSection__link__orange' to='/catalog/bicycle'>Велосипеды</Link>
+                    <Link className='footer__upSection__section__link' to={'/catalog/parts'}>Запчасти</Link>
+                    <Link className='footer__upSection__section__link' to={'/catalog/equipment'}>Экипировка</Link>
+                    <Link className='footer__upSection__section__link' to={'/catalog/accessories'}>Аксесуары</Link>
                 </div>
                 <div className='footer__upSection__section adaptive'>
                     <h2 className='footer__upSection__section__header'>Для клиента</h2>
                     <Link className='footer__upSection__section__link'>О нас</Link>
-                    <Link className='footer__upSection__section__link'>Доставка и оплата</Link>
                     <Link className='footer__upSection__section__link'>Блог</Link>
                     <Link className='footer__upSection__section__link'>Контакты</Link>
-                    <Link className='footer__upSection__section__link'>Веломастерская</Link>
-                    <Link className='footer__upSection__section__link'>Хранение</Link>
                     <Link className='footer__upSection__section__link'>Гарантии</Link>
                 </div>
                 <div className='footer__upSection__section'>
