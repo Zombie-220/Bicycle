@@ -15,18 +15,18 @@ export const AuthPage = () => {
     const { register, handleSubmit, formState: { errors, isValid } } = useForm();
     const navigate = useNavigate();
 
-    function onSubmit(data) {
+    function onSubmit(submitData) {
         API_URL.post('/users/login', {
-            name: data.name,
-            password: data.password,
-            getToken: data.remembeMe
+            name: submitData.name,
+            password: submitData.password,
+            getToken: submitData.remembeMe
         }).then(({ data }) => {
             if (data.id) {
                 setIsAuth(data.id);
                 if (data.token) { localStorage.setItem('token', JSON.stringify(data.token)); }
 
                 API_URL(`/users/isAdmin/${data.id}`).then(({ data }) => {
-                    if (data.response) { setIsAdmin(true); }
+                    if (data.message) { setIsAdmin(true); }
                 }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
 
                 navigate('/');

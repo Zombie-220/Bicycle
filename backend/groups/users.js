@@ -11,7 +11,10 @@ UsersRouter.post('/login', async (req, res) => {
         const findUserByName = await UserCollection.findOne({ name: req.body.name });
         if (findUserByName != null) {
             if (findUserByName.password == req.body.password) {
-                if (req.body.getToken) { res.json({ id: findUserByName._id, token: findUserByName._id }); }
+                if (req.body.getToken) {
+                    let userRoles = '';
+                    findUserByName.roles.map((data) => { userRoles += `${data}.`; })
+                    res.json({ id: findUserByName._id, token: `${findUserByName._id}|${findUserByName.name}|${userRoles.slice(0, -1)}|${new Date()}` }); }
                 else { res.json({ id: findUserByName._id }); }
             }
             else { res.json({ message: 'Invalid username or password' }); }
@@ -26,12 +29,10 @@ UsersRouter.post('/login', async (req, res) => {
 
 UsersRouter.post('/checkName', async (req, res) => {
     try {
-        const userName = req.body.name
+        const findUserByName = await UserCollection.findOne({ name: req.body.name });
 
-        const user = await UserCollection.findOne({ name: userName });
-
-        if (user != null) { res.json({ 'response': true }); }
-        else { res.json({ 'response': false }); }
+        if (findUserByName != null) { res.json({ message: true }); }
+        else { res.json({ message: false }); }
 
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
@@ -45,7 +46,7 @@ UsersRouter.post('/add', async (req, res) => {
         const body = { ...req.body, roles: ['user'] };
         const request = await UserCollection.insertOne(body);
 
-        res.status(201).json({ 'response': request.insertedId })
+        res.status(201).json({ message: request.insertedId })
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
         res.status(500).json({ message: 'Something went wrong @_@' });
@@ -55,13 +56,13 @@ UsersRouter.post('/add', async (req, res) => {
 
 UsersRouter.get('/isAdmin/(:id)', async(req, res) => {
     try {
-        const result = await UserCollection.findOne({ _id: new ObjectId(req.params.id) })
+        const findUserById = await UserCollection.findOne({ _id: new ObjectId(req.params.id) })
         
-        if (result.roles.includes("admin")) { res.json({ 'response': true }); }
-        else { res.json({ 'response': false }); }
+        if (findUserById.roles.includes("admin")) { res.json({ message: true }); }
+        else { res.json({ message: false }); }
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: 'Something went wrong @_@' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 });
@@ -70,9 +71,9 @@ UsersRouter.get('/recover/(:name)', async(req, res) => {
     try {
         const recoverUser = await UserCollection.findOne({ name: req.params.name });
 
-        if (recoverUser === null) { res.json({ response: false }); }
+        if (recoverUser === null) { res.json({ message: false }); }
         else {
-            res.json({ response: 'send' });
+            res.json({ message: 'send' });
         }
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {

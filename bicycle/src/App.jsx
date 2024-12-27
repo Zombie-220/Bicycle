@@ -23,10 +23,10 @@ export const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      setIsAuth(JSON.parse(localStorage.getItem("token")));
-      API_URL(`users/isAdmin/${JSON.parse(localStorage.getItem("token"))}`)
-      .then(({ data }) => {if (data.response) { setIsAdmin(true) }})
-      .catch((err) => { console.log(err) })
+      let token = JSON.parse(localStorage.getItem("token")).split("|");
+      setIsAuth(token[0]);
+      console.log(token[2].split('.'));
+      if (token[2].split('.').includes('admin')) { setIsAdmin(true); }
     }
   }, [])
 

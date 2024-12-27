@@ -26,6 +26,7 @@ export const Header = () => {
     };
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         if (location.pathname !== '/') { setBackground('#101010'); }
         else { setBackground('#0000'); }
     }, [location]);
