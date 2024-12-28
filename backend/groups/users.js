@@ -14,7 +14,7 @@ UsersRouter.post('/login', async (req, res) => {
                 if (req.body.getToken) {
                     let userRoles = '';
                     findUserByName.roles.map((data) => { userRoles += `${data}.`; })
-                    res.json({ id: findUserByName._id, token: `${findUserByName._id}|${findUserByName.name}|${userRoles.slice(0, -1)}|${new Date()}` }); }
+                    res.json({ id: findUserByName._id, token: `${findUserByName._id}|${findUserByName.name}|${userRoles.slice(0, -1)}` }); }
                 else { res.json({ id: findUserByName._id }); }
             }
             else { res.json({ message: 'Invalid username or password' }); }
