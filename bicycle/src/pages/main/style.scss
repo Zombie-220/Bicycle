@@ -57,4 +57,11 @@
             }
         }
     }
+    &__loopSlider {
+        margin: 20px 0px;
+        &-img {
+            width: 160px;
+            margin: 0px 30px;
+        }
+    }
 }

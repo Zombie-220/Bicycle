@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 
 import { DiffLink } from '../../components/DiffLink';
 import { DivSlider } from '../../components/Sliders/divSlider';
+import { LoopSlider } from '../../components/Sliders/loopSlider';
+
+import wiliev from '../../assets/images/main/loopSlider/wiliev.svg'; 
+import wahoo from '../../assets/images/main/loopSlider/wahoo.svg'; 
+import trek from '../../assets/images/main/loopSlider/trek.svg'; 
+import shimano from '../../assets/images/main/loopSlider/shimano.svg'; 
+import topeak from '../../assets/images/main/loopSlider/topeak.svg'; 
+import tacx from '../../assets/images/main/loopSlider/tacx.svg'; 
+import sram from '../../assets/images/main/loopSlider/sram.svg'; 
 
 import './style.scss';
 
@@ -29,6 +38,17 @@ export const MainPage = () => {
                         <Link to={'/blog/x'} className='mainPage__divSlider__child-link'>Подробнее</Link>
                     </div>
                 </DivSlider>
+            </div>
+            <div className='mainPage__loopSlider'>
+                <LoopSlider>
+                    <img className='mainPage__loopSlider-img' src={wiliev} alt="wiliev" />
+                    <img className='mainPage__loopSlider-img' src={wahoo} alt="wahoo" />
+                    <img className='mainPage__loopSlider-img' src={trek} alt="trek" />
+                    <img className='mainPage__loopSlider-img' src={shimano} alt="shimano" />
+                    <img className='mainPage__loopSlider-img' src={topeak} alt="topeak" />
+                    <img className='mainPage__loopSlider-img' src={tacx} alt="tacx" />
+                    <img className='mainPage__loopSlider-img' src={sram} alt="sram" />
+                </LoopSlider>
             </div>
         </div>
     );
