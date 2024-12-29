@@ -40,7 +40,7 @@ export const Header = () => {
                 <Link to={'/catalog/parts'} className='header__link'>ЗАПЧАСТИ</Link>
                 <Link to={'/catalog/equipment'} className='header__link'>ЭКИПИРОВКА</Link>
                 <Link to={'/catalog/accessories'} className='header__link'>АКСЕССУАРЫ</Link>
-                <DiffLink to={'/x'} orTo={'/auth'} className='header__link'><img src={userIcon} alt='userIcon' /></DiffLink>
+                <DiffLink to={'/x'} className='header__link'><img src={userIcon} alt='userIcon' /></DiffLink>
                 {isAuth !== '' && (<Link to={'/x'} className='header__link'> <img src={favoriteIcon} alt="favoriteIcon" /> </Link>)}
                 {isAuth !== '' && (<Link to={'/cart'} className='header__link'> <img src={cartIcon} alt="cartIcon" /> </Link>)}
                 {isAuth !== '' && (<button className='header__link link_orange' onClick={logout}>ВЫЙТИ</button>)}
