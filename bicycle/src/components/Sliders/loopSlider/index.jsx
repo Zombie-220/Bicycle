@@ -15,7 +15,6 @@ export const LoopSlider = ({ children }) => {
     useEffect(() => {
         const size = slideRef.current.getBoundingClientRect()
         setSlideSize({ width: size.width, height: size.height });
-        console.log(size);
     }, [slideRef])
 
     return(
