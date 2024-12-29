@@ -1,0 +1,26 @@
+.preloader {
+    &__svg {
+        &-back, &-front {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        &-back {
+            fill: none;
+            stroke: #F5752033;
+        }
+        &-front {
+            fill: none;
+            stroke: #F57520;
+            stroke-dasharray: 48, 144;
+            stroke-dashoffset: 192;
+            animation: dash 1.4s linear infinite;
+        }
+    }
+}
+
+@keyframes dash {
+    72.5% { opacity: 0; }
+    to { stroke-dashoffset: 0; }
+}
