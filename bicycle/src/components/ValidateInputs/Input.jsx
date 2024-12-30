@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./style.scss";
+import "./Input.scss";
 
 const getTextError = (type) => {
     switch (type) {

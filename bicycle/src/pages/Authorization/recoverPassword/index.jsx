@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { ValidateInput } from "../../../components/ValidateInput";
+import { ValidateInput } from "../../../components/ValidateInputs/Input";
 import { API_URL } from '../../../requests/request'; 
 
 import './style.scss';

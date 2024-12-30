@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { API_URL } from '../../../requests/request';
 import { AuthContext, AdminContext } from '../../../App';
-import { ValidateInput } from '../../../components/ValidateInput';
+import { ValidateInput } from '../../../components/ValidateInputs/Input';
 
 import './style.scss';
 

@@ -1,4 +1,4 @@
-import { DiffLink } from '../DiffLink';
+import { DiffLink } from '../diffLink';
 
 import click from './click.svg'; 
 import './style.scss';

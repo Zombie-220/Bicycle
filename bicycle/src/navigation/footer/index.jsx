@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import './style.scss'
-import logo from '../../assets/icons/icon.svg'
-import phoneIcon from '../../assets/icons/footer/smartphone.svg'
-import navigationIcon from '../../assets/icons/footer/navigation.svg'
-import mailIcon from '../../assets/icons/footer/mail.svg'
+import logo from '../../assets/images/icon.svg';
+import phoneIcon from '../../assets/images/footer/smartphone.svg';
+import navigationIcon from '../../assets/images/footer/navigation.svg';
+import mailIcon from '../../assets/images/footer/mail.svg';
+
+import './style.scss';
 
 export const Footer = () => {
     const [displayFooter, setDisplayFooter] = useState("block");

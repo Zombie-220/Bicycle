@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { AuthContext, AdminContext } from '../../App';
-import { DiffLink } from '../../components/DiffLink';
+import { DiffLink } from '../../components/diffLink';
 
-import icon from '../../assets/icons/icon.svg';
-import userIcon from '../../assets/icons/header/user.svg';
-import favoriteIcon from '../../assets/icons/header/favorites.svg';
-import cartIcon from '../../assets/icons/header/cart.svg';
+import icon from '../../assets/images/icon.svg';
+import userIcon from '../../assets/images/header/user.svg';
+import favoriteIcon from '../../assets/images/header/favorites.svg';
+import cartIcon from '../../assets/images/header/cart.svg';
+
 import './style.scss';
 
 export const Header = () => {
