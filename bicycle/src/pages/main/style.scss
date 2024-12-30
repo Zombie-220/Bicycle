@@ -53,6 +53,8 @@
                 text-decoration: none;
                 transition: 200ms;
                 height: 0px;
+                &:hover { opacity: 66%; }
+                &:active { opacity: 33%; }
             }
         }
     }

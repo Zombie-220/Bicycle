@@ -23,13 +23,14 @@ import './style.scss';
 export const MainPage = () => {
     const [newItems, setNewItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [newItemsError, setNewItemsError] = useState(0);
+    const [newItemsError, setNewItemsError] = useState('');
 
     useEffect(() => {
         API_URL('/products/amount/6').then(({ data }) => {
             setNewItems(data);
             setIsLoading(false);
-        }).catch(() => { console.log("XX") })
+            setNewItemsError('')
+        }).catch(() => { setNewItemsError('Сайту не хорошо @_@. Попробуйте позже.'); })
     }, []);
 
     return (
@@ -87,7 +88,7 @@ export const MainPage = () => {
                         }</Slider>
                     </Preloader>
                 </div>
-                <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>
+                {!isLoading && <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
             </div>
         </div>
     );
