@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { DiffLink } from '../../components/DiffLink';
+import { DiffLink } from '../../components/diffLink';
 import { DivSlider } from '../../components/Sliders/divSlider';
 import { LoopSlider } from '../../components/Sliders/loopSlider';
 import { Slider } from '../../components/Sliders/slider';
@@ -89,6 +89,25 @@ export const MainPage = () => {
                     </Preloader>
                 </div>
                 {!isLoading && <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
+            </div>
+            <div className='mainPage__catalog'>
+                <p className='mainPage__catalog-header'>КАТАЛОГ</p>
+                <div className='mainPage__catalog__container'>
+                    <Link to='/catalog/bicycle' className='mainPage__catalog__container-link'>ВЕЛОСИПЕДЫ</Link>
+                    <div className='mainPage__catalog__container__bottomSection'>
+                        <Link className='mainPage__catalog__container__bottomSection-link'>TRADE-IN</Link>
+                        <div className='mainPage__catalog__container__bottomSection-outerContainer'>
+                            <div className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer'>
+                                <Link id='mainPage__catalog-parts' to={'/catalog/parts'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ЗАПЧАСТИ</Link>
+                                <Link id='mainPage__catalog-accessories' to={'/catalog/accessories'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>АКСЕССУАРЫ</Link>
+                            </div>
+                            <div className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer'>
+                                <Link id='mainPage__catalog-equipment' to={'/catalog/equipment'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ЭКИПИРОВКА</Link>
+                                <Link id='mainPage__catalog-racks' to={'/catalog/racks'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ВЕЛОСТАНКИ</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

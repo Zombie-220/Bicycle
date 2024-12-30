@@ -93,4 +93,116 @@
             &:active { opacity: 33%; }
         }
     }
+    &__catalog {
+        margin-top: 20px;
+        padding: 20px 80px 30px 80px;
+        &-header {
+            color: #101010;
+            font-family: 'Bebas-Neue-Bold';
+            font-size: 60px;
+            margin: 10px 0px;
+        }
+        &__container {
+            &-link {
+                color: #FFF;
+                font-size: 40px;
+                font-family: 'Bebas-Neue-Bold';
+                text-decoration: none;
+                background-color: #F57520;
+                height: 200px;
+                display: flex;
+                align-items: center;
+                padding: 0px 0px 0px 80px;
+                border-radius: 10px;
+                transition: 200ms;
+                background-image: url('../../assets/images/main/catalog/bicycles.svg');
+                background-repeat: no-repeat;
+                background-position: right 0px top 0px;
+                background-size: 65%;
+                margin-bottom: 10px;
+                &:hover { opacity: 66%; }
+                &:active { opacity: 33%; }
+            }
+            &__bottomSection {
+                display: flex;
+                height: 300px;
+                &-link {
+                    color: #FFF;
+                    font-size: 40px;
+                    font-family: 'Bebas-Neue-Bold';
+                    text-decoration: none;
+                    background-color: #101010;
+                    display: flex;
+                    justify-content: center;
+                    padding: 60px 0px 0px 0px;
+                    border-radius: 10px;
+                    transition: 200ms;
+                    background-image: url('../../assets/images/main/catalog/trade-in.svg');
+                    background-repeat: no-repeat;
+                    background-position: right 0px top 100px;
+                    background-size: 100%;
+                    margin-right: 10px;
+                    flex: 1;
+                    &:hover { opacity: 66%; }
+                    &:active { opacity: 33%; }
+                }
+                &-outerContainer {
+                    flex: 2;
+                    display: flex;
+                    &-innerContainer {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                        &:first-child { margin-right: 10px; }
+                        &-link {
+                            display: flex;
+                            color: #FFF;
+                            font-size: 40px;
+                            font-family: 'Bebas-Neue-Bold';
+                            text-decoration: none;
+                            background-color: #101010;
+                            border-radius: 10px;
+                            transition: 200ms;
+                            background-repeat: no-repeat;
+                            flex: 1;
+                            &:first-child { margin-bottom: 10px; }
+                            &:hover { opacity: 66%; }
+                            &:active { opacity: 33%; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#mainPage__catalog-parts {
+    background-image: url('../../assets/images/main/catalog/parts.svg');
+    background-size: 40%;
+    background-position: right 0px bottom 0px;
+    align-items: center;
+    padding: 0px 0px 0px 40px;
+    flex: 4;
+}
+#mainPage__catalog-accessories {
+    background-image: url('../../assets/images/main/catalog/accessories.svg');
+    background-size: 50%;
+    background-position: right 0px top 60%;
+    align-items: flex-end;
+    padding: 0px 0px 25px 40px;
+    flex: 5;
+}
+#mainPage__catalog-equipment {
+    background-image: url('../../assets/images/main/catalog/equipment.svg');
+    background-size: 40%;
+    background-position: right 0px top 50px;
+    padding: 25px 0px 0px 40px;
+    flex: 5;
+}
+#mainPage__catalog-racks {
+    background-image: url('../../assets/images/main/catalog/racks.svg');
+    background-size: 40%;
+    background-position: right -15% top 0px;
+    padding: 25px 0px 0px 40px;
+    flex: 4;
 }
