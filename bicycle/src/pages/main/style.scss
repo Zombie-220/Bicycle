@@ -77,5 +77,18 @@
             align-items: center;
             justify-content: center;
         }
+        &-link {
+            color: #777;
+            font-size: 12px;
+            font-family: 'Inter-Regular';
+            text-decoration: none;
+            transition: 200ms;
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            &:hover { opacity: 66%; }
+            &:active { opacity: 33%; }
+        }
     }
 }

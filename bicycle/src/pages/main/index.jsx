@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DiffLink } from '../../components/DiffLink';
 import { DivSlider } from '../../components/Sliders/divSlider';
 import { LoopSlider } from '../../components/Sliders/loopSlider';
+import { Slider } from '../../components/Sliders/slider';
+import { Card } from '../../components/card';
+import { Preloader } from '../../components/preloader';
+
+import { API_URL } from '../../requests/request';
 
 import wiliev from '../../assets/images/main/loopSlider/wiliev.svg'; 
 import wahoo from '../../assets/images/main/loopSlider/wahoo.svg'; 
@@ -16,12 +21,23 @@ import sram from '../../assets/images/main/loopSlider/sram.svg';
 import './style.scss';
 
 export const MainPage = () => {
+    const [newItems, setNewItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [newItemsError, setNewItemsError] = useState(0);
+
+    useEffect(() => {
+        API_URL('/products/amount/6').then(({ data }) => {
+            setNewItems(data);
+            setIsLoading(false);
+        }).catch(() => { console.log("XX") })
+    }, []);
+
     return (
         <div className='mainPage'>
             <div className='mainPage__welcomeDiv'>
                 <h1 className='mainPage__welcomeDiv__header'>ЭЛЕКТРО<br/>ВЕЛОСИПЕДЫ</h1>
                 <p className='mainPage__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
-                <DiffLink to={'/catalog/bicycle'} orTo={'/auth'} className='mainPage__welcomeDiv__link'>Подробнее</DiffLink>
+                <DiffLink to={'/catalog/bicycle'} className='mainPage__welcomeDiv__link'>Подробнее</DiffLink>
             </div>
             <div className='mainPage__divSlider'>
                 <DivSlider>
@@ -49,6 +65,29 @@ export const MainPage = () => {
                     <img className='mainPage__loopSlider-img' src={tacx} alt="tacx" />
                     <img className='mainPage__loopSlider-img' src={sram} alt="sram" />
                 </LoopSlider>
+            </div>
+            <div className='mainPage__cardSlider'>
+                <p className='mainPage__cardSlider-header'>НОВИНКИ</p>
+                <div className='mainPage__cardSlider__slider'>
+                    <Preloader isLoading={isLoading}>
+                        <Slider cardPerSlide={3}>{
+                            newItems.map((data, index) => {
+                                return (
+                                    <Card
+                                        key = {index}
+                                        id = {data._id}
+                                        itemName = {data.name}
+                                        itemCountry = {data.countryImage}
+                                        itemAmount = {data.amount}
+                                        itemImage = {data.productImage}
+                                        itemPrice = {data.price}
+                                    />
+                                );
+                            })
+                        }</Slider>
+                    </Preloader>
+                </div>
+                <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>
             </div>
         </div>
     );

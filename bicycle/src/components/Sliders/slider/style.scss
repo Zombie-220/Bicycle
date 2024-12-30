@@ -1,0 +1,47 @@
+.slider {
+    margin: 0px auto;
+    overflow: hidden;
+    position: relative;
+    &__items {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        transition: 200ms;
+        &-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    }
+    &-button {
+        background-color: #0000;
+        border: none;
+        border-radius: 50%;
+        position: absolute;
+        top: 45%;
+        bottom: 45%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+        transition: 200ms;
+        &:hover { background-color: #101010; }
+        &:hover .slider-button-arrow { fill: #FFF; }
+        &:active { opacity: 33%; }
+        &-arrow {
+            fill: #101010;
+            transition: 200ms;
+        }
+    }
+}
+
+#leftSliderButton {
+    left: 4px;
+    transform: rotate(180deg);
+}
+#rightSliderButton { right: 4px; }
