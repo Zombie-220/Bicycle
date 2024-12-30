@@ -29,7 +29,7 @@ export const MainPage = () => {
         API_URL('/products/amount/6').then(({ data }) => {
             setNewItems(data);
             setIsLoading(false);
-            setNewItemsError('')
+            setNewItemsError('');
         }).catch(() => { setNewItemsError('Сайту не хорошо @_@. Попробуйте позже.'); })
     }, []);
 
@@ -70,23 +70,25 @@ export const MainPage = () => {
             <div className='mainPage__cardSlider'>
                 <p className='mainPage__cardSlider-header'>НОВИНКИ</p>
                 <div className='mainPage__cardSlider__slider'>
-                    <Preloader isLoading={isLoading}>
-                        <Slider cardPerSlide={3}>{
-                            newItems.map((data, index) => {
-                                return (
-                                    <Card
-                                        key = {index}
-                                        id = {data._id}
-                                        itemName = {data.name}
-                                        itemCountry = {data.countryImage}
-                                        itemAmount = {data.amount}
-                                        itemImage = {data.productImage}
-                                        itemPrice = {data.price}
-                                    />
-                                );
-                            })
-                        }</Slider>
-                    </Preloader>
+                    {newItemsError === '' ?
+                        <Preloader isLoading={isLoading}>
+                            <Slider cardPerSlide={3}>{
+                                newItems.map((data, index) => {
+                                    return (
+                                        <Card
+                                            key = {index}
+                                            id = {data._id}
+                                            itemName = {data.name}
+                                            itemCountry = {data.countryImage}
+                                            itemAmount = {data.amount}
+                                            itemImage = {data.productImage}
+                                            itemPrice = {data.price}
+                                        />
+                                    );
+                                })
+                            }</Slider>
+                        </Preloader> : <p className='mainPage__cardSlider__slider-error'>{newItemsError}</p>
+                    }
                 </div>
                 {!isLoading && <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
             </div>
