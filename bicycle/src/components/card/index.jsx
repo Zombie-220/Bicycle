@@ -22,7 +22,7 @@ export const Card = (props) => {
                 </p>
             </div>
             <div className='card__footer'>
-                <DiffLink to={'/products/bicycle/x'} className='card__footer-button'>
+                <DiffLink to={`/products/bicycle/${id}`} className='card__footer-button'>
                     <img className='card__footer-button-img' src={click} alt="click" />
                     <p className='card__footer-button-text'>В 1 клик</p>
                 </DiffLink>
