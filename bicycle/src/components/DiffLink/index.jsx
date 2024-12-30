@@ -20,7 +20,5 @@ DiffLink.propTypes = {
     /** @type {string} */
     to: PropTypes.string.isRequired,
     /** @type {string} */
-    orTo: PropTypes.string.isRequired,
-    /** @type {string} */
     className: PropTypes.string.isRequired
 };
