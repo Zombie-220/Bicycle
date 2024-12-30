@@ -36,24 +36,23 @@
         margin-top: -20px;
         &__child {
             &-text {
-                margin: 0px 0px 20px 0px;
+                margin: 0px;
                 font-size: 16px;
                 font-family: 'Inter-Medium';
                 color: #fff;
-                transform: translateY(90%);
                 transition: 200ms;
             }
             &-link {
                 cursor: unset;
                 display: block;
                 opacity: 0%;
-                transform: translateY(-200%);
                 margin: 0px;
                 font-size: 14px;
                 font-family: 'Inter-Medium';
                 color: #F57520;
                 text-decoration: none;
                 transition: 200ms;
+                height: 0px;
             }
         }
     }
@@ -62,6 +61,21 @@
         &-img {
             width: 160px;
             margin: 0px 30px;
+        }
+    }
+    &__cardSlider {
+        padding: 20px 80px 30px 80px;
+        background-color: #F8F8F8;
+        &-header {
+            color: #101010;
+            font-family: 'Bebas-Neue-Bold';
+            font-size: 60px;
+            margin: 10px 0px;
+        }
+        &__slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }
