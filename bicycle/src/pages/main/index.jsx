@@ -17,6 +17,12 @@ import shimano from '../../assets/images/main/loopSlider/shimano.svg';
 import topeak from '../../assets/images/main/loopSlider/topeak.svg'; 
 import tacx from '../../assets/images/main/loopSlider/tacx.svg'; 
 import sram from '../../assets/images/main/loopSlider/sram.svg'; 
+import videoPoster from '../../assets/images/main/video/playerPoster.svg';
+import playerVideo from '../../assets/images/main/video/playerVideo.mp4';
+import diamond from '../../assets/images/main/video//diamond.svg';
+import guarantee from '../../assets/images/main/video/guarantee.svg';
+import gear from '../../assets/images/main/video/gear.svg';
+import hours_24 from '../../assets/images/main/video/24-hours.svg';
 
 import './style.scss';
 
@@ -108,6 +114,51 @@ export const MainPage = () => {
                                 <Link id='mainPage__catalog-racks' to={'/catalog/racks'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ВЕЛОСТАНКИ</Link>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className='mainPage__video'>
+                <div className='mainPage__video__header'>
+                    <p className='mainPage__video__header-header'>НИЧЕГО НЕ СМОЖЕТ ОСТАНОВИТЬ ВАС</p>
+                    <div className='mainPage__video__header__container'>
+                        <p className='mainPage__video__header__container-text'>Наша компания специализируется на продаже товаров для велосипедного спорта — велосипедов, запасных частей, аксессуаров и различного спортивного инвентаря для активного спорта и отдыха.</p>
+                        <Link to={'/blog/x'} className='mainPage__video__header__container-link'>Подробнее</Link>
+                    </div>
+                </div>
+                <div className='mainPage__video__body'>
+                    <video poster={videoPoster} controls className="mainPage__video__body-player">
+                        <source src={playerVideo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div className='mainPage__video__footer'>
+                    <div className='mainPage__video__footer__section'>
+                        <div className='mainPage__video__footer__section__header'>
+                            <img className='mainPage__video__footer__section__header-img' src={diamond} alt="diamond" />
+                            <p className='mainPage__video__footer__section__header-text'>Европейские бренды</p>
+                        </div>
+                        <p className='mainPage__video__footer__section-text'>Представляем десятки европейских брендов</p>
+                    </div>
+                    <div className='mainPage__video__footer__section'>
+                        <div className='mainPage__video__footer__section__header'>
+                            <img className='mainPage__video__footer__section__header-img' src={guarantee} alt="guarantee" />
+                            <p className='mainPage__video__footer__section__header-text'>Вечная гарантия</p>
+                        </div>
+                        <p className='mainPage__video__footer__section-text'>На некоторые бренды предоставляем пожизненную гарантию</p>
+                    </div>
+                    <div className='mainPage__video__footer__section'>
+                        <div className='mainPage__video__footer__section__header'>
+                            <img className='mainPage__video__footer__section__header-img' src={gear} alt="gear" />
+                            <p className='mainPage__video__footer__section__header-text'>Предпродажная настройка</p>
+                        </div>
+                        <p className='mainPage__video__footer__section-text'>Специалисты настроят ваш велосипед наилучшим образом</p>
+                    </div>
+                    <div className='mainPage__video__footer__section'>
+                        <div className='mainPage__video__footer__section__header'>
+                            <img className='mainPage__video__footer__section__header-img' src={hours_24} alt="hours_24" />
+                            <p className='mainPage__video__footer__section__header-text'>Доставка за 24 часа</p>
+                        </div>
+                        <p className='mainPage__video__footer__section-text'>Доставляем товар всеми популярными транспортными компаниями</p>
                     </div>
                 </div>
             </div>
