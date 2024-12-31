@@ -15,7 +15,9 @@ export const Card = (props) => {
                 </p>
             </div>
             <div className='card__body'>
-                <img className='card__body-img' src={itemImage} alt="itemImage" />
+                <div className='card__body__imgContainer'>
+                    <img className='card__body__imgContainer-img' src={itemImage} alt="itemImage" />
+                </div>
                 <p className='card__body-name'>{itemName}</p>
                 <p className='card__body-price'>
                     {itemPrice.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽
