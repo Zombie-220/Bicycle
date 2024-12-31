@@ -28,15 +28,25 @@ import './style.scss';
 
 export const MainPage = () => {
     const [newItems, setNewItems] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [newItemsError, setNewItemsError] = useState('');
+    const [newItemsLoading, setNewItemsLoading] = useState(true);
+    const [newItemsError, setNewItemsError] = useState(false);
+
+    const [winterBicycle, setWinterBicycle] = useState([]);
+    const [winterIsLoading, setWinterIsLoading] = useState(true);
+    const [winterError, setWinterError] = useState(false);
 
     useEffect(() => {
         API_URL('/products/amount/6').then(({ data }) => {
             setNewItems(data);
-            setIsLoading(false);
-            setNewItemsError('');
-        }).catch(() => { setNewItemsError('Сайту не хорошо @_@. Попробуйте позже.'); })
+            setNewItemsLoading(false);
+            setNewItemsError(false);
+        }).catch(() => { setNewItemsError(true); })
+
+        API_URL('/products/amount/9').then(({ data }) => {
+            setWinterBicycle(data);
+            setWinterIsLoading(false);
+            setWinterError(false);
+        }).catch(() => { setWinterError(true); })
     }, []);
 
     return (
@@ -76,8 +86,8 @@ export const MainPage = () => {
             <div className='mainPage__cardSlider'>
                 <p className='mainPage__cardSlider-header'>НОВИНКИ</p>
                 <div className='mainPage__cardSlider__slider'>
-                    {newItemsError === '' ?
-                        <Preloader isLoading={isLoading}>
+                    {!newItemsError ?
+                        <Preloader isLoading={newItemsLoading}>
                             <Slider cardPerSlide={3}>{
                                 newItems.map((data, index) => {
                                     return (
@@ -93,10 +103,10 @@ export const MainPage = () => {
                                     );
                                 })
                             }</Slider>
-                        </Preloader> : <p className='mainPage__cardSlider__slider-error'>{newItemsError}</p>
+                        </Preloader> : <p className='mainPage__cardSlider__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
                     }
                 </div>
-                {!isLoading && <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
+                {!newItemsLoading && <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
             </div>
             <div className='mainPage__catalog'>
                 <p className='mainPage__catalog-header'>КАТАЛОГ</p>
@@ -160,6 +170,30 @@ export const MainPage = () => {
                         </div>
                         <p className='mainPage__video__footer__section-text'>Доставляем товар всеми популярными транспортными компаниями</p>
                     </div>
+                </div>
+            </div>
+            <div className='mainPage__winterBicycles'>
+                <p className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ</p>
+                <div className='mainPage__winterBicycles__slider'>
+                    {!winterError ?
+                        <Preloader isLoading={winterIsLoading}>
+                            <Slider cardPerSlide={3}>{
+                                winterBicycle.map((data, index) => {
+                                    return (
+                                        <Card
+                                            key = {index}
+                                            id = {data._id}
+                                            itemName = {data.name}
+                                            itemCountry = {data.countryImage}
+                                            itemAmount = {data.amount}
+                                            itemImage = {data.productImage}
+                                            itemPrice = {data.price}
+                                        />
+                                    );
+                                })
+                            }</Slider>
+                        </Preloader> : <p className='mainPage__cardSlider__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
+                    }
                 </div>
             </div>
         </div>

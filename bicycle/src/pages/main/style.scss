@@ -259,6 +259,25 @@
             }
         }
     }
+    &__winterBicycles {
+        margin-top: 80px;
+        padding: 20px 80px;
+        background-color: #101010;
+        background-image: url('../../assets/images/main/winterBicycle/winterBicycle.svg');
+        background-repeat: no-repeat;
+        align-items: flex-start;
+        justify-content: space-between;
+        &-header {
+            color: #FFF;
+            font-size: 60px;
+            font-family: 'Bebas-Neue-Bold';
+            margin: 10px 0px;
+        }
+        &__slider {
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 
 #mainPage__catalog-parts {
