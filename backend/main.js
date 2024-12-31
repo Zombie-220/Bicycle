@@ -22,7 +22,7 @@ export let ProductsCollection;
 MongoClient.connect(`mongodb://root:pass@localhost:${DATABASE_PORT}/`).then(client => {
     const DB = client.db('bicycle');
     UserCollection = DB.collection('users');
-    ProductsCollection = DB.collection('products');
+    ProductsCollection = DB.collection('bicycles');
 
     logger.info('Connected to DB');
 
