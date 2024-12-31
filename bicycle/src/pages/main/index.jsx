@@ -42,7 +42,7 @@ export const MainPage = () => {
             setNewItemsError(false);
         }).catch(() => { setNewItemsError(true); })
 
-        API_URL('/products/amount/9').then(({ data }) => {
+        API_URL('/products/amount/3').then(({ data }) => {
             setWinterBicycle(data);
             setWinterIsLoading(false);
             setWinterError(false);
@@ -194,6 +194,35 @@ export const MainPage = () => {
                             }</Slider>
                         </Preloader> : <p className='mainPage__cardSlider__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
                     }
+                </div>
+            </div>
+            <div className='mainPage__advantages'>
+                <p className='mainPage__advantages-header'>ПРЕИМУЩЕСТВА</p>
+                <div className='mainPage__advantages__body'>
+                    <div className='mainPage__advantages__body__rows'>
+                        <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-1'>
+                            <p className='mainPage__advantages__body__rows__row-header'>БЕСПЛАТНАЯ ДОСТАВКА</p>
+                            <p className='mainPage__advantages__body__rows__row-text'>Мы пользуемся всеми популярными видами доставки</p>
+                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
+                        </div>
+                        <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-2'>
+                            <p className='mainPage__advantages__body__rows__row-header'>ОБМЕН И ВОЗВРАТ</p>
+                            <p className='mainPage__advantages__body__rows__row-text'>Все товары обеспечены фирменной гарантией фирм-производителей</p>
+                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
+                        </div>
+                    </div>
+                    <div className='mainPage__advantages__body__rows'>
+                        <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-3'>
+                            <p className='mainPage__advantages__body__rows__row-header'>ДОП. ОБСЛУЖИВАНИЕ</p>
+                            <p className='mainPage__advantages__body__rows__row-text'>Мы выполняем ремонт велосипеда любой сложности</p>
+                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
+                        </div>
+                        <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-4'>
+                            <p className='mainPage__advantages__body__rows__row-header'>ОНЛАЙН ОПЛАТА</p>
+                            <p className='mainPage__advantages__body__rows__row-text'>Для удобства вы можете оплатить товар банковской картой через сайт</p>
+                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
