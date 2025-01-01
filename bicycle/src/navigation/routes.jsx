@@ -4,6 +4,7 @@ import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
 
 import { MainPage } from "../pages/main";
+import { CatalogPage } from "../pages/catalog";
 
 import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";
@@ -37,7 +38,11 @@ export const getRoutes = (isAuth, isAdmin) => {
       children: [
         {
           path: "/",
-          Component: MainPage,
+          Component: MainPage
+        },
+        {
+          path: "/catalog/:category",
+          Component: CatalogPage
         },
 
         ...(isAuth === '' ? notAuthPages : authPages),
