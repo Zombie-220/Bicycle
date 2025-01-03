@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { AuthContext, AdminContext } from '../../App';
-import { DiffLink } from '../../components/diffLink';
+import { DiffLink } from '../../components/DiffLink';
 
 import icon from '../../assets/images/icon.svg';
 import userIcon from '../../assets/images/header/user.svg';

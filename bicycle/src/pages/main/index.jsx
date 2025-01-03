@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { DiffLink } from '../../components/diffLink';
+import { DiffLink } from '../../components/DiffLink';
 import { DivSlider } from '../../components/Sliders/divSlider';
 import { LoopSlider } from '../../components/Sliders/loopSlider';
 import { Slider } from '../../components/Sliders/slider';
