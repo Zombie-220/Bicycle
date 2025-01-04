@@ -35,7 +35,7 @@ export const LoginUserByName = async (name, password) => {
 
 /**
  * @param {string} id 
- * @returns {[string]}
+ * @returns {Promise<[string]>}
 */
 export const GetUserRoles = async (id) => {
     const roles = await usersCollection.findOne({ _id: new ObjectId(id) });
