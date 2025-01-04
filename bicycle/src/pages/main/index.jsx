@@ -192,7 +192,7 @@ export const MainPage = () => {
                                     );
                                 })
                             }</Slider>
-                        </Preloader> : <p className='mainPage__cardSlider__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
+                        </Preloader> : <p className='mainPage__winterBicycles__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
                     }
                 </div>
             </div>
