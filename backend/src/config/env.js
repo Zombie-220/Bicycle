@@ -8,4 +8,9 @@ dotenv.config({
 });
 
 export const PORT = process.env.PORT;
-export const DATABASE_PORT = process.env.DATABASE_PORT;
+
+export const DATABASE_INFO = {
+    port: process.env.DATABASE_PORT,
+    root: process.env.DATABASE_ROOT,
+    pass: process.env.DATABASE_PASS
+}

@@ -36,13 +36,13 @@ export const MainPage = () => {
     const [winterError, setWinterError] = useState(false);
 
     useEffect(() => {
-        API_URL('/products/amount/6').then(({ data }) => {
+        API_URL('/bicycles/amount/6').then(({ data }) => {
             setNewItems(data);
             setNewItemsLoading(false);
             setNewItemsError(false);
         }).catch(() => { setNewItemsError(true); })
 
-        API_URL('/products/amount/3').then(({ data }) => {
+        API_URL('/bicycles/amount/3').then(({ data }) => {
             setWinterBicycle(data);
             setWinterIsLoading(false);
             setWinterError(false);
