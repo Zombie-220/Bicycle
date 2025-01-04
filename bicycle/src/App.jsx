@@ -13,7 +13,7 @@ export const AdminContext = createContext(null);
 export const ChangeProductContext = createContext(null);
 
 export const App = () => {
-  // 673f4871586c8caff684c4ab
+  // const [isAuth, setIsAuth] = useState('673f4871586c8caff684c4ab')
   const [isAuth, setIsAuth] = useState('');
   const [currentProduct, setCurrentProduct] = useState();
   const [addedProductToCart, setAddedProductToCart] = useState([]);

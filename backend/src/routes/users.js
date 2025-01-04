@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { CreateUser_C, FindUsername_C, LoginUser_C } from '../controller/users.js';
+import { CheckUser, RegisterUser, LoginUser } from '../controller/users.js';
 
 export const UsersRouter = Router();
 
-UsersRouter.get('/findByName/:name', FindUsername_C);
-UsersRouter.post('/add', CreateUser_C);
-UsersRouter.post('/login', LoginUser_C);
+UsersRouter.get('/check', CheckUser);
+UsersRouter.post('/register', RegisterUser);
+UsersRouter.post('/login', LoginUser);

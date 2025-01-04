@@ -12,7 +12,7 @@ export const AuthPage = () => {
     const { setIsAuth } = useContext(AuthContext);
     const { setIsAdmin } = useContext(AdminContext);
     const [formErr, setFormErr] = useState('');
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm();
+    const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm();
     const navigate = useNavigate();
 
     function onSubmit(submitData) {
@@ -25,12 +25,15 @@ export const AuthPage = () => {
                 setIsAuth(data.id);
                 if (data.token) { localStorage.setItem('token', JSON.stringify(data.token)); }
 
-                API_URL(`/users/isAdmin/${data.id}`).then(({ data }) => {
-                    if (data.message) { setIsAdmin(true); }
+                API_URL(`/users/check?isAdmin=${data.id}`).then(({ data }) => {
+                    if (data.response) { setIsAdmin(true); }
                 }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
 
                 navigate('/');
-            } else { setFormErr('Введен неверный логин или пароль'); }
+            } else {
+                setError('name', { type: 'empty' });
+                setError('password', { type: 'incorrect' });
+            }
         }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
     }
 

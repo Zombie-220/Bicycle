@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -9,26 +9,35 @@ import { AuthContext } from '../../../App';
 import './style.scss';
 
 export const RegisterPage = () => {
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm();
+    const { register, handleSubmit, setError, clearErrors, formState: { errors, isValid } } = useForm();
     const [formErr, setFormErr] = useState();
     const { setIsAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!errors.password_confirmed) { clearErrors('password'); }
+    }, [errors.password_confirmed]);
+
     function onSubmit(formData) {
-        if (formData.password_confirmed === formData.password) {
-            API_URL.get(`/users/findByName/${formData.name}`).then(({ data }) => {
-                if (!data.id) {
-                    API_URL.post('/users/add', {
-                        name: formData.name,
-                        password: formData.password,
-                        email: formData.email
-                    }).then((respData) => {
-                        setIsAuth(respData.data.response);
-                        navigate('/');
-                    }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
-                } else { setFormErr('Данное имя уже занято'); }
-            }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
-        } else { setFormErr('Пароли не совподают') }
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            if (formData.password_confirmed === formData.password) {
+                API_URL.get(`/users/check?name=${formData.name}`).then(({ data }) => {
+                    if (!data.id) {
+                        API_URL.post('/users/register', {
+                            name: formData.name,
+                            password: formData.password,
+                            email: formData.email
+                        }).then((respData) => {
+                            setIsAuth(respData.data.response);
+                            navigate('/');
+                        }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
+                    } else { setError('name', { type: 'reserved' }); }
+                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
+            } else {
+                setError('password', { type: "empty" });
+                setError('password_confirmed', { type: "match" });
+            }
+        } else { setError('email', { type: 'email' }); }
     }
 
     return (

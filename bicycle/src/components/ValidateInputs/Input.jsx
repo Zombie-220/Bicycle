@@ -5,6 +5,11 @@ import "./Input.scss";
 const getTextError = (type) => {
     switch (type) {
         case "required": return "Поле обязательное для заполнения";
+        case "reserved": return "Данное имя уже занято";
+        case "match": return "Поля не совпадают";
+        case "empty": return "";
+        case "incorrect": return "Введены неверные данные";
+        case "email": return "Почта введена не корректно";
         default: return `${type} - ошибка`;
     }
 };
