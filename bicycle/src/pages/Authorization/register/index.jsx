@@ -16,8 +16,8 @@ export const RegisterPage = () => {
 
     function onSubmit(formData) {
         if (formData.password_confirmed === formData.password) {
-            API_URL.post('/users/checkName', { name: formData.name }).then(({ data }) => {
-                if (!data.response) {
+            API_URL.get(`/users/findByName/${formData.name}`).then(({ data }) => {
+                if (!data.id) {
                     API_URL.post('/users/add', {
                         name: formData.name,
                         password: formData.password,

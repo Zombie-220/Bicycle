@@ -2,3 +2,9 @@ node_modules/
 .vscode/
 *.log
 .env
+
+cert.crt
+cert.txt
+key.key
+req.csr
+no_pass_key.key
