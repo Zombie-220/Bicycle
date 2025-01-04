@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
+import { createServer } from 'https';
 
-import { PORT } from './config/env.js';
+import { CERTIFICATE, PORT, PRIVATE_KEY } from './config/env.js';
 import { logger } from './config/logger/logger.js';
 import { UsersRouter } from './routes/users.js';
 import { BicyclesRouter } from './routes/bicycles.js';
@@ -15,5 +16,15 @@ APP.use(
 APP.use('/users', UsersRouter);
 APP.use('/bicycles', BicyclesRouter);
 
-APP.use((req, res) => { res.status(404).send('Resource not found >_<'); });
-APP.listen(PORT, () => { logger.info(`Server is running via http://localhost:${PORT}`); });
+APP.use((req, res) => {
+    res.status(404).send('Resource not found >_<');
+    logger.warn(`Wrong query: ${req.method} ${req.baseUrl}${req.url}`);
+});
+
+if (PRIVATE_KEY && CERTIFICATE) {
+    const httpsServer = createServer({ key: PRIVATE_KEY, cert: CERTIFICATE, passphrase: 'pass phrase' }, APP);
+
+    httpsServer.listen(PORT, () => { logger.info(`Server is running via https://localhost:${PORT}`); })
+} else {
+    APP.listen(PORT, () => { logger.info(`Server is running via http://localhost:${PORT}`); });
+}

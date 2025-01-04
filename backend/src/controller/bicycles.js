@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import { GetBicyclesByAmount_S } from '../service/bicycles.js';
+import { GetBicyclesByAmount_M } from '../models/bicycles.js';
 import { logger } from "../config/logger/logger.js";
 
 /**
@@ -9,7 +9,7 @@ import { logger } from "../config/logger/logger.js";
 */
 export const GetBicyclesByAmount_C = async (req, res) => {
     try {
-        const bicycles = await GetBicyclesByAmount_S(req.params.amount);
+        const bicycles = await GetBicyclesByAmount_M(req.params.amount);
         res.json(bicycles);
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
