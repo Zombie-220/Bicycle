@@ -26,11 +26,11 @@ export const AuthPage = () => {
         API_URL.post('/users/login', {
             name: encryptesSubmitData.name,
             password: encryptesSubmitData.password,
-            getToken: encryptesSubmitData.remembeMe
+            getToken: encryptesSubmitData.getToken
         }).then(({ data }) => {
             const decryptedId = {
                 id: Decrypt(data.id),
-                token: data.token ? Decrypt(data.token) : ''
+                token: Decrypt(data.token)
             }
             if (decryptedId.id) {
                 setIsAuth(decryptedId.id);

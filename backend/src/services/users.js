@@ -32,7 +32,7 @@ export const LoginUser_S = async (dataFromUser) => {
     if (decryptedData.getToken) {
         return ({
             id: Encryp_front(`${userId}`),
-            token: `${userId}.temp`
+            token: Encryp_front(`${userId}.token`)
         });
     } else { return ({ id: Encryp_front(`${userId}`) }); }
 
