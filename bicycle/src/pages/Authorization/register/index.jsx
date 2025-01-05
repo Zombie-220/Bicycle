@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { ValidateInput } from '../../../components/ValidateInputs/Input';
 import { API_URL } from '../../../requests/request';
 import { AuthContext } from '../../../App';
+import { Decrypt, Encrypt } from '../../../helpers/AES';
 
 import './style.scss';
 
@@ -19,16 +20,22 @@ export const RegisterPage = () => {
     }, [errors.password_confirmed]);
 
     function onSubmit(formData) {
+        const encryptedData = {
+            name: Encrypt(formData.name),
+            email: Encrypt(formData.email),
+            password: Encrypt(formData.password)
+        };
+
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             if (formData.password_confirmed === formData.password) {
-                API_URL.get(`/users/check?name=${formData.name}`).then(({ data }) => {
+                API_URL.get(`/users/check?name=${encryptedData.name}`).then(({ data }) => {
                     if (!data.id) {
                         API_URL.post('/users/register', {
-                            name: formData.name,
-                            password: formData.password,
-                            email: formData.email
+                            name: encryptedData.name,
+                            password: encryptedData.password,
+                            email: encryptedData.email
                         }).then((respData) => {
-                            setIsAuth(respData.data.response);
+                            setIsAuth(Decrypt(respData.data.id));
                             navigate('/');
                         }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
                     } else { setError('name', { type: 'reserved' }); }

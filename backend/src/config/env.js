@@ -19,3 +19,6 @@ export const DATABASE_INFO = {
 
 export const PRIVATE_KEY = existsSync(path.join(__dirname, 'no_pass_key.key')) ? readFileSync(path.join(__dirname, 'no_pass_key.key'), 'utf-8') : null;
 export const CERTIFICATE = existsSync(path.join(__dirname, 'cert.crt')) ? readFileSync(path.join(__dirname, 'cert.crt'), 'utf-8') : null;
+
+export const AES_KEY_FRONT = process.env.AES_KEY_FRONT;
+export const AES_KEY_DB = process.env.AES_KEY_DB;
