@@ -30,10 +30,6 @@ export const App = () => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(`Auth -- ${isAuth}\nAdmin -- ${isAdmin}`);
-  }, [isAuth]);
-
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>
       <ProductContext.Provider value={{ currentProduct, setCurrentProduct }}>

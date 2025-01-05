@@ -41,3 +41,12 @@ export const GetUserRoles = async (id) => {
     const roles = await usersCollection.findOne({ _id: new ObjectId(id) });
     return roles.roles;
 }
+
+/**
+ * @param {string} id 
+ * @returns {Promise<{_id: ObjectId, name: string, password: string, roles: [string], email: string}>}
+ */
+export const GetUserInfo = async (id) => {
+    const user = await usersCollection.findOne({ _id: new ObjectId(id) });
+    return user;
+}

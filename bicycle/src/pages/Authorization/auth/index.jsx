@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Cookies from 'js-cookie';
 
 import { API_URL } from '../../../requests/request';
 import { AuthContext, AdminContext } from '../../../App';
@@ -28,13 +29,10 @@ export const AuthPage = () => {
             password: encryptesSubmitData.password,
             getToken: encryptesSubmitData.getToken
         }).then(({ data }) => {
-            const decryptedId = {
-                id: Decrypt(data.id),
-                token: Decrypt(data.token)
-            }
+            const decryptedId = { id: Decrypt(data.id) };
             if (decryptedId.id) {
                 setIsAuth(decryptedId.id);
-                if (decryptedId.token) { localStorage.setItem('token', JSON.stringify(decryptedId.token)); }
+                if (data.token) { Cookies.set('token', Decrypt(data.token), { expires: 7 }) }
 
                 API_URL(`/users/check?isAdmin=${data.id}`).then(({ data }) => {
                     if (data.response) { setIsAdmin(true); }

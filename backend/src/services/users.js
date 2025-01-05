@@ -1,6 +1,6 @@
 import { LoginUserByName, RegisterNewUser } from "../models/users.js";
-
 import { Decrypt_front, Encryp_front } from "../helpers/encryption.js";
+import { CreateToken } from "../helpers/token.js";
 
 /**
  * @param {{ name: string, password: string, email: string }} userData
@@ -32,7 +32,7 @@ export const LoginUser_S = async (dataFromUser) => {
     if (decryptedData.getToken) {
         return ({
             id: Encryp_front(`${userId}`),
-            token: Encryp_front(`${userId}.token`)
+            token: Encryp_front( await CreateToken(userId))
         });
     } else { return ({ id: Encryp_front(`${userId}`) }); }
 
