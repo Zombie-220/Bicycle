@@ -1,8 +1,8 @@
 import { request, response } from "express";
 
 import { Decrypt_front } from "../helpers/encryption.js";
-import { CheckUserByName, GetUserRoles, LoginUserByName } from "../models/users.js";
-import { RegisterUser_S } from "../services/users.js";
+import { CheckUserByName, GetUserRoles } from "../models/users.js";
+import { RegisterUser_S, LoginUser_S } from "../services/users.js";
 import { logger } from "../config/logger/logger.js";
 
 /**
@@ -12,11 +12,12 @@ import { logger } from "../config/logger/logger.js";
 export const CheckUser = async (req, res) => {
     try {
         if (req.query.name) {
-            const decryptedName = Decrypt_front(req.query.name.replace(' ', '+'));
+            const decryptedName = Decrypt_front(req.query.name);
             const userId = await CheckUserByName(decryptedName);
             res.json({ id: userId });
         } else if (req.query.isAdmin) {
-            const userRoles = await GetUserRoles(req.query.isAdmin);
+            const decryptIsAdmin = Decrypt_front(req.query.isAdmin);
+            const userRoles = await GetUserRoles(decryptIsAdmin);
             res.json(userRoles.includes('admin') ? { response: true } : { response: false });
         } else {
             res.status(400).json({ message: 'Not enough data to verify' });
@@ -35,7 +36,7 @@ export const CheckUser = async (req, res) => {
 export const RegisterUser = async (req, res) => {
     try {
         const newUserId = await RegisterUser_S(req.body);
-        res.status(200).json({ id: newUserId });
+        res.json({ id: newUserId });
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
         res.status(500).json({ message: 'create user failed' });
@@ -49,8 +50,8 @@ export const RegisterUser = async (req, res) => {
 */
 export const LoginUser = async (req, res) => {
     try {
-        const userId = await LoginUserByName(req.body.name, req.body.password);
-        res.json({ id: userId });
+        const userId = await LoginUser_S(req.body);
+        res.json(userId);
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
         res.status(500).json({ message: 'login failed' });

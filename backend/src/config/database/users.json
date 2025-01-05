@@ -1,0 +1,1 @@
+[{"_id":{"$oid":"673f4871586c8caff684c4ab"},"name":"admin","password":"adminPASS","roles":["user","admin"],"email":"deniska_lider@mail.ru"},{"_id":{"$oid":"67798fe945c6d48433cdc50e"},"name":"zombie","password":"pass","roles":["user"],"email":"deniska_lider@mail.ru"}]

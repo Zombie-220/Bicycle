@@ -6,13 +6,13 @@ import { AES_KEY_FRONT } from '../config/env.js';
  * @param {string} data 
  * @returns {string}
 */
-export const Encryp_front = (data) => { return CryptoJS.AES.encrypt(data, AES_KEY_FRONT).toString(CryptoJS.enc.Utf8); }
+export const Encryp_front = (data) => { return CryptoJS.AES.encrypt(data, AES_KEY_FRONT).toString(); }
 
 /**
  * @param {string} data 
  * @returns {string} 
 */
-export const Decrypt_front = (data) => { return CryptoJS.AES.decrypt(data, AES_KEY_FRONT).toString(CryptoJS.enc.Utf8); }
+export const Decrypt_front = (data) => { return CryptoJS.AES.decrypt(data.replace(/\ /g, '+'), AES_KEY_FRONT).toString(CryptoJS.enc.Utf8); }
 
 // /**
 //  * @param {string} data 

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { API_URL } from '../../../requests/request';
 import { AuthContext, AdminContext } from '../../../App';
 import { ValidateInput } from '../../../components/ValidateInputs/Input';
+import { Decrypt, Encrypt } from '../../../helpers/AES';
 
 import './style.scss';
 
@@ -16,25 +17,35 @@ export const AuthPage = () => {
     const navigate = useNavigate();
 
     function onSubmit(submitData) {
-        API_URL.post('/users/login', {
-            name: submitData.name,
-            password: submitData.password,
+        const encryptesSubmitData = {
+            name: Encrypt(submitData.name),
+            password: Encrypt(submitData.password),
             getToken: submitData.remembeMe
+        };
+
+        API_URL.post('/users/login', {
+            name: encryptesSubmitData.name,
+            password: encryptesSubmitData.password,
+            getToken: encryptesSubmitData.remembeMe
         }).then(({ data }) => {
-            if (data.id) {
-                setIsAuth(data.id);
-                if (data.token) { localStorage.setItem('token', JSON.stringify(data.token)); }
+            const decryptedId = {
+                id: Decrypt(data.id),
+                token: data.token ? Decrypt(data.token) : ''
+            }
+            if (decryptedId.id) {
+                setIsAuth(decryptedId.id);
+                if (decryptedId.token) { localStorage.setItem('token', JSON.stringify(decryptedId.token)); }
 
                 API_URL(`/users/check?isAdmin=${data.id}`).then(({ data }) => {
                     if (data.response) { setIsAdmin(true); }
-                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
+                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.1'); });
 
                 navigate('/');
             } else {
                 setError('name', { type: 'empty' });
                 setError('password', { type: 'incorrect' });
             }
-        }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
+        }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.2'); });
     }
 
     return (

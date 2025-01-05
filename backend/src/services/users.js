@@ -1,4 +1,4 @@
-import { RegisterNewUser } from "../models/users.js";
+import { LoginUserByName, RegisterNewUser } from "../models/users.js";
 
 import { Decrypt_front, Encryp_front } from "../helpers/encryption.js";
 
@@ -14,4 +14,26 @@ export const RegisterUser_S = async (userData) => {
     };
 
     return Encryp_front(`${await RegisterNewUser(encryptedData)}`);
+}
+
+/**
+ * @param {{name: string, password: string, getToken: boolean}} dataFromUser
+ * @returns {Promise<{id: string} | {id: string, token: string}>}
+*/
+export const LoginUser_S = async (dataFromUser) => {
+    const decryptedData = {
+        name: Decrypt_front(dataFromUser.name),
+        password: Decrypt_front(dataFromUser.password),
+        getToken : dataFromUser.getToken
+    };
+
+    const userId = await LoginUserByName(decryptedData.name, decryptedData.password);
+
+    if (decryptedData.getToken) {
+        return ({
+            id: Encryp_front(`${userId}`),
+            token: `${userId}.temp`
+        });
+    } else { return ({ id: Encryp_front(`${userId}`) }); }
+
 }
