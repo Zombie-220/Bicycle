@@ -10,6 +10,5 @@ import { GetUserInfo } from '../models/users.js';
 export const CreateToken = async (id) => {
     const userInfo = await GetUserInfo(id);
     const token = jwt.sign({ name: userInfo.name, id: userInfo._id }, TOKEN_KEY, { expiresIn: 168 });
-    console.log(token);
     return (token);
 }

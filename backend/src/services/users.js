@@ -1,5 +1,5 @@
 import { LoginUserByName, RegisterNewUser } from "../models/users.js";
-import { Decrypt_front, Encryp_front } from "../helpers/encryption.js";
+import { Decrypt, Encryp } from "../helpers/encryption.js";
 import { CreateToken } from "../helpers/token.js";
 
 /**
@@ -8,12 +8,12 @@ import { CreateToken } from "../helpers/token.js";
 */
 export const RegisterUser_S = async (userData) => {
     const encryptedData = {
-        name: Decrypt_front(userData.name),
-        email: Decrypt_front(userData.email),
-        password: Decrypt_front(userData.password)
+        name: Decrypt(userData.name),
+        email: Decrypt(userData.email),
+        password: Decrypt(userData.password)
     };
 
-    return Encryp_front(`${await RegisterNewUser(encryptedData)}`);
+    return Encryp(`${await RegisterNewUser(encryptedData)}`);
 }
 
 /**
@@ -21,19 +21,14 @@ export const RegisterUser_S = async (userData) => {
  * @returns {Promise<{id: string} | {id: string, token: string}>}
 */
 export const LoginUser_S = async (dataFromUser) => {
-    const decryptedData = {
-        name: Decrypt_front(dataFromUser.name),
-        password: Decrypt_front(dataFromUser.password),
-        getToken : dataFromUser.getToken
-    };
+    const userId = await LoginUserByName(dataFromUser.name, dataFromUser.password);
 
-    const userId = await LoginUserByName(decryptedData.name, decryptedData.password);
+    if (userId) {   
+        if (dataFromUser.getToken) {
+            return [userId];
+        } else { return ({ id: Encryp_front(`${userId}`) }); }
+    } else {
 
-    if (decryptedData.getToken) {
-        return ({
-            id: Encryp_front(`${userId}`),
-            token: Encryp_front( await CreateToken(userId))
-        });
-    } else { return ({ id: Encryp_front(`${userId}`) }); }
-
+    }
+    
 }
