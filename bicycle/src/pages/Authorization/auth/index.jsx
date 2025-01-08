@@ -32,18 +32,21 @@ export const AuthPage = () => {
             const decryptedId = { id: Decrypt(data.id) };
             if (decryptedId.id) {
                 setIsAuth(decryptedId.id);
-                if (data.token) { Cookies.set('token', Decrypt(data.token), { expires: 7 }) }
+                if (data.token !== '') { Cookies.set('token', Decrypt(data.token), { expires: 7 }) }
 
                 API_URL(`/users/check?isAdmin=${data.id}`).then(({ data }) => {
                     if (data.response) { setIsAdmin(true); }
-                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.1'); });
+                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
 
                 navigate('/');
             } else {
                 setError('name', { type: 'empty' });
                 setError('password', { type: 'incorrect' });
             }
-        }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.2'); });
+        }).catch((err) => {
+            if (err.response.data.message === 'wrong data') { setFormErr('Имя или пароль введены неверно.'); }
+            else { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); }
+        });
     }
 
     return (

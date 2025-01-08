@@ -5,7 +5,8 @@ import { TOKEN_KEY } from '../config/env.js';
 import { GetUserInfo } from '../models/users.js';
 
 /**
- * @param {ObjectId} id 
+ * @param {ObjectId} id
+ * @returns {string}
 */
 export const CreateToken = async (id) => {
     const userInfo = await GetUserInfo(id);

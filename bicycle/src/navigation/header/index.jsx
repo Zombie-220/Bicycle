@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { AuthContext, AdminContext } from '../../App';
 import { DiffLink } from '../../components/DiffLink';
@@ -21,7 +22,7 @@ export const Header = () => {
   
     const logout = () => {
         navigate("/");
-        localStorage.removeItem("token");
+        Cookies.remove("token");
         setIsAuth('');
         setIsAdmin(false);
     };

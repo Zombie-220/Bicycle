@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 import { getRoutes } from "./navigation/routes";
 import { API_URL } from "./requests/request";

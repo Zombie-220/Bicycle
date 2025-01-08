@@ -36,8 +36,14 @@ export const CheckUser = async (req, res) => {
 */
 export const RegisterUser = async (req, res) => {
     try {
-        const newUserId = await RegisterUser_S(req.body);
-        res.json({ id: newUserId });
+        const dacryptedData = {
+            name: Decrypt(req.body.name),
+            email: Decrypt(req.body.email),
+            password: Decrypt(req.body.password)
+        };
+        const newUserId = await RegisterUser_S(dacryptedData);
+
+        res.json({ id: Encryp(`${newUserId}`) });
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
         res.status(500).json({ message: 'create user failed' });
@@ -54,19 +60,17 @@ export const LoginUser = async (req, res) => {
         const decryptedData = {
             name: Decrypt(req.body.name),
             password: Decrypt(req.body.password),
-            getToken: getToken
+            getToken: req.body.getToken
         };
-
-        const [userId, err] = await LoginUser_S(decryptedData);
+        const [userId, token, err] = await LoginUser_S(decryptedData);
 
         if (!err) {
-            res.json({ id: Encryp(userId) });
+            res.json({ id: Encryp(`${userId}`), token: token });
             logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } else {
-            res.json({ message: err });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err}`);
+            res.status(400).json({ message: err });
+            logger.info(`${req.method} ${req.baseUrl}${req.url}: ${err}`);
         }
-
     } catch (err) {
         res.status(500).json({ message: 'login failed' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
