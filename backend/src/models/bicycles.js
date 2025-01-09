@@ -15,3 +15,8 @@ export const GetBicyclesByAmount_M = async (amount) => {
         logger.crit('GetBicyclesByAmount failed at models');
     }
 }
+
+export const GetAllBicycles = async () => {
+    const result = await bicyclesCollection.find({}).toArray();
+    return result;
+}
