@@ -9,6 +9,7 @@ import { Card } from '../../components/card';
 import { Preloader } from '../../components/preloader';
 
 import { API_URL } from '../../requests/request';
+import { Decrypt } from '../../helpers/AES';
 
 import wiliev from '../../assets/images/main/loopSlider/wiliev.svg'; 
 import wahoo from '../../assets/images/main/loopSlider/wahoo.svg'; 
@@ -41,19 +42,57 @@ export const MainPage = () => {
 
     useEffect(() => {
         API_URL('/bicycles/amount/6').then(({ data }) => {
-            setNewItems(data);
+            var decryptedData = [];
+            data.map((dataMap) => {
+                return (decryptedData.push({
+                    _id: Decrypt(dataMap._id),
+                    name: Decrypt(dataMap.name),
+                    productImage: dataMap.productImage,
+                    countryImage: dataMap.countryImage,
+                    price: parseInt(Decrypt(dataMap.price)),
+                    amount: parseInt(Decrypt(dataMap.amount)),
+                    discount: parseInt(Decrypt(dataMap.discount))
+                }));
+            });
+
+            setNewItems(decryptedData);
             setNewItemsLoading(false);
             setNewItemsError(false);
         }).catch(() => { setNewItemsError(true); })
 
         API_URL('/bicycles/amount/3').then(({ data }) => {
-            setWinterBicycle(data);
+            var decryptedData = [];
+            data.map((dataMap) => {
+                return (decryptedData.push({
+                    _id: Decrypt(dataMap._id),
+                    name: Decrypt(dataMap.name),
+                    productImage: dataMap.productImage,
+                    countryImage: dataMap.countryImage,
+                    price: parseInt(Decrypt(dataMap.price)),
+                    amount: parseInt(Decrypt(dataMap.amount)),
+                    discount: parseInt(Decrypt(dataMap.discount))
+                }));
+            });
+
+            setWinterBicycle(decryptedData);
             setWinterIsLoading(false);
             setWinterError(false);
         }).catch(() => { setWinterError(true); })
 
         API_URL('/equipments/amount/9').then(({ data }) => {
-            setEquipment(data);
+            var decryptedData = [];
+            data.map((dataMap) => {
+                return (decryptedData.push({
+                    _id: Decrypt(dataMap._id),
+                    name: Decrypt(dataMap.name),
+                    productImage: dataMap.productImage,
+                    price: parseInt(Decrypt(dataMap.price)),
+                    amount: parseInt(Decrypt(dataMap.amount)),
+                    discount: parseInt(Decrypt(dataMap.discount))
+                }));
+            })
+
+            setEquipment(decryptedData);
             setEquipmentLoading(false);
             setEquipmentErr(false);
         }).catch(() => { setEquipmentErr(true); })

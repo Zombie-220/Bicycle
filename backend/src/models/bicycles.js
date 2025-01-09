@@ -4,7 +4,7 @@ import { logger } from "../config/logger/logger.js";
 const bicyclesCollection = DB.collection('bicycles');
 
 /**
- * @param {*} amount 
+ * @param {string} amount 
  * @returns 
 */
 export const GetBicyclesByAmount_M = async (amount) => {
