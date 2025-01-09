@@ -14,8 +14,6 @@
             align-items: center;
             padding: 10px;
             box-sizing: border-box;
-            &:first-child { padding: 10px 10px 10px 0px; }
-            &:last-child { padding: 10px 0px 10px 10px; }
         }
     }
     &-button {

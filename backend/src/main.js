@@ -6,6 +6,7 @@ import { CERTIFICATE, PORT, PRIVATE_KEY } from './config/env.js';
 import { logger } from './config/logger/logger.js';
 import { UsersRouter } from './routes/users.js';
 import { BicyclesRouter } from './routes/bicycles.js';
+import { EquipmentsRouter } from './routes/equipments.js';
 
 export const APP = express();
 APP.use(
@@ -15,6 +16,7 @@ APP.use(
 
 APP.use('/users', UsersRouter);
 APP.use('/bicycles', BicyclesRouter);
+APP.use('/equipments', EquipmentsRouter);
 
 APP.use((req, res) => {
     res.status(404).send('Resource not found >_<');

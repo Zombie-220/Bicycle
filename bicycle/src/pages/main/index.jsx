@@ -35,6 +35,10 @@ export const MainPage = () => {
     const [winterIsLoading, setWinterIsLoading] = useState(true);
     const [winterError, setWinterError] = useState(false);
 
+    const [equipments, setEquipment] = useState([]);
+    const [equipmentLoading, setEquipmentLoading] = useState(true);
+    const [equipmentErr, setEquipmentErr] = useState(false);
+
     useEffect(() => {
         API_URL('/bicycles/amount/6').then(({ data }) => {
             setNewItems(data);
@@ -47,6 +51,12 @@ export const MainPage = () => {
             setWinterIsLoading(false);
             setWinterError(false);
         }).catch(() => { setWinterError(true); })
+
+        API_URL('/equipments/amount/9').then(({ data }) => {
+            setEquipment(data);
+            setEquipmentLoading(false);
+            setEquipmentErr(false);
+        }).catch(() => { setEquipmentErr(true); })
     }, []);
 
     return (
@@ -223,6 +233,35 @@ export const MainPage = () => {
                             <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div className='mainPage__equipment'>
+                <p className='mainPage__equipment-header'>ЭКИПИРОВКА</p>
+                <div className='mainPage__equipment__slider'>
+                    {!equipmentErr ?
+                        <Preloader isLoading={equipmentLoading}>
+                            <Slider cardPerSlide={3}>{
+                                equipments.map((data, index) => {
+                                    return (
+                                        <Card
+                                            key = {index}
+                                            id = {data._id}
+                                            itemName = {data.name}
+                                            itemAmount = {data.amount}
+                                            itemImage = {data.productImage}
+                                            itemPrice = {data.price}
+                                        />
+                                    );
+                                })
+                            }</Slider>
+                        </Preloader> : <p className='mainPage__equipment__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
+                    }
+                </div>
+            </div>
+            <div className='mainPage__reviews'>
+                <p className='mainPage__reviews-header'>ПОСЛЕДНИЕ ОБЗОРЫ</p>
+                <div className='mainPage__reviews__container'>
+                    будь так добр добавить сюда слайдер с обзорами (их просто пока в базе нет)
                 </div>
             </div>
         </div>

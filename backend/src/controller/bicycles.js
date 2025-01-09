@@ -13,7 +13,7 @@ export const GetBicyclesByAmount_C = async (req, res) => {
         res.json(bicycles);
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
-        res.status(400).json({ message: 'Get bicycles by amount failed' });
+        res.status(500).json({ message: 'Get bicycles by amount failed' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 }

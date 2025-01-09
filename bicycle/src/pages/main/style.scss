@@ -337,6 +337,40 @@
             }
         }
     }
+    &__equipment {
+        padding: 0px 80px;
+        margin: 80px 0px 0px 0px;
+        &-header {
+            color: #101010;
+            font-size: 60px;
+            font-family: 'Bebas-Neue-Bold';
+            margin: 80px 0px 0px 0px;
+        }
+        &__slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &-error {
+                color: #000;
+                font-size: 16px;
+                font-family: 'Inter-Light';
+                margin: 20px 0px 0px 0px;
+                text-align: center;
+            }
+        }
+    }
+    &__reviews {
+        display: none;
+        &-header {
+            color: #101010;
+            font-size: 60px;
+            font-family: 'Bebas-Neue-Bold';
+            margin: 80px 0px 0px 0px;
+        }
+        &__container {
+
+        }
+    }
 }
 
 #mainPage__catalog-parts {

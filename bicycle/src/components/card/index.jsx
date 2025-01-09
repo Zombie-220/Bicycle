@@ -4,12 +4,12 @@ import click from './click.svg';
 import './style.scss';
 
 export const Card = (props) => {
-    const { id, itemName, itemCountry, itemAmount, itemImage, itemPrice } = props;
+    const { id, itemName, itemCountry=null, itemAmount, itemImage, itemPrice } = props;
 
     return (
         <div className='card'>
             <div className='card__header'>
-                <img className='card__header-img' src={itemCountry} alt="country" />
+                {itemCountry ? <img className='card__header-img' src={itemCountry} alt="country" /> : <div></div>}
                 <p className={`card__header-amount-${itemAmount === 0 ? 'red' : 'green'}`}>
                     {itemAmount === 0 ? 'Распродано' : 'В наличии'}
                 </p>
