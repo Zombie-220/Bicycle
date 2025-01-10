@@ -8,6 +8,8 @@ import { AuthContext, AdminContext } from '../../../App';
 import { ValidateInput } from '../../../components/ValidateInputs/Input';
 import { Decrypt, Encrypt } from '../../../helpers/AES';
 
+import { CheckboxButton } from '../../../components/Buttons/checkbox';
+
 import './style.scss';
 
 export const AuthPage = () => {
@@ -75,11 +77,8 @@ export const AuthPage = () => {
                 <button className='authPage__body-button' disabled={!isValid}>Войти</button>
                 <div className='authPage__body__footer'>
                     <div className='authPage__body__footer__wrapper'>
-                        <label className='authPage__body__footer__wrapper-checkbox'>
-                            <input className='authPage__body__footer__wrapper-checkbox-input' type="checkbox" {...register('remembeMe')} id='idRemembeMe' />
-                            <span className='authPage__body__footer__wrapper-checkbox-checkmark'></span>
-                        </label>
-                        <label className='authPage__body__footer__wrapper-label' htmlFor="idRemembeMe">Запомнить меня</label>
+                        <CheckboxButton name={"remembeMe"} formFunction={register} />
+                        <label className='authPage__body__footer__wrapper-label' htmlFor="remembeMe">Запомнить меня</label>
                     </div>
                     <Link to={'/auth/recover'} className='authPage__body__footer-link'>Забыли пароль?</Link>
                 </div>

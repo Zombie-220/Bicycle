@@ -1,0 +1,29 @@
+.switchButton {
+    cursor: pointer;
+    display: block;
+    width: 40px;
+    height: 21px;
+    background-color: #0000;
+    border: 1px solid #D3D3D3;
+    border-radius: 10px;
+    position: relative;
+    transition: 200ms;
+    &-button { display: none; }
+    &-label {
+        cursor: pointer;
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #D3D3D3;
+        transition: 200ms;
+    }
+
+    &-button:checked + &-label {
+        left: 22px;
+        background-color: #FFF;
+    }
+}

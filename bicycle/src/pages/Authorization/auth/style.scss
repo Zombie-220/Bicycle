@@ -50,41 +50,13 @@
             align-items: center;
             justify-content: space-between;
             &__wrapper {
-                &-checkbox {
-                    cursor: pointer;
-                    &-input { display: none; }
-                    &-checkmark {
-                        position: absolute;
-                        border: 1px solid #B3B3B3;
-                        border-radius: 4px;
-                        height: 16px;
-                        width: 16px;
-                        transition: 200ms;
-                        &:after {
-                            content: "";
-                            position: absolute;
-                            display: none;
-                            left: 5px;
-                            top: 0px;
-                            width: 5px;
-                            height: 10px;
-                            border: solid #101010;
-                            border-width: 0 2px 2px 0;
-                            transform: rotate(45deg);
-                        }
-                    }
-                    &-input:checked ~ &-checkmark {
-                        background-color: #F57520;
-                        border-color: #F57520;
-                    }
-                    &-input:checked ~ &-checkmark:after { display: block; }
-                }
+                display: flex;
                 &-label {
                     cursor: pointer;
                     font-size: 16px;
                     color: #4C4C4C;
                     font-family: 'Inter-Regular';
-                    margin-left: 25px;
+                    margin-left: 8px;
                 }
             }
             &-link {
