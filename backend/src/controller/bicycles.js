@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import { GetBicyclesByAmount_M, GetAllBicycles } from '../models/bicycles.js';
+import { GetBicyclesByAmount_M, GetAllBicycles, GetBicycleCategories_M } from '../models/bicycles.js';
 import { logger } from "../config/logger/logger.js";
 import { Encryp } from "../helpers/encryption.js";
 
@@ -44,5 +44,25 @@ export const GetBicyclesByAmount_C = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Get bicycles by amount failed' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+}
+
+/**
+ * @param {request} req 
+ * @param {response} res 
+*/
+export const GetBicycleCategories_C = async (req, res) => {
+    if (req.query.field && req.query.summ) {
+        try {
+            const bicycleCategories = await GetBicycleCategories_M(req.query.field, req.query.summ);
+            res.json(bicycleCategories);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'Get bicycle categories failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
+    } else {
+        res.status(400).json({ message: 'not enough data' });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${'not enough data'}`);
     }
 }

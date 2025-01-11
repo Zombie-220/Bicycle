@@ -17,6 +17,7 @@ export const CatalogPage = () => {
     const { category } = useParams();
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
+    const [categories, setCategories] = useState([]);
 
     const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
     const handleCategoriesButtonChanges = (event) => { setCategoriesButtonChecked(event.target.checked); }
@@ -45,6 +46,10 @@ export const CatalogPage = () => {
                     });
                     setProducts(decryptedData);
                 }).catch((err) => { console.log(err); }) // удали к черту это убожество
+
+                API_URL('/bicycles/categories?field=type&summ=amount').then(({ data }) => {
+                    setCategories(data);
+                }).catch((err) => { console.log(err); })
                 break;
             case 'parts':
                 setCurrentPage('Запчасти');
@@ -74,35 +79,32 @@ export const CatalogPage = () => {
 
                 <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
                     <div className='catalogPage__body__options__stock'>
-                        <p className='catalogPage__body__options__stock-header'>Только в наличии</p>
+                        <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
                         <SwitchButton name={'inStock'} formFunction={register} />
                     </div>
                     <hr  className='catalogPage__body__options-separator'/>
                     <div className='catalogPage__body__options__categories'>
                         <div className='catalogPage__body__options__categories__header'>
-                            <p className='catalogPage__body__options__categories__header-header'>Категории</p>
+                            <label className='catalogPage__body__options__categories__header-header' htmlFor='categories'>Категории</label>
                             <input type="checkbox" id="categories" className='catalogPage__body__options__categories__header-input' onChange={handleCategoriesButtonChanges}/>
                             <label htmlFor='categories' className='catalogPage__body__options__categories__header-button'>
                                 <div></div>
                                 <div></div>
                             </label>
                         </div>
-                        <div className='catalogPage__body__options__categories__body' style={{height: categoriesButtonChecked ? '100px' : '0px'}}>
-                            <div className='catalogPage__body__options__categories__body__item'>
-                                <CheckboxButton name={'categorie-1'} formFunction={register}/>
-                                <label className='catalogPage__body__options__categories__body__item-text' htmlFor={`categorie-1`}>Lorem, ipsum.1</label>
-                            </div>
-                            <div className='catalogPage__body__options__categories__body__item'>
-                                <CheckboxButton name={'categorie-2'} formFunction={register}/>
-                                <label className='catalogPage__body__options__categories__body__item-text' htmlFor={`categorie-2`}>Lorem, ipsum.2</label>
-                            </div>
-                            <div className='catalogPage__body__options__categories__body__item'>
-                                <CheckboxButton name={'categorie-3'} formFunction={register}/>
-                                <label className='catalogPage__body__options__categories__body__item-text' htmlFor={`categorie-3`}>Lorem, ipsum.3</label>
-                            </div>
+                        <div className='catalogPage__body__options__categories__body' style={{height: categoriesButtonChecked ? `${30*categories.length}px` : '0px'}}>
+                            {categories.map((data, index) => {
+                                return (
+                                    <div className='catalogPage__body__options__categories__body__item' key={index}>
+                                        <CheckboxButton name={data._id} formFunction={register}/>
+                                        <label className='catalogPage__body__options__categories__body__item-text' htmlFor={data._id}>{data._id}</label>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
-                    <button>xx</button>
+                    <hr  className='catalogPage__body__options-separator'/>
+                    <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                 </form>
 
 

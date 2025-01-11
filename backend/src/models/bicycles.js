@@ -20,3 +20,13 @@ export const GetAllBicycles = async () => {
     const result = await bicyclesCollection.find({}).toArray();
     return result;
 }
+
+export const GetBicycleCategories_M = async (field, summ) => {
+    const pipeline = [{$group: {
+            _id: `$${field}`,
+            totalQuantity: { $sum: `$${summ}` }
+        }}];
+
+    const result = await bicyclesCollection.aggregate(pipeline).toArray();
+    return result;
+}

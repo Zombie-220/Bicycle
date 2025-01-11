@@ -51,6 +51,7 @@
                 display: flex;
                 justify-content: space-around;
                 &-header {
+                    cursor: pointer;
                     font-family: 'Inter-Medium';
                     color: #34312D;
                     font-size: 16px;
@@ -64,6 +65,7 @@
                     justify-content: space-between;
                     padding: 0px 10px;
                     &-header {
+                        cursor: pointer;
                         font-family: 'Inter-Medium';
                         color: #34312D;
                         font-size: 16px;
@@ -100,12 +102,13 @@
                     overflow: hidden;
                     height: 0px;
                     transition: 200ms;
-                    margin-top: 10px;
+                    margin: 10px;
                     &__item {
                         display: flex;
                         align-items: center;
                         justify-content: left;
                         margin: 10px 0px;
+                        height: 20px;
                         &-text {
                             cursor: pointer;
                             margin: 0px 0px 0px 5px;
@@ -116,9 +119,27 @@
                     }
                 }
             }
+            &-button {
+                cursor: pointer;
+                color: #101010;
+                font-size: 16px;
+                font-family: 'Inter-Medium';
+                width: 100%;
+                border-radius: 10px;
+                padding: 10px 0px;
+                background-color: #0000;
+                border: 1px solid #C3C3C3;
+                transition: 200ms;
+                &:hover { opacity: 66%; }
+                &:active { opacity: 33%; }
+            }
         }
         &__items {
+            margin: 0px 0px 0px 20px;
             flex: 4;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
     }
 }
