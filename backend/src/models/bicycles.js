@@ -21,11 +21,21 @@ export const GetAllBicycles = async () => {
     return result;
 }
 
-export const GetBicycleCategories_M = async (field, summ) => {
-    const pipeline = [{$group: {
-            _id: `$${field}`,
-            totalQuantity: { $sum: `$${summ}` }
-        }}];
+export const GetBicyclesOrderBy_M = async (field, summ) => {
+    const pipeline = [{
+            $group: {
+                _id: `$${field}`,
+                totalQuantity: { $sum: `$${summ}` }
+            }
+        },
+        {
+            $project : {
+                _id: 0,
+                field: '$_id',
+                totalQuantity: 1
+            }
+        }
+    ];
 
     const result = await bicyclesCollection.aggregate(pipeline).toArray();
     return result;

@@ -18,9 +18,12 @@ export const CatalogPage = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
     const [categories, setCategories] = useState([]);
+    const [brands, setMarks] = useState([]);
 
     const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
     const handleCategoriesButtonChanges = (event) => { setCategoriesButtonChecked(event.target.checked); }
+    const [brandsButtonChecked, setMarksButtonChecked] = useState(false);
+    const handleMarksButtonChanges = (event) => { setMarksButtonChecked(event.target.checked); }
 
     const onSubmit = (data) => {
         console.log(data);
@@ -47,8 +50,12 @@ export const CatalogPage = () => {
                     setProducts(decryptedData);
                 }).catch((err) => { console.log(err); }) // удали к черту это убожество
 
-                API_URL('/bicycles/categories?field=type&summ=amount').then(({ data }) => {
+                API_URL('/bicycles/orderBy?field=type&summ=amount').then(({ data }) => {
                     setCategories(data);
+                }).catch((err) => { console.log(err); })
+
+                API_URL('/bicycles/orderBy?field=brand&summ=amount').then(({ data }) => {
+                    setMarks(data);
                 }).catch((err) => { console.log(err); })
                 break;
             case 'parts':
@@ -96,14 +103,36 @@ export const CatalogPage = () => {
                             {categories.map((data, index) => {
                                 return (
                                     <div className='catalogPage__body__options__categories__body__item' key={index}>
-                                        <CheckboxButton name={data._id} formFunction={register}/>
-                                        <label className='catalogPage__body__options__categories__body__item-text' htmlFor={data._id}>{data._id}</label>
+                                        <CheckboxButton name={data.field} formFunction={register}/>
+                                        <label className='catalogPage__body__options__categories__body__item-text' htmlFor={data.field}>{data.field}</label>
                                     </div>
                                 )
                             })}
                         </div>
                     </div>
                     <hr  className='catalogPage__body__options-separator'/>
+
+                    <div className='catalogPage__body__options__brands'>
+                        <div className='catalogPage__body__options__brands__header'>
+                            <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Марки</label>
+                            <input type="checkbox" id="brands" className='catalogPage__body__options__brands__header-input' onChange={handleMarksButtonChanges}/>
+                            <label htmlFor='brands' className='catalogPage__body__options__brands__header-button'>
+                                <div></div>
+                                <div></div>
+                            </label>
+                        </div>
+                        <div className='catalogPage__body__options__brands__body' style={{height: brandsButtonChecked ? `${30*brands.length}px` : '0px'}}>
+                            {brands.map((data, index) => {
+                                return (
+                                    <div className='catalogPage__body__options__brands__body__item' key={index}>
+                                        <CheckboxButton name={`${data.field}`} formFunction={register}/>
+                                        <label className='catalogPage__body__options__brands__body__item-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+
                     <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                 </form>
 

@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import { GetBicyclesByAmount_M, GetAllBicycles, GetBicycleCategories_M } from '../models/bicycles.js';
+import { GetBicyclesByAmount_M, GetAllBicycles, GetBicyclesOrderBy_M } from '../models/bicycles.js';
 import { logger } from "../config/logger/logger.js";
 import { Encryp } from "../helpers/encryption.js";
 
@@ -51,10 +51,10 @@ export const GetBicyclesByAmount_C = async (req, res) => {
  * @param {request} req 
  * @param {response} res 
 */
-export const GetBicycleCategories_C = async (req, res) => {
+export const GetBicyclesOrderBy_C = async (req, res) => {
     if (req.query.field && req.query.summ) {
         try {
-            const bicycleCategories = await GetBicycleCategories_M(req.query.field, req.query.summ);
+            const bicycleCategories = await GetBicyclesOrderBy_M(req.query.field, req.query.summ);
             res.json(bicycleCategories);
             logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
