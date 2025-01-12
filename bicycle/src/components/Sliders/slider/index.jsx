@@ -21,7 +21,9 @@ export const Slider = ({ children, cardPerSlide }) => {
                 {children.map((child, index) => {
                     return (
                         <div className="slider__items-item" style={{flex: `0 0 ${100 / cardPerSlide}%`, width: `${100 / cardPerSlide}%`}} key={index}>
-                            { child }
+                            <div className='slider__items-item-wrapper'>
+                                { child }
+                            </div>
                         </div>
                     );
                 })}
