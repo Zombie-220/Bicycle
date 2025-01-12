@@ -16,12 +16,13 @@ export const GetBicyclesByAmount_C = async (req, res) => {
             bicycles.map((data) => {
                 bicycleInfo.push({
                     _id: Encryp(`${data._id}`),
-                    name: Encryp(data.name),
+                    brand: Encryp(data.brand),
+                    model: Encryp(data.model),
                     productImage: data.productImage,
                     countryImage: data.countryImage,
                     price: Encryp(`${data.price}`),
                     amount: Encryp(`${data.amount}`),
-                    discount: Encryp('0')
+                    discount: Encryp(`${data.discount}`)
                 });
             });
         } else {

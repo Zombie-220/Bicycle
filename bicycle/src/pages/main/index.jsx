@@ -46,7 +46,8 @@ export const MainPage = () => {
             data.map((dataMap) => {
                 return (decryptedData.push({
                     _id: Decrypt(dataMap._id),
-                    name: Decrypt(dataMap.name),
+                    brand: Decrypt(dataMap.brand),
+                    model: Decrypt(dataMap.model),
                     productImage: dataMap.productImage,
                     countryImage: dataMap.countryImage,
                     price: parseInt(Decrypt(dataMap.price)),
@@ -65,7 +66,8 @@ export const MainPage = () => {
             data.map((dataMap) => {
                 return (decryptedData.push({
                     _id: Decrypt(dataMap._id),
-                    name: Decrypt(dataMap.name),
+                    brand: Decrypt(dataMap.brand),
+                    model: Decrypt(dataMap.model),
                     productImage: dataMap.productImage,
                     countryImage: dataMap.countryImage,
                     price: parseInt(Decrypt(dataMap.price)),
@@ -143,7 +145,7 @@ export const MainPage = () => {
                                         <Card
                                             key = {index}
                                             id = {data._id}
-                                            itemName = {data.name}
+                                            itemName = {`${data.brand} ${data.model}`}
                                             itemCountry = {data.countryImage}
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
@@ -232,7 +234,7 @@ export const MainPage = () => {
                                         <Card
                                             key = {index}
                                             id = {data._id}
-                                            itemName = {data.name}
+                                            itemName = {`${data.brand} ${data.model}`}
                                             itemCountry = {data.countryImage}
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
