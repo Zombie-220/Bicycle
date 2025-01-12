@@ -18,12 +18,15 @@ export const CatalogPage = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
     const [categories, setCategories] = useState([]);
-    const [brands, setMarks] = useState([]);
+    const [brands, setBrands] = useState([]);
+    const [colors, setColors] = useState([]);
 
     const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
     const handleCategoriesButtonChanges = (event) => { setCategoriesButtonChecked(event.target.checked); }
-    const [brandsButtonChecked, setMarksButtonChecked] = useState(false);
-    const handleMarksButtonChanges = (event) => { setMarksButtonChecked(event.target.checked); }
+    const [brandsButtonChecked, setBrandsButtonChecked] = useState(false);
+    const handleBrandsButtonChanges = (event) => { setBrandsButtonChecked(event.target.checked); }
+    const [colorsButtonChecked, setColorsButtonChecked] = useState(false);
+    const handleColorsButtonChanges = (event) => { setColorsButtonChecked(event.target.checked); }
 
     const onSubmit = (data) => {
         console.log(data);
@@ -39,7 +42,8 @@ export const CatalogPage = () => {
                     data.map((dataMap) => {
                         return (decryptedData.push({
                             _id: Decrypt(dataMap._id),
-                            name: Decrypt(dataMap.name),
+                            brand: Decrypt(dataMap.brand),
+                            model: Decrypt(dataMap.model),
                             productImage: dataMap.productImage,
                             countryImage: dataMap.countryImage,
                             price: parseInt(Decrypt(dataMap.price)),
@@ -55,7 +59,11 @@ export const CatalogPage = () => {
                 }).catch((err) => { console.log(err); })
 
                 API_URL('/bicycles/orderBy?field=brand&summ=amount').then(({ data }) => {
-                    setMarks(data);
+                    setBrands(data);
+                }).catch((err) => { console.log(err); })
+
+                API_URL('/bicycles/orderBy?field=color&summ=amount').then(({ data }) => {
+                    setColors(data);                    
                 }).catch((err) => { console.log(err); })
                 break;
             case 'parts':
@@ -103,8 +111,10 @@ export const CatalogPage = () => {
                             {categories.map((data, index) => {
                                 return (
                                     <div className='catalogPage__body__options__categories__body__item' key={index}>
-                                        <CheckboxButton name={data.field} formFunction={register}/>
-                                        <label className='catalogPage__body__options__categories__body__item-text' htmlFor={data.field}>{data.field}</label>
+                                        <div className='catalogPage__body__options__colors__body__item-wrapper'>
+                                            <CheckboxButton name={data.field} formFunction={register}/>
+                                            <label className='catalogPage__body__options__categories__body__item-wrapper-text' htmlFor={data.field}>{data.field}</label>
+                                        </div>
                                     </div>
                                 )
                             })}
@@ -115,7 +125,7 @@ export const CatalogPage = () => {
                     <div className='catalogPage__body__options__brands'>
                         <div className='catalogPage__body__options__brands__header'>
                             <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Марки</label>
-                            <input type="checkbox" id="brands" className='catalogPage__body__options__brands__header-input' onChange={handleMarksButtonChanges}/>
+                            <input type="checkbox" id="brands" className='catalogPage__body__options__brands__header-input' onChange={handleBrandsButtonChanges}/>
                             <label htmlFor='brands' className='catalogPage__body__options__brands__header-button'>
                                 <div></div>
                                 <div></div>
@@ -125,33 +135,62 @@ export const CatalogPage = () => {
                             {brands.map((data, index) => {
                                 return (
                                     <div className='catalogPage__body__options__brands__body__item' key={index}>
-                                        <CheckboxButton name={`${data.field}`} formFunction={register}/>
-                                        <label className='catalogPage__body__options__brands__body__item-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                        <div className='catalogPage__body__options__brands__body__item-wrapper'>
+                                            <CheckboxButton name={`${data.field}`} formFunction={register}/>
+                                            <label className='catalogPage__body__options__brands__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                        </div>
+                                        <label className='catalogPage__body__options__brands__body__item-amount' htmlFor={`${data.field}`}>({data.summ})</label>
                                     </div>
                                 )
                             })}
                         </div>
                     </div>
 
+
+
+                    <hr  className='catalogPage__body__options-separator'/>
+                    <div className='catalogPage__body__options__colors'>
+                        <div className='catalogPage__body__options__colors__header'>
+                            <label className='catalogPage__body__options__colors__header-header' htmlFor='colors'>Цвета</label>
+                            <input type="checkbox" id="colors" className='catalogPage__body__options__colors__header-input' onChange={handleColorsButtonChanges}/>
+                            <label htmlFor='colors' className='catalogPage__body__options__colors__header-button'>
+                                <div></div>
+                                <div></div>
+                            </label>
+                        </div>
+                        <div className='catalogPage__body__options__colors__body' style={{height: colorsButtonChecked ? `${30*colors.length}px` : '0px'}}>
+                            {colors.map((data, index) => {
+                                return (
+                                    <div className='catalogPage__body__options__colors__body__item' key={index}>
+                                        <div className='catalogPage__body__options__colors__body__item-wrapper'>
+                                            <CheckboxButton name={`${data.field}`} formFunction={register}/>
+                                            <label className='catalogPage__body__options__colors__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+
+
+                    
                     <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                 </form>
-
-
-
                 <div className='catalogPage__body__items'>
-                    {/* {products.map((data, index) => {
+                    {products.map((data, index) => {
                         return (
-                            <Card
-                                key = {index}
-                                id = {data._id}
-                                itemName = {data.name}
-                                itemCountry = {data.countryImage}
-                                itemAmount = {data.amount}
-                                itemImage = {data.productImage}
-                                itemPrice = {data.price}
-                            />
+                            <div className='catalogPage__body__items__item' key={index}>
+                                <Card
+                                    id = {data._id}
+                                    itemName = {`${data.brand} ${data.model}`}
+                                    itemCountry = {data.countryImage}
+                                    itemAmount = {data.amount}
+                                    itemImage = {data.productImage}
+                                    itemPrice = {data.price}
+                                />
+                            </div>
                         )
-                    })} */}
+                    })}
                 </div>
             </div>
         </div>

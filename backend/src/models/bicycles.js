@@ -32,7 +32,7 @@ export const GetBicyclesOrderBy_M = async (field, summ) => {
             $project : {
                 _id: 0,
                 field: '$_id',
-                totalQuantity: 1
+                summ: '$totalQuantity'
             }
         }
     ];

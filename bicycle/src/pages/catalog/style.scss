@@ -58,7 +58,7 @@
                     margin: 0px;
                 }
             }
-            &__categories, &__brands {
+            &__categories, &__brands, &__colors {
                 &__header {
                     display: flex;
                     align-items: center;
@@ -106,14 +106,24 @@
                     &__item {
                         display: flex;
                         align-items: center;
-                        justify-content: left;
+                        justify-content: space-between;
                         margin: 10px 0px;
                         height: 20px;
-                        &-text {
+                        &-wrapper {
+                            display: flex;
+                            &-text {
+                                cursor: pointer;
+                                margin: 0px 0px 0px 5px;
+                                color: #777;
+                                font-size: 16px;
+                                font-family: 'Inter-Regular';
+                            }
+                        }
+                        &-amount {
                             cursor: pointer;
                             margin: 0px 0px 0px 5px;
-                            color: #777;
-                            font-size: 16px;
+                            color: #B3B3B3;
+                            font-size: 12px;
                             font-family: 'Inter-Regular';
                         }
                     }
@@ -140,6 +150,10 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+            &__item {
+                width: 30%;
+                margin: 0px 0px 30px 0px;
+            }
         }
     }
 }
