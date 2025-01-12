@@ -16,7 +16,8 @@
         &-img {
             border-radius: 10px 0px 10px 0px;
             height: 100%;
-            border: 1px solid #777;
+            // border: 1px solid #777;
+            box-shadow: 0px 0px 4px #101010;
         }
         &-amount {
             font-size: 16px;
