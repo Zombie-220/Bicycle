@@ -89,9 +89,6 @@ export const CatalogPage = () => {
                 <p className='catalogPage__header-header'>{currentPage.toUpperCase()}</p>
             </div>
             <div className='catalogPage__body'>
-
-
-
                 <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
                     <div className='catalogPage__body__options__stock'>
                         <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
@@ -121,7 +118,6 @@ export const CatalogPage = () => {
                         </div>
                     </div>
                     <hr  className='catalogPage__body__options-separator'/>
-
                     <div className='catalogPage__body__options__brands'>
                         <div className='catalogPage__body__options__brands__header'>
                             <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Марки</label>
@@ -173,7 +169,7 @@ export const CatalogPage = () => {
                     </div>
 
 
-                    
+
                     <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                 </form>
                 <div className='catalogPage__body__items'>
