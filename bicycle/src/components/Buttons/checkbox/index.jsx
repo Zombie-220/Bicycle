@@ -2,9 +2,10 @@ import { useState } from 'react';
 
 import './style.scss';
 
-export const CheckboxButton = ({ name, formFunction }) => {
+export const CheckboxButton = ({ name, formFunction, checked=null, onChange=null }) => {
     const [isActive, setIsActive] = useState(false);
     const handleChanges = (event) => {
+        if (onChange) { onChange(); }
         setIsActive(event.target.checked);
         formFunction(name).onChange(event);
     }
@@ -14,7 +15,7 @@ export const CheckboxButton = ({ name, formFunction }) => {
 
     return (
         <label className='checkboxButton' htmlFor={name} style={(isActive ? activeStyle : notActiveStyle)}>
-            <input className='checkboxButton-input' type="checkbox" id={name} {...formFunction(name)} onChange={handleChanges} />
+            <input className='checkboxButton-input' type="checkbox" id={name} {...formFunction(name)} onChange={handleChanges} checked={checked} />
             <span className='checkboxButton-checkmark'></span>
         </label>
     );

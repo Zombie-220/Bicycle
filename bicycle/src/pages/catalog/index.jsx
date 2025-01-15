@@ -28,6 +28,18 @@ export const CatalogPage = () => {
     const [colorsButtonChecked, setColorsButtonChecked] = useState(false);
     const handleColorsButtonChanges = (event) => { setColorsButtonChecked(event.target.checked); }
 
+    const [selectedItems, setSelectedItems] = useState([]);
+
+    const handleChanges = (brand) => {
+        setSelectedItems((prev) => 
+            prev.includes(brand) ? prev.filter((cat) => cat !== brand) : [...prev, brand]
+        )
+    }
+
+    const filteredItems = products.filter(item =>
+        selectedItems.length === 0 ? true : selectedItems.includes(item.brand)
+    );
+
     const onSubmit = (data) => {
         console.log(data);
     }
@@ -132,7 +144,7 @@ export const CatalogPage = () => {
                                 return (
                                     <div className='catalogPage__body__options__brands__body__item' key={index}>
                                         <div className='catalogPage__body__options__brands__body__item-wrapper'>
-                                            <CheckboxButton name={`${data.field}`} formFunction={register}/>
+                                            <CheckboxButton name={`${data.field}`} formFunction={register} checked={selectedItems.includes(`${data.field}`)} onChange={() => handleChanges(`${data.field}`)}/>
                                             <label className='catalogPage__body__options__brands__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
                                         </div>
                                         <label className='catalogPage__body__options__brands__body__item-amount' htmlFor={`${data.field}`}>({data.summ})</label>
@@ -173,7 +185,7 @@ export const CatalogPage = () => {
                     <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                 </form>
                 <div className='catalogPage__body__items'>
-                    {products.map((data, index) => {
+                    {filteredItems.map((data, index) => {
                         return (
                             <div className='catalogPage__body__items__item' key={index}>
                                 <Card
