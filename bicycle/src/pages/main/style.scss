@@ -45,7 +45,6 @@
             &-link {
                 cursor: unset;
                 display: block;
-                opacity: 0%;
                 margin: 0px;
                 font-size: 14px;
                 font-family: 'Inter-Medium';
@@ -53,6 +52,7 @@
                 text-decoration: none;
                 transition: 200ms;
                 height: 0px;
+                overflow: hidden;
                 &:hover { opacity: 66%; }
                 &:active { opacity: 33%; }
             }
