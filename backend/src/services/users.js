@@ -19,7 +19,7 @@ export const LoginUser_S = async (dataFromUser) => {
     var token = '';
     var err = '';
 
-    if (userId) {if (dataFromUser.getToken) { CreateToken(userId); }}
+    if (userId) {if (dataFromUser.getToken) { token = await CreateToken(userId); }}
     else { err = "wrong data"; }
 
     return [userId, token, err];

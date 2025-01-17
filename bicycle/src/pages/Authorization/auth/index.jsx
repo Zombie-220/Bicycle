@@ -34,7 +34,7 @@ export const AuthPage = () => {
             const decryptedId = { id: Decrypt(data.id) };
             if (decryptedId.id) {
                 setIsAuth(decryptedId.id);
-                if (data.token !== '') { Cookies.set('token', Decrypt(data.token), { expires: 7 }); console.log('set token -- ', data.token) }
+                if (data.token !== '') { Cookies.set('token', data.token, { expires: 7 }); }
 
                 API_URL(`/users/check?isAdmin=${data.id}`).then(({ data }) => {
                     if (data.response) { setIsAdmin(true); }

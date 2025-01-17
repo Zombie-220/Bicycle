@@ -6,7 +6,7 @@ import { GetUserInfo } from '../models/users.js';
 
 /**
  * @param {ObjectId} id
- * @returns {string}
+ * @returns {Promise<string>}
 */
 export const CreateToken = async (id) => {
     const userInfo = await GetUserInfo(id);

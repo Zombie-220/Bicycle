@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
+import { Encrypt } from "./helpers/AES";
 
 import { getRoutes } from "./navigation/routes";
 import { API_URL } from "./requests/request";
@@ -24,7 +26,12 @@ export const App = () => {
 
   useEffect(() => {
     if (Cookies.get('token')) {
-      console.log(`cookie - ${Cookies.get('token')}`);
+      const tokenInfo = jwtDecode(Cookies.get('token'))
+      console.log(tokenInfo);
+      setIsAuth(tokenInfo.id);
+      API_URL(`/users/check?isAdmin=${Encrypt(tokenInfo.id)}`).then(({ data }) => {
+        if (data.response) { setIsAdmin(true); }
+      }).catch((err) => { console.log(err); })
     }
   }, [])
 
