@@ -27,7 +27,6 @@ export const App = () => {
   useEffect(() => {
     if (Cookies.get('token')) {
       const tokenInfo = jwtDecode(Cookies.get('token'))
-      console.log(tokenInfo);
       setIsAuth(tokenInfo.id);
       API_URL(`/users/check?isAdmin=${Encrypt(tokenInfo.id)}`).then(({ data }) => {
         if (data.response) { setIsAdmin(true); }
