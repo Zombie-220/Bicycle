@@ -4,8 +4,8 @@ import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
 
 import { MainPage } from "../pages/main";
-import { CatalogPage } from "../pages/catalog";
-import { CatalogById } from "../pages/catalogById";
+import { CatalogPage } from "../pages/Catalog/catalog";
+import { CatalogById } from "../pages/Catalog/catalogById";
 
 import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";

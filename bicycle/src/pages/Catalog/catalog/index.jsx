@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { API_URL } from '../../requests/request';
-import { Decrypt } from '../../helpers/AES';
+import { API_URL } from '../../../requests/request';
+import { Decrypt } from '../../../helpers/AES';
 
-import { Card } from '../../components/card';
-import { SwitchButton } from '../../components/Buttons/switch';
-import { CheckboxButton } from '../../components/Buttons/checkbox';
+import { Card } from '../../../components/card';
+import { SwitchButton } from '../../../components/Buttons/switch';
+import { CheckboxButton } from '../../../components/Buttons/checkbox';
 
 import './style.scss';
 
