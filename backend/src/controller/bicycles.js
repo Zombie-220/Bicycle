@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import { GetBicyclesByAmount_M, GetAllBicycles, GetBicyclesOrderBy_M } from '../models/bicycles.js';
+import { GetBicyclesByAmount_M, GetAllBicycles, GetBicyclesOrderBy_M, GetBicycleById_M } from '../models/bicycles.js';
 import { logger } from "../config/logger/logger.js";
 import { Encryp } from "../helpers/encryption.js";
 
@@ -66,5 +66,25 @@ export const GetBicyclesOrderBy_C = async (req, res) => {
     } else {
         res.status(400).json({ message: 'not enough data' });
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${'not enough data'}`);
+    }
+}
+
+export const getBicycleById_C = async (req, res) => {
+    try {
+        const bicycleInfo = await GetBicycleById_M(req.params.id);
+        res.json({
+            brand: bicycleInfo.brand,
+            model: bicycleInfo.model,
+            productImage: bicycleInfo.productImage,
+            size: bicycleInfo.size,
+            color: bicycleInfo.color,
+            price: bicycleInfo.price,
+            amount: bicycleInfo.amount,
+            technicalPassport: bicycleInfo.technicalPassport
+        });
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+    } catch (err) {
+        res.status(500).json({ message: 'get bicycle by id failed' });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 }

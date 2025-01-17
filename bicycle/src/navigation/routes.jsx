@@ -5,12 +5,18 @@ import { Layout } from "./layout";
 
 import { MainPage } from "../pages/main";
 import { CatalogPage } from "../pages/catalog";
+import { CatalogById } from "../pages/catalogById";
 
 import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";
 import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
 
-const authPages = [];
+const authPages = [
+  {
+    path: '/catalog/:category/:id',
+    Component: CatalogById
+  }
+];
 
 const notAuthPages = [
   {

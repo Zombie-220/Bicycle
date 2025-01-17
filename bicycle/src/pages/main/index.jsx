@@ -105,7 +105,7 @@ export const MainPage = () => {
             <div className='mainPage__welcomeDiv'>
                 <h1 className='mainPage__welcomeDiv__header'>ЭЛЕКТРО<br/>ВЕЛОСИПЕДЫ</h1>
                 <p className='mainPage__welcomeDiv__text'>Cento10 Hybrid — это гоночный велосипед c помогающим<br/>педалированию электроприводом, который устанавливает новый,<br/>очень высокий стандарт для данной категории</p>
-                <DiffLink to={'/catalog/bicycle'} className='mainPage__welcomeDiv__link'>Подробнее</DiffLink>
+                <DiffLink to={'/catalog/bicycles'} className='mainPage__welcomeDiv__link'>Подробнее</DiffLink>
             </div>
             <div className='mainPage__divSlider'>
                 <DivSlider>
@@ -150,6 +150,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
+                                            linkTo = {`/catalog/bicycles/${data._id}`}
                                         />
                                     );
                                 })
@@ -157,12 +158,12 @@ export const MainPage = () => {
                         </Preloader> : <p className='mainPage__cardSlider__slider-error'>Сайту на хорошо @_@. Попробуйте позже.</p>
                     }
                 </div>
-                {!newItemsLoading && <Link to='/catalog/bicycle' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
+                {!newItemsLoading && <Link to='/catalog/bicycles' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
             </div>
             <div className='mainPage__catalog'>
                 <p className='mainPage__catalog-header'>КАТАЛОГ</p>
                 <div className='mainPage__catalog__container'>
-                    <Link to='/catalog/bicycle' className='mainPage__catalog__container-link'>ВЕЛОСИПЕДЫ</Link>
+                    <Link to='/catalog/bicycles' className='mainPage__catalog__container-link'>ВЕЛОСИПЕДЫ</Link>
                     <div className='mainPage__catalog__container__bottomSection'>
                         <Link className='mainPage__catalog__container__bottomSection-link'>TRADE-IN</Link>
                         <div className='mainPage__catalog__container__bottomSection-outerContainer'>
@@ -239,6 +240,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
+                                            linkTo = {`/catalog/bicycles/${data._id}`}
                                         />
                                     );
                                 })
@@ -291,6 +293,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
+                                            linkTo = {`/catalog/equipment/${data._id}`}
                                         />
                                     );
                                 })

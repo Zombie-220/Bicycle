@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { DB } from "../config/database/database.js";
 import { logger } from "../config/logger/logger.js";
 
@@ -38,5 +39,10 @@ export const GetBicyclesOrderBy_M = async (field, summ) => {
     ];
 
     const result = await bicyclesCollection.aggregate(pipeline).toArray();
+    return result;
+}
+
+export const GetBicycleById_M = async (id) => {
+    const result = await bicyclesCollection.findOne({ _id: new ObjectId(id) });
     return result;
 }

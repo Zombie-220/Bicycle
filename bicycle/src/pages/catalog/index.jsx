@@ -47,7 +47,7 @@ export const CatalogPage = () => {
     useEffect(() => {
         setProducts([]);
         switch (category) {
-            case 'bicycle': 
+            case 'bicycles': 
                 setCurrentPage('Велосипеды');
                 API_URL('/bicycles/amount/all').then(({ data }) => {
                     var decryptedData = [];
@@ -195,6 +195,7 @@ export const CatalogPage = () => {
                                     itemAmount = {data.amount}
                                     itemImage = {data.productImage}
                                     itemPrice = {data.price}
+                                    linkTo = {`/catalog/bicycles/${data._id}`}
                                 />
                             </div>
                         )

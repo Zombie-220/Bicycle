@@ -38,7 +38,7 @@ export const Header = () => {
             <Link className='header__link'> <img src={icon} alt="logo" /> </Link>
             <div className='header__wrapper'>
                 {isAdmin && (<Link to={'/admin/bicycle'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
-                <Link to={'/catalog/bicycle'} className='header__link link_orange'>ВЕЛОСИПЕДЫ</Link>
+                <Link to={'/catalog/bicycles'} className='header__link link_orange'>ВЕЛОСИПЕДЫ</Link>
                 <Link to={'/catalog/parts'} className='header__link'>ЗАПЧАСТИ</Link>
                 <Link to={'/catalog/equipment'} className='header__link'>ЭКИПИРОВКА</Link>
                 <Link to={'/catalog/accessories'} className='header__link'>АКСЕССУАРЫ</Link>

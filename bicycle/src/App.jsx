@@ -23,11 +23,8 @@ export const App = () => {
   const routes = getRoutes(isAuth, isAdmin);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      let token = JSON.parse(localStorage.getItem("token")).split("|");
-      setIsAuth(token[0]);
-      console.log(token[2].split('.'));
-      if (token[2].split('.').includes('admin')) { setIsAdmin(true); }
+    if (Cookies.get('token')) {
+      console.log(`cookie - ${Cookies.get('token')}`);
     }
   }, [])
 

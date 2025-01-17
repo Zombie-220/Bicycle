@@ -4,7 +4,7 @@ import click from './click.svg';
 import './style.scss';
 
 export const Card = (props) => {
-    const { id, itemName, itemCountry=null, itemAmount, itemImage, itemPrice } = props;
+    const { id, itemName, itemCountry=null, itemAmount, itemImage, itemPrice, linkTo } = props;
 
     return (
         <div className='card'>
@@ -24,7 +24,7 @@ export const Card = (props) => {
                 </p>
             </div>
             <div className='card__footer'>
-                <DiffLink to={`/products/bicycle/${id}`} className='card__footer-button'>
+                <DiffLink to={linkTo} className='card__footer-button'>
                     <img className='card__footer-button-img' src={click} alt="click" />
                     <p className='card__footer-button-text'>В 1 клик</p>
                 </DiffLink>
