@@ -2,7 +2,7 @@
     margin-top: 60px;
     padding: 0px 80px;
     &__link {
-        margin: 20px 0px;
+        margin: 20px 0px 50px 0px;
         display: flex;
         &-link , &-separator {
             font-size: 14px;
@@ -18,6 +18,190 @@
             &-orange {
                 @extend .catalogById__link-link;
                 color: #F57520;
+            }
+        }
+    }
+    &__basicInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &__images {
+            width: 44%;
+            &-mainImg {
+                width: 100%;
+            }
+            &__otherImg {
+                margin-top: 15px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                &-img {
+                    width: 24%;
+                    opacity: 50%;
+                }
+            }
+        }
+        &__info {
+            width: 44%;
+            &-model {
+                font-family: 'Bebas-Neue-Bold';
+                font-size: 40px;
+                color: #101010;
+                margin: 0px;
+            }
+            &-brand {
+                font-family: 'Inter-Regular';
+                font-size: 14px;
+                color: #B3B3B3;
+                margin: 10px 0px;
+            }
+            &__articul {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                &-text {
+                    color: #B3B3B3;
+                    font-family: 'Inter-Regular';
+                    font-size: 14px;
+                    margin: 0px;
+                }
+                &-socialMedia {
+                    &-img {
+                        width: 25px;
+                        margin: 0px 2px;
+                        transition: 200ms;
+                        opacity: 40%;
+                        cursor: pointer;
+                        &:hover { opacity: 80%; }
+                        &:active { opacity: 100%; }
+                    }
+                }
+            }
+            &-amount {
+                font-size: 'Inter-Regular';
+                font-size: 16px;
+                margin: 0px;
+                &-red {
+                    @extend .catalogById__basicInfo__info-amount;
+                    color: #F53A20 ;
+                }
+                &-green {
+                    @extend .catalogById__basicInfo__info-amount;
+                    color: #4D932C;
+                }
+            }
+            &-price {
+                color: #101010;
+                font-family: 'Inter-Medium';
+                font-size: 40px;
+                margin: 30px 0px;
+            }
+            &-description {
+                font-size: 16px;
+                font-family: 'Inter-Regular';
+                color: #101010;
+                margin: 0px;
+            }
+            &-sizesHeader, &-colorsHeader {
+                font-size: 16px;
+                font-family: 'Inter-Medium';
+                color: #101010;
+                margin: 30px 0px 10px 0px;
+            }
+            &__sizes, &__colors, &__buttons {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                &__button {
+                    margin: 0px 5px;
+                    width: 50px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid #E5E5E5;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: 200ms;
+                    &-input { display: none; }
+                    &-label {
+                        cursor: pointer;
+                        font-family: 'Inter-Medium';
+                        font-size: 16px;
+                        transition: 200ms;
+                    }
+                    &:first-child { margin: 0px 5px 0px 0px; }
+                    &:last-child { margin: 0px 0px 0px 5px; }
+                    &-input:checked + &-label { color: #FFF; }
+                }
+            }
+            &__colors {
+                &__button {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    box-sizing: border-box;
+                }
+            }
+            &__buttons {
+                margin-top: 30px;
+                &-orderButton {
+                    color: #FFF;
+                    background-color: #F57520;
+                    width: 140px;
+                    height: 40px;
+                    font-size: 16px;
+                    font-family: 'Inter-Medium';
+                    border: none;
+                    border-radius: 10px;
+                    margin: 0px 16px;
+                    transition: 200ms;
+                    cursor: pointer;
+                    &:hover { opacity: 66%; }
+                    &:active { opacity: 33%; }
+                }
+                &__amount {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border: 1px solid #E5E5E5;
+                    border-radius: 10px;
+                    width: 90px;
+                    padding: 10px 5px;
+                    &-amount, &-minus, &-plus {
+                        font-size: 16px;
+                        color: #101010;
+                        font-family: 'Inter-Medium';
+                        background-color: #0000;
+                        border: none;
+                        margin: 0px;
+                        height: 100%;
+                    }
+                    &-minus, &-plus {
+                        cursor: pointer;
+                        transition: 200ms;
+                        &:hover { opacity: 66%; }
+                        &:active { opacity: 33%; }
+                    }
+                }
+                &-like {
+                    background-color: #F8F8F8;
+                    border: none;
+                    border-radius: 10px;
+                    width: 40px;
+                    height: 40px;
+                    transition: 200ms;
+                    padding: 2px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    &:hover { opacity: 66%; }
+                    &:active { opacity: 33%; }
+                    &-img {
+                        width: 75%;
+                        height: 75%;
+                    }
+                }
             }
         }
     }
