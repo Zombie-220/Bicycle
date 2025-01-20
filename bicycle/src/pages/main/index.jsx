@@ -293,7 +293,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
-                                            linkTo = {`/catalog/equipment/${data._id}`}
+                                            linkTo = {`/catalog/equipments/${data._id}`}
                                         />
                                     );
                                 })

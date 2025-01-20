@@ -159,6 +159,13 @@
                     cursor: pointer;
                     &:hover { opacity: 66%; }
                     &:active { opacity: 33%; }
+                    &:disabled {
+                        background-color: #4C4C4C; 
+                        opacity: 75%;
+                        cursor: unset;
+                        &:hover { opacity: 75%; }
+                        &:active { opacity: 75%; }
+                    }
                 }
                 &__amount {
                     display: flex;
@@ -185,6 +192,7 @@
                     }
                 }
                 &-like {
+                    cursor: pointer;
                     background-color: #F8F8F8;
                     border: none;
                     border-radius: 10px;

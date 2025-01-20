@@ -51,6 +51,11 @@ export const CatalogById = () => {
                     setActiveColor(data.color[0]);
                     setActiveSize(data.size[0]);
                 }).catch((err) => { console.log(err); })
+                break;
+            case 'equipments':
+                setCurrentCategory('Экипировка');
+                // API_URL(`/`)
+                break;
         }
     }, [category, id]);
 
@@ -67,7 +72,7 @@ export const CatalogById = () => {
                 <div className='catalogById__link'>
                     <Link className='catalogById__link-link' to={'/'}>Главная</Link>
                     <p className='catalogById__link-separator'>/</p>
-                    <Link className='catalogById__link-link' to={'/catalog/bicycles'}>{currentCategory}</Link>
+                    <Link className='catalogById__link-link' to={`/catalog/${category}`}>{currentCategory}</Link>
                     <p className='catalogById__link-separator'>/</p>
                     <Link className='catalogById__link-link-orange'>{currentItemData.brand} {currentItemData.model}</Link>
                 </div>
@@ -131,7 +136,7 @@ export const CatalogById = () => {
                             <p className='catalogById__basicInfo__info__buttons__amount-amount'>{currentAmount}</p>
                             <button className='catalogById__basicInfo__info__buttons__amount-plus' type='button' onClick={plusAmount}>+</button>
                         </div>
-                        <button className='catalogById__basicInfo__info__buttons-orderButton' type='submit' onClick={handleSubmit(onSubmit)}>В корзину</button>
+                        <button className='catalogById__basicInfo__info__buttons-orderButton' type='submit' onClick={handleSubmit(onSubmit)} disabled={currentAmount <= 0 ? true : false}>В корзину</button>
                         <button className='catalogById__basicInfo__info__buttons-like' type='button' onClick={handleLike}>
                             <img src={like} alt="like" className='catalogById__basicInfo__info__buttons-like-img'/>
                         </button>

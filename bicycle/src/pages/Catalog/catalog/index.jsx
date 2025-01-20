@@ -81,7 +81,7 @@ export const CatalogPage = () => {
             case 'parts':
                 setCurrentPage('Запчасти');
                 break;
-            case 'equipment':
+            case 'equipments':
                 setCurrentPage('Экипировка');
                 break;
             case 'accessories':
