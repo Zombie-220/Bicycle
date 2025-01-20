@@ -1,12 +1,12 @@
 import { request, response } from "express";
 
-import { GetBicyclesByAmount_M, GetAllBicycles, GetBicyclesOrderBy_M, GetBicycleById_M } from '../models/bicycles.js';
+import { GetBicyclesByAmount_M, GetAllBicycles, GetBicyclesOrderBy_M, GetBicycleById_M, GetLatestBicycles_M } from '../models/bicycles.js';
 import { logger } from "../config/logger/logger.js";
 import { Encryp } from "../helpers/encryption.js";
 
 /**
- * @param {request} req 
- * @param {response} res 
+ * @param {request} req
+ * @param {response} res
 */
 export const GetBicyclesByAmount_C = async (req, res) => {
     try {
@@ -69,6 +69,10 @@ export const GetBicyclesOrderBy_C = async (req, res) => {
     }
 }
 
+/**
+ * @param {request} req 
+ * @param {response} res 
+*/
 export const getBicycleById_C = async (req, res) => {
     try {
         const bicycleInfo = await GetBicycleById_M(req.params.id);
@@ -88,3 +92,32 @@ export const getBicycleById_C = async (req, res) => {
         logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
     }
 }
+
+/**
+ * @param {request} req 
+ * @param {response} res 
+*/
+export const GetLatestBicycles_C = async (req, res) => {
+    try {
+        const amount = parseInt(req.params.amount);
+        const latestBicycles = await GetLatestBicycles_M(amount);
+        const encryptedData = latestBicycles.map((data) => {
+            return ({
+                _id: Encryp(`${data._id}`),
+                brand: Encryp(data.brand),
+                model: Encryp(data.model),
+                productImage: data.productImage,
+                countryImage: data.countryImage,
+                price: Encryp(`${data.price}`),
+                amount: Encryp(`${data.amount}`),
+                discount: Encryp(`${data.discount}`)
+            });
+        });
+
+        res.json(encryptedData);
+        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+    } catch (err) {
+        res.status(500).json({ message: 'get bicycle by id failed' });
+        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+    }
+} 

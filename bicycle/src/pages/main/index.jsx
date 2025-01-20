@@ -41,7 +41,7 @@ export const MainPage = () => {
     const [equipmentErr, setEquipmentErr] = useState(false);
 
     useEffect(() => {
-        API_URL('/bicycles/amount/6').then(({ data }) => {
+        API_URL('/bicycles/latest/6').then(({ data }) => {
             var decryptedData = [];
             data.map((dataMap) => {
                 return (decryptedData.push({
