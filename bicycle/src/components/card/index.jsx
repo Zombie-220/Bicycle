@@ -4,7 +4,16 @@ import click from './click.svg';
 import './style.scss';
 
 export const Card = (props) => {
-    const { id, itemName, itemCountry=null, itemAmount, itemImage, itemPrice, linkTo } = props;
+    const {
+        id,
+        itemName,
+        itemCountry=null,
+        itemAmount,
+        itemImage,
+        itemPrice,
+        linkTo,
+        discount
+    } = props;
 
     return (
         <div className='card'>
@@ -19,9 +28,18 @@ export const Card = (props) => {
                     <img className='card__body__imgContainer-img' src={itemImage} alt="itemImage" />
                 </div>
                 <p className='card__body-name'>{itemName}</p>
-                <p className='card__body-price'>
-                    {itemPrice.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽
-                </p>
+                {discount <= 0 ?
+                    <p className='card__body-price'>
+                        {itemPrice.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽
+                    </p>
+                    :
+                    <div className='card__body__priceContainer'>
+                        <p className='card__body__priceContainer-discount'>
+                            {(itemPrice - itemPrice * discount / 100).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽
+                        </p>
+                        <p className='card__body__priceContainer-price'>{itemPrice.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
+                    </div>
+                }
             </div>
             <div className='card__footer'>
                 <DiffLink to={linkTo} className='card__footer-button'>

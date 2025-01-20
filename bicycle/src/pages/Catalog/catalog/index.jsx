@@ -195,6 +195,7 @@ export const CatalogPage = () => {
                                     itemAmount = {data.amount}
                                     itemImage = {data.productImage}
                                     itemPrice = {data.price}
+                                    discount = {data.discount}
                                     linkTo = {`/catalog/bicycles/${data._id}`}
                                 />
                             </div>

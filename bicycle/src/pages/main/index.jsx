@@ -27,60 +27,26 @@ import hours_24 from '../../assets/images/main/video/24-hours.svg';
 
 import './style.scss';
 
+import { useBicycleData } from '../../helpers/hooks/getBicycleInfo';
+
 export const MainPage = () => {
-    const [newItems, setNewItems] = useState([]);
-    const [newItemsLoading, setNewItemsLoading] = useState(true);
-    const [newItemsError, setNewItemsError] = useState(false);
-
-    const [winterBicycle, setWinterBicycle] = useState([]);
-    const [winterIsLoading, setWinterIsLoading] = useState(true);
-    const [winterError, setWinterError] = useState(false);
-
     const [equipments, setEquipment] = useState([]);
     const [equipmentLoading, setEquipmentLoading] = useState(true);
     const [equipmentErr, setEquipmentErr] = useState(false);
 
+    const { newItems, newItemsLoading, newItemsError } = useBicycleData('/bicycles/latest/6', {
+        data: 'newItems',
+        loading: 'newItemsLoading',
+        error: 'newItemsError'
+    });
+
+    const { winterBicycle, winterIsLoading, winterError } = useBicycleData('/bicycles/amount/3', {
+        data: 'winterBicycle',
+        loading: 'winterIsLoading',
+        error: 'winterError'
+    });
+
     useEffect(() => {
-        API_URL('/bicycles/latest/6').then(({ data }) => {
-            var decryptedData = [];
-            data.map((dataMap) => {
-                return (decryptedData.push({
-                    _id: Decrypt(dataMap._id),
-                    brand: Decrypt(dataMap.brand),
-                    model: Decrypt(dataMap.model),
-                    productImage: dataMap.productImage,
-                    countryImage: dataMap.countryImage,
-                    price: parseInt(Decrypt(dataMap.price)),
-                    amount: parseInt(Decrypt(dataMap.amount)),
-                    discount: parseInt(Decrypt(dataMap.discount))
-                }));
-            });
-
-            setNewItems(decryptedData);
-            setNewItemsLoading(false);
-            setNewItemsError(false);
-        }).catch(() => { setNewItemsError(true); })
-
-        API_URL('/bicycles/amount/3').then(({ data }) => {
-            var decryptedData = [];
-            data.map((dataMap) => {
-                return (decryptedData.push({
-                    _id: Decrypt(dataMap._id),
-                    brand: Decrypt(dataMap.brand),
-                    model: Decrypt(dataMap.model),
-                    productImage: dataMap.productImage,
-                    countryImage: dataMap.countryImage,
-                    price: parseInt(Decrypt(dataMap.price)),
-                    amount: parseInt(Decrypt(dataMap.amount)),
-                    discount: parseInt(Decrypt(dataMap.discount))
-                }));
-            });
-
-            setWinterBicycle(decryptedData);
-            setWinterIsLoading(false);
-            setWinterError(false);
-        }).catch(() => { setWinterError(true); })
-
         API_URL('/equipments/amount/9').then(({ data }) => {
             var decryptedData = [];
             data.map((dataMap) => {
@@ -150,6 +116,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
+                                            discount = {data.discount}
                                             linkTo = {`/catalog/bicycles/${data._id}`}
                                         />
                                     );
@@ -240,6 +207,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
+                                            discount = {data.discount}
                                             linkTo = {`/catalog/bicycles/${data._id}`}
                                         />
                                     );
