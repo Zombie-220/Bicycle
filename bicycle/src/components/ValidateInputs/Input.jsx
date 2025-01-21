@@ -14,7 +14,18 @@ const getTextError = (type) => {
     }
 };
 
-export const ValidateInput = ({ formFunction, name, errors = [], textLabel, validate = {}, type="text" }) => {
+/**
+ * Input для валидации введеных строчных данных
+ * @param {Object} props
+ * @param {Function} props.formFunction функция register из formFunction
+ * @param {string} props.name имя поля
+ * @param {[]} props.errors formState: { error } из formFunction
+ * @param {string} props.textLabel название поля для пользователя
+ * @param {Object} props.validate валидность поля
+ * @param {string} props.type тип поля
+ * @returns {React.JSX.Element}
+*/
+export const ValidateInput = ({ formFunction, name, errors = [], textLabel, validate={ required: true }, type="text" }) => {
     return (
         <div className="validateInput">
             <div className="validateInput__text">{textLabel}</div>

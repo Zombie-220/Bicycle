@@ -59,21 +59,18 @@ export const RegisterPage = () => {
                     errors={errors}
                     name={"name"}
                     formFunction={register}
-                    validate={{ required: true }}
                 />
                 <ValidateInput
                     textLabel={"E-mail"}
                     errors={errors}
                     name={"email"}
                     formFunction={register}
-                    validate={{ required: true }}
                 />
                 <ValidateInput
                     textLabel={"Пароль"}
                     errors={errors}
                     name={"password"}
                     formFunction={register}
-                    validate={{ required: true }}
                     type={"password"}
                 />
                 <ValidateInput
@@ -81,7 +78,6 @@ export const RegisterPage = () => {
                     errors={errors}
                     name={"password_confirmed"}
                     formFunction={register}
-                    validate={{ required: true }}
                     type={"password"}
                 />
                 <p className='registerPage__body-errorMessage'>{formErr}</p>

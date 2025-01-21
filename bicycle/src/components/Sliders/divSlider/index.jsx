@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 
 import './style.scss';
 
+/**
+ * Слайдер для прокрутки нескольких блоков (не карточек)
+ * @param {Object} props
+ * @param {React.JSX.Element[]} props.children
+ * @returns {React.JSX.Element}
+*/
 export const DivSlider = ({ children }) => {
     const [activeSlide, setactiveSlide] = useState(0);
     setTimeout(() => {

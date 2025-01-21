@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import './style.scss';
 
+/**
+ * Кнопка-переключатель
+ * @param {Object} props props
+ * @param {string} props.name имя поля
+ * @param {Function} props.formFunction функция register из useForm
+ * @returns {React.JSX.Element}
+ */
 export const SwitchButton = ({ name, formFunction }) => {
     const [isActive, setIsActive] = useState(false);
     const handleChanges = (event) => {

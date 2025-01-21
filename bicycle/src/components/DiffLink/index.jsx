@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import { AuthContext } from '../../App';
 
 /**
- * Компонент для рендера ссылки на разные ресурсы в зависимости от AuthContext
- * @component
+ * Ссылка для открытия страницы авторизации, если пользователь не авторизован
+ * @param {Object} props props
+ * @param {string} props.to куда ведет, если авторизован
+ * @param {string} props.className className компонента
+ * @param {*} props.children дочерние элементы
+ * @returns {React.JSX.Element}
 */
 export const DiffLink = ({ to, className, children }) => {
     const { isAuth } = useContext(AuthContext);
@@ -15,10 +18,3 @@ export const DiffLink = ({ to, className, children }) => {
     if (isAuth) { return <Link to={to} className={className}>{children}</Link> }
     else { return <Link to={'/auth'} className={className}>{children}</Link> }
 }
-
-DiffLink.propTypes = {
-    /** @type {string} */
-    to: PropTypes.string.isRequired,
-    /** @type {string} */
-    className: PropTypes.string.isRequired
-};

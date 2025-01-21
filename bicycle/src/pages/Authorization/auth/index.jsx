@@ -63,14 +63,12 @@ export const AuthPage = () => {
                     errors={errors}
                     name={"name"}
                     formFunction={register}
-                    validate={{ required: true }}
                 />
                 <ValidateInput
                     textLabel={"Пароль"}
                     errors={errors}
                     name={"password"}
                     formFunction={register}
-                    validate={{ required: true }}
                     type={"password"}
                 />
                 <p className='authPage__body-errorMessage'>{formErr}</p>

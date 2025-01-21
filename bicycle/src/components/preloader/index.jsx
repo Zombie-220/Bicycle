@@ -1,5 +1,11 @@
 import './style.scss';
 
+/**
+ * @param {Object} props
+ * @param {React.JSX.Element} props.children дочерние элементы
+ * @param {boolean} props.isLoading загружается ли содержимое
+ * @returns {React.JSX.Element} 
+*/
 export const Preloader = ({ children, isLoading }) => {
     if (isLoading) {
         return (

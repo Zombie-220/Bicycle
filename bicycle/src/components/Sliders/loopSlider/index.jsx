@@ -2,6 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 
 import './style.scss';
 
+/**
+ * Слайдер для прокрутки изображений по кругу
+ * @param {Object} props 
+ * @param {React.JSX.Element} props.children
+ * @returns {React.JSX.Element}
+*/
 export const LoopSlider = ({ children }) => {
     const [margin, setMargin] = useState(0);
     const [slideSize, setSlideSize] = useState({ width: 0, height: 0 });

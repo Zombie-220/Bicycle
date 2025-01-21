@@ -1,7 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import './style.scss';
 
+/**
+ * Обычная кнопка с галочкой
+ * @param {Object} props props
+ * @param {string} props.name имя поля
+ * @param {Function} props.formFunction функция register из useForm
+ * @param {boolean} props.checked переменная, которая показывает, активна ли кнопка сейчас
+ * @param {Function} props.onChange функция, применяемая при смене значения
+ * @returns {React.JSX.Element}
+*/
 export const CheckboxButton = ({ name, formFunction, checked=null, onChange=null }) => {
     const [isActive, setIsActive] = useState(false);
     const handleChanges = (event) => {

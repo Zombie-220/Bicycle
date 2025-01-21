@@ -28,7 +28,6 @@ export const RecoverPasswordPage = () => {
                     errors={errors}
                     name={"name"}
                     formFunction={register}
-                    validate={{ required: true }}
                 />
                 <p className='recoverPasswordPage__body-errorMessage'>{formErr}</p>
                 <button className='recoverPasswordPage__body-button' disabled={!isValid}>Сброс пароля</button>

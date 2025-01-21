@@ -2,6 +2,13 @@ import { useState } from 'react';
 
 import './style.scss';
 
+/**
+ * Слайдер для показа карточек
+ * @param {Object} props
+ * @param {React.JSX.Element[]} props.children
+ * @param {number} props.cardPerSlide количество карточек за слайд
+ * @returns {React.JSX.Element}
+*/
 export const Slider = ({ children, cardPerSlide }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 

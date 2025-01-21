@@ -3,6 +3,24 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../requests/request";
 import { Decrypt } from "../AES";
 
+/**
+ * @typedef {object} Bicycle
+ * @property {string} _id
+ * @property {sting} brand
+ * @property {string} model
+ * @property {string} productImage
+ * @property {string} countryImage
+ * @property {number} price
+ * @property {number} amount
+ * @property {number} discount
+*/
+
+/**
+ * @param {string} url url на который идет запрос
+ * @param {{data: string, loading: string, error: string}} options имена полей, которые будет возвращать hook
+ * @returns {{data: Bicycle, loading: boolean, error: boolean}}
+*/
+
 export function useBicycleData(url, { data, loading, error }) {
     const [hookData, setHookData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

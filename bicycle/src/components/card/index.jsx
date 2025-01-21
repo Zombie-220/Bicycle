@@ -3,6 +3,19 @@ import { DiffLink } from '../DiffLink';
 import click from './click.svg'; 
 import './style.scss';
 
+/**
+ * Карточка товара, распологается в основном в каталоге
+ * @param {Object} props props
+ * @param {string | number} props.id id товара
+ * @param {string} props.itemName название товара
+ * @param {string | null} props.itemCountry страна-производитель товара
+ * @param {number} props.itemAmount количество товара
+ * @param {string} props.itemImage картинка товара
+ * @param {number} props.itemPrice цена товара
+ * @param {string} props.linkTo ссылка, куда ведет карточка
+ * @param {number} props.discount скидка на товар
+ * @returns {React.JSX.Element}
+*/
 export const Card = (props) => {
     const {
         id,
