@@ -1,7 +1,7 @@
 import axios from "axios";
 
-/** стандартный url для API: https://localhost:5481 */
+/** запросы на API */
 export const API_URL = axios.create({
-    baseURL: "https://localhost:5481",
+    baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
     headers: {},
 });

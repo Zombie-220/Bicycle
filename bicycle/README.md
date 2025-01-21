@@ -12,6 +12,7 @@ openssl x509 -req -days 365 -in out/req.csr -signkey out/key.key -out out/cert.c
     - SSL_CRT_FILE - путь до сертификата (.crt) https протокола
     - SSL_KEY_FILE - путь до SSL ключа (.key)
     - REACT_APP_AES_KEY - ключ для шифрования (должен совпадать с backend частью)
+    - REACT_APP_BACKEND_URL - ссылка на backend API
 
 - Запустите проект предварительно установив все зависимости
 ```schell
