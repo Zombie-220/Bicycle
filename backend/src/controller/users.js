@@ -9,6 +9,7 @@ import { logger } from "../config/logger/logger.js";
 /**
  * @param {request} req
  * @param {response} res
+ * @returns {void}
 */
 export const CheckUser = async (req, res) => {
     try {
@@ -33,6 +34,7 @@ export const CheckUser = async (req, res) => {
 /**
  * @param {request} req
  * @param {response} res
+ * @returns {void}
 */
 export const RegisterUser = async (req, res) => {
     try {
@@ -54,6 +56,7 @@ export const RegisterUser = async (req, res) => {
 /**
  * @param {request} req
  * @param {response} res
+ * @returns {void}
 */
 export const LoginUser = async (req, res) => {
     try {

@@ -7,6 +7,7 @@ import { Encryp } from "../helpers/encryption.js";
 /**
  * @param {request} req 
  * @param {response} res 
+ * @returns {void}
 */
 export const GetEquipmentByAmount_C = async (req, res) => {
     try {

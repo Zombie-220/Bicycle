@@ -16,6 +16,9 @@ const customLevels = {
     }
 }
 
+/**
+ * Logger для логирования
+*/
 export const logger = createLogger({
     exitOnError: true,
     levels: customLevels.levels,

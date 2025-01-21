@@ -7,6 +7,7 @@ import { Encryp } from "../helpers/encryption.js";
 /**
  * @param {request} req
  * @param {response} res
+ * @returns {void}
 */
 export const GetBicyclesByAmount_C = async (req, res) => {
     try {
@@ -51,7 +52,8 @@ export const GetBicyclesByAmount_C = async (req, res) => {
 
 /**
  * @param {request} req 
- * @param {response} res 
+ * @param {response} res
+ * @returns {void}
 */
 export const GetBicyclesOrderBy_C = async (req, res) => {
     if (req.query.field && req.query.summ) {
@@ -72,6 +74,7 @@ export const GetBicyclesOrderBy_C = async (req, res) => {
 /**
  * @param {request} req 
  * @param {response} res 
+ * @returns {void}
 */
 export const getBicycleById_C = async (req, res) => {
     try {
@@ -96,6 +99,7 @@ export const getBicycleById_C = async (req, res) => {
 /**
  * @param {request} req 
  * @param {response} res 
+ * @returns {void}
 */
 export const GetLatestBicycles_C = async (req, res) => {
     try {

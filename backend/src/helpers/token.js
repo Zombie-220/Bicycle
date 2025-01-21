@@ -5,7 +5,10 @@ import { TOKEN_KEY } from '../config/env.js';
 import { GetUserInfo } from '../models/users.js';
 
 /**
- * @param {ObjectId} id
+ * Функция по созданию токена, включающего в себя:
+ * - name - имя пользователя
+ * - id - ID пользователя
+ * @param {ObjectId} id ID пользоваиеля
  * @returns {Promise<string>}
 */
 export const CreateToken = async (id) => {
