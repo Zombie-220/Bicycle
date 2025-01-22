@@ -10,4 +10,4 @@ export const Encrypt = (data) => { return CryptoJS.AES.encrypt(`${data}`, proces
  * @param {string} data зашифрованное значение для расшифровки
  * @returns {string} 
 */
-export const Decrypt = (data) => { return CryptoJS.AES.decrypt(data.replace(/\ /g, '+'), process.env.REACT_APP_AES_KEY).toString(CryptoJS.enc.Utf8); }
+export const Decrypt = (data) => { return CryptoJS.AES.decrypt(`${data}`.replace(/\ /g, '+'), process.env.REACT_APP_AES_KEY).toString(CryptoJS.enc.Utf8); }

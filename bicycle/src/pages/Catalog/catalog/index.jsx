@@ -67,15 +67,34 @@ export const CatalogPage = () => {
                 }).catch((err) => { console.log(err); }) // удали к черту это убожество
 
                 API_URL('/bicycles/orderBy?field=type&summ=amount').then(({ data }) => {
-                    setCategories(data);
+                    const decryptedData = data.map((data) => {
+                        return ({
+                            field: Decrypt(data.field),
+                            summ: Decrypt(data.summ)
+                        })
+                    });
+                    setCategories(decryptedData);
                 }).catch((err) => { console.log(err); })
 
                 API_URL('/bicycles/orderBy?field=brand&summ=amount').then(({ data }) => {
-                    setBrands(data);
+                    const decryptedData = data.map((data) => {
+                        return ({
+                            field: Decrypt(data.field),
+                            summ: Decrypt(data.summ)
+                        })
+                    });
+                    setBrands(decryptedData);
+                    console.log(decryptedData);
                 }).catch((err) => { console.log(err); })
 
                 API_URL('/bicycles/orderBy?field=color&summ=amount').then(({ data }) => {
-                    setColors(data);                    
+                    const decryptedData = data.map((data) => {
+                        return ({
+                            field: Decrypt(data.field),
+                            summ: Decrypt(data.summ)
+                        })
+                    });
+                    setColors(decryptedData);                    
                 }).catch((err) => { console.log(err); })
                 break;
             case 'parts':

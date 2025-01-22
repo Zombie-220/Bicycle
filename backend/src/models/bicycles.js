@@ -29,60 +29,6 @@ import { DB } from "../config/database/database.js";
 
 const bicyclesCollection = DB.collection('bicycles');
 
-/**
- * @param {string} amount 
- * @returns {Promise<Bicycle[]>}
-*/
-export const GetBicyclesByAmount_M = async (amount) => {
-    const result = await bicyclesCollection.find().limit(parseInt(amount)).toArray();
-    return result;
-}
-
-/**
- * @returns {Promise<Bicycle[]>}
-*/
-export const GetAllBicycles = async () => {
-    const result = await bicyclesCollection.find({}).toArray();
-    return result;
-}
-
-/**
- * @param {string} field 
- * @param {string} summ 
- * @returns {Promise<Bicycle[]>}
-*/
-export const GetBicyclesOrderBy_M = async (field, summ) => {
-    const pipeline = [{$group: { _id: `$${field}`, totalQuantity: { $sum: `$${summ}` }}},
-        {$project : { _id: 0, field: '$_id', summ: '$totalQuantity' }}];
-
-    const result = await bicyclesCollection.aggregate(pipeline).toArray();
-    return result;
-}
-
-/**
- * @param {string} id 
- * @returns {Promise<Bicycle>}
-*/
-export const GetBicycleById_M = async (id) => {
-    const result = await bicyclesCollection.findOne({ _id: new ObjectId(id) });
-    return result;
-}
-
-/**
- * @param {number} amount
- * @returns {Promise<Bicycle[]>}
-*/
-export const GetLatestBicycles_M = async (amount) => {
-    const allBicycles = await bicyclesCollection.find().toArray();
-    const sortedBicyclesArray = allBicycles.map((data) => {
-        const [day, month, year] = data.productionDate.split('-');
-        return { ...data, date: new Date(`${year}-${month}-${day}`) };
-    }).sort((a, b) => b.date - a.date );
-
-    return sortedBicyclesArray.slice(0, amount);
-}
-
-
 export const BicyclesModel = {
     /**
      * @param {number} amount 
@@ -105,6 +51,29 @@ export const BicyclesModel = {
             return {...data, date: new Date(`${year}-${month}-${day}`)};
         }).sort((a,b) => b.date - a.date);
 
-        return sortedLatestBicycles.slice(0, amount);
+        if (amount) { return sortedLatestBicycles.slice(0, amount); }
+        else { return sortedLatestBicycles; }
+    },
+
+    /**
+     * @param {string} field 
+     * @param {string} summ 
+     * @returns {Promise<{field: string, summ: number}[]>}
+    */
+    orderBy: async function(field, summ) {
+        const pipeline = [{$group: { _id: `$${field}`, totalQuantity: { $sum: `$${summ}` }}},
+            {$project : { _id: 0, field: '$_id', summ: '$totalQuantity' }}];
+
+        const result = await bicyclesCollection.aggregate(pipeline).toArray();
+        return result;
+    },
+
+    /**
+     * @param {number} id 
+     * @returns {Promise<Bicycle>}
+    */
+    byId: async function(id) {
+        const bicycle = bicyclesCollection.find({ _id: id });
+        return bicycle;
     }
 }
