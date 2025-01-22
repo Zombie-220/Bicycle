@@ -34,8 +34,8 @@ export function useBicycleData(url, { data, loading, error }) {
                     _id: Decrypt(dataMap._id),
                     brand: Decrypt(dataMap.brand),
                     model: Decrypt(dataMap.model),
-                    productImage: dataMap.productImage,
-                    countryImage: dataMap.countryImage,
+                    productImage: Decrypt(dataMap.productImage),
+                    countryImage: Decrypt(dataMap.countryImage),
                     price: parseInt(Decrypt(dataMap.price)),
                     amount: parseInt(Decrypt(dataMap.amount)),
                     discount: parseInt(Decrypt(dataMap.discount))

@@ -2,7 +2,7 @@ import { request, response } from "express";
 
 import { GetEquipmentByAmount_M } from '../models/equipments.js';
 import { logger } from "../config/logger/logger.js";
-import { Encryp } from "../helpers/encryption.js";
+import { Encrypt } from "../helpers/encryption.js";
 
 /**
  * @param {request} req 
@@ -15,12 +15,12 @@ export const GetEquipmentByAmount_C = async (req, res) => {
         var equipmentsInfo = [];
         equipments.map((data) => {
             equipmentsInfo.push({
-                _id: Encryp(`${data._id}`),
-                name: Encryp(data.name),
+                _id: Encrypt(`${data._id}`),
+                name: Encrypt(data.name),
                 productImage: data.productImage,
-                price: Encryp(`${data.price}`),
-                amount: Encryp(`${data.amount}`),
-                discount: Encryp(`${data.discount}`)
+                price: Encrypt(`${data.price}`),
+                amount: Encrypt(`${data.amount}`),
+                discount: Encrypt(`${data.discount}`)
             });
         });
 

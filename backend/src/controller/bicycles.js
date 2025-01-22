@@ -1,54 +1,8 @@
 import { request, response } from "express";
 
-import { GetBicyclesByAmount_M, GetAllBicycles, GetBicyclesOrderBy_M, GetBicycleById_M, GetLatestBicycles_M } from '../models/bicycles.js';
+import { GetBicyclesOrderBy_M, GetBicycleById_M } from '../models/bicycles.js';
+import { BicyclesService } from "../services/bicycles.js";
 import { logger } from "../config/logger/logger.js";
-import { Encryp } from "../helpers/encryption.js";
-
-/**
- * @param {request} req
- * @param {response} res
- * @returns {void}
-*/
-export const GetBicyclesByAmount_C = async (req, res) => {
-    try {
-        var bicycleInfo = [];
-        if (req.params.amount !== 'all') {
-            const bicycles = await GetBicyclesByAmount_M(req.params.amount);
-            bicycles.map((data) => {
-                bicycleInfo.push({
-                    _id: Encryp(`${data._id}`),
-                    brand: Encryp(data.brand),
-                    model: Encryp(data.model),
-                    productImage: data.productImage,
-                    countryImage: data.countryImage,
-                    price: Encryp(`${data.price}`),
-                    amount: Encryp(`${data.amount}`),
-                    discount: Encryp(`${data.discount}`)
-                });
-            });
-        } else {
-            const bicycles = await GetAllBicycles();
-            bicycles.map((data) => {
-                bicycleInfo.push({
-                    _id: Encryp(`${data._id}`),
-                    brand: Encryp(data.brand),
-                    model: Encryp(data.model),
-                    productImage: data.productImage,
-                    countryImage: data.countryImage,
-                    price: Encryp(`${data.price}`),
-                    amount: Encryp(`${data.amount}`),
-                    discount: Encryp(`${data.discount}`)
-                });
-            })
-        }
-
-        res.json(bicycleInfo);
-        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
-    } catch (err) {
-        res.status(500).json({ message: 'Get bicycles by amount failed' });
-        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
-    }
-}
 
 /**
  * @param {request} req 
@@ -96,32 +50,39 @@ export const getBicycleById_C = async (req, res) => {
     }
 }
 
-/**
- * @param {request} req 
- * @param {response} res 
- * @returns {void}
-*/
-export const GetLatestBicycles_C = async (req, res) => {
-    try {
-        const amount = parseInt(req.params.amount);
-        const latestBicycles = await GetLatestBicycles_M(amount);
-        const encryptedData = latestBicycles.map((data) => {
-            return ({
-                _id: Encryp(`${data._id}`),
-                brand: Encryp(data.brand),
-                model: Encryp(data.model),
-                productImage: data.productImage,
-                countryImage: data.countryImage,
-                price: Encryp(`${data.price}`),
-                amount: Encryp(`${data.amount}`),
-                discount: Encryp(`${data.discount}`)
-            });
-        });
 
-        res.json(encryptedData);
-        logger.info(`${req.method} ${req.baseUrl}${req.url}`);
-    } catch (err) {
-        res.status(500).json({ message: 'get bicycle by id failed' });
-        logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+export const BicyclesController = {
+    /**
+     * @param {request} req 
+     * @param {response} res 
+     * @returns {void}
+    */
+    getByAmount: async function(req, res) {
+        try {
+            const bicycles = await BicyclesService.getByAmount(req.params.amount);
+
+            res.json(bicycles);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'Get bicycles by amount failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
+    },
+
+    /**
+     * @param {request} req
+     * @param {response} res
+     * @returns {void}
+    */
+    getLatest: async function(req, res) {
+        try {
+            const latestBicycles = await BicyclesService.getLatest(req.params.amount);
+
+            res.json(latestBicycles);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'get bicycle by id failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
-} 
+}

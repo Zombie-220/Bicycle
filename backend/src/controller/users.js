@@ -1,6 +1,6 @@
 import { request, response } from "express";
 
-import { Decrypt, Encryp } from "../helpers/encryption.js";
+import { Decrypt, Encrypt } from "../helpers/encryption.js";
 import { CheckUserByName, GetUserRoles } from "../models/users.js";
 import { RegisterUser_S, LoginUser_S } from "../services/users.js";
 import { logger } from "../config/logger/logger.js";
@@ -45,7 +45,7 @@ export const RegisterUser = async (req, res) => {
         };
         const newUserId = await RegisterUser_S(dacryptedData);
 
-        res.json({ id: Encryp(`${newUserId}`) });
+        res.json({ id: Encrypt(`${newUserId}`) });
         logger.info(`${req.method} ${req.baseUrl}${req.url}`);
     } catch (err) {
         res.status(500).json({ message: 'create user failed' });
@@ -68,7 +68,7 @@ export const LoginUser = async (req, res) => {
         const [userId, token, err] = await LoginUser_S(decryptedData);
 
         if (!err) {
-            res.json({ id: Encryp(`${userId}`), token: token });
+            res.json({ id: Encrypt(`${userId}`), token: token });
             logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } else {
             res.status(400).json({ message: err });
