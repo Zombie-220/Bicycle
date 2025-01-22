@@ -18,5 +18,5 @@ openssl x509 -req -days 365 -in out/req.csr -signkey out/key.key -out out/cert.c
 - Запустите проект предварительно установив все зависимости
 ```schell
 npm i
-node main.js
+node .\src\main.js
 ```
