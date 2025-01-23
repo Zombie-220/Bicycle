@@ -25,7 +25,7 @@ export const Encrypt = (data) => {
             encryptedObj[key] = Encrypt(data[key]);
         }
         return encryptedObj;
-    } else { return(data); }
+    } else { return (data); }
 }
 
 /**
