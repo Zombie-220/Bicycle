@@ -6,7 +6,7 @@ import { Decrypt } from "../AES";
 /**
  * @typedef {object} Bicycle
  * @property {string} _id
- * @property {sting} brand
+ * @property {string} brand
  * @property {string} model
  * @property {string} productImage
  * @property {string} countryImage
@@ -28,21 +28,7 @@ export function useBicycleData(url, { data, loading, error }) {
 
     useEffect(() => {
         API_URL(url).then(({ data }) => {
-            var decryptedData = [];
-            data.map((dataMap) => {
-                return (decryptedData.push({
-                    _id: Decrypt(dataMap._id),
-                    brand: Decrypt(dataMap.brand),
-                    model: Decrypt(dataMap.model),
-                    productImage: Decrypt(dataMap.productImage),
-                    countryImage: Decrypt(dataMap.countryImage),
-                    price: parseInt(Decrypt(dataMap.price)),
-                    amount: parseInt(Decrypt(dataMap.amount)),
-                    discount: parseInt(Decrypt(dataMap.discount))
-                }));
-            });
-    
-            setHookData(decryptedData);
+            setHookData(Decrypt(data));
             setIsLoading(false);
             setIsError(false);
         }).catch(() => { setIsError(true); })
