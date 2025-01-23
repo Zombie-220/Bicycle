@@ -6,16 +6,16 @@
 ---
 
 # Стек разработки
-## Frontend
-- React
-- SCSS
-## Backend
-- NodeJS
-- Express
-## База данных
-- MongoDB
-## Развертывание
-- Docker (совсем немного)
+- **Frontend**
+    - React
+    - SCSS
+- **Backend**
+    - NodeJS
+    - Express
+- **База данных**
+    - MongoDB
+- **Развертывание**
+    - Docker (совсем немного)
 
 ---
 
@@ -26,7 +26,7 @@
 ---
 
 # Настройка
-## Настройка перед запуском
+## Frontend
 - создайте SSL сертификат и ключ
 ```schell
 openssl genpkey -algorithm RSA -out out/key.key
@@ -48,7 +48,7 @@ npm i
 npm start
 ```
 
-## Настройка перед запуском
+## Backend
 - создайте SSL сертификат и ключ
 ```schell
 openssl genpkey -algorithm RSA -out out/key.key
