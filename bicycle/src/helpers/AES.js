@@ -8,7 +8,7 @@ export const Encrypt = (data) => { return CryptoJS.AES.encrypt(`${data}`, proces
 
 /**
  * @param {string | number | string[] | number[] | object} data зашифрованное значение для расшифровки
- * @returns {string} 
+ * @returns {string | number | string[] | number[] | object}
 */
 export const Decrypt = (data) => {
     if (typeof(data) === 'string' || typeof(data) === 'number') {
