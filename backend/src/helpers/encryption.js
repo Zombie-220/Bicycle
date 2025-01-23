@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 
 /**
  * @param {string | number | string[] | number[] | object | ObjectId} data 
- * @returns {string}
+ * @returns {string | number | string[] | number[] | object | ObjectId}
 */
 export const Encrypt = (data) => {
     if (typeof(data) === 'string' || typeof(data) === 'number' || ObjectId.isValid(data)) {

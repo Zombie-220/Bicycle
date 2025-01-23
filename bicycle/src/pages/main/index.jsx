@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DiffLink } from '../../components/DiffLink';
@@ -28,43 +28,26 @@ import hours_24 from '../../assets/images/main/video/24-hours.svg';
 import './style.scss';
 
 import { useBicycleData } from '../../helpers/hooks/getBicycleInfo';
+import { useEquipmentsInfo } from '../../helpers/hooks/getEquipmentsInfo';
 
 export const MainPage = () => {
-    const [equipments, setEquipment] = useState([]);
-    const [equipmentLoading, setEquipmentLoading] = useState(true);
-    const [equipmentErr, setEquipmentErr] = useState(false);
-
     const { newItems, newItemsLoading, newItemsError } = useBicycleData('/bicycles/latest/6', {
         data: 'newItems',
         loading: 'newItemsLoading',
         error: 'newItemsError'
     });
 
-    const { winterBicycle, winterIsLoading, winterError } = useBicycleData('/bicycles/amount/3', {
-        data: 'winterBicycle',
+    const { winterBicycles, winterIsLoading, winterError } = useBicycleData('/bicycles/amount/3', {
+        data: 'winterBicycles',
         loading: 'winterIsLoading',
         error: 'winterError'
     });
 
-    useEffect(() => {
-        API_URL('/equipments/amount/9').then(({ data }) => {
-            var decryptedData = [];
-            data.map((dataMap) => {
-                return (decryptedData.push({
-                    _id: Decrypt(dataMap._id),
-                    name: Decrypt(dataMap.name),
-                    productImage: dataMap.productImage,
-                    price: parseInt(Decrypt(dataMap.price)),
-                    amount: parseInt(Decrypt(dataMap.amount)),
-                    discount: parseInt(Decrypt(dataMap.discount))
-                }));
-            })
-
-            setEquipment(decryptedData);
-            setEquipmentLoading(false);
-            setEquipmentErr(false);
-        }).catch(() => { setEquipmentErr(true); })
-    }, []);
+    const { equipments, equipmentLoading, equipmentError } = useEquipmentsInfo('/equipments/amount/9', {
+        data: 'equipments',
+        loading: 'equipmentLoading',
+        error: 'equipmentError'
+    });
 
     return (
         <div className='mainPage'>
@@ -197,7 +180,7 @@ export const MainPage = () => {
                     {!winterError ?
                         <Preloader isLoading={winterIsLoading}>
                             <Slider cardPerSlide={3}>{
-                                winterBicycle.map((data, index) => {
+                                winterBicycles.map((data, index) => {
                                     return (
                                         <Card
                                             key = {index}
@@ -249,7 +232,7 @@ export const MainPage = () => {
             <div className='mainPage__equipment'>
                 <p className='mainPage__equipment-header'>ЭКИПИРОВКА</p>
                 <div className='mainPage__equipment__slider'>
-                    {!equipmentErr ?
+                    {!equipmentError ?
                         <Preloader isLoading={equipmentLoading}>
                             <Slider cardPerSlide={3}>{
                                 equipments.map((data, index) => {
@@ -261,6 +244,7 @@ export const MainPage = () => {
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
+                                            discount= {data.discount}
                                             linkTo = {`/catalog/equipments/${data._id}`}
                                         />
                                     );
