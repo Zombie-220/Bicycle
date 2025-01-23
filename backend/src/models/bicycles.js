@@ -72,8 +72,8 @@ export const BicyclesModel = {
      * @param {number} id 
      * @returns {Promise<Bicycle>}
     */
-    byId: async function(id) {
-        const bicycle = bicyclesCollection.find({ _id: id });
+    getById: async function(id) {
+        const bicycle = await bicyclesCollection.findOne({ _id: id });
         return bicycle;
     }
 }

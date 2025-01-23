@@ -12,6 +12,7 @@ import tg from '../../../assets/images/catalogById/tg.svg';
 import wp from '../../../assets/images/catalogById/whatsapp.svg';
 import telephone from '../../../assets/images/catalogById/phone.svg';
 import like from '../../../assets/images/catalogById/like.svg';
+import { Decrypt } from '../../../helpers/AES';
 
 export const CatalogById = () => {
     const [currentCategory, setCurrentCategory] = useState('');
@@ -105,7 +106,7 @@ export const CatalogById = () => {
                     <p className='catalogById__basicInfo__info-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste voluptatum sint, non mollitia, ullam molestiae magni in distinctio, corrupti amet cumque laudantium modi adipisci. Sunt minima reprehenderit accusantium?</p>
                     <p className='catalogById__basicInfo__info-sizesHeader'>Размеры:</p>
                     <div className='catalogById__basicInfo__info__sizes'>
-                        {currentItemData.size?.map((data, index) => {
+                        {/* {currentItemData.size?.map((data, index) => {
                             return (
                                 <label htmlFor={`size-${data}`} className='catalogById__basicInfo__info__sizes__button'
                                     style={ data === activeSize ? { backgroundColor: '#101010', color: '#FFF' } : { backgroundColor: '#0000', color: '#2E2E2E' } } key={index}>
@@ -115,11 +116,11 @@ export const CatalogById = () => {
                                     <label htmlFor={`size-${data}`} className='catalogById__basicInfo__info__sizes__button-label'>{data}</label>
                                 </label>
                             )
-                        })}
+                        })} */}
                     </div>
                     <p className='catalogById__basicInfo__info-colorsHeader'>Цвета:</p>
                     <div className='catalogById__basicInfo__info__colors'>
-                        {currentItemData.color?.map((data, index) => {
+                        {/* {currentItemData.color?.map((data, index) => {
                             return (
                                 <label htmlFor={`color-${data}`} className='catalogById__basicInfo__info__colors__button'
                                     style={ data === activeColor ? { backgroundColor: `${data}`, border: '5px solid #E5E5E5' } : { backgroundColor: `${data}`, border: '5px solid #E5E5E500' } } key={index}>
@@ -128,7 +129,7 @@ export const CatalogById = () => {
                                         onChange={(event) => { register('color').onChange(event); }}/>
                                 </label>
                             )
-                        })}
+                        })} */}
                     </div>
                     <div className='catalogById__basicInfo__info__buttons'>
                         <div className='catalogById__basicInfo__info__buttons__amount'>

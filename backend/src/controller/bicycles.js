@@ -65,9 +65,9 @@ export const BicyclesController = {
      * @param {response} res 
      * @returns {void}
     */
-    byId: async function(req, res) {
+    getById: async function(req, res) {
         try {
-            const bicycle = await BicyclesService.byId(req.params.id);
+            const bicycle = await BicyclesService.getById(req.params.id);
 
             res.json(bicycle);
             logger.info(`${req.method} ${req.baseUrl}${req.url}`);

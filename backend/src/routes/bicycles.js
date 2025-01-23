@@ -7,4 +7,4 @@ export const BicyclesRouter = Router();
 BicyclesRouter.get('/amount/:amount?', BicyclesController.getByAmount);
 BicyclesRouter.get('/latest/:amount?', BicyclesController.getLatest);
 BicyclesRouter.get('/orderBy', BicyclesController.orderBy);
-BicyclesRouter.get('/:id', BicyclesController.byId);
+BicyclesRouter.get('/:id', BicyclesController.getById);

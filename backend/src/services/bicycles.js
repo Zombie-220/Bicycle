@@ -72,9 +72,9 @@ export const BicyclesService = {
      * @param {string} id 
      * @returns {Promise<Bicycle>}
     */
-    byId: async function(id) {
+    getById: async function(id) {
         const _id = new ObjectId(id);
-        const bicycle = await BicyclesModel.byId(_id)
+        const bicycle = await BicyclesModel.getById(_id);
 
         return (Encrypt({
             brand: bicycle.brand,
@@ -84,7 +84,7 @@ export const BicyclesService = {
             color: bicycle.color,
             price: bicycle.price,
             amount: bicycle.amount,
-            // technicalPassport: bicycle.technicalPassport
+            technicalPassport: bicycle.technicalPassport
         }));
     }
 }
