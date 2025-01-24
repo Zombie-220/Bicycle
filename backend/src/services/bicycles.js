@@ -83,6 +83,7 @@ export const BicyclesService = {
             size: bicycle.size,
             color: bicycle.color,
             price: bicycle.price,
+            discount: bicycle.discount,
             amount: bicycle.amount,
             technicalPassport: bicycle.technicalPassport
         }));

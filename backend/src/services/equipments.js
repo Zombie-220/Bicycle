@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb';
+
 import { Encrypt } from '../helpers/encryption.js';
 import { EquipmentsModel } from '../models/equipments.js';
 
@@ -21,5 +23,24 @@ export const EquipmentsService = {
             }))
         });
         return encryptedData;
+    },
+
+    /**
+     * @param {string} id
+     * @returns {Promise<Equipment>}
+    */
+    getById: async function(id) {
+        const _id = new ObjectId(id);
+        const equipment = await EquipmentsModel.getById(_id);
+
+        return (Encrypt({
+            name: equipment.name,
+            productImage: equipment.productImage,
+            price: equipment.price,
+            amount: equipment.amount,
+            discount: equipment.discount,
+            color: equipment.color,
+            size: equipment.size
+        }));
     }
 }

@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 import { DB } from "../config/database/database.js";
 
 /**
@@ -22,5 +24,14 @@ export const EquipmentsModel = {
     byAmount: async function(amount) {
         const equipments = await equipmentCollection.find().limit(amount).toArray();
         return equipments;
+    },
+
+    /**
+     * @param {ObjectId} id 
+     * @returns {Promise<Equipment>}
+    */
+    getById: async function(id) {
+        const equipment = await equipmentCollection.findOne({ _id: id });
+        return equipment
     }
 }

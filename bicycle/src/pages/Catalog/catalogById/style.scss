@@ -90,11 +90,23 @@
                     color: #4D932C;
                 }
             }
-            &-price {
-                color: #101010;
-                font-family: 'Inter-Medium';
-                font-size: 40px;
+            &__price {
+                display: flex;
+                align-items: flex-end;
                 margin: 30px 0px;
+                &-price {
+                    color: #101010;
+                    font-family: 'Inter-Medium';
+                    font-size: 40px;
+                    margin: 0px;
+                }
+                &-discount {
+                    text-decoration: line-through;
+                    color: #B3B3B3;
+                    font-size: 16px;
+                    font-family: 'Inter-Medium';
+                    margin: 0px 0px 0px 12px;
+                }
             }
             &-description {
                 font-size: 16px;

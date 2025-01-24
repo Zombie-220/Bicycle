@@ -15,12 +15,13 @@ import like from '../../../assets/images/catalogById/like.svg';
 
 export const CatalogById = () => {
     const [currentCategory, setCurrentCategory] = useState('');
+    const [itemName, setItemName] = useState('');
     const { category, id } = useParams();
     const { itemData, itemLoading, itemError } = useRequest(`/${category}/${id}`, {
         data: 'itemData',
         loading: 'itemLoading',
         error: 'itemError'
-    })
+    });
 
     const { register, handleSubmit, watch } = useForm();
     const onSubmit = (data) => {
@@ -50,12 +51,14 @@ export const CatalogById = () => {
         switch (category) {
             case 'bicycles':
                 setCurrentCategory('Велосипеды');
+                setItemName(`${itemData.brand} ${itemData.model}`);
                 break;
             case 'equipments':
                 setCurrentCategory('Экипировка');
+                setItemName(`${itemData.name}`);
                 break;
         }
-    }, [category]);
+    }, [category, itemData]);
 
     useEffect(() => {
         if (itemData.color && itemData.size) {
@@ -72,7 +75,7 @@ export const CatalogById = () => {
                     <p className='catalogById__link-separator'>/</p>
                     <Link className='catalogById__link-link' to={`/catalog/${category}`}>{currentCategory}</Link>
                     <p className='catalogById__link-separator'>/</p>
-                    <Link className='catalogById__link-link-orange'>{itemData.brand} {itemData.model}</Link>
+                    <Link className='catalogById__link-link-orange'>{itemName}</Link>
                 </div>
             </div>
             <form className='catalogById__basicInfo'>
@@ -86,7 +89,7 @@ export const CatalogById = () => {
                     </div>
                 </div>
                 <div className='catalogById__basicInfo__info'>
-                    <p className='catalogById__basicInfo__info-model'>{itemData.model}</p>
+                    <p className='catalogById__basicInfo__info-model'>{category === 'bicycles' ? itemData.model : itemData.name}</p>
                     <p className='catalogById__basicInfo__info-brand'>{itemData.brand}</p>
                     <div className='catalogById__basicInfo__info__articul'>
                         <p className='catalogById__basicInfo__info__articul-text'>Артикул: 7655-188</p>
@@ -99,7 +102,16 @@ export const CatalogById = () => {
                         </div>
                     </div>
                     <p className={`catalogById__basicInfo__info-amount-${itemData.amount >= 1 ? 'green' : 'red'}`}>{itemData.amount >= 1 ? 'В наличии' : 'Распродано' }</p>
-                    <p className='catalogById__basicInfo__info-price'>{itemData.price?.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
+                    <div className='catalogById__basicInfo__info__price'>
+                        {itemData.discount === 0 ?
+                            <p className='catalogById__basicInfo__info__price-price'>{itemData.price?.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
+                            :
+                            <>
+                                <p className='catalogById__basicInfo__info__price-price'>{(itemData.price - itemData.price * itemData.discount / 100)?.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
+                                <p className='catalogById__basicInfo__info__price-discount'>{itemData.price?.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
+                            </>
+                        }
+                    </div>
                     <p className='catalogById__basicInfo__info-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste voluptatum sint, non mollitia, ullam molestiae magni in distinctio, corrupti amet cumque laudantium modi adipisci. Sunt minima reprehenderit accusantium?</p>
                     <p className='catalogById__basicInfo__info-sizesHeader'>Размеры:</p>
                     <div className='catalogById__basicInfo__info__sizes'>
@@ -121,7 +133,7 @@ export const CatalogById = () => {
                         {itemData.color?.map((data, index) => {
                             return (
                                 <label htmlFor={`color-${data}`} className='catalogById__basicInfo__info__colors__button'
-                                    style={ data === activeColor ? { backgroundColor: `${data}`, border: '5px solid #E5E5E5' } : { backgroundColor: `${data}`, border: '5px solid #E5E5E500' } } key={index}>
+                                    style={ data === activeColor ? { backgroundColor: `${data}`, border: '5px solid #E5E5E5' } : { backgroundColor: `${data}`, border: '1px solid #E5E5E5' } } key={index}>
                                     <input type="radio" id={`color-${data}`} name='color'
                                         value={data} className='catalogById__basicInfo__info__colors__button-input' {...register('color')}
                                         onChange={(event) => { register('color').onChange(event); }}

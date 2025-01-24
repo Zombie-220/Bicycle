@@ -19,5 +19,22 @@ export const EquipmentsCotroller = {
             res.status(500).json({ message: 'Get equipments by amount failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    /**
+     * @param {request} req 
+     * @param {response} res 
+     * @returns {void}
+    */
+    getById: async function(req, res) {
+        try {
+            const equipment = await EquipmentsService.getById(req.params.id);
+
+            res.json(equipment);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'Get equipment by id failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }
