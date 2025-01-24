@@ -10,7 +10,16 @@ export const EquipmentsService = {
         const _amount = parseInt(amount)
         const equipments = await EquipmentsModel.byAmount(_amount);
 
-        const encryptedData = Encrypt(equipments);
+        const encryptedData = equipments.map((data) => {
+            return (Encrypt({
+                _id: data._id,
+                name: data.name,
+                productImage: data.productImage,
+                price: data.price,
+                amount: data.amount,
+                discount: data.discount
+            }))
+        });
         return encryptedData;
     }
 }

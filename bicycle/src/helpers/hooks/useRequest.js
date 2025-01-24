@@ -16,12 +16,23 @@ import { Decrypt } from "../AES";
 */
 
 /**
- * @param {string} url url на который идет запрос
- * @param {{data: string, loading: string, error: string}} options имена полей, которые будет возвращать hook
- * @returns {{data: Bicycle, loading: boolean, error: boolean}}
+ * @typedef {object} Equipment
+ * @property {string} _id
+ * @property {string} name
+ * @property {number} price
+ * @property {string[]} size
+ * @property {string[]} color
+ * @property {number} amount
+ * @property {number} discount
 */
 
-export function useBicycleData(url, { data, loading, error }) {
+/**
+ * @param {string} url url на который идет запрос
+ * @param {{data: string, loading: string, error: string}} options имена полей, которые будет возвращать hook
+ * @returns {{data: Bicycle | Equipment, loading: boolean, error: boolean}}
+*/
+
+export function useRequest(url, { data, loading, error }) {
     const [hookData, setHookData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);

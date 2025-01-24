@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { DiffLink } from '../../components/DiffLink';
@@ -8,8 +8,7 @@ import { Slider } from '../../components/Sliders/slider';
 import { Card } from '../../components/card';
 import { Preloader } from '../../components/preloader';
 
-import { API_URL } from '../../requests/request';
-import { Decrypt } from '../../helpers/AES';
+import { useRequest } from '../../helpers/hooks/useRequest';
 
 import wiliev from '../../assets/images/main/loopSlider/wiliev.svg'; 
 import wahoo from '../../assets/images/main/loopSlider/wahoo.svg'; 
@@ -27,23 +26,20 @@ import hours_24 from '../../assets/images/main/video/24-hours.svg';
 
 import './style.scss';
 
-import { useBicycleData } from '../../helpers/hooks/getBicycleInfo';
-import { useEquipmentsInfo } from '../../helpers/hooks/getEquipmentsInfo';
-
 export const MainPage = () => {
-    const { newItems, newItemsLoading, newItemsError } = useBicycleData('/bicycles/latest/6', {
+    const { newItems, newItemsLoading, newItemsError } = useRequest('/bicycles/latest/6', {
         data: 'newItems',
         loading: 'newItemsLoading',
         error: 'newItemsError'
     });
 
-    const { winterBicycles, winterIsLoading, winterError } = useBicycleData('/bicycles/amount/3', {
+    const { winterBicycles, winterIsLoading, winterError } = useRequest('/bicycles/amount/3', {
         data: 'winterBicycles',
         loading: 'winterIsLoading',
         error: 'winterError'
     });
 
-    const { equipments, equipmentLoading, equipmentError } = useEquipmentsInfo('/equipments/amount/9', {
+    const { equipments, equipmentLoading, equipmentError } = useRequest('/equipments/amount/9', {
         data: 'equipments',
         loading: 'equipmentLoading',
         error: 'equipmentError'
