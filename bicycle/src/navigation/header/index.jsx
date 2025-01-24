@@ -31,6 +31,7 @@ export const Header = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         if (location.pathname !== '/') { setBackground('#101010'); }
         else { setBackground('#0000'); }
+        Cookies.set('lastUsedPath', location.pathname, { expires: 7 });
     }, [location]);
 
     return (
