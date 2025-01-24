@@ -29,7 +29,7 @@ import { Decrypt } from "../AES";
 /**
  * @param {string} url url на который идет запрос
  * @param {{data: string, loading: string, error: string}} options имена полей, которые будет возвращать hook
- * @returns {{data: Bicycle | Equipment, loading: boolean, error: boolean}}
+ * @returns {{data: Bicycle | Equipment | Bicycle[] | Equipment[], loading: boolean, error: boolean}}
 */
 
 export function useRequest(url, { data, loading, error }) {
