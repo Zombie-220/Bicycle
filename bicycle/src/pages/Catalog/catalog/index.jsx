@@ -49,53 +49,52 @@ export const CatalogPage = () => {
         switch (category) {
             case 'bicycles': 
                 setCurrentPage('Велосипеды');
-                API_URL('/bicycles/amount').then(({ data }) => {
-                    var decryptedData = [];
-                    data.map((dataMap) => {
-                        return (decryptedData.push({
-                            _id: Decrypt(dataMap._id),
-                            brand: Decrypt(dataMap.brand),
-                            model: Decrypt(dataMap.model),
-                            productImage: Decrypt(dataMap.productImage),
-                            countryImage: Decrypt(dataMap.countryImage),
-                            price: parseInt(Decrypt(dataMap.price)),
-                            amount: parseInt(Decrypt(dataMap.amount)),
-                            discount: parseInt(Decrypt(dataMap.discount))
-                        }));
-                    });
-                    setProducts(decryptedData);
-                }).catch((err) => { console.log(err); }) // удали к черту это убожество
+                // API_URL('/bicycles/amount/12').then(({ data }) => {
+                //     var decryptedData = [];
+                //     data.map((dataMap) => {
+                //         return (decryptedData.push({
+                //             _id: Decrypt(dataMap._id),
+                //             brand: Decrypt(dataMap.brand),
+                //             model: Decrypt(dataMap.model),
+                //             productImage: Decrypt(dataMap.productImage),
+                //             countryImage: Decrypt(dataMap.countryImage),
+                //             price: parseInt(Decrypt(dataMap.price)),
+                //             amount: parseInt(Decrypt(dataMap.amount)),
+                //             discount: parseInt(Decrypt(dataMap.discount))
+                //         }));
+                //     });
+                //     setProducts(decryptedData);
+                // }).catch((err) => { console.log(err); }) // удали к черту это убожество
 
-                API_URL('/bicycles/orderBy?field=type&summ=amount').then(({ data }) => {
-                    const decryptedData = data.map((data) => {
-                        return ({
-                            field: Decrypt(data.field),
-                            summ: Decrypt(data.summ)
-                        })
-                    });
-                    setCategories(decryptedData);
-                }).catch((err) => { console.log(err); })
+                // API_URL('/bicycles/orderBy?field=type&summ=amount').then(({ data }) => {
+                //     const decryptedData = data.map((data) => {
+                //         return ({
+                //             field: Decrypt(data.field),
+                //             summ: Decrypt(data.summ)
+                //         })
+                //     });
+                //     setCategories(decryptedData);
+                // }).catch((err) => { console.log(err); })
 
-                API_URL('/bicycles/orderBy?field=brand&summ=amount').then(({ data }) => {
-                    const decryptedData = data.map((data) => {
-                        return ({
-                            field: Decrypt(data.field),
-                            summ: Decrypt(data.summ)
-                        })
-                    });
-                    setBrands(decryptedData);
-                    console.log(decryptedData);
-                }).catch((err) => { console.log(err); })
+                // API_URL('/bicycles/orderBy?field=brand&summ=amount').then(({ data }) => {
+                //     const decryptedData = data.map((data) => {
+                //         return ({
+                //             field: Decrypt(data.field),
+                //             summ: Decrypt(data.summ)
+                //         })
+                //     });
+                //     setBrands(decryptedData);
+                // }).catch((err) => { console.log(err); })
 
-                API_URL('/bicycles/orderBy?field=color&summ=amount').then(({ data }) => {
-                    const decryptedData = data.map((data) => {
-                        return ({
-                            field: Decrypt(data.field),
-                            summ: Decrypt(data.summ)
-                        })
-                    });
-                    setColors(decryptedData);                    
-                }).catch((err) => { console.log(err); })
+                // API_URL('/bicycles/orderBy?field=color&summ=amount').then(({ data }) => {
+                //     const decryptedData = data.map((data) => {
+                //         return ({
+                //             field: Decrypt(data.field),
+                //             summ: Decrypt(data.summ)
+                //         })
+                //     });
+                //     setColors(decryptedData);
+                // }).catch((err) => { console.log(err); })
                 break;
             case 'parts':
                 setCurrentPage('Запчасти');
