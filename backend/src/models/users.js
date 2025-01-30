@@ -5,48 +5,56 @@ import { DB } from "../config/database/database.js";
 const usersCollection = DB.collection('users');
 
 /**
- * @param {string} name
- * @returns {Promise<ObjectId | null>}
+ * @typedef {object} User
+ * @property {ObjectId} _id
+ * @property {string} name
+ * @property {string} password
+ * @property {string[]} roles
+ * @property {string} email
 */
-export const CheckUserByName = async (name) => {
-    const userId = await usersCollection.findOne({ name: name });
-    return userId ? userId._id : null;
-}
 
-/**
- * 
- * @param {{ name: string, password: string, email: string }} userData
- * @returns {Promise<ObjectId>}
-*/
-export const RegisterNewUser = async (userData) => {
-    const newUserId = await usersCollection.insertOne({ ...userData, roles: ['user'] });
-    return newUserId.insertedId;
-}
+export const UsersModel = {
+    /**
+     * @param {ObjectId} id 
+     * @returns {Promise<User>}
+    */
+    getInfoById: async function(id) {
+        const userInfo = await usersCollection.findOne({ _id: id });
+        return userInfo ? userInfo : null;
+    },
 
-/**
- * @param {string} name 
- * @param {string} password 
- * @returns {Promise<ObjectId | null>}
-*/
-export const LoginUserByName = async (name, password) => {
-    const user = await usersCollection.findOne({ name: name, password: password });
-    return user ? user._id : null;
-}
+    /**
+     * @param {string} name 
+     * @param {string} password 
+     * @returns {Promise<User>}
+    */
+    getInfoByNameAndPass: async function(name, password) {
+        const userInfo = await usersCollection.findOne({ name: name, password: password });
+        return userInfo ? userInfo : null;
+    },
 
-/**
- * @param {string} id 
- * @returns {Promise<[string]>}
-*/
-export const GetUserRoles = async (id) => {
-    const roles = await usersCollection.findOne({ _id: new ObjectId(id) });
-    return roles.roles;
-}
+    /**
+     * @param {string} name 
+     * @returns {Promise<boolean>}
+    */
+    checkByName: async function(name) {
+        const user = await usersCollection.findOne({ name: name });
+        return user ? true : false;
+    },
 
-/**
- * @param {string} id 
- * @returns {Promise<{_id: ObjectId, name: string, password: string, roles: [string], email: string}>}
- */
-export const GetUserInfo = async (id) => {
-    const user = await usersCollection.findOne({ _id: new ObjectId(id) });
-    return user;
+    /**
+     * @param {string} name 
+     * @param {string} password 
+     * @param {string} email 
+     * @returns {Promise<ObjectId>}
+    */
+    addUser: async function(name, password, email) {
+        const newUserId = await usersCollection.insertOne({
+            name: name,
+            password: password,
+            email: email,
+            roles: ['user']
+        });
+        return newUserId.insertedId;
+    }
 }

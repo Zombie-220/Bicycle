@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 
 import { API_URL } from '../../../requests/request';
 import { AuthContext, AdminContext } from '../../../App';
@@ -20,35 +21,30 @@ export const AuthPage = () => {
     const navigate = useNavigate();
 
     function onSubmit(submitData) {
-        const encryptesSubmitData = {
-            name: Encrypt(submitData.name),
-            password: Encrypt(submitData.password),
-            getToken: submitData.remembeMe
-        };
+        const encryptesSubmitData = Encrypt(submitData);
 
         API_URL.post('/users/login', {
             name: encryptesSubmitData.name,
             password: encryptesSubmitData.password,
-            getToken: encryptesSubmitData.getToken
+            getToken: encryptesSubmitData.remembeMe
         }).then(({ data }) => {
-            const decryptedId = { id: Decrypt(data.id) };
-            if (decryptedId.id) {
-                setIsAuth(decryptedId.id);
-                if (encryptesSubmitData.getToken) { Cookies.set('token', data.token, { expires: 7 }); }
-                else { Cookies.set('token', data.token, { expires: 1 }); }
+            if (data.id) {
+                const decryptedResponse = {
+                    id: Decrypt(data.id),
+                    token: data.token
+                };
+                setIsAuth(decryptedResponse.id);
+                Cookies.set('token', decryptedResponse.token)
 
-                API_URL(`/users/check?isAdmin=${data.id}`).then(({ data }) => {
-                    if (data.response) { setIsAdmin(true); }
-                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); });
-
+                const token = jwtDecode(decryptedResponse.token);
+                if (token.roles.includes('admin')) { setIsAdmin(true); }
                 navigate('/');
             } else {
                 setError('name', { type: 'empty' });
                 setError('password', { type: 'incorrect' });
             }
         }).catch((err) => {
-            if (err.response.data.message === 'wrong data') { setFormErr('Имя или пароль введены неверно.'); }
-            else { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); }
+            setFormErr('Сайту не хорошо @_@. Попробуйте позже.');
         });
     }
 

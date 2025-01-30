@@ -1,26 +1,46 @@
-import { LoginUserByName, RegisterNewUser } from "../models/users.js";
-import { CreateToken } from "../helpers/token.js";
 import { ObjectId } from "mongodb";
 
-/**
- * @param {{ name: string, password: string, email: string }} userData
- * @returns {Promise<ObjectId>}
-*/
-export const RegisterUser_S = async (userData) => {
-    return await RegisterNewUser(userData);
-}
+import { CreateToken } from "../helpers/token.js";
+import { UsersModel } from '../models/users.js';
+import { Decrypt, Encrypt } from "../helpers/encryption.js";
 
-/**
- * @param {{name: string, password: string, getToken: boolean}} dataFromUser
- * @returns {Promise<ObjectId | null>, string, string}
-*/
-export const LoginUser_S = async (dataFromUser) => {
-    const userId = await LoginUserByName(dataFromUser.name, dataFromUser.password);
-    var token = '';
-    var err = '';
+export const UsersService = {
+    /**
+     * @param {string} name
+     * @param {string} password
+     * @param {string} getToken
+     * @returns {Promise<{id: string, token: string}>}
+    */
+    login: async function(name, password, getToken) {
+        const _name = Decrypt(name);
+        const _password = Decrypt(password);
+        const _getToken = Decrypt(getToken);
 
-    if (userId) {if (dataFromUser.getToken) { token = await CreateToken(userId); }}
-    else { err = "wrong data"; }
+        const user = await UsersModel.getInfoByNameAndPass(_name, _password);
 
-    return [userId, token, err];
+        return ({
+            id: (user ? Encrypt(user._id) : null),
+            token: (user ? (await CreateToken(user._id, user.roles, (_getToken ? 168 : 24))) : null)
+        });
+    },
+
+
+    /**
+     * @param {string} name 
+     * @param {string} password 
+     * @param {string} email
+     * @returns {Promise<ObjectId | null>}
+    */
+    register: async function(name, password, email) {
+        const _name = Decrypt(name);
+        const _password = Decrypt(password);
+        const _email = Decrypt(email);
+
+        if (!(await UsersModel.checkByName(_name))) {
+            const newId = await UsersModel.addUser(_name, _password, _email);
+            return { id: Encrypt(newId) };
+        } else {
+            return { id: Encrypt(null) };
+        }
+    }
 }

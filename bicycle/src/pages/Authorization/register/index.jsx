@@ -28,18 +28,18 @@ export const RegisterPage = () => {
 
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             if (formData.password_confirmed === formData.password) {
-                API_URL.get(`/users/check?name=${encryptedData.name}`).then(({ data }) => {
-                    if (!data.id) {
-                        API_URL.post('/users/register', {
-                            name: encryptedData.name,
-                            password: encryptedData.password,
-                            email: encryptedData.email
-                        }).then((respData) => {
-                            setIsAuth(Decrypt(respData.data.id));
-                            navigate('/');
-                        }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
-                    } else { setError('name', { type: 'reserved' }); }
-                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') });
+                API_URL.post('/users/register', encryptedData)
+                .then(({ data }) => {
+                    const decryptedResponse = Decrypt(data);
+                    if (decryptedResponse.id) {
+                        setIsAuth(decryptedResponse.id);
+                        setFormErr('');
+                        navigate('/');
+                    } else {
+                        setError('name', { type: 'reserved' });
+                    }
+                    setFormErr('');
+                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') })
             } else {
                 setError('password', { type: "empty" });
                 setError('password_confirmed', { type: "match" });

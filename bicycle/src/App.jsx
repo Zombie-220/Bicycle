@@ -5,7 +5,6 @@ import { jwtDecode } from 'jwt-decode';
 import { Encrypt } from "./helpers/AES";
 
 import { getRoutes } from "./navigation/routes";
-import { API_URL } from "./requests/request";
 
 import './assets/fonts/fonts.css';
 
@@ -27,9 +26,7 @@ export const App = () => {
     if (Cookies.get('token')) {
       const tokenInfo = jwtDecode(Cookies.get('token'))
       setIsAuth(tokenInfo.id);
-      API_URL(`/users/check?isAdmin=${Encrypt(tokenInfo.id)}`).then(({ data }) => {
-        if (data.response) { setIsAdmin(true); }
-      }).catch((err) => { console.log(err); })
+      if (tokenInfo.roles.includes('admin')) { setIsAdmin(true); }
     }
   }, [])
 
