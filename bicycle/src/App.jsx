@@ -2,7 +2,6 @@ import React, { createContext, useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
-import { Encrypt } from "./helpers/AES";
 
 import { getRoutes } from "./navigation/routes";
 
