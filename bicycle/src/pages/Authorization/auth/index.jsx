@@ -34,7 +34,7 @@ export const AuthPage = () => {
                     token: data.token
                 };
                 setIsAuth(decryptedResponse.id);
-                Cookies.set('token', decryptedResponse.token)
+                Cookies.set('token', decryptedResponse.token, { expires: (submitData.remembeMe ? 7 : 1) });
 
                 const token = jwtDecode(decryptedResponse.token);
                 if (token.roles.includes('admin')) { setIsAdmin(true); }
