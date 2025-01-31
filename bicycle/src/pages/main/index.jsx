@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { DiffLink } from '../../components/DiffLink';
@@ -25,7 +25,6 @@ import gear from '../../assets/images/main/video/gear.svg';
 import hours_24 from '../../assets/images/main/video/24-hours.svg';
 
 import './style.scss';
-import { API_URL } from '../../requests/request';
 
 export const MainPage = () => {
     const { newItems, newItemsLoading, newItemsError } = useRequest('/bicycles/latest/6', {
@@ -173,7 +172,7 @@ export const MainPage = () => {
                 </div>
             </div>
             <div className='mainPage__winterBicycles'>
-                <p className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ</p>
+                <p className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ {_date.getFullYear()-2}</p>
                 <div className='mainPage__winterBicycles__slider'>
                     {!winterError ?
                         <Preloader isLoading={winterIsLoading}>
