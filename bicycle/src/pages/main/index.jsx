@@ -34,7 +34,7 @@ export const MainPage = () => {
     });
 
     const _date = new Date();
-    const { winterBicycles, winterIsLoading, winterError } = useRequest(`/bicycles/filter?type=Mountain&startDate=01-01-${_date.getFullYear()-3}&endDate=30-12-${_date.getFullYear()-2}&amount=3`, {
+    const { winterBicycles, winterIsLoading, winterError } = useRequest(`/bicycles/filter?type=Mountain&startDate=01-01-${_date.getFullYear()-3}&endDate=30-12-${_date.getFullYear()-3}&amount=3`, {
         data: 'winterBicycles',
         loading: 'winterIsLoading',
         error: 'winterError'
@@ -172,7 +172,7 @@ export const MainPage = () => {
                 </div>
             </div>
             <div className='mainPage__winterBicycles'>
-                <p className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ {_date.getFullYear()-2}</p>
+                <p className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ {_date.getFullYear()-3}</p>
                 <div className='mainPage__winterBicycles__slider'>
                     {!winterError ?
                         <Preloader isLoading={winterIsLoading}>

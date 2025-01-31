@@ -115,12 +115,9 @@ export const BicyclesService = {
                     brand: data.brand,
                     model: data.model,
                     productImage: data.productImage,
-                    size: data.size,
-                    color: data.color,
                     price: data.price,
                     discount: data.discount,
                     amount: data.amount,
-                    technicalPassport: data.technicalPassport
                 }));
             });
             
