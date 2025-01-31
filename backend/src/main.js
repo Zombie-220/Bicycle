@@ -7,12 +7,15 @@ import { logger } from './config/logger/logger.js';
 import { UsersRouter } from './routes/users.js';
 import { BicyclesRouter } from './routes/bicycles.js';
 import { EquipmentsRouter } from './routes/equipments.js';
+// import { ConfigRouter } from './routes/config.js';
 
 export const APP = express();
 APP.use(
     cors({ origin: [`http://localhost:${FRON_PORT}`, `https://localhost:${FRON_PORT}`], methods: 'POST, GET, DELETE, PATCH'}),
     express.json()
 );
+
+// APP.use('/config', ConfigRouter);
 
 APP.use('/users', UsersRouter);
 APP.use('/bicycles', BicyclesRouter);

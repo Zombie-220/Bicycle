@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DiffLink } from '../../components/DiffLink';
@@ -25,6 +25,7 @@ import gear from '../../assets/images/main/video/gear.svg';
 import hours_24 from '../../assets/images/main/video/24-hours.svg';
 
 import './style.scss';
+import { API_URL } from '../../requests/request';
 
 export const MainPage = () => {
     const { newItems, newItemsLoading, newItemsError } = useRequest('/bicycles/latest/6', {
@@ -33,7 +34,8 @@ export const MainPage = () => {
         error: 'newItemsError'
     });
 
-    const { winterBicycles, winterIsLoading, winterError } = useRequest('/bicycles/amount/3', {
+    const _date = new Date();
+    const { winterBicycles, winterIsLoading, winterError } = useRequest(`/bicycles/filter?type=Mountain&startDate=01-01-${_date.getFullYear()-3}&endDate=30-12-${_date.getFullYear()-2}&amount=3`, {
         data: 'winterBicycles',
         loading: 'winterIsLoading',
         error: 'winterError'

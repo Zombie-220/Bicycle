@@ -44,15 +44,10 @@ export const BicyclesModel = {
      * @returns {Promise<Bicycle[]>}
     */
     getLatest: async function(amount) {
-        const latestBicycles = await bicyclesCollection.find().toArray();
+        const latestBicycles = await bicyclesCollection.find().sort({ productionDate: -1 }).toArray();
 
-        const sortedLatestBicycles = latestBicycles.map((data) => {
-            const [day, month, year] = data.productionDate.split('-');
-            return {...data, date: new Date(`${year}-${month}-${day}`)};
-        }).sort((a,b) => b.date - a.date);
-
-        if (amount) { return sortedLatestBicycles.slice(0, amount); }
-        else { return sortedLatestBicycles; }
+        if (amount) { return latestBicycles.slice(0, amount); }
+        else { return latestBicycles; }
     },
 
     /**
@@ -75,5 +70,14 @@ export const BicyclesModel = {
     getById: async function(id) {
         const bicycle = await bicyclesCollection.findOne({ _id: id });
         return bicycle;
+    },
+
+    /**
+     * @param {object} filter 
+     * @returns {Promise<Bicycle[]>}
+    */
+    filter: async function(filter) {
+        const filteredBicycles = await bicyclesCollection.find(filter).toArray();
+        return filteredBicycles;
     }
 }

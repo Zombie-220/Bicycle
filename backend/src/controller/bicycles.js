@@ -75,5 +75,22 @@ export const BicyclesController = {
             res.status(500).json({ message: 'get bicycle by id failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    /**
+     * @param {request} req 
+     * @param {response} res 
+     * @returns {void}
+    */
+    filter: async function(req, res) {
+        try {
+            const filteredBicycles = await BicyclesService.filter(req.query);
+
+            res.json(filteredBicycles);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'get bicycle with filter failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }

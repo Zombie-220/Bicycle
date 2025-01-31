@@ -87,5 +87,67 @@ export const BicyclesService = {
             amount: bicycle.amount,
             technicalPassport: bicycle.technicalPassport
         }));
+    },
+
+    /**
+     * @param {object} query
+     * @returns {Promise<Bicycle[]>}
+    */
+    filter: async function(query) {
+        if (query.type && query.startDate && query.endDate) {
+            const _type = query.type;
+            const [_startDay, _startMonth, _startYear] = query.startDate.split('-');
+            const [_endDay, _endMonth, _endYear] = query.endDate.split('-');
+            const _amount = query.amount ? Number(query.amount) : 0;
+
+            const filter = {
+                type: _type,
+                productionDate: {
+                    $gte: new Date(`${_startYear}-${_startMonth}-${_startDay}`),
+                    $lte: new Date(`${_endYear}-${_endMonth}-${_endDay}`)
+                }
+            };
+            const filteredBicycles = await BicyclesModel.filter(filter);
+
+            const filterResult = filteredBicycles.map((data) => {
+                return (Encrypt({
+                    _id: data._id,
+                    brand: data.brand,
+                    model: data.model,
+                    productImage: data.productImage,
+                    size: data.size,
+                    color: data.color,
+                    price: data.price,
+                    discount: data.discount,
+                    amount: data.amount,
+                    technicalPassport: data.technicalPassport
+                }));
+            });
+            
+            return (filterResult.slice(0, _amount));
+        } else if (query.type) {
+            const _type = query.type;
+
+            const filter = {
+                type: _type
+            };
+            const filteredBicycles = await BicyclesModel.filter(filter);
+
+            const filterResult = filteredBicycles.map((data) => {
+                return (Encrypt({
+                    brand: data.brand,
+                    model: data.model,
+                    productImage: data.productImage,
+                    size: data.size,
+                    color: data.color,
+                    price: data.price,
+                    discount: data.discount,
+                    amount: data.amount,
+                    technicalPassport: data.technicalPassport
+                }));
+            });
+
+            return (filterResult);
+        } else { return ({}); }
     }
 }
