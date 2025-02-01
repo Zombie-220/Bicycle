@@ -31,7 +31,6 @@ import { Decrypt } from "../AES";
  * @param {{data: string, loading: string, error: string}} options имена полей, которые будет возвращать hook
  * @returns {{data: Bicycle | Equipment | Bicycle[] | Equipment[], loading: boolean, error: boolean}}
 */
-
 export function useRequest(url, { data, loading, error }) {
     const [hookData, setHookData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +42,7 @@ export function useRequest(url, { data, loading, error }) {
             setIsLoading(false);
             setIsError(false);
         }).catch(() => { setIsError(true); })
-    }, [data, loading, error])
+    }, [url, data, loading, error])
 
     return {
         [data]: hookData,

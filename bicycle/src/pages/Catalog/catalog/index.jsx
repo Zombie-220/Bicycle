@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { API_URL } from '../../../requests/request';
-import { Decrypt } from '../../../helpers/AES';
-
 import { Card } from '../../../components/card';
 import { SwitchButton } from '../../../components/Buttons/switch';
 import { CheckboxButton } from '../../../components/Buttons/checkbox';
+import { Preloader } from '../../../components/preloader';
+
+import { useRequest } from '../../../helpers/hooks/useRequest';
 
 import './style.scss';
 
@@ -15,18 +15,20 @@ export const CatalogPage = () => {
     const { register, handleSubmit } = useForm();
 
     const { category } = useParams();
-    const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [colors, setColors] = useState([]);
 
+    const { currentData, currentIsLoading, currentError } = useRequest(`${category}/amount`, {
+        data: 'currentData',
+        loading: 'currentError',
+        error: 'currentIsLoading'
+    });
+
     const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
-    const handleCategoriesButtonChanges = (event) => { setCategoriesButtonChecked(event.target.checked); }
     const [brandsButtonChecked, setBrandsButtonChecked] = useState(false);
-    const handleBrandsButtonChanges = (event) => { setBrandsButtonChecked(event.target.checked); }
     const [colorsButtonChecked, setColorsButtonChecked] = useState(false);
-    const handleColorsButtonChanges = (event) => { setColorsButtonChecked(event.target.checked); }
 
     const [selectedItems, setSelectedItems] = useState([]);
 
@@ -36,7 +38,7 @@ export const CatalogPage = () => {
         )
     }
 
-    const filteredItems = products.filter(item =>
+    const filteredItems = currentData.filter(item =>
         selectedItems.length === 0 ? true : selectedItems.includes(item.brand)
     );
 
@@ -45,56 +47,9 @@ export const CatalogPage = () => {
     }
 
     useEffect(() => {
-        setProducts([]);
         switch (category) {
             case 'bicycles': 
                 setCurrentPage('Велосипеды');
-                // API_URL('/bicycles/amount/12').then(({ data }) => {
-                //     var decryptedData = [];
-                //     data.map((dataMap) => {
-                //         return (decryptedData.push({
-                //             _id: Decrypt(dataMap._id),
-                //             brand: Decrypt(dataMap.brand),
-                //             model: Decrypt(dataMap.model),
-                //             productImage: Decrypt(dataMap.productImage),
-                //             countryImage: Decrypt(dataMap.countryImage),
-                //             price: parseInt(Decrypt(dataMap.price)),
-                //             amount: parseInt(Decrypt(dataMap.amount)),
-                //             discount: parseInt(Decrypt(dataMap.discount))
-                //         }));
-                //     });
-                //     setProducts(decryptedData);
-                // }).catch((err) => { console.log(err); }) // удали к черту это убожество
-
-                // API_URL('/bicycles/orderBy?field=type&summ=amount').then(({ data }) => {
-                //     const decryptedData = data.map((data) => {
-                //         return ({
-                //             field: Decrypt(data.field),
-                //             summ: Decrypt(data.summ)
-                //         })
-                //     });
-                //     setCategories(decryptedData);
-                // }).catch((err) => { console.log(err); })
-
-                // API_URL('/bicycles/orderBy?field=brand&summ=amount').then(({ data }) => {
-                //     const decryptedData = data.map((data) => {
-                //         return ({
-                //             field: Decrypt(data.field),
-                //             summ: Decrypt(data.summ)
-                //         })
-                //     });
-                //     setBrands(decryptedData);
-                // }).catch((err) => { console.log(err); })
-
-                // API_URL('/bicycles/orderBy?field=color&summ=amount').then(({ data }) => {
-                //     const decryptedData = data.map((data) => {
-                //         return ({
-                //             field: Decrypt(data.field),
-                //             summ: Decrypt(data.summ)
-                //         })
-                //     });
-                //     setColors(decryptedData);
-                // }).catch((err) => { console.log(err); })
                 break;
             case 'parts':
                 setCurrentPage('Запчасти');
@@ -118,108 +73,110 @@ export const CatalogPage = () => {
                 </p>
                 <p className='catalogPage__header-header'>{currentPage.toUpperCase()}</p>
             </div>
-            <div className='catalogPage__body'>
-                <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
-                    <div className='catalogPage__body__options__stock'>
-                        <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
-                        <SwitchButton name={'inStock'} formFunction={register} />
-                    </div>
-                    <hr  className='catalogPage__body__options-separator'/>
-                    <div className='catalogPage__body__options__categories'>
-                        <div className='catalogPage__body__options__categories__header'>
-                            <label className='catalogPage__body__options__categories__header-header' htmlFor='categories'>Категории</label>
-                            <input type="checkbox" id="categories" className='catalogPage__body__options__categories__header-input' onChange={handleCategoriesButtonChanges}/>
-                            <label htmlFor='categories' className='catalogPage__body__options__categories__header-button'>
-                                <div></div>
-                                <div></div>
-                            </label>
+            <div className='catalogPage__body' style={currentIsLoading ? {justifyContent: 'center'} : {justifyContent: 'space-between'}}>
+                <Preloader isLoading={currentIsLoading}>
+                    <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
+                        <div className='catalogPage__body__options__stock'>
+                            <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
+                            <SwitchButton name={'inStock'} formFunction={register} />
                         </div>
-                        <div className='catalogPage__body__options__categories__body' style={{height: categoriesButtonChecked ? `${30*categories.length}px` : '0px'}}>
-                            {categories.map((data, index) => {
-                                return (
-                                    <div className='catalogPage__body__options__categories__body__item' key={index}>
-                                        <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                            <CheckboxButton name={data.field} formFunction={register}/>
-                                            <label className='catalogPage__body__options__categories__body__item-wrapper-text' htmlFor={data.field}>{data.field}</label>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                    <hr  className='catalogPage__body__options-separator'/>
-                    <div className='catalogPage__body__options__brands'>
-                        <div className='catalogPage__body__options__brands__header'>
-                            <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Марки</label>
-                            <input type="checkbox" id="brands" className='catalogPage__body__options__brands__header-input' onChange={handleBrandsButtonChanges}/>
-                            <label htmlFor='brands' className='catalogPage__body__options__brands__header-button'>
-                                <div></div>
-                                <div></div>
-                            </label>
-                        </div>
-                        <div className='catalogPage__body__options__brands__body' style={{height: brandsButtonChecked ? `${30*brands.length}px` : '0px'}}>
-                            {brands.map((data, index) => {
-                                return (
-                                    <div className='catalogPage__body__options__brands__body__item' key={index}>
-                                        <div className='catalogPage__body__options__brands__body__item-wrapper'>
-                                            <CheckboxButton name={`${data.field}`} formFunction={register} checked={selectedItems.includes(`${data.field}`)} onChange={() => handleChanges(`${data.field}`)}/>
-                                            <label className='catalogPage__body__options__brands__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
-                                        </div>
-                                        <label className='catalogPage__body__options__brands__body__item-amount' htmlFor={`${data.field}`}>({data.summ})</label>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-
-
-
-                    <hr  className='catalogPage__body__options-separator'/>
-                    <div className='catalogPage__body__options__colors'>
-                        <div className='catalogPage__body__options__colors__header'>
-                            <label className='catalogPage__body__options__colors__header-header' htmlFor='colors'>Цвета</label>
-                            <input type="checkbox" id="colors" className='catalogPage__body__options__colors__header-input' onChange={handleColorsButtonChanges}/>
-                            <label htmlFor='colors' className='catalogPage__body__options__colors__header-button'>
-                                <div></div>
-                                <div></div>
-                            </label>
-                        </div>
-                        <div className='catalogPage__body__options__colors__body' style={{height: colorsButtonChecked ? `${30*colors.length}px` : '0px'}}>
-                            {colors.map((data, index) => {
-                                return (
-                                    <div className='catalogPage__body__options__colors__body__item' key={index}>
-                                        <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                            <CheckboxButton name={`${data.field}`} formFunction={register}/>
-                                            <label className='catalogPage__body__options__colors__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-
-
-
-                    <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
-                </form>
-                <div className='catalogPage__body__items'>
-                    {filteredItems.map((data, index) => {
-                        return (
-                            <div className='catalogPage__body__items__item' key={index}>
-                                <Card
-                                    id = {data._id}
-                                    itemName = {`${data.brand} ${data.model}`}
-                                    itemCountry = {data.countryImage}
-                                    itemAmount = {data.amount}
-                                    itemImage = {data.productImage}
-                                    itemPrice = {data.price}
-                                    discount = {data.discount}
-                                    linkTo = {`/catalog/bicycles/${data._id}`}
-                                />
+                        <hr  className='catalogPage__body__options-separator'/>
+                        <div className='catalogPage__body__options__categories'>
+                            <div className='catalogPage__body__options__categories__header'>
+                                <label className='catalogPage__body__options__categories__header-header' htmlFor='categories'>Категории</label>
+                                <input type="checkbox" id="categories" className='catalogPage__body__options__categories__header-input' onChange={(event) => { setCategoriesButtonChecked(event.target.checked); }}/>
+                                <label htmlFor='categories' className='catalogPage__body__options__categories__header-button'>
+                                    <div></div>
+                                    <div></div>
+                                </label>
                             </div>
-                        )
-                    })}
-                </div>
+                            <div className='catalogPage__body__options__categories__body' style={{height: categoriesButtonChecked ? `${30*categories.length}px` : '0px'}}>
+                                {categories.map((data, index) => {
+                                    return (
+                                        <div className='catalogPage__body__options__categories__body__item' key={index}>
+                                            <div className='catalogPage__body__options__colors__body__item-wrapper'>
+                                                <CheckboxButton name={data.field} formFunction={register}/>
+                                                <label className='catalogPage__body__options__categories__body__item-wrapper-text' htmlFor={data.field}>{data.field}</label>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <hr  className='catalogPage__body__options-separator'/>
+                        <div className='catalogPage__body__options__brands'>
+                            <div className='catalogPage__body__options__brands__header'>
+                                <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Марки</label>
+                                <input type="checkbox" id="brands" className='catalogPage__body__options__brands__header-input' onChange={(event) => { setBrandsButtonChecked(event.target.checked); }}/>
+                                <label htmlFor='brands' className='catalogPage__body__options__brands__header-button'>
+                                    <div></div>
+                                    <div></div>
+                                </label>
+                            </div>
+                            <div className='catalogPage__body__options__brands__body' style={{height: brandsButtonChecked ? `${30*brands.length}px` : '0px'}}>
+                                {brands.map((data, index) => {
+                                    return (
+                                        <div className='catalogPage__body__options__brands__body__item' key={index}>
+                                            <div className='catalogPage__body__options__brands__body__item-wrapper'>
+                                                <CheckboxButton name={`${data.field}`} formFunction={register} checked={selectedItems.includes(`${data.field}`)} onChange={() => handleChanges(`${data.field}`)}/>
+                                                <label className='catalogPage__body__options__brands__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                            </div>
+                                            <label className='catalogPage__body__options__brands__body__item-amount' htmlFor={`${data.field}`}>({data.summ})</label>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+
+
+                        <hr  className='catalogPage__body__options-separator'/>
+                        <div className='catalogPage__body__options__colors'>
+                            <div className='catalogPage__body__options__colors__header'>
+                                <label className='catalogPage__body__options__colors__header-header' htmlFor='colors'>Цвета</label>
+                                <input type="checkbox" id="colors" className='catalogPage__body__options__colors__header-input' onChange={(event) => { setColorsButtonChecked(event.target.checked); }}/>
+                                <label htmlFor='colors' className='catalogPage__body__options__colors__header-button'>
+                                    <div></div>
+                                    <div></div>
+                                </label>
+                            </div>
+                            <div className='catalogPage__body__options__colors__body' style={{height: colorsButtonChecked ? `${30*colors.length}px` : '0px'}}>
+                                {colors.map((data, index) => {
+                                    return (
+                                        <div className='catalogPage__body__options__colors__body__item' key={index}>
+                                            <div className='catalogPage__body__options__colors__body__item-wrapper'>
+                                                <CheckboxButton name={`${data.field}`} formFunction={register}/>
+                                                <label className='catalogPage__body__options__colors__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+
+
+                        <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
+                    </form>
+                    <div className='catalogPage__body__items'>
+                        {currentData.map((data, index) => {
+                            return (
+                                <div className='catalogPage__body__items__item' key={index}>
+                                    <Card
+                                        id = {data._id}
+                                        itemName = {`${data.brand} ${data.model}`}
+                                        itemCountry = {data.countryImage}
+                                        itemAmount = {data.amount}
+                                        itemImage = {data.productImage}
+                                        itemPrice = {data.price}
+                                        discount = {data.discount}
+                                        linkTo = {`/catalog/bicycles/${data._id}`}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </Preloader>
             </div>
         </div>
     );
