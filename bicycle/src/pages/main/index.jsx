@@ -127,7 +127,7 @@ export const MainPage = () => {
                                 <Link id='mainPage__catalog-accessories' to={'/catalog/accessories'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>АКСЕССУАРЫ</Link>
                             </div>
                             <div className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer'>
-                                <Link id='mainPage__catalog-equipment' to={'/catalog/equipment'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ЭКИПИРОВКА</Link>
+                                <Link id='mainPage__catalog-equipment' to={'/catalog/equipments'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ЭКИПИРОВКА</Link>
                                 <Link id='mainPage__catalog-racks' to={'/catalog/racks'} className='mainPage__catalog__container__bottomSection-outerContainer-innerContainer-link'>ВЕЛОСТАНКИ</Link>
                             </div>
                         </div>

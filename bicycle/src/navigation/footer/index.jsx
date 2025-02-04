@@ -36,7 +36,7 @@ export const Footer = () => {
                     <h2  className='footer__upSection__section__header'>Каталог</h2>
                     <Link className='footer__upSection__section__link footer__upSection__link__orange' to='/catalog/bicycles'>Велосипеды</Link>
                     <Link className='footer__upSection__section__link' to={'/catalog/parts'}>Запчасти</Link>
-                    <Link className='footer__upSection__section__link' to={'/catalog/equipment'}>Экипировка</Link>
+                    <Link className='footer__upSection__section__link' to={'/catalog/equipments'}>Экипировка</Link>
                     <Link className='footer__upSection__section__link' to={'/catalog/accessories'}>Аксессуары</Link>
                 </div>
                 <div className='footer__upSection__section adaptive'>
