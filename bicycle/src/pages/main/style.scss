@@ -359,6 +359,8 @@
             }
         }
     }
+
+
     &__reviews {
         display: none;
         &-header {
@@ -367,8 +369,53 @@
             font-family: 'Bebas-Neue-Bold';
             margin: 80px 0px 0px 0px;
         }
-        &__container {
+        &__container { width: 100%; }
+    }
 
+    
+    &__map {
+        margin: 80px 0px 0px 0px;
+        &-header {
+            margin: 0px 0px 10px 80px;
+            font-family: 'Bebas-Neue-Bold';
+            font-size: 60px;
+            color: #101010;
+        }
+        & .leaflet-popup-tip, & .leaflet-popup-content-wrapper { background-color: #101010; }
+        & .leaflet-popup-content {
+            font-family: 'Inter-Light';
+            color: #FFF;
+        }
+        &__contacts {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin: 30px 80px;
+            &__section {
+                display: flex;
+                align-items: flex-start;
+                &__mini {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    justify-content: left;
+                    margin-left: 12px;
+                    &-text {
+                        font-size: 16px;
+                        font-family: 'Inter-Light';
+                        color: #101010;
+                        margin: 0px;
+                        text-align: left;
+                        &:last-child { margin-top: 8px; }
+                    }
+                }
+                &-text {
+                    font-size: 16px;
+                    font-family: 'Inter-Light';
+                    color: #101010;
+                    margin: 0px 0px 0px 10px;
+                }
+            }
         }
     }
 }

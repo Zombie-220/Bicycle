@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 import { DiffLink } from '../../components/DiffLink';
 import { DivSlider } from '../../components/Sliders/divSlider';
@@ -23,6 +26,11 @@ import diamond from '../../assets/images/main/video//diamond.svg';
 import guarantee from '../../assets/images/main/video/guarantee.svg';
 import gear from '../../assets/images/main/video/gear.svg';
 import hours_24 from '../../assets/images/main/video/24-hours.svg';
+import mapMarker from '../../assets/images/main/contacts/mapMarker.svg';
+import phone from '../../assets/images/main/contacts/phone.svg';
+import position from '../../assets/images/main/contacts/position.svg';
+import mail from '../../assets/images/main/contacts/mail.svg';
+import calendar from '../../assets/images/main/contacts/calendar.svg';
 
 import './style.scss';
 
@@ -81,7 +89,7 @@ export const MainPage = () => {
                 </LoopSlider>
             </div>
             <div className='mainPage__cardSlider'>
-                <p className='mainPage__cardSlider-header'>НОВИНКИ</p>
+                <h2 className='mainPage__cardSlider-header'>НОВИНКИ</h2>
                 <div className='mainPage__cardSlider__slider'>
                     {!newItemsError ?
                         <Preloader isLoading={newItemsLoading}>
@@ -108,7 +116,7 @@ export const MainPage = () => {
                 {!newItemsLoading && <Link to='/catalog/bicycles' className='mainPage__cardSlider-link'>ПОКАЗАТЬ ВСЕ</Link>}
             </div>
             <div className='mainPage__catalog'>
-                <p className='mainPage__catalog-header'>КАТАЛОГ</p>
+                <h2 className='mainPage__catalog-header'>КАТАЛОГ</h2>
                 <div className='mainPage__catalog__container'>
                     <Link to='/catalog/bicycles' className='mainPage__catalog__container-link'>ВЕЛОСИПЕДЫ</Link>
                     <div className='mainPage__catalog__container__bottomSection'>
@@ -128,7 +136,7 @@ export const MainPage = () => {
             </div>
             <div className='mainPage__video'>
                 <div className='mainPage__video__header'>
-                    <p className='mainPage__video__header-header'>НИЧЕГО НЕ СМОЖЕТ ОСТАНОВИТЬ ВАС</p>
+                    <h2 className='mainPage__video__header-header'>НИЧЕГО НЕ СМОЖЕТ ОСТАНОВИТЬ ВАС</h2>
                     <div className='mainPage__video__header__container'>
                         <p className='mainPage__video__header__container-text'>Наша компания специализируется на продаже товаров для велосипедного спорта — велосипедов, запасных частей, аксессуаров и различного спортивного инвентаря для активного спорта и отдыха.</p>
                         <Link to={'/blog/x'} className='mainPage__video__header__container-link'>Подробнее</Link>
@@ -172,7 +180,7 @@ export const MainPage = () => {
                 </div>
             </div>
             <div className='mainPage__winterBicycles'>
-                <p className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ {_date.getFullYear()-3}</p>
+                <h2 className='mainPage__winterBicycles-header'>ЛУЧШИЕ МОДЕЛИ ДЛЯ ЗИМНЕЙ КОЛЛЕКЦИИ {_date.getFullYear()-3}</h2>
                 <div className='mainPage__winterBicycles__slider'>
                     {!winterError ?
                         <Preloader isLoading={winterIsLoading}>
@@ -198,7 +206,7 @@ export const MainPage = () => {
                 </div>
             </div>
             <div className='mainPage__advantages'>
-                <p className='mainPage__advantages-header'>ПРЕИМУЩЕСТВА</p>
+                <h2 className='mainPage__advantages-header'>ПРЕИМУЩЕСТВА</h2>
                 <div className='mainPage__advantages__body'>
                     <div className='mainPage__advantages__body__rows'>
                         <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-1'>
@@ -227,7 +235,7 @@ export const MainPage = () => {
                 </div>
             </div>
             <div className='mainPage__equipment'>
-                <p className='mainPage__equipment-header'>ЭКИПИРОВКА</p>
+                <h2 className='mainPage__equipment-header'>ЭКИПИРОВКА</h2>
                 <div className='mainPage__equipment__slider'>
                     {!equipmentError ?
                         <Preloader isLoading={equipmentLoading}>
@@ -251,10 +259,50 @@ export const MainPage = () => {
                     }
                 </div>
             </div>
+
+
             <div className='mainPage__reviews'>
                 <p className='mainPage__reviews-header'>ПОСЛЕДНИЕ ОБЗОРЫ</p>
                 <div className='mainPage__reviews__container'>
                     будь так добр добавить сюда слайдер с обзорами (их просто пока в базе нет)
+                </div>
+            </div>
+
+            
+            <div className='mainPage__map'>
+                <h2 className='mainPage__map-header'>КОНТАКТЫ</h2>
+                <MapContainer center={[55.723638, 37.568641]} zoom={16} style={{ height: "500px", width: "100%" }} zoomControl={false} attributionControl={false}>
+                    <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png" />
+                    <Marker position={[55.723638, 37.568641]} icon={new L.icon({iconUrl: mapMarker, iconSize: [80, 80], iconAnchor: [40, 80], popupAnchor: [0, -80]})}>
+                        <Popup>World Bike<br/>ул. Доватора, 7/8 с.1, Москва</Popup>
+                    </Marker>
+                </MapContainer>
+                <div className='mainPage__map__contacts'>
+                    <div className='mainPage__map__contacts__section'>
+                        <img src={phone} alt="phone" />
+                        <div className='mainPage__map__contacts__section__mini'>
+                            <p className='mainPage__map__contacts__section__mini-text'>+7 (495) 055-75-86</p>
+                            <p className='mainPage__map__contacts__section__mini-text'>+7 (965) 142-22-99</p>
+                        </div>
+                    </div>
+                    <div className='mainPage__map__contacts__section'>
+                        <img src={position} alt="position" />
+                        <div className='mainPage__map__contacts__section__mini'>
+                            <p className='mainPage__map__contacts__section__mini-text'>г. Москва, ул.</p>
+                            <p className='mainPage__map__contacts__section__mini-text'>Доватора, 7/8 с1</p>
+                        </div>
+                    </div>
+                    <div className='mainPage__map__contacts__section'>
+                        <img src={mail} alt="mail" />
+                        <p className='mainPage__map__contacts__section-text'>order@world-bike.ru</p>
+                    </div>
+                    <div className='mainPage__map__contacts__section'>
+                        <img src={calendar} alt="calendar" />
+                        <div className='mainPage__map__contacts__section__mini'>
+                            <p className='mainPage__map__contacts__section__mini-text'>Без выходных </p>
+                            <p className='mainPage__map__contacts__section__mini-text'>10:00-20:00</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
