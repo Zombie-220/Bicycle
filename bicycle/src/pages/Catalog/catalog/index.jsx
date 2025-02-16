@@ -16,14 +16,29 @@ export const CatalogPage = () => {
 
     const { category } = useParams();
     const [currentPage, setCurrentPage] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [brands, setBrands] = useState([]);
-    const [colors, setColors] = useState([]);
 
     const { currentData, currentIsLoading, currentError } = useRequest(`${category}/amount`, {
         data: 'currentData',
         loading: 'currentError',
         error: 'currentIsLoading'
+    });
+
+    const { categories, categoriesIsLoading, categoriesError } = useRequest(`${category}/orderBy?field=type&summ=amount`, {
+        data: 'categories',
+        loading: 'categoriesIsLoading',
+        error: 'categoriesError'
+    });
+
+    const { brands, brandsIsLoading, brandsError } = useRequest(`${category}/orderBy?field=brand&summ=amount`, {
+        data: 'brands',
+        loading: 'brandsIsLoading',
+        error: 'brandsError'
+    });
+
+    const { colors, colorsIsLoading, colorsError } = useRequest(`${category}/orderBy?field=color&summ=amount`, {
+        data: 'colors',
+        loading: 'colorsIsLoading',
+        error: 'colorsError'
     });
 
     const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
@@ -73,8 +88,8 @@ export const CatalogPage = () => {
                 </p>
                 <p className='catalogPage__header-header'>{currentPage.toUpperCase()}</p>
             </div>
-            <div className='catalogPage__body' style={currentIsLoading ? {justifyContent: 'center'} : {justifyContent: 'space-between'}}>
-                <Preloader isLoading={currentIsLoading}>
+            <div className='catalogPage__body' style={(currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading) ? {justifyContent: 'center'} : {justifyContent: 'space-between'}}>
+                <Preloader isLoading={currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading }>
                     <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
                         <div className='catalogPage__body__options__stock'>
                             <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
@@ -106,7 +121,7 @@ export const CatalogPage = () => {
                         <hr  className='catalogPage__body__options-separator'/>
                         <div className='catalogPage__body__options__brands'>
                             <div className='catalogPage__body__options__brands__header'>
-                                <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Марки</label>
+                                <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Производители</label>
                                 <input type="checkbox" id="brands" className='catalogPage__body__options__brands__header-input' onChange={(event) => { setBrandsButtonChecked(event.target.checked); }}/>
                                 <label htmlFor='brands' className='catalogPage__body__options__brands__header-button'>
                                     <div></div>

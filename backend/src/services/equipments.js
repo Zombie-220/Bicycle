@@ -15,7 +15,8 @@ export const EquipmentsService = {
         const encryptedData = equipments.map((data) => {
             return (Encrypt({
                 _id: data._id,
-                name: data.name,
+                brand: data.brand,
+                model: data.model,
                 productImage: data.productImage,
                 price: data.price,
                 amount: data.amount,
@@ -34,7 +35,8 @@ export const EquipmentsService = {
         const equipment = await EquipmentsModel.getById(_id);
 
         return (Encrypt({
-            name: equipment.name,
+            brand: equipment.brand,
+            model: equipment.model,
             productImage: equipment.productImage,
             price: equipment.price,
             amount: equipment.amount,

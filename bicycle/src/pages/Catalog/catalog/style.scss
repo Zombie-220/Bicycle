@@ -116,6 +116,7 @@
                                 color: #777;
                                 font-size: 16px;
                                 font-family: 'Inter-Regular';
+                                &::first-letter { text-transform: uppercase; }
                             }
                         }
                         &-amount {

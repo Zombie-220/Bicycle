@@ -5,7 +5,8 @@ import { DB } from "../config/database/database.js";
 /**
  * @typedef {object} Equipment
  * @property {ObjectId} _id
- * @property {string} name
+ * @property {string} brand
+ * @property {string} model
  * @property {string} productImage
  * @property {number} price
  * @property {string[]} size

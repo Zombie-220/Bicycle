@@ -49,7 +49,7 @@ export const BicyclesController = {
                 const result = await BicyclesService.orderBy(req.query.field, req.query.summ);
 
                 res.json(result);
-                logger.info(`${req.method} ${req.baseUrl}${req.url}`);                
+                logger.info(`${req.method} ${req.baseUrl}${req.url}`);
             } else {
                 res.status(400).json({ message: 'not enough data' });
                 logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${'not enough data'}`);

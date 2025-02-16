@@ -42,7 +42,7 @@ export const MainPage = () => {
     });
 
     const _date = new Date();
-    const { winterBicycles, winterIsLoading, winterError } = useRequest(`/bicycles/filter?type=Mountain&startDate=01-01-${_date.getFullYear()-3}&endDate=30-12-${_date.getFullYear()-3}&amount=3`, {
+    const { winterBicycles, winterIsLoading, winterError } = useRequest(`/bicycles/filter?type=горный&startDate=01-01-${_date.getFullYear()-3}&endDate=30-12-${_date.getFullYear()-3}&amount=3`, {
         data: 'winterBicycles',
         loading: 'winterIsLoading',
         error: 'winterError'
@@ -245,7 +245,7 @@ export const MainPage = () => {
                                         <Card
                                             key = {index}
                                             id = {data._id}
-                                            itemName = {data.name}
+                                            itemName = {`${data.model[0].toUpperCase()+data.model.slice(1, data.model.length)} ${data.brand}`}
                                             itemAmount = {data.amount}
                                             itemImage = {data.productImage}
                                             itemPrice = {data.price}
