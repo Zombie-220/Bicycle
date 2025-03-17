@@ -21,7 +21,8 @@ export const BicyclesService = {
                 countryImage: data.countryImage,
                 price: data.price,
                 amount: data.amount,
-                discount: data.discount
+                discount: data.discount,
+                type: data.type
             }))
         });
         return encryptedData;
