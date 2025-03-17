@@ -54,7 +54,7 @@ export const CatalogPage = () => {
     }
 
     const filteredItems = currentData.filter(item =>
-        selectedItems.length === 0 ? true : selectedItems.includes(item.brand)
+        selectedItems.length === 0 ? true : selectedItems.includes(item.type)
     );
 
     const onSubmit = (data) => {
@@ -89,7 +89,7 @@ export const CatalogPage = () => {
                 <p className='catalogPage__header-header'>{currentPage.toUpperCase()}</p>
             </div>
             <div className='catalogPage__body' style={(currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading) ? {justifyContent: 'center'} : {justifyContent: 'space-between'}}>
-                <Preloader isLoading={currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading }>
+                <Preloader isLoading={currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading}>
                     <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
                         <div className='catalogPage__body__options__stock'>
                             <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
@@ -110,7 +110,7 @@ export const CatalogPage = () => {
                                     return (
                                         <div className='catalogPage__body__options__categories__body__item' key={index}>
                                             <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                                <CheckboxButton name={data.field} formFunction={register}/>
+                                                <CheckboxButton name={data.field} formFunction={register} onChange={() => handleChanges(`${data.field}`)}/>
                                                 <label className='catalogPage__body__options__categories__body__item-wrapper-text' htmlFor={data.field}>{data.field}</label>
                                             </div>
                                         </div>
@@ -160,7 +160,7 @@ export const CatalogPage = () => {
                                     return (
                                         <div className='catalogPage__body__options__colors__body__item' key={index}>
                                             <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                                <CheckboxButton name={`${data.field}`} formFunction={register}/>
+                                                <CheckboxButton name={`${data.field}`} formFunction={register} onChange={() => handleChanges(`${data.field}`)}/>
                                                 <label className='catalogPage__body__options__colors__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
                                             </div>
                                         </div>
@@ -174,7 +174,7 @@ export const CatalogPage = () => {
                         <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                     </form>
                     <div className='catalogPage__body__items'>
-                        {currentData.map((data, index) => {
+                        {filteredItems.map((data, index) => {
                             return (
                                 <div className='catalogPage__body__items__item' key={index}>
                                     <Card
