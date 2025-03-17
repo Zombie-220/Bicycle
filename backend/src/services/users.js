@@ -42,5 +42,19 @@ export const UsersService = {
         } else {
             return { id: Encrypt(null) };
         }
+    },
+
+    /**
+     * @param {string} login 
+     * @returns {Promise<{response: string}>}
+    */
+    recover: async function(login) {
+        const _login = Decrypt(login);
+        const findUser = await UsersModel.checkByName(_login);
+
+        if (findUser) {
+            const userInfo = await UsersModel.createRecoverToken(_login);
+            return { response: 'go next' };
+        } else { return { response: 'user not found' };}
     }
 }

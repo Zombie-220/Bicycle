@@ -56,5 +56,16 @@ export const UsersModel = {
             roles: ['user']
         });
         return newUserId.insertedId;
+    },
+
+    /**
+     * @param {string} login 
+     * @returns {Promise<void>}
+    */
+    createRecoverToken: async function(login) {
+        await usersCollection.updateOne(
+            { name: login },
+            { $set: { token: 'token' } }
+        );
     }
 }
