@@ -9,9 +9,10 @@ import './style.scss';
  * @param {Function} props.formFunction функция register из useForm
  * @returns {React.JSX.Element}
  */
-export const SwitchButton = ({ name, formFunction }) => {
+export const SwitchButton = ({ name, formFunction, onChange }) => {
     const [isActive, setIsActive] = useState(false);
     const handleChanges = (event) => {
+        if (onChange) { onChange(event); }
         setIsActive(event.target.checked);
         formFunction(name).onChange(event);
     }

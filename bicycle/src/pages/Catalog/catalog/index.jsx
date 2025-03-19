@@ -15,51 +15,60 @@ export const CatalogPage = () => {
     const { register, handleSubmit } = useForm();
 
     const { category } = useParams();
+    const [currentItems, setCurrentItems] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
+    const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
+    const [brandsButtonChecked, setBrandsButtonChecked] = useState(false);
+    const [colorsButtonChecked, setColorsButtonChecked] = useState(false);
+    const [filterPatterns, setFilterPatterns] = useState({
+        inStock: false,
+        category: [],
+        brand: [],
+        color: []
+    });
+
+    const changeFilter = (field, data, isChecked) => {
+        setFilterPatterns((prev) => {
+            let newFieldData = prev[field];
+            if (isChecked) { newFieldData.push(data); }
+            else { newFieldData = newFieldData.filter(val => val !== data); }
+            return { ...prev, [field]: newFieldData };
+        });
+    }
+
+    const resetFilter = (data) => { console.log("поля не сбрасываются"); }
 
     const { currentData, currentIsLoading, currentError } = useRequest(`${category}/amount`, {
         data: 'currentData',
         loading: 'currentError',
         error: 'currentIsLoading'
     });
-
-    const { categories, categoriesIsLoading, categoriesError } = useRequest(`${category}/orderBy?field=type&summ=amount`, {
-        data: 'categories',
-        loading: 'categoriesIsLoading',
-        error: 'categoriesError'
+    const { menuInfo, menuInfoLoading, menuInfoErr } = useRequest(`${category}/catalog-menu`, {
+        data: 'menuInfo',
+        loading: 'menuInfoLoading',
+        error: 'menuInfoErr'
     });
 
-    const { brands, brandsIsLoading, brandsError } = useRequest(`${category}/orderBy?field=brand&summ=amount`, {
-        data: 'brands',
-        loading: 'brandsIsLoading',
-        error: 'brandsError'
-    });
+    useEffect(() => {
+        const firstFiltration = currentData.filter((val) => {
+            if (filterPatterns.brand.length !== 0 && filterPatterns.category.length !== 0) {
+                if (filterPatterns.brand.includes(val.brand) && filterPatterns.category.includes(val.type)) { return val; }
+            } else if (filterPatterns.brand.length !== 0 && filterPatterns.category.length === 0) {
+                if (filterPatterns.brand.includes(val.brand)) { return (val); }
+            } else if (filterPatterns.brand.length === 0 && filterPatterns.category.length !== 0) {
+                if (filterPatterns.category.includes(val.type)) { return val; }
+            } else { return val; }
+        });
 
-    const { colors, colorsIsLoading, colorsError } = useRequest(`${category}/orderBy?field=color&summ=amount`, {
-        data: 'colors',
-        loading: 'colorsIsLoading',
-        error: 'colorsError'
-    });
+        const secondFiltration = firstFiltration.filter((val) => {
+            if (filterPatterns.inStock && val.amount > 0) { return val; }
+            else if (!filterPatterns.inStock) { return val; }
+        });
 
-    const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
-    const [brandsButtonChecked, setBrandsButtonChecked] = useState(false);
-    const [colorsButtonChecked, setColorsButtonChecked] = useState(false);
+        setCurrentItems(secondFiltration);
+    }, [filterPatterns]);
 
-    const [selectedItems, setSelectedItems] = useState([]);
-
-    const handleChanges = (brand) => {
-        setSelectedItems((prev) => 
-            prev.includes(brand) ? prev.filter((cat) => cat !== brand) : [...prev, brand]
-        )
-    }
-
-    const filteredItems = currentData.filter(item =>
-        selectedItems.length === 0 ? true : selectedItems.includes(item.type)
-    );
-
-    const onSubmit = (data) => {
-        console.log(data);
-    }
+    useEffect(() => { setCurrentItems(currentData) }, [currentData]);
 
     useEffect(() => {
         switch (category) {
@@ -88,14 +97,14 @@ export const CatalogPage = () => {
                 </p>
                 <p className='catalogPage__header-header'>{currentPage.toUpperCase()}</p>
             </div>
-            <div className='catalogPage__body' style={(currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading) ? {justifyContent: 'center'} : {justifyContent: 'space-between'}}>
-                <Preloader isLoading={currentIsLoading && categoriesIsLoading && brandsIsLoading && colorsIsLoading}>
-                    <form className='catalogPage__body__options' onSubmit={handleSubmit(onSubmit)}>
+            <div className='catalogPage__body' style={(currentIsLoading || menuInfoLoading) ? {justifyContent: 'center'} : {justifyContent: 'space-between'}}>
+                <Preloader isLoading={currentIsLoading || menuInfoLoading}>
+                    <form className='catalogPage__body__options' onSubmit={handleSubmit(resetFilter)}>
                         <div className='catalogPage__body__options__stock'>
                             <label className='catalogPage__body__options__stock-header' htmlFor='inStock'>Только в наличии</label>
-                            <SwitchButton name={'inStock'} formFunction={register} />
+                            <SwitchButton name={'inStock'} formFunction={register} onChange={(event) => { setFilterPatterns((prev) => { return {...prev, inStock: event.target.checked} }); }}/>
                         </div>
-                        <hr  className='catalogPage__body__options-separator'/>
+                        <hr className='catalogPage__body__options-separator'/>
                         <div className='catalogPage__body__options__categories'>
                             <div className='catalogPage__body__options__categories__header'>
                                 <label className='catalogPage__body__options__categories__header-header' htmlFor='categories'>Категории</label>
@@ -105,12 +114,12 @@ export const CatalogPage = () => {
                                     <div></div>
                                 </label>
                             </div>
-                            <div className='catalogPage__body__options__categories__body' style={{height: categoriesButtonChecked ? `${30*categories.length}px` : '0px'}}>
-                                {categories.map((data, index) => {
+                            <div className='catalogPage__body__options__categories__body' style={{height: categoriesButtonChecked ? `${30*menuInfo?.categories?.length}px` : '0px'}}>
+                                {menuInfo?.categories?.map((data, index) => {
                                     return (
                                         <div className='catalogPage__body__options__categories__body__item' key={index}>
                                             <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                                <CheckboxButton name={data.field} formFunction={register} onChange={() => handleChanges(`${data.field}`)}/>
+                                                <CheckboxButton name={data.field} formFunction={register} onChange={(event) => { changeFilter('category', data.field, event.target.checked) }}/>
                                                 <label className='catalogPage__body__options__categories__body__item-wrapper-text' htmlFor={data.field}>{data.field}</label>
                                             </div>
                                         </div>
@@ -118,7 +127,7 @@ export const CatalogPage = () => {
                                 })}
                             </div>
                         </div>
-                        <hr  className='catalogPage__body__options-separator'/>
+                        <hr className='catalogPage__body__options-separator'/>
                         <div className='catalogPage__body__options__brands'>
                             <div className='catalogPage__body__options__brands__header'>
                                 <label className='catalogPage__body__options__brands__header-header' htmlFor='brands'>Производители</label>
@@ -128,12 +137,12 @@ export const CatalogPage = () => {
                                     <div></div>
                                 </label>
                             </div>
-                            <div className='catalogPage__body__options__brands__body' style={{height: brandsButtonChecked ? `${30*brands.length}px` : '0px'}}>
-                                {brands.map((data, index) => {
+                            <div className='catalogPage__body__options__brands__body' style={{height: brandsButtonChecked ? `${30*menuInfo?.brands?.length}px` : '0px'}}>
+                                {menuInfo?.brands?.map((data, index) => {
                                     return (
                                         <div className='catalogPage__body__options__brands__body__item' key={index}>
                                             <div className='catalogPage__body__options__brands__body__item-wrapper'>
-                                                <CheckboxButton name={`${data.field}`} formFunction={register} checked={selectedItems.includes(`${data.field}`)} onChange={() => handleChanges(`${data.field}`)}/>
+                                                <CheckboxButton name={`${data.field}`} formFunction={register} onChange={(event) => { changeFilter('brand', data.field, event.target.checked) }}/>
                                                 <label className='catalogPage__body__options__brands__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
                                             </div>
                                             <label className='catalogPage__body__options__brands__body__item-amount' htmlFor={`${data.field}`}>({data.summ})</label>
@@ -142,10 +151,7 @@ export const CatalogPage = () => {
                                 })}
                             </div>
                         </div>
-
-
-
-                        <hr  className='catalogPage__body__options-separator'/>
+                        <hr className='catalogPage__body__options-separator'/>
                         <div className='catalogPage__body__options__colors'>
                             <div className='catalogPage__body__options__colors__header'>
                                 <label className='catalogPage__body__options__colors__header-header' htmlFor='colors'>Цвета</label>
@@ -155,26 +161,23 @@ export const CatalogPage = () => {
                                     <div></div>
                                 </label>
                             </div>
-                            <div className='catalogPage__body__options__colors__body' style={{height: colorsButtonChecked ? `${30*colors.length}px` : '0px'}}>
-                                {colors.map((data, index) => {
+                            <div className='catalogPage__body__options__colors__body' style={{height: colorsButtonChecked ? `${40*menuInfo?.colors?.length/5}px` : '0px'}}>
+                                {menuInfo?.colors?.map((data, index) => {
                                     return (
                                         <div className='catalogPage__body__options__colors__body__item' key={index}>
                                             <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                                <CheckboxButton name={`${data.field}`} formFunction={register} onChange={() => handleChanges(`${data.field}`)}/>
-                                                <label className='catalogPage__body__options__colors__body__item-wrapper-text' htmlFor={`${data.field}`}>{data.field}</label>
+                                                <input type="checkbox" id={`${data}`} className='catalogPage__body__options__colors__body__item-wrapper-input' {...register(`${data}`)} onChange={(event) => { changeFilter('color', data, event.target.checked) }}/>
+                                                <label htmlFor={`${data}`} className='catalogPage__body__options__colors__body__item-wrapper-label' style={{backgroundColor: data}}></label>
                                             </div>
                                         </div>
                                     )
                                 })}
                             </div>
                         </div>
-
-
-
                         <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                     </form>
                     <div className='catalogPage__body__items'>
-                        {filteredItems.map((data, index) => {
+                        {currentItems.map((data, index) => {
                             return (
                                 <div className='catalogPage__body__items__item' key={index}>
                                     <Card

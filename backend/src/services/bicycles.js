@@ -22,7 +22,8 @@ export const BicyclesService = {
                 price: data.price,
                 amount: data.amount,
                 discount: data.discount,
-                type: data.type
+                type: data.type,
+                colors: data.color
             }))
         });
         return encryptedData;
@@ -147,5 +148,24 @@ export const BicyclesService = {
 
             return (filterResult);
         } else { return ({}); }
+    },
+
+    catalogMenu: async function() {
+        const _categories = await BicyclesModel.orderBy('type', 'amount');
+        const _brands = await BicyclesModel.orderBy('brand', 'amount');
+        const _colors = await BicyclesModel.getField('color');
+
+        let filteredColors = [];
+        _colors.map((data) => {
+            data.map((innerData) => {
+                if (!filteredColors.includes(innerData)) { filteredColors.push(innerData); }
+            })
+        });
+
+        return(Encrypt({
+            categories: _categories,
+            brands: _brands,
+            colors: filteredColors
+        }));
     }
 }

@@ -79,5 +79,14 @@ export const BicyclesModel = {
     filter: async function(filter) {
         const filteredBicycles = await bicyclesCollection.find(filter).toArray();
         return filteredBicycles;
+    },
+
+    /**
+     * @param {string} field 
+     * @returns {Promise<[]>}
+    */
+    getField: async function(field) {
+        const _fieldsInfo = await bicyclesCollection.find({}).toArray();
+        return _fieldsInfo.map((data) => { return data[field]; });
     }
 }

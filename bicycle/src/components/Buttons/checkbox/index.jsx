@@ -14,7 +14,7 @@ import './style.scss';
 export const CheckboxButton = ({ name, formFunction, checked=null, onChange=null }) => {
     const [isActive, setIsActive] = useState(false);
     const handleChanges = (event) => {
-        if (onChange) { onChange(); }
+        if (onChange) { onChange(event); }
         setIsActive(event.target.checked);
         formFunction(name).onChange(event);
     }
