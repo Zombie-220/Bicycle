@@ -45,6 +45,16 @@ export const OrdersModel = {
     get: async function () {},
 
     /**
+     * @param {ObjectId} orderId 
+     * 
+     * @returns {Promise<Orders>}
+    */
+    getOne: async function(orderId) {
+        const orderInfo = await ordersCollection.findOne({ _id: orderId });
+        return orderInfo;
+    },
+
+    /**
      * 
      * @param {ObjectId} orderId 
      * @param {OrderInfo} orderInfo 
@@ -62,5 +72,6 @@ export const OrdersModel = {
         )
         return true;
     },
+
     delete: async function() {}
 }

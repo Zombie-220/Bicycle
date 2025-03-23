@@ -26,5 +26,15 @@ export const OrdersController = {
      * @param {response} res 
      * @returns {Promise<void>}
     */
-    getOrder: async function(req, res) {}
+    getOrder: async function(req, res) {
+        try {
+            const orderInfo = await OrdersService.getOne(req.params.id);
+
+            res.json(orderInfo);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'get order by id failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
+    }
 }

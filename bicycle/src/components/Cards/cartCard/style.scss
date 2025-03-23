@@ -1,0 +1,85 @@
+.cartCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #E5E5E5;
+    padding: 5px;
+    margin: 10px 0px;
+    box-sizing: border-box;
+    &-img { width: 20%; }
+    &-title {
+        font-size: 18px;
+        font-family: 'Inter-Light';
+        color: #101010;
+        margin: 0px;
+    }
+    &__counter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 5px;
+        border: 1px solid #E5E5E5;
+        border-radius: 10px;
+        &-button {
+            font-size: 18px;
+            font-family: 'Inter-Medium';
+            color: #101010;
+            background-color: #0000;
+            border: none;
+            padding: 0px;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: 200ms;
+            &:hover { opacity: 66%; }
+            &:active { opacity: 33%; }
+        }
+        &-text {
+            color: #101010;
+            font-size: 18px;
+            font-family: 'Inter-Medium';
+            margin: 6px 16px;
+            width: 22px;
+            text-align: center;
+        }
+    }
+    &__price {
+        &-price {
+            font-size: 20px;
+            font-family: 'Inter-Medium';
+            color: #101010;
+            margin: 0px;
+        }
+        &-discount {
+            font-size: 18px;
+            font-family: 'Inter-Regular';
+            color: #B3B3B3;
+            text-decoration: line-through;
+            margin: 5px 0px 0px 0px;
+        }
+    }
+    &__deleteBtn {
+        border: none;
+        background-color: #0000;
+        width: 26px;
+        height: 26px;
+        position: relative;
+        cursor: pointer;
+        padding: 0px;
+        &-elem {
+            width: 24px;
+            height: 2px;
+            border-radius: 1px;
+            background-color: #B3B3B3;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            transition: 200ms;
+            &:first-child { rotate: 45deg; }
+            &:last-child { rotate: -45deg; }
+        }
+        &:hover &-elem { background-color: #101010; }
+    }
+}

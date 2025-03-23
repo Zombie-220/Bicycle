@@ -21,5 +21,77 @@
             font-size: 60px;
             color: #101010;
         }
+        &__wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            &__items {
+                width: 79%;
+                &-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    &-link {
+                        color: #F57520;
+                        font-size: 16px;
+                        font-family: 'Inter-Regular';
+                        text-decoration: none;
+                        transition: 200ms;
+                        &:hover { opacity: 66%; }
+                        &:active { opacity: 33%; }
+                    }
+                    &-button {
+                        cursor: pointer;
+                        color: #B3B3B3;
+                        background-color: #0000;
+                        border: none;
+                        padding: 0px;
+                        font-size: 14px;
+                        font-family: 'Inter-Regular';
+                        transition: 200ms;
+                        &:hover { opacity: 66%; }
+                        &:active { opacity: 33%; }
+                    }
+                }
+            }
+            &__order {
+                width: 19%;
+                border-radius: 10px;
+                border: 1px solid #E5E5E5;
+                padding: 16px;
+                box-sizing: border-box;
+                &-text {
+                    color: #777;
+                    font-size: 16px;
+                    font-family: 'Inter-Light';
+                    margin: 8px 0px;
+                    &:first-child { margin-top: 0px; }
+                    &:last-child { margin-bottom: 0px; }
+                    & span {
+                        color: #101010;
+                        font-family: 'Inter-Regular';
+                    }
+                }
+                &-finalPrice {
+                    color: #101010;
+                    font-size: 24px;
+                    font-family: 'Inter-Medium';
+                }
+                &-button {
+                    font-size: 16px;
+                    font-family: 'Inter-Medium';
+                    color: #FFF;
+                    background-color: #F57520;
+                    width: 100%;
+                    height: 56px;
+                    border-radius: 10px;
+                    border: none;
+                    transition: 200ms;
+                    cursor: pointer;
+                    &:hover { opacity: 66%; }
+                    &:active { opacity: 33%; }
+                }
+            }
+        }
     }
 }

@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useRequest } from '../../helpers/hooks/useRequest';
+
+import { CartCard } from '../../components/Cards/cartCard';
 
 import './style.scss';
 
 export const CartPage = () => {
+    const [orderPrice, setOrderPrice] = useState(0);
+    const [orderDiscount, setOrderDiscount] = useState(0);
+    const [orderFinal, setOrderFinal] = useState(0);
+
+    const { orderData, orderIsLoading, orderIsErr } = useRequest(`/orders/getOrder/${JSON.parse(localStorage.getItem('OrId'))}`, {
+        data: 'orderData',
+        loading: 'orderIsLoading',
+        error: 'orderIsErr'
+    });
+
+    const clearCart = () => { console.log('clear cart'); }
+    const sendOrder = () => { console.log(orderData.orderId, 1); }
+
+    useEffect(() => {
+        let newOrderPrice = 0;
+        let newOrderDiscount = 0;
+
+        orderData?.orderInfo?.map((data) => {
+            newOrderPrice += data.price;
+            newOrderDiscount += data.price * data.discount / 100;
+        });
+
+        setOrderPrice(newOrderPrice);
+        setOrderDiscount(newOrderDiscount);
+        setOrderFinal(newOrderPrice - newOrderDiscount);
+    }, [orderData]);
+
     return (
         <div className='cartPage'>
             <p className='cartPage__links'>
@@ -13,8 +44,36 @@ export const CartPage = () => {
             </p>
             <div className='cartPage__body'>
                 <h1 className='cartPage__body-header'>Корзина</h1>
-                <div className='cartPage__body__items'>
-                    
+                <div className='cartPage__body__wrapper'>
+                    <div className='cartPage__body__wrapper__items'>
+                        <div className='cartPage__body__wrapper__items-header'>
+                            <Link to='/catalog/bicycles?page=1' className='cartPage__body__wrapper__items-header-link'>Вернуться к покупкам</Link>
+                            <button onClick={clearCart} className='cartPage__body__wrapper__items-header-button'>Очистить корзину</button>
+                        </div>
+                        <div className='cartPage__body__wrapper__items__itemsList'>
+                            {orderData?.orderInfo?.map((data, key) => {
+                                return (
+                                    <CartCard
+                                        key={key}
+                                        id={data.itemId}
+                                        image={data.image}
+                                        title={data.title}
+                                        amount={data.amount}
+                                        price={data.price}
+                                        discount={data.discount}
+                                        maxAmount={data.maxAmount}
+                                    />
+                                )
+                            })}
+                        </div>
+                    </div>
+                    <div className='cartPage__body__wrapper__order'>
+                        <p className='cartPage__body__wrapper__order-text'>Номер заказа<br/><span>{orderData.orderId}</span></p>
+                        <p className='cartPage__body__wrapper__order-text'>Сумма заказа (без скидки)<br/><span>{orderPrice.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</span></p>
+                        <p className='cartPage__body__wrapper__order-text'>Скидка<br/><span>{orderDiscount.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</span></p>
+                        <p className='cartPage__body__wrapper__order-finalPrice'>Итого<br/><span>{orderFinal.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</span></p>
+                        <button className='cartPage__body__wrapper__order-button' onClick={sendOrder}>Оформить заказ</button>
+                    </div>
                 </div>
             </div>
         </div>
