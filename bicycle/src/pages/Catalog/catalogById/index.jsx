@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 
 import { useRequest } from '../../../helpers/hooks/useRequest';
+import { API_URL } from '../../../requests/request';
+import { Encrypt, Decrypt } from '../../../helpers/AES';
+import { AuthContext } from '../../../App';
 
 import './style.scss';
 
@@ -14,6 +17,7 @@ import telephone from '../../../assets/images/catalogById/phone.svg';
 import like from '../../../assets/images/catalogById/like.svg';
 
 export const CatalogById = () => {
+    const { isAuth } = useContext(AuthContext);
     const [currentCategory, setCurrentCategory] = useState('');
     const [itemName, setItemName] = useState('');
     const { category, id } = useParams();
@@ -24,13 +28,25 @@ export const CatalogById = () => {
     });
 
     const { register, handleSubmit, watch } = useForm();
-    const onSubmit = (data) => {
-        console.log({
-            id: id,
-            size: data.size ? data.size : itemData.size[0],
-            color: data.color ? data.color : itemData.color[0],
-            amount: currentAmount
+    const addToCart = (formData) => {
+        const orderId = localStorage.getItem('OrId') ? JSON.parse(localStorage.getItem('OrId')) : null;
+        const timestamp = new Date();
+        const orderData = Encrypt({
+            id: orderId,
+            userId: isAuth,
+            orderInfo: {
+                id: id,
+                size: formData.size ? formData.size : itemData.size[0],
+                color: formData.color ? formData.color : itemData.color[0],
+                amount: currentAmount
+            },
+            timestamp: `${(timestamp.getDate()).toString().padStart(2, '0')}-${(timestamp.getMonth()+1).toString().padStart(2, '0')}-${(timestamp.getFullYear()).toString().padStart(2, '0')} ${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}`
         });
+        
+        API_URL.post('/orders/createOrder', orderData).then(({ data }) => {
+            const decryptedResp = Decrypt(data);
+            if (decryptedResp.response === "order created") { localStorage.setItem('OrId', JSON.stringify(decryptedResp.id)); }
+        }).catch((err) => { console.log(err); });
     }
 
     const handleLike = () => { console.log(`like ${id}`); }
@@ -43,7 +59,7 @@ export const CatalogById = () => {
     const [activeColor, setActiveColor] = useState(null);
     useEffect(() => { setActiveColor(currentCollor); }, [currentCollor]);
 
-    const [currentAmount, setCurrentAmount] = useState(1);
+    const [currentAmount, setCurrentAmount] = useState(0);
     const plusAmount = () => {if (currentAmount < itemData.amount) { setCurrentAmount(currentAmount + 1); }}
     const minusAmount = () => {if (currentAmount > 1) { setCurrentAmount(currentAmount - 1); }}
 
@@ -148,7 +164,7 @@ export const CatalogById = () => {
                             <p className='catalogById__basicInfo__info__buttons__amount-amount'>{currentAmount}</p>
                             <button className='catalogById__basicInfo__info__buttons__amount-plus' type='button' onClick={plusAmount}>+</button>
                         </div>
-                        <button className='catalogById__basicInfo__info__buttons-orderButton' type='submit' onClick={handleSubmit(onSubmit)} disabled={currentAmount <= 0 ? true : false}>В корзину</button>
+                        <button className='catalogById__basicInfo__info__buttons-orderButton' type='submit' onClick={handleSubmit(addToCart)} disabled={currentAmount <= 0 ? true : false}>В корзину</button>
                         <button className='catalogById__basicInfo__info__buttons-like' type='button' onClick={handleLike}>
                             <img src={like} alt="like" className='catalogById__basicInfo__info__buttons-like-img'/>
                         </button>

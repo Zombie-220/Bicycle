@@ -5,10 +5,10 @@ import { Footer } from "./footer";
 
 export const Layout = () => {
     return (
-        <div>
+        <>
             <Header />
             <Outlet />
             <Footer />
-        </div>
+        </>
     );
 };

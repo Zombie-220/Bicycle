@@ -6,7 +6,7 @@ import { Layout } from "./layout";
 import { MainPage } from "../pages/main";
 import { CatalogPage } from "../pages/Catalog/catalog";
 import { CatalogById } from "../pages/Catalog/catalogById";
-
+import { CartPage } from "../pages/cart";
 import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";
 import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
@@ -15,6 +15,10 @@ const authPages = [
   {
     path: '/catalog/:category/:id',
     Component: CatalogById
+  },
+  {
+    path: '/cart',
+    Component: CartPage
   }
 ];
 

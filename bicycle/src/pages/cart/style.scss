@@ -1,0 +1,25 @@
+.cartPage {
+    padding: 60px 80px 0px 80px;
+    &__links {
+        font-family: 'Inter-Regular';
+        font-size: 14px;
+        margin-top: 40px;
+        &-link {
+            color: #4C4C4C;
+            transition: 200ms;
+            text-decoration: none;
+            &:last-child { color: #F57520 }
+            &:hover { opacity: 66%; }
+            &:active { opacity: 33%; }
+        }
+        & span { margin: 0px 5px; }
+    }
+    &__body {
+        margin-top: 40px;
+        &-header {
+            font-family: 'Bebas-Neue-Bold';
+            font-size: 60px;
+            color: #101010;
+        }
+    }
+}
