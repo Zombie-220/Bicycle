@@ -21,6 +21,7 @@ export const Header = () => {
     const location = useLocation();
   
     const logout = () => {
+        // localStorage.clear();
         navigate("/");
         Cookies.remove("token");
         setIsAuth('');

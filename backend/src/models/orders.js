@@ -73,5 +73,23 @@ export const OrdersModel = {
         return true;
     },
 
-    delete: async function() {}
+    deleteItem: async function(orderId, itemId) {
+        /** @type {Orders} */
+        const targetOrder = await ordersCollection.findOne({ _id: orderId });
+        
+        const updatedObj = await ordersCollection.updateOne(
+            {_id: orderId},
+            {$set: {
+                _id: orderId,
+                orderInfo: targetOrder.orderInfo.filter((val) => {
+                    if (val.id != itemId) { return val; }
+                }),
+                userId: targetOrder.userId,
+                datetime: targetOrder.datetime,
+                status: targetOrder.status
+            }}
+        );
+
+        return ('item deleted');
+    }
 }

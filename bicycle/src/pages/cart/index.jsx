@@ -6,11 +6,14 @@ import { useRequest } from '../../helpers/hooks/useRequest';
 import { CartCard } from '../../components/Cards/cartCard';
 
 import './style.scss';
+import { API_URL } from '../../requests/request';
+import { Decrypt, Encrypt } from '../../helpers/AES';
 
 export const CartPage = () => {
     const [orderPrice, setOrderPrice] = useState(0);
     const [orderDiscount, setOrderDiscount] = useState(0);
     const [orderFinal, setOrderFinal] = useState(0);
+    const [orderItems, setOrderItems] = useState([]);
 
     const { orderData, orderIsLoading, orderIsErr } = useRequest(`/orders/getOrder/${JSON.parse(localStorage.getItem('OrId'))}`, {
         data: 'orderData',
@@ -18,22 +21,38 @@ export const CartPage = () => {
         error: 'orderIsErr'
     });
 
+    const deleteItem = (id) => {
+        API_URL.post('/orders/deleteItem', {
+            orderId: Encrypt(JSON.parse(localStorage.getItem('OrId'))),
+            itemId: Encrypt(id)
+        }).then(({data}) => {
+            const decryptedData = Decrypt(data);
+            if (decryptedData.response ==='item deleted') {
+                setOrderItems({
+                    orderId: decryptedData.orderId,
+                    orderInfo: orderItems.orderInfo.filter((val) => {if (val.itemId != id) { return val; }})
+                })
+            }
+        }).catch((err) => { console.log('something wrong >_<'); })
+    }
+
     const clearCart = () => { console.log('clear cart'); }
-    const sendOrder = () => { console.log(orderData.orderId, 1); }
+    const sendOrder = () => { console.log(orderItems.orderId, 1); }
 
     useEffect(() => {
         let newOrderPrice = 0;
         let newOrderDiscount = 0;
 
-        orderData?.orderInfo?.map((data) => {
-            newOrderPrice += data.price;
-            newOrderDiscount += data.price * data.discount / 100;
+        orderItems?.orderInfo?.map((data) => {
+            newOrderPrice += data.price * data.amount;
+            newOrderDiscount += (data.price * data.discount / 100) * data.amount;
         });
 
         setOrderPrice(newOrderPrice);
         setOrderDiscount(newOrderDiscount);
         setOrderFinal(newOrderPrice - newOrderDiscount);
-    }, [orderData]);
+    }, [orderItems]);
+    useEffect(() => { setOrderItems(orderData) }, [orderData]);
 
     return (
         <div className='cartPage'>
@@ -51,7 +70,7 @@ export const CartPage = () => {
                             <button onClick={clearCart} className='cartPage__body__wrapper__items-header-button'>Очистить корзину</button>
                         </div>
                         <div className='cartPage__body__wrapper__items__itemsList'>
-                            {orderData?.orderInfo?.map((data, key) => {
+                            {orderItems?.orderInfo?.map((data, key) => {
                                 return (
                                     <CartCard
                                         key={key}
@@ -62,6 +81,7 @@ export const CartPage = () => {
                                         price={data.price}
                                         discount={data.discount}
                                         maxAmount={data.maxAmount}
+                                        deleteItemCallback={() => { deleteItem(data.itemId); }}
                                     />
                                 )
                             })}

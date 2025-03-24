@@ -34,6 +34,11 @@ export const OrdersService = {
         }
     },
 
+    /**
+     * @param {string} orderId
+     * 
+     * @returns {Promise<{}>}
+    */
     getOne: async function(orderId) {
         const _orderId = new ObjectId(orderId);
         const orderInfo = await OrdersModel.getOne(_orderId);
@@ -55,5 +60,17 @@ export const OrdersService = {
         };
 
         return (Encrypt(returnigVal));
+    },
+
+    /**
+     * @param {string} orderId
+     * @param {string} itemId
+    */
+    deleteItem: async function(orderId, itemId) {
+        const _orderId = new ObjectId(Decrypt(orderId));
+        const _itemId = new ObjectId(Decrypt(itemId));
+
+        const deleteItem = await OrdersModel.deleteItem(_orderId, _itemId);
+        return Encrypt({ response: 'item deleted' });
     }
 }

@@ -2,18 +2,10 @@ import { useState } from 'react';
 
 import './style.scss';
 
-export const CartCard = ({ id, image, title, amount, price, discount, maxAmount }) => {
+export const CartCard = ({ id, image, title, amount, price, discount, maxAmount, deleteItemCallback }) => {
     const [currentAmount, setCurrentAmount] = useState(amount);
-    
-    const plusAmount = () => {
-        if (currentAmount < maxAmount) { setCurrentAmount(currentAmount+1); }
-    }
-    const minusAmount = () => {
-        if (currentAmount > 1) { setCurrentAmount(currentAmount-1); }
-    }
-    const deleteItem = (itemId) => {
-        console.log(`delete ${itemId} item`);
-    }
+    const plusAmount = () => {if (currentAmount < maxAmount) { setCurrentAmount(currentAmount+1); }}
+    const minusAmount = () => {if (currentAmount > 1) { setCurrentAmount(currentAmount-1); }}
 
     return (
         <div className='cartCard'>
@@ -30,7 +22,7 @@ export const CartCard = ({ id, image, title, amount, price, discount, maxAmount 
                     <p className='cartCard__price-discount'>{price.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</p>
                 )}
             </div>
-            <button className='cartCard__deleteBtn' onClick={() => { deleteItem(id) }}>
+            <button className='cartCard__deleteBtn' onClick={deleteItemCallback}>
                 <div className='cartCard__deleteBtn-elem'></div>
                 <div className='cartCard__deleteBtn-elem'></div>
             </button>

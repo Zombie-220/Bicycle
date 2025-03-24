@@ -36,5 +36,17 @@ export const OrdersController = {
             res.status(500).json({ message: 'get order by id failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    deleteItem: async function(req, res) {
+        try {
+            const deleteOrder = await OrdersService.deleteItem(req.body.orderId, req.body.itemId);
+
+            res.json(deleteOrder);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'delete item from ordder failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }
