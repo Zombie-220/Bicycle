@@ -38,6 +38,11 @@ export const OrdersController = {
         }
     },
 
+    /** 
+     * @param {request} req 
+     * @param {response} res 
+     * @returns {Promise<void>}
+    */
     deleteItem: async function(req, res) {
         try {
             const deleteOrder = await OrdersService.deleteItem(req.body.orderId, req.body.itemId);
@@ -46,6 +51,23 @@ export const OrdersController = {
             logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'delete item from ordder failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
+    },
+
+    /** 
+     * @param {response} req 
+     * @param {request} res 
+     * @returns {Promise<void>}
+    */
+    updateStatus: async function(req, res) {
+        try {
+            const updatedOrder = await OrdersService.updateStatus(req.body.orderId, req.body.status);
+
+            res.json(updatedOrder);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'update status failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     }

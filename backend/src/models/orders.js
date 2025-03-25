@@ -91,5 +91,12 @@ export const OrdersModel = {
         );
 
         return ('item deleted');
+    },
+
+    updateStatus: async function(orderId, status) {
+        const updatedOrder = await ordersCollection.updateOne(
+            { _id: orderId },
+            { $set: { status: status } }
+        )
     }
 }

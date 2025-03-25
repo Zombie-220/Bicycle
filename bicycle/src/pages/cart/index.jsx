@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useRequest } from '../../helpers/hooks/useRequest';
 
@@ -14,6 +14,7 @@ export const CartPage = () => {
     const [orderDiscount, setOrderDiscount] = useState(0);
     const [orderFinal, setOrderFinal] = useState(0);
     const [orderItems, setOrderItems] = useState([]);
+    const navigation = useNavigate();
 
     const { orderData, orderIsLoading, orderIsErr } = useRequest(`/orders/getOrder/${JSON.parse(localStorage.getItem('OrId'))}`, {
         data: 'orderData',
@@ -37,7 +38,17 @@ export const CartPage = () => {
     }
 
     const clearCart = () => { console.log('clear cart'); }
-    const sendOrder = () => { console.log(orderItems.orderId, 1); }
+    const sendOrder = () => {
+        API_URL.post('/orders/updateStatus', {
+            orderId: Encrypt(JSON.parse(localStorage.getItem('OrId'))),
+            status: Encrypt(1)
+        }).then(({ data }) => {
+            if (Decrypt(data.response) === 'status updated') {
+                localStorage.removeItem('OrId');
+                navigation('/');
+            }
+        }).catch((err) => { console.log(err); })
+    }
 
     useEffect(() => {
         let newOrderPrice = 0;

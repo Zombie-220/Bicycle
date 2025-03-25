@@ -72,5 +72,17 @@ export const OrdersService = {
 
         const deleteItem = await OrdersModel.deleteItem(_orderId, _itemId);
         return Encrypt({ response: 'item deleted' });
+    },
+
+    /**
+     * @param {number} orderId 
+     * @param {string} status 
+    */
+    updateStatus: async function(orderId, status) {
+        const _orderId = new ObjectId(Decrypt(orderId));
+        const _status = parseInt(Decrypt(status));
+
+        const updatedOrder = await OrdersModel.updateStatus(_orderId, _status);
+        return Encrypt({ response: 'status updated' });
     }
 }
