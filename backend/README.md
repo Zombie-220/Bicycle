@@ -14,6 +14,10 @@ openssl x509 -req -days 365 -in out/req.csr -signkey out/key.key -out out/cert.c
     - DATABASE_PASS - пароль админа БД
     - AES_KEY - ключ шифрования (должен совпадать с frontend)
     - TOKEN_KEY - ключ токена
+    - SMTP_ADDRESS - адрес SMTP сервера по отправке сообщений
+    - SMTP_PORT - порт SMTP сервера
+    - EMAIL - почта сервиса, от имени которой будет идти рассылка
+    - EMAIL_PASS - пароль от почты сервиса
 
 - Запустите проект предварительно установив все зависимости
 ```schell

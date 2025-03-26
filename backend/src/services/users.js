@@ -22,7 +22,7 @@ export const UsersService = {
 
         return ({
             id: (user ? Encrypt(user._id) : null),
-            token: (user ? (await CreateToken(user._id, user.roles, (_getToken ? 168 : 24))) : null)
+            token: (user ? (CreateToken(user._id, user.roles, (_getToken ? 168 : 24))) : null)
         });
     },
 
@@ -56,8 +56,7 @@ export const UsersService = {
 
         if (findUser) {
             const CTT = new Date();
-            const dataString = `${(CTT.getDate()).toString().padStart(2, '0')}.${(CTT.getMonth()+1).toString().padStart(2, '0')}.${(CTT.getFullYear()).toString().padStart(2, '0')} ${(CTT.getHours()).toString().padStart(2, '0')}:${(CTT.getMinutes()).toString().padStart(2, '0')}:${(CTT.getSeconds()).toString().padStart(2, '0')}`
-            const token = RecoverToken(findUser.email, dataString);
+            const token = RecoverToken(findUser.email);
             const userInfo = await UsersModel.createRecoverToken(_login, token);
             SendRecoverCode(findUser.email, token);
             return { response: 'go next' };

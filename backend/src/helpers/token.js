@@ -7,9 +7,10 @@ import { TOKEN_KEY } from '../config/env.js';
  * @param {string} id ID пользователя
  * @param {string[]} roles роли пользователя
  * @param {number} expires срок жизни токена (в часах)
- * @returns {Promise<string>}
+ * 
+ * @returns {string}
 */
-export const CreateToken = async (id, roles, expires) => {
+export const CreateToken = (id, roles, expires) => {
     const token = jwt.sign({
         id: `${id}`,
         roles: roles
@@ -19,16 +20,12 @@ export const CreateToken = async (id, roles, expires) => {
 }
 
 /**
- * 
  * @param {string} email 
- * @param {string} createdData 
+
  * @returns {string}
 */
-export const RecoverToken = (email, createdData) => {
-    const token = jwt.sign({
-        email: email,
-        created: createdData
-    }, TOKEN_KEY, { expiresIn: '10m' });
+export const RecoverToken = (email) => {
+    const token = jwt.sign({ email: email }, TOKEN_KEY, { expiresIn: '10m' });
 
     return (token);
 }

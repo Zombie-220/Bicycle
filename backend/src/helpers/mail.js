@@ -5,15 +5,17 @@ import { logger } from '../config/logger/logger.js';
 import { __dirname } from './__dirname.js';
 import { parseToBase64 } from './base64.js';
 import { Encrypt } from './encryption.js';
+import { SMTP_ADDRESS, SMTP_PORT, EMAIL, EMAIL_PASS, FRON_PORT } from '../config/env.js';
 
 const logo64 = parseToBase64(path.join(__dirname, '/src/helpers/assets/logo.png'));
 const bebas64 = parseToBase64(path.join(__dirname, '/src/helpers/assets/bebas.ttf'));
 const inter64 = parseToBase64(path.join(__dirname, '/src/helpers/assets/inter.ttf'));
+
 const transporter = nodemailer.createTransport({
-    host: 'localhost',
-    port: 2376,
+    host: SMTP_ADDRESS,
+    port: SMTP_PORT,
     secure: false,
-    auth: { user: 'World_Bike@mail.ru', pass: 'your-email-password' },
+    auth: { user: EMAIL, pass: EMAIL_PASS },
     tls: { rejectUnauthorized: false }
 });
 
@@ -25,10 +27,10 @@ const transporter = nodemailer.createTransport({
 */
 export const SendRecoverCode = (to, token) => {
     transporter.sendMail({
-        from: 'World_Bike@mail.ru',
+        from: EMAIL,
         to: to,
         subject: 'Восстановление пароля',
-        text: `https://localhost:15924/auth/recover?token=${token}`,
+        text: `https://localhost:${FRON_PORT}/auth/recover?email=${Encrypt(to)}&token=${token}`,
         html: `
             <!DOCTYPE html>
             <html lang="ru">
@@ -63,11 +65,11 @@ export const SendRecoverCode = (to, token) => {
                     <main class="main">
                         <h1 class="main-h1">Восстановление пароля</h1>
                         <p class="main-text1">Для вашего аккаунта был запрошен сброс пароляЕсли это были Вы, нажмите на кнопку ниже.</p>
-                        <a href='https://localhost:15924/auth/recover?email=${Encrypt(to)}&token=${token}' class='button'>Нажми меня</a>
+                        <a href='https://localhost:${FRON_PORT}/auth/recover?email=${Encrypt(to)}&token=${token}' class='button'>Нажми меня</a>
                         <h2 class="main-h2">Я ничего не запрашивал!</h2>
                         <p class="main-text2">Если это были не Вы не предпринимайте никаких действий или обратитесь в службу поддержки.</p>
                         <h2 class="main-h2">Кнопка не работает...</h2>
-                        <p class="main-text2">Если кнопка не работает, то можете перейти по этой ссылке: <span>https://localhost:15924/auth/recover?email=${Encrypt(to)}&token=${token}</span> <br/> или скопировать её в адресную строку браузера.</p>
+                        <p class="main-text2">Если кнопка не работает, то можете перейти по этой ссылке: <span>https://localhost:${FRON_PORT}/auth/recover?email=${Encrypt(to)}&token=${token}</span> <br/> или скопировать её в адресную строку браузера.</p>
                     </main>
                 </div>
             </body>
