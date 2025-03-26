@@ -24,6 +24,16 @@ export const UsersModel = {
     },
 
     /**
+     * @param {stinrg} login 
+     * 
+     * @returns {Promise<User>}
+    */
+    getInfoByLogin: async function(login) {
+        const userInfo = await usersCollection.findOne({ name: login });
+        return userInfo ? userInfo : null;
+    },
+
+    /**
      * @param {string} name 
      * @param {string} password 
      * @returns {Promise<User>}
@@ -59,13 +69,14 @@ export const UsersModel = {
     },
 
     /**
-     * @param {string} login 
+     * @param {string} login
+     * @param {string} token
      * @returns {Promise<void>}
     */
-    createRecoverToken: async function(login) {
+    createRecoverToken: async function(login, token) {
         await usersCollection.updateOne(
             { name: login },
-            { $set: { token: 'token' } }
+            { $set: { token: token } }
         );
     }
 }

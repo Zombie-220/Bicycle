@@ -3,6 +3,8 @@ import { ObjectId } from "mongodb";
 import { CreateToken } from "../helpers/token.js";
 import { UsersModel } from '../models/users.js';
 import { Decrypt, Encrypt } from "../helpers/encryption.js";
+import { SendRecoverCode } from "../helpers/mail.js";
+import { RecoverToken } from '../helpers/token.js';
 
 export const UsersService = {
     /**
@@ -50,10 +52,14 @@ export const UsersService = {
     */
     recover: async function(login) {
         const _login = Decrypt(login);
-        const findUser = await UsersModel.checkByName(_login);
+        const findUser = await UsersModel.getInfoByLogin(_login);
 
         if (findUser) {
-            const userInfo = await UsersModel.createRecoverToken(_login);
+            const CTT = new Date();
+            const dataString = `${(CTT.getDate()).toString().padStart(2, '0')}.${(CTT.getMonth()+1).toString().padStart(2, '0')}.${(CTT.getFullYear()).toString().padStart(2, '0')} ${(CTT.getHours()).toString().padStart(2, '0')}:${(CTT.getMinutes()).toString().padStart(2, '0')}:${(CTT.getSeconds()).toString().padStart(2, '0')}`
+            const token = RecoverToken(findUser.email, dataString);
+            const userInfo = await UsersModel.createRecoverToken(_login, token);
+            SendRecoverCode(findUser.email, token);
             return { response: 'go next' };
         } else { return { response: 'user not found' };}
     }

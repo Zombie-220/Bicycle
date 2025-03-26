@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 
 import { ValidateInput } from "../../../components/ValidateInputs/Input";
 import { API_URL } from '../../../requests/request';
@@ -11,6 +13,9 @@ export const RecoverPasswordPage = () => {
     const { register, handleSubmit, formState: { errors, isValid } } = useForm();
     const [formErr, setFormErr] = useState('');
     const [formMessage, setFormMessage] = useState('');
+    const query = new URLSearchParams(useLocation().search);
+    const email = query.get('email') ? query.get('email').replaceAll(' ', '+') : null;
+    const token = query.get('token') ? query.get('token') : null;
 
     function onSubmit(formData) {
         API_URL.post(`/users/recover`, {
@@ -28,6 +33,13 @@ export const RecoverPasswordPage = () => {
             }
         }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); })
     }
+
+    useEffect(() => {
+        if (email && token ) {
+            console.log(Decrypt(email), jwtDecode(token));
+            console.log(new Date(jwtDecode(token).exp*1000));
+        }
+    }, [email, token]);
 
     return (
         <div className="recoverPasswordPage">

@@ -21,3 +21,10 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: pass
       ME_CONFIG_MONGODB_URL: mongodb://root:pass@mongo:27017/
       ME_CONFIG_BASICAUTH: false
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - 2376:1025
+      - 8619:8025
+    restart: always
