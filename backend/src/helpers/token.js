@@ -17,3 +17,18 @@ export const CreateToken = async (id, roles, expires) => {
     
     return (token);
 }
+
+/**
+ * 
+ * @param {string} email 
+ * @param {string} createdData 
+ * @returns {string}
+*/
+export const RecoverToken = (email, createdData) => {
+    const token = jwt.sign({
+        email: email,
+        created: createdData
+    }, TOKEN_KEY, { expiresIn: '10m' });
+
+    return (token);
+}
