@@ -61,5 +61,10 @@ export const UsersService = {
             SendRecoverCode(findUser.email, token);
             return { response: 'go next' };
         } else { return { response: 'user not found' };}
+    },
+
+    changePass: async function(password, email) {
+        await UsersModel.changePass(`${password}`, `${email}`);
+        return { resp: 'password changed' };
     }
 }

@@ -78,5 +78,12 @@ export const UsersModel = {
             { name: login },
             { $set: { token: token } }
         );
+    },
+
+    changePass: async function(password, email) {
+        await usersCollection.updateMany(
+            { email: email },
+            {$set: { password: password }}
+        );
     }
 }

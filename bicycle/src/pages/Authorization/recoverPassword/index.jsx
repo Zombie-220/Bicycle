@@ -17,7 +17,7 @@ export const RecoverPasswordPage = () => {
     const email = query.get('email') ? query.get('email').replaceAll(' ', '+') : null;
     const token = query.get('token') ? query.get('token') : null;
 
-    function onSubmit(formData) {
+    function createRecoverToken(formData) {
         API_URL.post(`/users/recover`, {
             login: Encrypt(formData.name)
         }).then(({ data }) => {
@@ -34,6 +34,15 @@ export const RecoverPasswordPage = () => {
         }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.'); })
     }
 
+    function changePassword(formData) {
+        API_URL.post('/users/changePassword', {
+            newPass: formData.password,
+            email: Decrypt(email)
+        }).then(({data}) => {
+            console.log(Decrypt(data));
+        }).catch((err) => { console.log(err); })
+    }
+
     useEffect(() => {
         if (email && token ) {
             console.log(Decrypt(email), jwtDecode(token));
@@ -42,10 +51,33 @@ export const RecoverPasswordPage = () => {
     }, [email, token]);
 
     return (
+        (email && token) ?
+        <div className="recoverPasswordPage">
+            <p className="recoverPasswordPage-header">Создание пароля</p>
+            <p className="recoverPasswordPage-text">Придумайте новый пароль</p>
+            <form className='recoverPasswordPage__body' onSubmit={handleSubmit(changePassword)}>
+                <ValidateInput
+                    textLabel={"Новый пароль"}
+                    errors={errors}
+                    name={"password"}
+                    formFunction={register}
+                />
+                <ValidateInput
+                    textLabel={"Подтвердите новый пароль"}
+                    errors={errors}
+                    name={"password_again"}
+                    formFunction={register}
+                />
+                <p className='recoverPasswordPage__body-errorMessage'>{formErr}</p>
+                <button className='recoverPasswordPage__body-button' disabled={!isValid}>Сохранить пароля </button>
+                <p className="recoverPasswordPage__body-message">{formMessage}</p>
+            </form>
+        </div>
+        :
         <div className="recoverPasswordPage">
             <p className="recoverPasswordPage-header">Забыли пароль?</p>
             <p className="recoverPasswordPage-text">Укажите имя пользователя. Сообщение с сылкой для сброса пароля придёт на привязанную к этому имени почту.</p>
-            <form className='recoverPasswordPage__body' onSubmit={handleSubmit(onSubmit)}>
+            <form className='recoverPasswordPage__body' onSubmit={handleSubmit(createRecoverToken)}>
                 <ValidateInput
                     textLabel={"Имя пользователя"}
                     errors={errors}

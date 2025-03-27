@@ -54,5 +54,17 @@ export const UsersController = {
             res.status(500).json({ message: 'start recover failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    changePass: async function(req, res) {
+        try {
+            const resp = await UsersService.changePass(req.body.newPass, req.body.email);
+
+            res.json(Encrypt(resp));
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'change password failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }
