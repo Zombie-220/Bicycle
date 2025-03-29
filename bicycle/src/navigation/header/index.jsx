@@ -49,6 +49,34 @@ export const Header = () => {
                 {isAuth !== '' && (<Link to={'/cart'} className='header__link'> <img src={cartIcon} alt="cartIcon" /> </Link>)}
                 {isAuth !== '' && (<button className='header__link link_orange' onClick={logout}>ВЫЙТИ</button>)}
             </div>
+            <input type='checkbox' id='burgerMenuBtn' className='header-burgerInput'/>
+            <label htmlFor="burgerMenuBtn" className='header-burgerBtn'>
+                <div className='header-burgerBtn__line' id='firstBurgerLine'></div>
+                <div className='header-burgerBtn__line' id='secondBurgerLine'></div>
+                <div className='header-burgerBtn__line' id='thirdBurgerLine'></div>
+            </label>
+            <div className='header__burgerSlide'>
+                <label htmlFor="burgerMenuBtn" className='header__burgerSlide-blur'></label>
+                <div className='header__burgerSlide__menu'>
+                    <div className='header__burgerSlide__menu__header'>
+                        <label htmlFor="burgerMenuBtn" className='header__burgerSlide__menu__header-button'>
+                            <div></div>
+                            <div></div>
+                        </label>
+                    </div>
+                    <div className='header__burgerSlide__menu__body'>
+                        {isAdmin && (<Link to={'/admin/bicycle'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
+                        <Link to={'/catalog/bicycles?page=1'} className='header__link link_orange'>ВЕЛОСИПЕДЫ</Link>
+                        <Link to={'/catalog/parts'} className='header__link'>ЗАПЧАСТИ</Link>
+                        <Link to={'/catalog/equipments'} className='header__link'>ЭКИПИРОВКА</Link>
+                        <Link to={'/catalog/accessories'} className='header__link'>АКСЕССУАРЫ</Link>
+                        <DiffLink to={'/x'} className='header__link'>АККАУНТ</DiffLink>
+                        {isAuth !== '' && (<Link to={'/x'} className='header__link'> <img src={favoriteIcon} alt="favoriteIcon" /> </Link>)}
+                        {isAuth !== '' && (<Link to={'/cart'} className='header__link'> <img src={cartIcon} alt="cartIcon" /> </Link>)}
+                        {isAuth !== '' && (<button className='header__link link_orange' onClick={logout}>ВЫЙТИ</button>)}
+                    </div>
+                </div>
+            </div>
         </header>
     );
 };

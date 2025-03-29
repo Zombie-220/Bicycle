@@ -5,6 +5,7 @@
     right: 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0px 75px;
     &__wrapper { display: flex; }
     &__link, &__button {
@@ -25,15 +26,106 @@
         &:hover { opacity: 0.66; }
         &:active { opacity: 0.33; }
     }
-    &__burgerMenuButton {
-        cursor: pointer;
+    &-burgerInput { display: none; }
+    &-burgerBtn {
         display: none;
         background-color: #0000;
         border: none;
-        width: 30px;
-        height: 30px;
-        margin: 15px;
+        width: 32px;
+        height: 22px;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        cursor: pointer;
+        position: relative;
+        transition: 200ms;
+        &__line {
+            position: absolute;
+            height: 1px;
+            width: 75%;
+            background-color: #fff;
+            transition: 200ms;
+            &:first-child { width: 100%; }
+        }
+        & #firstBurgerLine { top: 0;}
+        & #secondBurgerLine { top: 50%; }
+        & #thirdBurgerLine { bottom: 0; }
+        &:hover &__line { width: 100% }
+    }
+    &-burgerInput:checked ~ &-burgerBtn { rotate: 180deg; }
+    &-burgerInput:checked ~ &-burgerBtn #secondBurgerLine { width: 0%; }
+    &-burgerInput:checked ~ &-burgerBtn #firstBurgerLine {
+        rotate: 45deg;
+        top: 50%;
+    }
+    &-burgerInput:checked ~ &-burgerBtn #thirdBurgerLine {
+        width: 100%;
+        rotate: -45deg;
+        top: 50%;
+    }
+    &-burgerInput:checked ~ &__burgerSlide { width: 100%; }
+    &__burgerSlide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100vh;
+        z-index: 5;
+        display: flex;
+        transition: 200ms;
+        overflow: hidden;
+        &-blur {
+            width: 60%;
+            background-color: #0008;
+        }
+        &__menu {
+            width: 40%;
+            height: 100%;
+            background-color: #fff;
+            box-sizing: border-box;
+            &__header {
+                display: flex;
+                align-items: center;
+                justify-content: right;
+                height: 60px;
+                &-button {
+                    position: relative;
+                    width: 32px;
+                    height: 20px;
+                    margin: 0px 75px 0px 0px;
+                    cursor: pointer;
+                    & div:first-child, & div:last-child {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        height: 1px;
+                        background-color: #101010;
+                        top: 50%;
+                        left: 50%;
+                        translate: -50% 0%;
+                    }
+                    & div:first-child { rotate: 45deg; }
+                    & div:last-child { rotate: -45deg; }
+                }
+            }
+            &__body {
+                & a {
+                    color: #000;
+                    display: block;
+                    margin: 0px 20px;
+                    &:first-child { color: #F57520; }
+                }
+            }
+        }
     }
 }
 
 .link_orange { color: #F57520; }
+.blackBurgerLine { background-color: #101010; }
+
+@media (max-width: 815px) {
+    .header {
+        &__wrapper { display: none; }
+        &-burgerBtn { display: flex; }
+    }
+}
