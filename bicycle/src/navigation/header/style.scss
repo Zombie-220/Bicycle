@@ -65,7 +65,7 @@
     }
     &-burgerInput:checked ~ &__burgerSlide { width: 100%; }
     &__burgerSlide {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 0%;
@@ -123,9 +123,14 @@
 .link_orange { color: #F57520; }
 .blackBurgerLine { background-color: #101010; }
 
+@media (max-width: 1100px) {
+    .header { padding: 0px 20px; }
+}
+
 @media (max-width: 815px) {
     .header {
         &__wrapper { display: none; }
         &-burgerBtn { display: flex; }
+        &__burgerSlide__menu__header-button { margin-right: 20px; }
     }
 }

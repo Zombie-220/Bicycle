@@ -3,6 +3,7 @@
     &__welcomeDiv {
         background-image: url(../../assets/images/main/homeWelcome.svg);
         background-size: cover;
+        background-position: center;
         width: 100%;
         height: 700px;
         &__header {
@@ -35,6 +36,7 @@
     &__divSlider {
         margin-top: -20px;
         &__child {
+            padding: 0px 20px;
             &-text {
                 margin: 0px;
                 font-size: 16px;
@@ -297,6 +299,7 @@
             align-items: flex-end;
             background-image: url('../../assets/images/main/advantages/advantages.svg');
             background-repeat: no-repeat;
+            background-position: left;
             &__rows {
                 padding: 10px 20px;
                 display: flex;
@@ -455,3 +458,114 @@
 #mainPage__advantages__section-2 { background-color: #EB6B16; }
 #mainPage__advantages__section-3 { background-color: #E1610C; }
 #mainPage__advantages__section-4 { background-color: #D75702; }
+
+@media (max-width:1100px) {
+    .mainPage {
+        &__welcomeDiv {
+            &__header { padding: 185px 0px 0px 20px; }
+            &__text { padding: 20px 0px 40px 20px; }
+            &__link { margin-left: 20px; }
+        }
+        &__cardSlider { padding: 20px 20px; }
+        &__catalog { padding: 0px 20px; }
+        &__video {
+            &__header { padding: 0px 20px; }
+            &__footer { padding: 10px 20px; }
+        }
+        &__winterBicycles { padding: 30px 20px; }
+        &__advantages {
+            &-header { margin: 80px 0px 0px 20px; }
+        }
+        &__equipment { padding: 0px 20px; }
+        &__map {
+            &-header { margin: 0px 0px 10px 20px; }
+            &__contacts { margin: 30px 20px; }
+        }
+    }
+}
+
+@media (max-width: 815px) {
+    .mainPage {
+        &__welcomeDiv__header { font-size: 50px; }
+        &__cardSlider-header { font-size: 50px; }
+        &__catalog-header { font-size: 50px; }
+        &__video {
+            &__header-header { font-size: 50px; }
+            &__footer {
+                display: grid;
+                gap: 15px;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        &__winterBicycles-header { font-size: 50px; }
+        &__advantages {
+            &-header { font-size: 50px; }
+            &__body__rows { margin: auto; }
+        }
+        &__equipment-header { font-size: 50px; }
+        &__map {
+            &-header { font-size: 50px; }
+            &__contacts {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    #mainPage__catalog-accessories { background-position: right 0px top 0px; }
+    #mainPage__catalog-equipment { background-position: right 0px bottom 0px; }
+    #mainPage__catalog-racks { background-position: right -20px bottom 0px; }
+}
+
+@media (max-width: 700px) {
+    .mainPage {
+        &__catalog__container__bottomSection {
+            display: block;
+            height: auto;
+            &-link {
+                margin: 0px 0px 10px 0px;
+                height: 200px;
+                justify-content: left;
+                align-items: center;
+                padding: 0px 0px 0px 80px;
+                background-position: top 0px right 0px;
+                background-size: 65%;
+            }
+            &-outerContainer-innerContainer { height: 250px; }
+        }
+        &__video__header {
+            display: block;
+            &__container { margin-bottom: 10px; }
+        }
+        &__divSlider { display: none; }
+        &__advantages__body__rows__row {
+            width: 50%;
+            padding: 10px;
+            &-header { font-size: 16px; }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .mainPage {
+        &__catalog__container__bottomSection-outerContainer {
+            display: block;
+            &-innerContainer:first-child { margin: 0px 0px 10px 0px; }
+            #mainPage__catalog-parts, #mainPage__catalog-accessories,
+            #mainPage__catalog-equipment, #mainPage__catalog-racks
+            { flex: 1 1; }
+        }
+        &__video__footer {
+            display: block;
+        }
+        &__map__contacts {
+            display: block;
+            &__section {
+                justify-content: center;
+                margin: 20px 0px;
+            }
+        }
+    }
+}

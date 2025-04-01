@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -35,24 +35,40 @@ import calendar from '../../assets/images/main/contacts/calendar.svg';
 import './style.scss';
 
 export const MainPage = () => {
+    const _date = new Date();
+    const [cardsPerSlide, setCardsPerSlide] = useState(
+        () => {
+            if (window.innerWidth > 815) { return(3); }
+            else if (window.innerWidth <= 700) { return(1); }
+            else if (window.innerWidth <= 815) { return(2); }
+        }
+    );
+    const handleResize = () => {
+        if (window.innerWidth > 815) { setCardsPerSlide(3); }
+        else if (window.innerWidth <= 700) { setCardsPerSlide(1); }
+        else if (window.innerWidth <= 815) { setCardsPerSlide(2); }
+    };
+
     const { newItems, newItemsLoading, newItemsError } = useRequest('/bicycles/latest/6', {
         data: 'newItems',
         loading: 'newItemsLoading',
         error: 'newItemsError'
     });
-
-    const _date = new Date();
     const { winterBicycles, winterIsLoading, winterError } = useRequest(`/bicycles/filter?type=горный&startDate=01-01-${_date.getFullYear()-3}&endDate=30-12-${_date.getFullYear()-3}&amount=3`, {
         data: 'winterBicycles',
         loading: 'winterIsLoading',
         error: 'winterError'
     });
-
     const { equipments, equipmentLoading, equipmentError } = useRequest('/equipments/amount/9', {
         data: 'equipments',
         loading: 'equipmentLoading',
         error: 'equipmentError'
     });
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => { window.removeEventListener('resize', handleResize); }
+    }, []);
 
     return (
         <div className='mainPage'>
@@ -93,7 +109,7 @@ export const MainPage = () => {
                 <div className='mainPage__cardSlider__slider'>
                     {!newItemsError ?
                         <Preloader isLoading={newItemsLoading}>
-                            <Slider cardPerSlide={3}>{
+                            <Slider cardPerSlide={cardsPerSlide}>{
                                 newItems.map((data, index) => {
                                     return (
                                         <Card
@@ -184,7 +200,7 @@ export const MainPage = () => {
                 <div className='mainPage__winterBicycles__slider'>
                     {!winterError ?
                         <Preloader isLoading={winterIsLoading}>
-                            <Slider cardPerSlide={3}>{
+                            <Slider cardPerSlide={cardsPerSlide}>{
                                 winterBicycles.map((data, index) => {
                                     return (
                                         <Card
@@ -239,7 +255,7 @@ export const MainPage = () => {
                 <div className='mainPage__equipment__slider'>
                     {!equipmentError ?
                         <Preloader isLoading={equipmentLoading}>
-                            <Slider cardPerSlide={3}>{
+                            <Slider cardPerSlide={cardsPerSlide}>{
                                 equipments.map((data, index) => {
                                     return (
                                         <Card
