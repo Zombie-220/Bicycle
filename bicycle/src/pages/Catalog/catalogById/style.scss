@@ -226,3 +226,21 @@
         }
     }
 }
+
+@media (max-width: 815px) {
+    .catalogById {
+        padding: 0px 20px;
+        &__basicInfo {
+            &__images, &__info { width: 48%; }
+        }
+    }
+}
+@media (max-width: 700px) {
+    .catalogById {
+        &__basicInfo {
+            display: block;
+            &__images, &__info { width: 100%; }
+            &__images { margin-bottom: 30px; }
+        }
+    }
+}

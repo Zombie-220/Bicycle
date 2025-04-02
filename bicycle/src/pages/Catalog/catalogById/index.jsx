@@ -97,12 +97,6 @@ export const CatalogById = () => {
             <form className='catalogById__basicInfo'>
                 <div className='catalogById__basicInfo__images'>
                     <img src={itemData.productImage} alt="productImg" className='catalogById__basicInfo__images-mainImg' />
-                    <div className='catalogById__basicInfo__images__otherImg'>
-                        <img src={itemData.productImage} alt="img1" className='catalogById__basicInfo__images__otherImg-img' />
-                        <img src={itemData.productImage} alt="img2" className='catalogById__basicInfo__images__otherImg-img' />
-                        <img src={itemData.productImage} alt="img3" className='catalogById__basicInfo__images__otherImg-img' />
-                        <img src={itemData.productImage} alt="img4" className='catalogById__basicInfo__images__otherImg-img' />
-                    </div>
                 </div>
                 <div className='catalogById__basicInfo__info'>
                     <p className='catalogById__basicInfo__info-model'>{category === 'bicycles' ? itemData.model : itemData.name}</p>
