@@ -95,3 +95,29 @@
         }
     }
 }
+
+@media (max-width: 1100px) {
+    .cartPage {
+        padding: 60px 20px 0px 20px;
+        &__links { margin-top: 10px; }
+        &__body {
+            margin-top: 10px;
+            &__wrapper {
+                display: block;
+                &__items { width: 100%; }
+                &__order { width: 100%; }
+            }
+        }
+    }
+}
+@media (max-width: 815px) {
+    .cartPage {
+        &__body {
+            &-header { font-size: 50px; }
+            &__wrapper__order {
+                &-finalPrice { font-size: 18px; }
+                &-button { height: 30px; }
+            }
+        }
+    }
+}
