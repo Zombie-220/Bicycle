@@ -1,0 +1,73 @@
+.accountPage {
+    margin: 120px 0px 0px 0px;
+    padding: 0px 60px;
+    display: flex;
+    &__leftSide {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        &-header {
+            font-size: 24px;
+            font-family: 'Inter-Medium';
+            color: #101010;
+            padding: 0px 0px 10px 20px;
+            border-bottom: 1px solid #0004;
+        }
+        &-link {
+            color: #101010;
+            font-size: 'Inter-Light';
+            font-size: 16px;
+            padding: 15px 0px 15px 20px;
+            width: 100%;
+            border-radius: 10px;
+            background-color: #0000;
+            text-decoration: none;
+            transition: 200ms;
+            box-sizing: border-box;
+        }
+    }
+    &__rightSide {
+        flex: 4;
+        margin-left: 25px;
+        &__personalData {
+            display: flex;
+            flex-direction: column;
+            &-header {
+                text-transform: uppercase;
+                color: #101010;
+                font-size: 40px;
+                font-family: 'Bebas-Neue-Bold';
+                margin: 0px;
+            }
+            &__inputs {
+                margin: 6px 0px;
+                display: flex;
+                align-items: flex-end;
+            }
+            &-button {
+                font-size: 16px;
+                font-family: 'Inter-Medium';
+                color: #fff;
+                padding: 13px 50px;
+                display: block;
+                transition: 200ms;
+                background-color: #F57520;
+                border-radius: 10px;
+                border: none;
+                margin: 10px 0px 0px 0px;
+                cursor: pointer;
+                &:hover { opacity: 66%; }
+                &:active { opacity: 33%; }
+                &:disabled {
+                    cursor: unset;
+                    opacity: 60%;
+                }
+            }
+        }
+    }
+}
+
+.activeAccountPageLink {
+    color: #fff;
+    background-color: #F57520;
+}

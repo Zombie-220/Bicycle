@@ -66,5 +66,17 @@ export const UsersController = {
             res.status(500).json({ message: 'change password failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    getInfo: async function(req, res) {
+        try {
+            const userInfo = await UsersService.getInfo(req.params.id);
+
+            res.json(userInfo);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'change password failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }

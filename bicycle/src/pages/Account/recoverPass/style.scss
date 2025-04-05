@@ -1,0 +1,28 @@
+.recoverPass {
+    &-header {
+        text-transform: uppercase;
+        color: #101010;
+        font-size: 40px;
+        font-family: 'Bebas-Neue-Bold';
+        margin: 0px;
+    }
+    &-button {
+        font-size: 16px;
+        font-family: 'Inter-Medium';
+        color: #fff;
+        padding: 13px 50px;
+        display: block;
+        transition: 200ms;
+        background-color: #F57520;
+        border-radius: 10px;
+        border: none;
+        margin: 10px 0px 0px 0px;
+        cursor: pointer;
+        &:hover { opacity: 66%; }
+        &:active { opacity: 33%; }
+        &:disabled {
+            cursor: unset;
+            opacity: 60%;
+        }
+    }
+}

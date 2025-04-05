@@ -10,6 +10,8 @@ import { CartPage } from "../pages/cart";
 import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";
 import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
+import { AccountPage } from "../pages/Account";
+import { RecoverPass } from "../pages/Account/recoverPass";
 
 const authPages = [
   {
@@ -19,6 +21,16 @@ const authPages = [
   {
     path: '/cart',
     Component: CartPage
+  },
+  {
+    path: '/account/:id',
+    Component: AccountPage,
+    children: [
+      {
+        path: 'password',
+        Component: RecoverPass
+      }
+    ]
   }
 ];
 

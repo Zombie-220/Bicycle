@@ -66,5 +66,13 @@ export const UsersService = {
     changePass: async function(password, email) {
         await UsersModel.changePass(`${password}`, `${email}`);
         return { resp: 'password changed' };
+    },
+
+    getInfo: async function(id) {
+        const userInfo = await UsersModel.getInfoById(new ObjectId(id));
+        return {
+            username: userInfo.name,
+            email: userInfo.email
+        };
     }
 }
