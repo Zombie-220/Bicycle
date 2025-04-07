@@ -74,5 +74,10 @@ export const UsersService = {
             username: userInfo.name,
             email: userInfo.email
         };
+    },
+
+    changeName: async function(name, email) {
+        await UsersModel.changeName(name, email);
+        return { resp: 'name changed' };
     }
 }

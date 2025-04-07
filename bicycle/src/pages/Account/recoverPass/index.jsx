@@ -1,4 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+
+import { API_URL } from '../../../requests/request';
+import { Decrypt } from '../../../helpers/AES';
 
 import { ValidateInput } from '../../../components/ValidateInputs/Input';
 
@@ -6,9 +10,19 @@ import './style.scss';
 
 export const RecoverPass = () => {
     const {register, handleSubmit, formState: {errors, isValid} } = useForm();
+    const { id } = useParams();
 
     const changePass = (formData) => {
-        console.log(formData)
+        if (formData.newPass === formData.newPassAgain) {
+            API_URL.get(`/users/info/${id}`).then((innerData) => {
+                API_URL.post('/users/changePassword', {
+                    newPass: formData.newPass,
+                    email: innerData.data.email
+                }).then(({data}) => {
+                    console.log(Decrypt(data));
+                }).catch((err) => { console.log(err); });
+            }).catch((err) => { console.log(err); })
+        }
     }
 
     return (

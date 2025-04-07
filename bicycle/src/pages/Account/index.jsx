@@ -10,14 +10,22 @@ import './style.scss';
 export const AccountPage = () => {
     const { register, handleSubmit, formState: { errors, isValid }, setValue } = useForm();
     const [lastUrlPath, setLastUrlPath] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const { id } = useParams();
 
-    const changeProfileData = (formData) => { console.log('отправь данные, пидор'); }
+    const changeProfileData = (formData) => {
+        API_URL.post('/users/changeName', {
+            newName: formData.name,
+            email: userEmail
+        }).then(({data}) => {
+            console.log(data);
+        }).catch((err) => { console.log(err); });
+    }
 
     useEffect(() => {
         API_URL.get(`/users/info/${id}`).then(({data}) => {
             setValue('name', data.username);
-            setValue('email', data.email)
+            setUserEmail(data.email);
         }).catch((err) => { console.log(err); });
     }, []);
 
@@ -47,13 +55,7 @@ export const AccountPage = () => {
                             />
                         </div>
                         <div className='accountPage__rightSide__personalData__inputs'>
-                            <ValidateInput
-                                name={'email'}
-                                errors={errors}
-                                textLabel={'Почта'}
-                                type={'email'}
-                                formFunction={register}
-                            />
+                           <p className='accountPage__rightSide__personalData__inputs-text'>E-mail пользователя: {userEmail}</p>
                         </div>
                         <button className='accountPage__rightSide__personalData-button' disabled={!isValid}>Изменить</button>
                     </form>

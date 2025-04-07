@@ -85,5 +85,12 @@ export const UsersModel = {
             { email: email },
             {$set: { password: password }}
         );
+    },
+
+    changeName: async function(name, email) {
+        await usersCollection.updateOne(
+            { email: email },
+            {$set: { name: name }}
+        );
     }
 }
