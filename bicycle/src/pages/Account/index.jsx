@@ -11,6 +11,7 @@ export const AccountPage = () => {
     const { register, handleSubmit, formState: { errors, isValid }, setValue } = useForm();
     const [lastUrlPath, setLastUrlPath] = useState('');
     const [userEmail, setUserEmail] = useState('');
+    const [formMessage, setFormMessage] = useState('');
     const { id } = useParams();
 
     const changeProfileData = (formData) => {
@@ -18,8 +19,8 @@ export const AccountPage = () => {
             newName: formData.name,
             email: userEmail
         }).then(({data}) => {
-            console.log(data);
-        }).catch((err) => { console.log(err); });
+            if (data.resp === 'name changed') { setFormMessage('Имя пользователя изменено'); }
+        }).catch((err) => { setFormMessage('Что-то пошло не так!') });
     }
 
     useEffect(() => {
@@ -58,6 +59,7 @@ export const AccountPage = () => {
                            <p className='accountPage__rightSide__personalData__inputs-text'>E-mail пользователя: {userEmail}</p>
                         </div>
                         <button className='accountPage__rightSide__personalData-button' disabled={!isValid}>Изменить</button>
+                        <p>{formMessage}</p>
                     </form>
                     :
                     <Outlet />

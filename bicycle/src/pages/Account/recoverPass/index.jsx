@@ -7,9 +7,11 @@ import { Decrypt } from '../../../helpers/AES';
 import { ValidateInput } from '../../../components/ValidateInputs/Input';
 
 import './style.scss';
+import { useState } from 'react';
 
 export const RecoverPass = () => {
     const {register, handleSubmit, formState: {errors, isValid} } = useForm();
+    const [formMessage, setFormMessage] = useState('');
     const { id } = useParams();
 
     const changePass = (formData) => {
@@ -19,10 +21,10 @@ export const RecoverPass = () => {
                     newPass: formData.newPass,
                     email: innerData.data.email
                 }).then(({data}) => {
-                    console.log(Decrypt(data));
+                    setFormMessage('Пароль успешно изменен');
                 }).catch((err) => { console.log(err); });
             }).catch((err) => { console.log(err); })
-        }
+        } else { setFormMessage('Пароли не совпадают'); }
     }
 
     return (
@@ -51,6 +53,7 @@ export const RecoverPass = () => {
                     type='password'
                 />
                 <button className='recoverPass-button' disabled={!isValid}>Изменить</button>
+                <p>{formMessage}</p>
             </form>
         </div>
     );
