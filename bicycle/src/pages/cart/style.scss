@@ -90,6 +90,7 @@
                     cursor: pointer;
                     &:hover { opacity: 66%; }
                     &:active { opacity: 33%; }
+                    &:disabled { opacity: 50%; cursor: unset; }
                 }
             }
         }

@@ -103,7 +103,7 @@ export const CartPage = () => {
                         <p className='cartPage__body__wrapper__order-text'>Сумма заказа (без скидки)<br/><span>{orderPrice.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</span></p>
                         <p className='cartPage__body__wrapper__order-text'>Скидка<br/><span>{orderDiscount.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</span></p>
                         <p className='cartPage__body__wrapper__order-finalPrice'>Итого<br/><span>{orderFinal.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} ₽</span></p>
-                        <button className='cartPage__body__wrapper__order-button' onClick={sendOrder}>Оформить заказ</button>
+                        <button className='cartPage__body__wrapper__order-button' onClick={sendOrder} disabled={!localStorage.getItem('OrId') ? true : false}>Оформить заказ</button>
                     </div>
                 </div>
             </div>
