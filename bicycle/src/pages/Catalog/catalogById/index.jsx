@@ -159,9 +159,6 @@ export const CatalogById = () => {
                             <button className='catalogById__basicInfo__info__buttons__amount-plus' type='button' onClick={plusAmount}>+</button>
                         </div>
                         <button className='catalogById__basicInfo__info__buttons-orderButton' type='submit' onClick={handleSubmit(addToCart)} disabled={currentAmount <= 0 ? true : false}>В корзину</button>
-                        <button className='catalogById__basicInfo__info__buttons-like' type='button' onClick={handleLike}>
-                            <img src={like} alt="like" className='catalogById__basicInfo__info__buttons-like-img'/>
-                        </button>
                     </div>
                 </div>
             </form>

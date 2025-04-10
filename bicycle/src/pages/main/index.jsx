@@ -155,7 +155,6 @@ export const MainPage = () => {
                     <h2 className='mainPage__video__header-header'>НИЧЕГО НЕ СМОЖЕТ ОСТАНОВИТЬ ВАС</h2>
                     <div className='mainPage__video__header__container'>
                         <p className='mainPage__video__header__container-text'>Наша компания специализируется на продаже товаров для велосипедного спорта — велосипедов, запасных частей, аксессуаров и различного спортивного инвентаря для активного спорта и отдыха.</p>
-                        <Link to={'/blog/x'} className='mainPage__video__header__container-link'>Подробнее</Link>
                     </div>
                 </div>
                 <div className='mainPage__video__body'>
@@ -228,24 +227,20 @@ export const MainPage = () => {
                         <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-1'>
                             <p className='mainPage__advantages__body__rows__row-header'>БЕСПЛАТНАЯ ДОСТАВКА</p>
                             <p className='mainPage__advantages__body__rows__row-text'>Мы пользуемся всеми популярными видами доставки</p>
-                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
                         </div>
                         <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-2'>
                             <p className='mainPage__advantages__body__rows__row-header'>ОБМЕН И ВОЗВРАТ</p>
                             <p className='mainPage__advantages__body__rows__row-text'>Все товары обеспечены фирменной гарантией фирм-производителей</p>
-                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
                         </div>
                     </div>
                     <div className='mainPage__advantages__body__rows'>
                         <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-3'>
                             <p className='mainPage__advantages__body__rows__row-header'>ДОП. ОБСЛУЖИВАНИЕ</p>
                             <p className='mainPage__advantages__body__rows__row-text'>Мы выполняем ремонт велосипеда любой сложности</p>
-                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
                         </div>
                         <div className='mainPage__advantages__body__rows__row' id='mainPage__advantages__section-4'>
                             <p className='mainPage__advantages__body__rows__row-header'>ОНЛАЙН ОПЛАТА</p>
                             <p className='mainPage__advantages__body__rows__row-text'>Для удобства вы можете оплатить товар банковской картой через сайт</p>
-                            <Link className='mainPage__advantages__body__rows__row-link'>Подробнее</Link>
                         </div>
                     </div>
                 </div>

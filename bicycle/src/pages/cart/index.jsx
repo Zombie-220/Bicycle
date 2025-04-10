@@ -37,7 +37,6 @@ export const CartPage = () => {
         }).catch((err) => { console.log('something wrong >_<'); })
     }
 
-    const clearCart = () => { console.log('clear cart'); }
     const sendOrder = () => {
         API_URL.post('/orders/updateStatus', {
             orderId: Encrypt(JSON.parse(localStorage.getItem('OrId'))),
@@ -78,7 +77,6 @@ export const CartPage = () => {
                     <div className='cartPage__body__wrapper__items'>
                         <div className='cartPage__body__wrapper__items-header'>
                             <Link to='/catalog/bicycles?page=1' className='cartPage__body__wrapper__items-header-link'>Вернуться к покупкам</Link>
-                            <button onClick={clearCart} className='cartPage__body__wrapper__items-header-button'>Очистить корзину</button>
                         </div>
                         <div className='cartPage__body__wrapper__items__itemsList'>
                             {orderItems?.orderInfo?.map((data, key) => {

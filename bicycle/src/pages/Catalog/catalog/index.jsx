@@ -151,30 +151,6 @@ export const CatalogPage = () => {
                                 })}
                             </div>
                         </div>
-                        <hr className='catalogPage__body__options-separator'/>
-                        <div className='catalogPage__body__options__colors'>
-                            <div className='catalogPage__body__options__colors__header'>
-                                <label className='catalogPage__body__options__colors__header-header' htmlFor='colors'>Цвета</label>
-                                <input type="checkbox" id="colors" className='catalogPage__body__options__colors__header-input' onChange={(event) => { setColorsButtonChecked(event.target.checked); }}/>
-                                <label htmlFor='colors' className='catalogPage__body__options__colors__header-button'>
-                                    <div></div>
-                                    <div></div>
-                                </label>
-                            </div>
-                            <div className='catalogPage__body__options__colors__body' style={{height: colorsButtonChecked ? `${40*menuInfo?.colors?.length/5}px` : '0px'}}>
-                                {menuInfo?.colors?.map((data, index) => {
-                                    return (
-                                        <div className='catalogPage__body__options__colors__body__item' key={index}>
-                                            <div className='catalogPage__body__options__colors__body__item-wrapper'>
-                                                <input type="checkbox" id={`${data}`} className='catalogPage__body__options__colors__body__item-wrapper-input' {...register(`${data}`)} onChange={(event) => { changeFilter('color', data, event.target.checked) }}/>
-                                                <label htmlFor={`${data}`} className='catalogPage__body__options__colors__body__item-wrapper-label' style={{backgroundColor: data}}></label>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        <button className='catalogPage__body__options-button'>Сбросить фильтр</button>
                     </form>
                     <div className='catalogPage__body__items'>
                         {currentItems.map((data, index) => {
