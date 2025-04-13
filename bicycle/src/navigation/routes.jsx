@@ -12,6 +12,8 @@ import { RegisterPage } from "../pages/Authorization/register";
 import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
 import { AccountPage } from "../pages/Account";
 import { RecoverPass } from "../pages/Account/recoverPass";
+import { AdminPage } from "../pages/Admin";
+import { UsersInfoPage } from "../pages/Admin/users";
 
 const authPages = [
   {
@@ -49,8 +51,18 @@ const notAuthPages = [
   }
 ];
 
-const adminPages = [];
-const notAdminPages = [];
+const adminPages = [
+  {
+    path: '/admin',
+    Component: AdminPage,
+    children: [
+      {
+        path: 'users',
+        Component: UsersInfoPage
+      }
+    ]
+  }
+];
 
 export const getRoutes = (isAuth, isAdmin) => {
   return createBrowserRouter([
@@ -68,7 +80,7 @@ export const getRoutes = (isAuth, isAdmin) => {
         },
 
         ...(isAuth === '' ? notAuthPages : authPages),
-        ...(isAdmin? adminPages: notAdminPages)
+        ...(isAdmin? adminPages: [])
       ],
     },
   ]);

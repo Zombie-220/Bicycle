@@ -39,7 +39,7 @@ export const Header = () => {
         <header className='header' style={{background: background}}>
             <Link className='header__link'> <img src={icon} alt="logo" /> </Link>
             <div className='header__wrapper'>
-                {isAdmin && (<Link to={'/admin/bicycle'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
+                {isAdmin && (<Link to={'/admin'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
                 <Link to={'/catalog/bicycles?page=1'} className='header__link link_orange'>ВЕЛОСИПЕДЫ</Link>
                 <Link to={'/catalog/parts'} className='header__link'>ЗАПЧАСТИ</Link>
                 <Link to={'/catalog/equipments'} className='header__link'>ЭКИПИРОВКА</Link>
@@ -65,7 +65,7 @@ export const Header = () => {
                         </label>
                     </div>
                     <div className='header__burgerSlide__menu__body'>
-                        {isAdmin && (<Link to={'/admin/bicycle'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
+                        {isAdmin && (<Link to={'/admin'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
                         <Link to={'/catalog/bicycles?page=1'} className='header__link link_orange'>ВЕЛОСИПЕДЫ</Link>
                         <Link to={'/catalog/parts'} className='header__link'>ЗАПЧАСТИ</Link>
                         <Link to={'/catalog/equipments'} className='header__link'>ЭКИПИРОВКА</Link>

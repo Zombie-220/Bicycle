@@ -79,5 +79,10 @@ export const UsersService = {
     changeName: async function(name, email) {
         await UsersModel.changeName(name, email);
         return { resp: 'name changed' };
+    },
+
+    getAllUsers: async function() {
+        const allUserInfo = await UsersModel.getAll();
+        return allUserInfo;
     }
 }

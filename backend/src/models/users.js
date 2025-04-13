@@ -92,5 +92,14 @@ export const UsersModel = {
             { email: email },
             {$set: { name: name }}
         );
+    },
+
+    getAll: async function() {
+        const allUsersInfo = await usersCollection.find(
+            {},
+            { _id: 0, name: 1, email: 1, roles: 1 }
+        ).toArray();
+
+        return allUsersInfo;
     }
 }
