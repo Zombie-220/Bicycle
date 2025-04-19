@@ -1,0 +1,104 @@
+.bicycleCard {
+    border-bottom: 1px solid #0006;
+    margin-top: 20px;
+    padding: 0px 10px;
+    &:first-child { margin-top: 0px; }
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-text {
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Inter-Regular';
+            color: #101010;
+            & span { font-weight: bold; }
+        }
+        &-button {
+            & input { display: none; }
+            & label {
+                cursor: pointer;
+                display: block;
+                background-color: #0000;
+                width: 30px;
+                height: 20px;
+                position: relative;
+                & div {
+                    position: absolute;
+                    width: 18px;
+                    height: 2px;
+                    border-radius: 1px;
+                    background-color: #F57520;
+                    transition: 200ms;
+                    top: 0px;
+                    &:first-child {
+                        rotate: 45deg;
+                        left: 0px;
+                        transform: translate(6px, 6px);
+                    }
+                    &:last-child {
+                        rotate: -45deg;
+                        right: 0px;
+                        transform: translate(-6px, 6px);
+                    }
+                }
+            }
+            & input:checked + label div {
+                &:first-child {
+                    rotate: -45deg;
+                    transform: translate(-6px, 6px);
+                }
+                &:last-child {
+                    rotate: 45deg;
+                    transform: translate(6px, 6px);
+                }
+            }
+        }
+    }
+    &__body {
+        display: flex;
+        justify-content: space-between;
+        transition: 200ms;
+        overflow: hidden;
+        &__img, &__info {
+            width: 40%;
+            & img { height: 250px; }
+            &__input {
+                display: flex;
+                align-items: center;
+                & p {
+                    font-size: 16px;
+                    font-family: 'Inter-Regular';
+                    color: #101010;
+                }
+                & input {
+                    width: 100%;
+                    margin-left: 10px;
+                    height: 26px;
+                    padding: 8px 0px 8px 8px;
+                    box-sizing: border-box;
+                    font-size: 16px;
+                    background-color: #f0f0f0;
+                    border: none;
+                    border-radius: 10px;
+                    font-family: "Inter-Light";
+                    &:focus { outline: none; }
+                }
+            }
+        }
+        &-button {
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            background-color: #F57520;
+            border-radius: 10px;
+            border: none;
+            height: 40px;
+            width: 100%;
+            transition: 200ms;
+            font-family: 'Inter-Medium';
+            &:hover { background-color: #F5752088; }
+            &:active { background-color: #F5752044; }
+        }
+    }
+}

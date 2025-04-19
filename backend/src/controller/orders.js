@@ -70,5 +70,17 @@ export const OrdersController = {
             res.status(500).json({ message: 'update status failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    getAll: async function(req, res) {
+        try {
+            const ordersInfo = await OrdersService.getAll();
+            
+            res.json(ordersInfo);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'get all orders info failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }

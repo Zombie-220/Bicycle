@@ -88,5 +88,13 @@ export const BicyclesModel = {
     getField: async function(field) {
         const _fieldsInfo = await bicyclesCollection.find({}).toArray();
         return _fieldsInfo.map((data) => { return data[field]; });
+    },
+
+    update: async function(newItem, id) {
+        const updatedBicycle = await bicyclesCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newItem }
+        );
+        return updatedBicycle.modifiedCount;
     }
 }

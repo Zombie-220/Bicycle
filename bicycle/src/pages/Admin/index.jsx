@@ -3,16 +3,18 @@ import { useEffect, useState } from 'react';
 
 import { API_URL } from '../../requests/request';
 
+import { OrderCard } from '../../components/Cards/orderCard';
+
 import './style.scss';
 
 export const AdminPage = () => {
     const [lastUrlPath, setLastUrlPath] = useState('');
-    const [allUsers, setAllUsers] = useState([]);
+    const [allOrders, setAllOrders] = useState([]);
     const {} = useParams();
 
     useEffect(() => {
-        API_URL.get('/users/all').then(({ data }) => {
-            setAllUsers(data);
+        API_URL.get('/orders/all').then(({ data }) => {
+            setAllOrders(data);
         }).catch((err) => { console.log(err); });
     }, []);
 
@@ -33,9 +35,16 @@ export const AdminPage = () => {
             <div className='adminPage__rightSide'>
                 {lastUrlPath === 'admin' ?
                    <div>
-                        {allUsers.map((data, index) => {
+                        {allOrders.map((data, index) => {
                             return (
-                                <div key={index}>{data.name}</div>
+                                <OrderCard
+                                    key={index}
+                                    id={data.id}
+                                    orderInfo={data.orderInfo}
+                                    user={data.username}
+                                    datetime={data.datetime}
+                                    status={data.status}
+                                />
                             )
                         })}
                    </div>

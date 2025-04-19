@@ -10,3 +10,4 @@ BicyclesRouter.get('/orderBy', BicyclesController.orderBy);
 BicyclesRouter.get('/filter', BicyclesController.filter);
 BicyclesRouter.get('/catalog-menu', BicyclesController.catalogMenu);
 BicyclesRouter.get('/:id', BicyclesController.getById);
+BicyclesRouter.post('/change', BicyclesController.change);

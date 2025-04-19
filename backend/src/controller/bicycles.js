@@ -109,5 +109,17 @@ export const BicyclesController = {
             res.status(500).json({ message: 'get catalog page info failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    change: async function(req, res) {
+        try {
+            const bicycleChanged = await BicyclesService.change(req.body);
+
+            res.json(bicycleChanged);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'change bicycle error' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }

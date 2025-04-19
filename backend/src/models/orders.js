@@ -98,5 +98,10 @@ export const OrdersModel = {
             { _id: orderId },
             { $set: { status: status } }
         )
+    },
+
+    getAll: async function() {
+        const ordersInfo = await ordersCollection.find().toArray();
+        return ordersInfo;
     }
 }

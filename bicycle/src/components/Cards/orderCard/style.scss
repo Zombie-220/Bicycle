@@ -1,0 +1,111 @@
+.orderCard {
+    border-bottom: 1px solid #0006;
+    margin-top: 20px;
+    padding: 0px 10px;
+    &:first-child { margin-top: 0px; }
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &-text {
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Inter-Regular';
+            color: #101010;
+            & span { font-weight: bold; }
+        }
+        &-button {
+            & input { display: none; }
+            & label {
+                cursor: pointer;
+                display: block;
+                background-color: #0000;
+                width: 30px;
+                height: 20px;
+                position: relative;
+                & div {
+                    position: absolute;
+                    width: 18px;
+                    height: 2px;
+                    border-radius: 1px;
+                    background-color: #F57520;
+                    transition: 200ms;
+                    top: 0px;
+                    &:first-child {
+                        rotate: 45deg;
+                        left: 0px;
+                        transform: translate(6px, 6px);
+                    }
+                    &:last-child {
+                        rotate: -45deg;
+                        right: 0px;
+                        transform: translate(-6px, 6px);
+                    }
+                }
+            }
+            & input:checked + label div {
+                &:first-child {
+                    rotate: -45deg;
+                    transform: translate(-6px, 6px);
+                }
+                &:last-child {
+                    rotate: 45deg;
+                    transform: translate(6px, 6px);
+                }
+            }
+        }
+    }
+    &__body {
+        transition: 200ms;
+        overflow: hidden;
+        &-userInfo {
+            font-size: 16px;
+            font-family: 'Inter-Regular';
+            color: #101010;
+            & span { font-weight: bold; }
+        }
+        &__orderInfo {
+            &__order {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid #0006;
+                padding-bottom: 6px;
+                height: 100px;
+                box-sizing: border-box;
+                &:last-child { border: none; }
+                &-img { width: 150px; }
+                &-title, &-price, &-amount {
+                    color: #101010;
+                    font-size: 18px;
+                }
+                &-title, &-amount { font-family: 'Inter-Light'; }
+                &-price { font-family: 'Inter-Medium'; }
+            }
+        }
+        &-itog {
+            color: #101010;
+            font-size: 20px;
+            font-family: 'Inter-Medium';
+        }
+        &__statusCont {
+            display: flex;
+            &-text {
+                font-size: 16px;
+                color: #101010;
+                font-family: 'Inter-Light';
+                margin: 10px 5px 0px 0px;
+                height: 30px;
+            }
+            &__select {
+                font-size: 16px;
+                border: none;
+                color: #101010;
+                font-family: 'Inter-Medium';
+                padding: 0px;
+                cursor: pointer;
+                &:focus { outline: none; }
+            }
+        }
+    }
+}

@@ -97,7 +97,7 @@ export const UsersModel = {
     getAll: async function() {
         const allUsersInfo = await usersCollection.find(
             {},
-            { _id: 0, name: 1, email: 1, roles: 1 }
+            { name: 1, email: 1, roles: 1, _id: 0 }
         ).toArray();
 
         return allUsersInfo;

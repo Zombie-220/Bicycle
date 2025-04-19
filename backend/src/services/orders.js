@@ -1,8 +1,10 @@
 import { ObjectId } from "mongodb";
 
-import { OrdersModel } from '../models/orders.js';
-import { BicyclesModel } from '../models/bicycles.js';
 import { Decrypt, Encrypt } from "../helpers/encryption.js";
+
+import { BicyclesModel } from '../models/bicycles.js';
+import { OrdersModel } from '../models/orders.js';
+import { UsersModel } from '../models/users.js';
 
 export const OrdersService = {
     /**
@@ -84,5 +86,29 @@ export const OrdersService = {
 
         const updatedOrder = await OrdersModel.updateStatus(_orderId, _status);
         return Encrypt({ response: 'status updated' });
+    },
+
+    getAll: async function() {
+        const allOrdersInfo = await OrdersModel.getAll();
+
+        const result = await Promise.all(allOrdersInfo.map(async (data) => {
+            return({
+                id: data._id,
+                username: (await UsersModel.getInfoById(new ObjectId(data.userId))).name,
+                datetime: data.datetime,
+                status: data.status,
+                orderInfo: await Promise.all(data.orderInfo.map(async (innerData) => {
+                    const bicycleInfo = await BicyclesModel.getById(new ObjectId(innerData.id));
+                    return ({
+                        name: `${bicycleInfo.brand} ${bicycleInfo.model}`,
+                        price: bicycleInfo.price,
+                        amount: parseInt(innerData.amount),
+                        image: bicycleInfo.productImage
+                    });
+                }))
+            });
+        }));
+
+        return result;
     }
 }

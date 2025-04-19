@@ -14,6 +14,7 @@ import { AccountPage } from "../pages/Account";
 import { RecoverPass } from "../pages/Account/recoverPass";
 import { AdminPage } from "../pages/Admin";
 import { UsersInfoPage } from "../pages/Admin/users";
+import { BicyclesInfoPage } from "../pages/Admin/bicycles";
 
 const authPages = [
   {
@@ -59,6 +60,10 @@ const adminPages = [
       {
         path: 'users',
         Component: UsersInfoPage
+      },
+      {
+        path: 'bicycles',
+        Component: BicyclesInfoPage
       }
     ]
   }
