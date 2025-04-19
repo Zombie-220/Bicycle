@@ -12,7 +12,6 @@ export const BicyclesInfoPage = () => {
         API_URL.get('/bicycles/amount').then(({ data }) => {
             const decryptedData = Decrypt(data);
             setBicyclesInfo(decryptedData);
-            console.log(decryptedData)
         }).catch((err) => { console.log(err); });
     }, []);
 
