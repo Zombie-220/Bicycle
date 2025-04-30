@@ -7,6 +7,8 @@ import { API_URL } from '../../../requests/request';
 import { Encrypt, Decrypt } from '../../../helpers/AES';
 import { AuthContext } from '../../../App';
 
+import { ModalPopup } from '../../../components/popup';
+
 import './style.scss';
 
 import ok from '../../../assets/images/catalogById/ok.svg';
@@ -20,6 +22,7 @@ export const CatalogById = () => {
     const { isAuth } = useContext(AuthContext);
     const [currentCategory, setCurrentCategory] = useState('');
     const [itemName, setItemName] = useState('');
+    const [showModal, setShowModal] = useState(false);
     const { category, id } = useParams();
     const { itemData, itemLoading, itemError } = useRequest(`/${category}/${id}`, {
         data: 'itemData',
@@ -45,8 +48,12 @@ export const CatalogById = () => {
         
         API_URL.post('/orders/createOrder', orderData).then(({ data }) => {
             const decryptedResp = Decrypt(data);
-            if (decryptedResp.response === "order created") { localStorage.setItem('OrId', JSON.stringify(decryptedResp.id)); }
+            if (decryptedResp.response === "order created") {
+                localStorage.setItem('OrId', JSON.stringify(decryptedResp.id));
+            }
+            setShowModal(true);
         }).catch((err) => { console.log(err); });
+        setShowModal(true);
     }
 
     const handleLike = () => { console.log(`like ${id}`); }
@@ -82,6 +89,10 @@ export const CatalogById = () => {
             if (activeSize === null || activeSize === undefined) { setActiveSize(itemData.size[0]); }
         }
     }, [activeColor, activeSize, itemData]);
+
+    useEffect(() => {
+        setTimeout(() => { setShowModal(false); }, 12500);
+    }, [showModal]);
 
     return (
         <div className="catalogById">
@@ -162,6 +173,9 @@ export const CatalogById = () => {
                     </div>
                 </div>
             </form>
+            <ModalPopup isShow={showModal} setIsShow={setShowModal} type='success'>
+                <div>Заказ успешно добавлен в карзину</div>
+            </ModalPopup>
         </div>
     );
 }
