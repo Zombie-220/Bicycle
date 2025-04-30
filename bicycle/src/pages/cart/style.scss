@@ -95,7 +95,81 @@
             }
         }
     }
+    &__modal {
+        min-width: 300px;
+        &-header {
+            width: 100%;
+            text-align: center;
+            color: #101010;
+            font-size: 30px;
+            font-family: 'Bebas-Neue-Bold';
+        }
+        &__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18px;
+            font-family: 'Inter-Regular';
+            color: #101010;
+            &-option {
+                cursor: pointer;
+                margin: 10px 0px;
+            }
+            &-radio {
+                cursor: pointer;
+                width: 18px;
+                height: 18px;
+                border: 1px solid #777;
+                border-radius: 5px;
+                display: block;
+                transition: 200ms;
+                & input { display: none; }
+                & label {
+                    cursor: pointer;
+                    height: 100%;
+                    width: 100%;
+                    transition: 200ms;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    &::after {
+                        content: "";
+                        display: none;
+                        width: 5px;
+                        height: 10px;
+                        border: solid #FFF;
+                        border-width: 0 2px 2px 0;
+                        rotate: 45deg;
+                        translate: 0px -2px;
+                    }
+                }
+                & input:checked + label { background-color: #F57520; }
+                & input:checked + label:after { display: block; }
+            }
+        }
+        &__form {
+            margin-top: 20px;
+            // display: none;
+            &-header {
+                color: #101010;
+                font-size: 18px;
+                font-family: 'Inter-Light';
+                text-align: center;
+                margin: 0px;
+            }
+            &__container {
+                display: flex;
+                & input {
+                    &:first-child { margin-right: 10px; }
+                    &:last-child { margin-left: 10px; }
+                }
+            }
+        }
+    }
 }
+
+// не показывает форму при выборе опции
+// #payment-2:checked ~ #cardForm { display: block; }
 
 @media (max-width: 1100px) {
     .cartPage {
