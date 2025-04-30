@@ -102,5 +102,17 @@ export const UsersController = {
             res.status(500).json({ message: 'get all users failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    payment: async function(req, res) {
+        try {
+            const userPayment = await UsersService.payment(req.body);
+            console.log()
+            res.json(userPayment);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'payment failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }

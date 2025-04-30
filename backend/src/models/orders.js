@@ -36,7 +36,8 @@ export const OrdersModel = {
             orderInfo: [orderBody],
             userId: userId,
             datetime: timeStamp,
-            status: 0
+            status: 0,
+            paymentStatus: false
         });
 
         return newOrder.insertedId;
@@ -103,5 +104,14 @@ export const OrdersModel = {
     getAll: async function() {
         const ordersInfo = await ordersCollection.find().toArray();
         return ordersInfo;
+    },
+
+    
+    updatePaymentStatus: async function(orderId, newStatus) {
+        const changeStatus = await ordersCollection.updateOne(
+            { _id: new ObjectId(orderId) },
+            { $set: { paymentStatus: newStatus } }
+        );
+        return changeStatus;
     }
 }

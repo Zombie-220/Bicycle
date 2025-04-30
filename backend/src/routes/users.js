@@ -10,3 +10,4 @@ UsersRouter.post('/register', UsersController.register);
 UsersRouter.post('/recover', UsersController.recover);
 UsersRouter.post('/changePassword', UsersController.changePass);
 UsersRouter.post('/changeName', UsersController.changeName);
+UsersRouter.post('/payment', UsersController.payment);

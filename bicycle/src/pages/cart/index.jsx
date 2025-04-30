@@ -13,7 +13,7 @@ import { ValidateInput } from '../../components/ValidateInputs/Input';
 import './style.scss';
 
 export const CartPage = () => {
-    const [modalIsOpen, setModalIsOpen] = useState(true);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [orderPrice, setOrderPrice] = useState(0);
     const [orderDiscount, setOrderDiscount] = useState(0);
     const [orderFinal, setOrderFinal] = useState(0);
@@ -55,7 +55,16 @@ export const CartPage = () => {
     }
 
     const paymentOperation = (formData) => {
-        console.log(formData);
+        const paymentData = {
+            ...formData,
+            orderID: JSON.parse(localStorage.getItem('OrId'))
+        };
+
+        console.log(paymentData);
+
+        API_URL.post('/users/payment', paymentData).then(({ data }) => {
+            console.log(data);
+        }).catch((err) => { console.log(err); });
     }
 
     useEffect(() => {

@@ -1,7 +1,9 @@
 import { ObjectId } from "mongodb";
 
-import { CreateToken } from "../helpers/token.js";
 import { UsersModel } from '../models/users.js';
+import { OrdersModel } from "../models/orders.js";
+
+import { CreateToken } from "../helpers/token.js";
 import { Decrypt, Encrypt } from "../helpers/encryption.js";
 import { SendRecoverCode } from "../helpers/mail.js";
 import { RecoverToken } from '../helpers/token.js';
@@ -84,5 +86,10 @@ export const UsersService = {
     getAllUsers: async function() {
         const allUserInfo = await UsersModel.getAll();
         return allUserInfo;
+    },
+
+    payment: async function(reqBody) {
+        const changeOrderPaymentStatus = await OrdersModel.updatePaymentStatus(reqBody.orderID, true);
+        return changeOrderPaymentStatus;
     }
 }
