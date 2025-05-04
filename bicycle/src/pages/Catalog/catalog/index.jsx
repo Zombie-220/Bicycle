@@ -17,8 +17,8 @@ export const CatalogPage = () => {
     const { category } = useParams();
     const [currentItems, setCurrentItems] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
-    const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(true);
-    const [brandsButtonChecked, setBrandsButtonChecked] = useState(true);
+    const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
+    const [brandsButtonChecked, setBrandsButtonChecked] = useState(false);
     const [filterPatterns, setFilterPatterns] = useState({
         inStock: false,
         category: [],
@@ -163,7 +163,7 @@ export const CatalogPage = () => {
                                         itemImage = {data.productImage}
                                         itemPrice = {data.price}
                                         discount = {data.discount}
-                                        linkTo = {`/catalog/bicycles/${data._id}`}
+                                        linkTo = {`/catalog/${category}/${data._id}`}
                                     />
                                 </div>
                             )

@@ -39,6 +39,7 @@ export const CatalogById = () => {
             userId: isAuth,
             orderInfo: {
                 id: id,
+                type: category,
                 size: formData.size ? formData.size : itemData.size[0],
                 color: formData.color ? formData.color : itemData.color[0],
                 amount: currentAmount

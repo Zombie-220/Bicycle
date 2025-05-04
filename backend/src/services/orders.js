@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { Decrypt, Encrypt } from "../helpers/encryption.js";
 
 import { BicyclesModel } from '../models/bicycles.js';
+import { EquipmentsModel } from '../models/equipments.js';
 import { OrdersModel } from '../models/orders.js';
 import { UsersModel } from '../models/users.js';
 
@@ -44,11 +45,15 @@ export const OrdersService = {
     getOne: async function(orderId) {
         const _orderId = new ObjectId(orderId);
         const orderInfo = await OrdersModel.getOne(_orderId);
+        const allRoutes = {
+            'bicycles': BicyclesModel,
+            'equipments': EquipmentsModel,
+        }
 
         const returnigVal = {
             orderId: orderInfo._id,
             orderInfo: await Promise.all(orderInfo.orderInfo.map(async (data) => {
-                const bicycleInfo = await BicyclesModel.getById(new ObjectId(data.id));
+                const bicycleInfo = await allRoutes[data.type].getById(new ObjectId(data.id));
                 return {
                     itemId: data.id,
                     image: bicycleInfo.productImage,
