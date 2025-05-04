@@ -45,7 +45,6 @@ export const Header = () => {
                 <Link to={'/catalog/equipments'} className='header__link'>ЭКИПИРОВКА</Link>
                 <Link to={'/catalog/accessories'} className='header__link'>АКСЕССУАРЫ</Link>
                 <DiffLink to={`/account/${isAuth}`} className='header__link'><img src={userIcon} alt='userIcon' /></DiffLink>
-                {isAuth !== '' && (<Link to={'/x'} className='header__link'> <img src={favoriteIcon} alt="favoriteIcon" /> </Link>)}
                 {isAuth !== '' && (<Link to={'/cart'} className='header__link'> <img src={cartIcon} alt="cartIcon" /> </Link>)}
                 {isAuth !== '' && (<button className='header__link link_orange' onClick={logout}>ВЫЙТИ</button>)}
             </div>
@@ -71,7 +70,6 @@ export const Header = () => {
                         <Link to={'/catalog/equipments'} className='header__link'>ЭКИПИРОВКА</Link>
                         <Link to={'/catalog/accessories'} className='header__link'>АКСЕССУАРЫ</Link>
                         <DiffLink to={`/account/${isAuth}`} className='header__link'>АККАУНТ</DiffLink>
-                        {isAuth !== '' && (<Link to={'/x'} className='header__link'>ИЗБРАННЫЕ</Link>)}
                         {isAuth !== '' && (<Link to={'/cart'} className='header__link'>КОРЗИНА</Link>)}
                         {isAuth !== '' && (<button className='header__link link_orange' onClick={logout}>ВЫЙТИ</button>)}
                     </div>
