@@ -17,14 +17,12 @@ export const CatalogPage = () => {
     const { category } = useParams();
     const [currentItems, setCurrentItems] = useState([]);
     const [currentPage, setCurrentPage] = useState('');
-    const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(false);
-    const [brandsButtonChecked, setBrandsButtonChecked] = useState(false);
-    const [colorsButtonChecked, setColorsButtonChecked] = useState(false);
+    const [categoriesButtonChecked, setCategoriesButtonChecked] = useState(true);
+    const [brandsButtonChecked, setBrandsButtonChecked] = useState(true);
     const [filterPatterns, setFilterPatterns] = useState({
         inStock: false,
         category: [],
-        brand: [],
-        color: []
+        brand: []
     });
 
     const changeFilter = (field, data, isChecked) => {
@@ -51,6 +49,7 @@ export const CatalogPage = () => {
 
     useEffect(() => {
         const firstFiltration = currentData.filter((val) => {
+            console.log(val.type);
             if (filterPatterns.brand.length !== 0 && filterPatterns.category.length !== 0) {
                 if (filterPatterns.brand.includes(val.brand) && filterPatterns.category.includes(val.type)) { return val; }
             } else if (filterPatterns.brand.length !== 0 && filterPatterns.category.length === 0) {

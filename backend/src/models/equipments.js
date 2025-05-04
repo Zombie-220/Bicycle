@@ -34,5 +34,13 @@ export const EquipmentsModel = {
     getById: async function(id) {
         const equipment = await equipmentCollection.findOne({ _id: id });
         return equipment
+    },
+
+    orderBy: async function(field, summ) {
+        const pipeline = [{$group: { _id: `$${field}`, totalQuantity: { $sum: `$${summ}` }}},
+            {$project : { _id: 0, field: '$_id', summ: '$totalQuantity' }}];
+
+        const result = await equipmentCollection.aggregate(pipeline).toArray();
+        return result;
     }
 }

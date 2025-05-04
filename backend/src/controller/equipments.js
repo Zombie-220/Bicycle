@@ -36,5 +36,17 @@ export const EquipmentsCotroller = {
             res.status(500).json({ message: 'Get equipment by id failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    catalogMenu: async function(req, res) {
+        try {
+            const equipmentMenu = await EquipmentsService.catalogMenu();
+
+            res.json(equipmentMenu);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'Get catalog manu for equipment failed' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 }

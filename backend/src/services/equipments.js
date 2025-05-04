@@ -20,7 +20,8 @@ export const EquipmentsService = {
                 productImage: data.productImage,
                 price: data.price,
                 amount: data.amount,
-                discount: data.discount
+                discount: data.discount,
+                type: data.model
             }))
         });
         return encryptedData;
@@ -43,6 +44,16 @@ export const EquipmentsService = {
             discount: equipment.discount,
             color: equipment.color,
             size: equipment.size
+        }));
+    },
+
+    catalogMenu: async function() {
+        const _brands = await EquipmentsModel.orderBy('brand', 'amount');
+        const _model = await EquipmentsModel.orderBy('model', 'amount');
+
+        return(Encrypt({
+            brands: _brands,
+            categories: _model
         }));
     }
 }
