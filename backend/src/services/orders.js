@@ -9,6 +9,13 @@ import { UsersModel } from '../models/users.js';
 import { PartsModel } from '../models/parts.js';
 import { AccessoriesModel } from '../models/accessories.js';
 
+const allRoutes = {
+    'bicycles': BicyclesModel,
+    'equipments': EquipmentsModel,
+    'parts': PartsModel,
+    'accessories': AccessoriesModel
+};
+
 export const OrdersService = {
     /**
      * @param {string} orderId
@@ -47,25 +54,19 @@ export const OrdersService = {
     getOne: async function(orderId) {
         const _orderId = new ObjectId(orderId);
         const orderInfo = await OrdersModel.getOne(_orderId);
-        const allRoutes = {
-            'bicycles': BicyclesModel,
-            'equipments': EquipmentsModel,
-            'parts': PartsModel,
-            'accessories': AccessoriesModel
-        }
 
         const returnigVal = {
             orderId: orderInfo._id,
             orderInfo: await Promise.all(orderInfo.orderInfo.map(async (data) => {
-                const bicycleInfo = await allRoutes[data.type].getById(new ObjectId(data.id));
+                const itemData = await allRoutes[data.type].getById(new ObjectId(data.id));
                 return {
                     itemId: data.id,
-                    image: bicycleInfo.productImage,
-                    title: `${bicycleInfo.brand} ${bicycleInfo.model}`,
-                    price: bicycleInfo.price,
-                    discount: bicycleInfo.discount,
+                    image: itemData.productImage,
+                    title: `${itemData.brand} ${itemData.model}`,
+                    price: itemData.price,
+                    discount: itemData.discount,
                     amount: data.amount,
-                    maxAmount: bicycleInfo.amount
+                    maxAmount: itemData.amount
                 };
             }))
         };
@@ -107,12 +108,12 @@ export const OrdersService = {
                 datetime: data.datetime,
                 status: data.status,
                 orderInfo: await Promise.all(data.orderInfo.map(async (innerData) => {
-                    const bicycleInfo = await BicyclesModel.getById(new ObjectId(innerData.id));
+                    const itemInfo = await allRoutes[innerData.type].getById(new ObjectId(innerData.id));
                     return ({
-                        name: `${bicycleInfo.brand} ${bicycleInfo.model}`,
-                        price: bicycleInfo.price,
+                        name: `${itemInfo.brand} ${itemInfo.model}`,
+                        price: itemInfo.price,
                         amount: parseInt(innerData.amount),
-                        image: bicycleInfo.productImage
+                        image: itemInfo.productImage
                     });
                 }))
             });
