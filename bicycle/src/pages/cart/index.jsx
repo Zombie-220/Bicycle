@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -9,6 +9,7 @@ import { Decrypt, Encrypt } from '../../helpers/AES';
 import { CartCard } from '../../components/Cards/cartCard';
 import { ModalWindow } from '../../components/modalWin';
 import { ValidateInput } from '../../components/ValidateInputs/Input';
+import { ModalPopup } from '../../components/popup';
 
 import './style.scss';
 
@@ -18,8 +19,10 @@ export const CartPage = () => {
     const [orderDiscount, setOrderDiscount] = useState(0);
     const [orderFinal, setOrderFinal] = useState(0);
     const [orderItems, setOrderItems] = useState([]);
-    const navigation = useNavigate();
+    const [showForm, setShowForm] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm();
+    const paymentType1 = useRef();
 
     const { orderData, orderIsLoading, orderIsErr } = useRequest(`/orders/getOrder/${JSON.parse(localStorage.getItem('OrId'))}`, {
         data: 'orderData',
@@ -49,7 +52,8 @@ export const CartPage = () => {
         }).then(({ data }) => {
             if (Decrypt(data.response) === 'status updated') {
                 localStorage.removeItem('OrId');
-                navigation('/');
+                setShowPopup(true);
+                setModalIsOpen(false);
             }
         }).catch((err) => { console.log(err); })
     }
@@ -60,10 +64,8 @@ export const CartPage = () => {
             orderID: JSON.parse(localStorage.getItem('OrId'))
         };
 
-        console.log(paymentData);
-
         API_URL.post('/users/payment', paymentData).then(({ data }) => {
-            console.log(data);
+            sendOrder();
         }).catch((err) => { console.log(err); });
     }
 
@@ -80,7 +82,16 @@ export const CartPage = () => {
         setOrderDiscount(newOrderDiscount);
         setOrderFinal(newOrderPrice - newOrderDiscount);
     }, [orderItems]);
+
     useEffect(() => { setOrderItems(orderData) }, [orderData]);
+
+    useEffect(() => {
+        if (paymentType1.current) { paymentType1.current.checked = true; }
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => { setShowPopup(false); }, 12500);
+    }, [showPopup]);
 
     return (
         <div className='cartPage'>
@@ -129,18 +140,18 @@ export const CartPage = () => {
                     <div className='cartPage__modal__container'>
                         <label htmlFor='payment-1' className='cartPage__modal__container-option'>При получении</label>
                         <div className='cartPage__modal__container-radio'>
-                            <input type="radio" name='payment' id='payment-1'/>
+                            <input type="radio" name='payment' id='payment-1' ref={paymentType1} onClick={() => { setShowForm(false) }}/>
                             <label htmlFor="payment-1"></label>
                         </div>
                     </div>
                     <div className='cartPage__modal__container'>
                         <label htmlFor='payment-2' className='cartPage__modal__container-option'>По карте</label>
                         <div className='cartPage__modal__container-radio'>
-                            <input type="radio" name='payment' id='payment-2'/>
+                            <input type="radio" name='payment' id='payment-2' onClick={() => { setShowForm(true) }}/>
                             <label htmlFor="payment-2"></label>
                         </div>
                     </div>
-                    <form className='cartPage__modal__form' onSubmit={handleSubmit(paymentOperation)} id='cardForm'>
+                    <form className='cartPage__modal__form' onSubmit={handleSubmit(paymentOperation)} style={{display: `${showForm ? 'block' : 'none'}`}}>
                         <p className='cartPage__modal__form-header'>Введите данные карты</p>
                         <ValidateInput
                             name={'cardNumber'}
@@ -156,32 +167,42 @@ export const CartPage = () => {
                             formFunction={register}
                         />
                         <div className='cartPage__modal__form__container'>
-                            <ValidateInput
-                                name={'cardMonth'}
-                                errors={errors}
-                                textLabel={'Месяц'}
-                                type={'number'}
-                                formFunction={register}
-                            />
-                            <ValidateInput
-                                name={'cardYear'}
-                                errors={errors}
-                                type={'number'}
-                                textLabel={'Год'}
-                                formFunction={register}
-                            />
-                            <ValidateInput
-                                name={'cardCVV'}
-                                errors={errors}
-                                type={'number'}
-                                textLabel={'CVV/CVC'}
-                                formFunction={register}
-                            />  
+                            <div className='cartPage__modal__form__container__input'>
+                                <ValidateInput
+                                    name={'cardMonth'}
+                                    errors={errors}
+                                    textLabel={'Месяц'}
+                                    type={'number'}
+                                    formFunction={register}
+                                />
+                            </div>
+                            <div className='cartPage__modal__form__container__input'>
+                                <ValidateInput
+                                    name={'cardYear'}
+                                    errors={errors}
+                                    type={'number'}
+                                    textLabel={'Год'}
+                                    formFunction={register}
+                                />
+                            </div>
+                            <div className='cartPage__modal__form__container__input'>
+                                <ValidateInput
+                                    name={'cardCVV'}
+                                    errors={errors}
+                                    type={'number'}
+                                    textLabel={'CVV/CVC'}
+                                    formFunction={register}
+                                />  
+                            </div>
                         </div>
-                        <button>Оплатить</button>
+                        <button className='cartPage__modal__form-button'>Оплатить</button>
                     </form>
+                    <button className='cartPage__modal__form-button' style={{display: `${showForm ? 'none' : 'block'}`}} onClick={sendOrder}>Оформить заказ</button>
                 </div>
             </ModalWindow>
+            <ModalPopup isShow={showPopup} setIsShow={setShowPopup} type={'success'}>
+                <p className='cartPage__modal-text'>Заказ успешно оформлен</p>
+            </ModalPopup>
         </div>
     );
 }
