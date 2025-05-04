@@ -26,7 +26,7 @@ export const AdminPage = () => {
     return (
         <div className="adminPage">
             <div className='adminPage__leftSide'>
-                <p className='adminPage__leftSide-header'>Мой аккаунт</p>
+                <p className='adminPage__leftSide-header'>Панель администратора</p>
                 <Link className={`adminPage__leftSide-link ${lastUrlPath=='admin' && 'activeAdminPageLink'}`} to={`/admin`}>Заказы</Link>
                 <Link className={`adminPage__leftSide-link ${lastUrlPath=='users' && 'activeAdminPageLink'}`} to={`/admin/users`}>Пользователи</Link>
                 <Link className={`adminPage__leftSide-link ${lastUrlPath=='bicycles' && 'activeAdminPageLink'}`} to={`/admin/bicycles`}>Велосипеды</Link>
