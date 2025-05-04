@@ -9,6 +9,7 @@ import { BicyclesRouter } from './routes/bicycles.js';
 import { EquipmentsRouter } from './routes/equipments.js';
 import { PartsRouter } from './routes/parts.js';
 import { OrdersRouter } from './routes/orders.js';
+import { AccessoriesRouter } from './routes/accessories.js';
 // import { ConfigRouter } from './routes/config.js';
 
 export const APP = express();
@@ -23,6 +24,7 @@ APP.use('/users', UsersRouter);
 APP.use('/bicycles', BicyclesRouter);
 APP.use('/equipments', EquipmentsRouter);
 APP.use('/parts', PartsRouter);
+APP.use('/accessories', AccessoriesRouter);
 APP.use('/orders', OrdersRouter);
 
 APP.use((req, res) => {

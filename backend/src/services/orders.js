@@ -7,6 +7,7 @@ import { EquipmentsModel } from '../models/equipments.js';
 import { OrdersModel } from '../models/orders.js';
 import { UsersModel } from '../models/users.js';
 import { PartsModel } from '../models/parts.js';
+import { AccessoriesModel } from '../models/accessories.js';
 
 export const OrdersService = {
     /**
@@ -49,7 +50,8 @@ export const OrdersService = {
         const allRoutes = {
             'bicycles': BicyclesModel,
             'equipments': EquipmentsModel,
-            'parts': PartsModel
+            'parts': PartsModel,
+            'accessories': AccessoriesModel
         }
 
         const returnigVal = {
