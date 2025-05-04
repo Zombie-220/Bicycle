@@ -7,6 +7,7 @@ import { logger } from './config/logger/logger.js';
 import { UsersRouter } from './routes/users.js';
 import { BicyclesRouter } from './routes/bicycles.js';
 import { EquipmentsRouter } from './routes/equipments.js';
+import { PartsRouter } from './routes/parts.js';
 import { OrdersRouter } from './routes/orders.js';
 // import { ConfigRouter } from './routes/config.js';
 
@@ -21,6 +22,7 @@ APP.use(
 APP.use('/users', UsersRouter);
 APP.use('/bicycles', BicyclesRouter);
 APP.use('/equipments', EquipmentsRouter);
+APP.use('/parts', PartsRouter);
 APP.use('/orders', OrdersRouter);
 
 APP.use((req, res) => {
