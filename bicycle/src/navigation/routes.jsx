@@ -15,6 +15,9 @@ import { RecoverPass } from "../pages/Account/recoverPass";
 import { AdminPage } from "../pages/Admin";
 import { UsersInfoPage } from "../pages/Admin/users";
 import { BicyclesInfoPage } from "../pages/Admin/bicycles";
+import { PartsInfoPage } from "../pages/Admin/parts";
+import { AccessoriesInfoPage } from "../pages/Admin/accessories";
+import { EquipmentsInfoPage } from "../pages/Admin/equipments";
 
 const authPages = [
   {
@@ -64,6 +67,18 @@ const adminPages = [
       {
         path: 'bicycles',
         Component: BicyclesInfoPage
+      },
+      {
+        path: 'parts',
+        Component: PartsInfoPage
+      },
+      {
+        path: 'accessories',
+        Component: AccessoriesInfoPage
+      },
+      {
+        path: 'equipments',
+        Component: EquipmentsInfoPage
       }
     ]
   }

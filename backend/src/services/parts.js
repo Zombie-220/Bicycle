@@ -48,5 +48,23 @@ export const PartsService = {
             discount: part.discount,
             amount: part.amount
         }));
+    },
+
+    change: async function(reqBody) {
+        const _body = reqBody;
+        let _titleArr = reqBody.title.split(' ');
+        const _brand = _titleArr[0];
+        _titleArr.shift();
+        const _model = _titleArr.join(' ');
+
+        const updatedPart = await PartsModel.update({
+            brand: _brand,
+            model: _model,
+            price: _body.value,
+            amount: _body.amount,
+            discount: _body.discount
+        }, _body.id);
+
+        return ({ resp: 'ok' });
     }
 };

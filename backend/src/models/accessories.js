@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb';
+
 import { DB } from '../config/database/database.js';
 
 /**
@@ -32,5 +34,13 @@ export const AccessoriesModel = {
 
         const result = await accesoriesCollection.aggregate(pipeline).toArray();
         return result;
+    },
+
+    update: async function(newItem, id) {
+        const updatedBicycle = await accesoriesCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newItem }
+        );
+        return updatedBicycle.modifiedCount;
     }
 };

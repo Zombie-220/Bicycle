@@ -33,5 +33,13 @@ export const PartsModel = {
     getById: async function(id) {
         const part = await partsCollection.findOne({ _id: id });
         return part;
+    },
+
+    update: async function(newItem, id) {
+        const updatedBicycle = await partsCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newItem }
+        );
+        return updatedBicycle.modifiedCount;
     }
 };

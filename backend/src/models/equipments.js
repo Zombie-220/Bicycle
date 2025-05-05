@@ -42,5 +42,13 @@ export const EquipmentsModel = {
 
         const result = await equipmentCollection.aggregate(pipeline).toArray();
         return result;
+    },
+
+    update: async function(newItem, id) {
+        const updatedBicycle = await equipmentCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newItem }
+        );
+        return updatedBicycle.modifiedCount;
     }
 }

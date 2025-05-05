@@ -5,10 +5,10 @@ import { API_URL } from '../../../requests/request';
 
 import './style.scss';
 
-export const ItemCard = ({ id, title, image, amount, price, discount }) => {
+export const ItemCard = ({ id, title, image, amount, price, discount, category }) => {
     const { register, handleSubmit, setValue } = useForm();
     const changeItem = (formData) => {
-        API_URL.post('/bicycles/change', {
+        API_URL.post(`/${category}/change`, {
             id: id,
             title: formData.title,
             amount: formData.amount,
@@ -57,15 +57,15 @@ export const ItemCard = ({ id, title, image, amount, price, discount }) => {
                 <div className='bicycleCard__body__info'>
                     <div className='bicycleCard__body__info__input'>
                         <p className=''>Стоимость за единицу: </p>
-                        <input type="number" value={price} ref={valueRef} {...register('value', { required: true })}/>
+                        <input type="number" ref={valueRef} {...register('value', { required: true })}/>
                     </div>
                     <div className='bicycleCard__body__info__input'>
                         <p className=''>Количество на складе: </p>
-                        <input type="number" value={amount} ref={amountRef} {...register('amount', { required: true })}/>
+                        <input type="number" ref={amountRef} {...register('amount', { required: true })}/>
                     </div>
                     <div className='bicycleCard__body__info__input'>
                         <p className=''>Скидка: </p>
-                        <input type="number" value={discount} ref={discountRef} {...register('discount', { required: true })}/>
+                        <input type="number" ref={discountRef} min={0} max={100} {...register('discount', { required: true })}/>
                     </div>
                     <button className='bicycleCard__body-button'>Сохранить</button>
                 </div>

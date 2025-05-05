@@ -31,6 +31,8 @@ export const AdminPage = () => {
                 <Link className={`adminPage__leftSide-link ${lastUrlPath=='users' && 'activeAdminPageLink'}`} to={`/admin/users`}>Пользователи</Link>
                 <Link className={`adminPage__leftSide-link ${lastUrlPath=='bicycles' && 'activeAdminPageLink'}`} to={`/admin/bicycles`}>Велосипеды</Link>
                 <Link className={`adminPage__leftSide-link ${lastUrlPath=='parts' && 'activeAdminPageLink'}`} to={`/admin/parts`}>Запчасти</Link>
+                <Link className={`adminPage__leftSide-link ${lastUrlPath=='equipments' && 'activeAdminPageLink'}`} to={`/admin/equipments`}>Экипировка</Link>
+                <Link className={`adminPage__leftSide-link ${lastUrlPath=='accessories' && 'activeAdminPageLink'}`} to={`/admin/accessories`}>Аксессуары</Link>
             </div>
             <div className='adminPage__rightSide'>
                 {lastUrlPath === 'admin' ?

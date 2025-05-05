@@ -36,5 +36,17 @@ export const PartsController = {
             res.status(500).json({ message: 'Get parts by id failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
+    },
+
+    change: async function(req, res) {
+        try {
+            const partChanged = await PartsService.change(req.body);
+
+            res.json(partChanged);
+            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+        } catch (err) {
+            res.status(500).json({ message: 'change bicycle error' });
+            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+        }
     }
 };

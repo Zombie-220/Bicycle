@@ -5,18 +5,18 @@ import { Decrypt } from '../../../helpers/AES';
 
 import { ItemCard } from "../../../components/Cards/itemCard";
 
-export const BicyclesInfoPage = () => {
+export const PartsInfoPage = () => {
     const [bicyclesInfo, setBicyclesInfo] = useState([]);
 
     useEffect(() => {
-        API_URL.get('/bicycles/amount').then(({ data }) => {
+        API_URL.get('/parts/amount').then(({ data }) => {
             const decryptedData = Decrypt(data);
             setBicyclesInfo(decryptedData);
         }).catch((err) => { console.log(err); });
     }, []);
 
     return (
-        <div className="bicyclesInfoPage">
+        <div className="partsInfoPage">
             {bicyclesInfo.map((data, index) => {
                 return (
                     <ItemCard
@@ -26,7 +26,7 @@ export const BicyclesInfoPage = () => {
                         amount={data.amount}
                         price={data.price}
                         discount={data.discount}
-                        category={'bicycles'}
+                        category={'parts'}
                     />
                 )
             })}

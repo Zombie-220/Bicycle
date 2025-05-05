@@ -48,5 +48,17 @@ export const EquipmentsCotroller = {
             res.status(500).json({ message: 'Get catalog manu for equipment failed' });
             logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
-    }
+    },
+
+        change: async function(req, res) {
+            try {
+                const equipmentChanged = await EquipmentsService.change(req.body);
+    
+                res.json(equipmentChanged);
+                logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            } catch (err) {
+                res.status(500).json({ message: 'change equipment error' });
+                logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            }
+        }
 }
