@@ -29,7 +29,7 @@ export const PartsService = {
         const _type = await PartsModel.orderBy('model', 'amount');
 
         return(Encrypt({
-            brand: _brands,
+            brands: _brands,
             categories: _type
         }));
     },
