@@ -3,7 +3,7 @@ import cors from 'cors';
 import { createServer } from 'https';
 
 import { CERTIFICATE, PORT, PRIVATE_KEY, FRON_PORT } from './config/env.js';
-import { logger } from './config/logger/logger.js';
+import { Logger } from './config/logger/logger.js';
 import { UsersRouter } from './routes/users.js';
 import { BicyclesRouter } from './routes/bicycles.js';
 import { EquipmentsRouter } from './routes/equipments.js';
@@ -29,13 +29,13 @@ APP.use('/orders', OrdersRouter);
 
 APP.use((req, res) => {
     res.status(404).send('Resource not found >_<');
-    logger.warn(`Wrong query: ${req.method} ${req.baseUrl}${req.url}`);
+    Logger.warn(`Wrong query: ${req.method} ${req.baseUrl}${req.url}`);
 });
 
 if (PRIVATE_KEY && CERTIFICATE) {
     const httpsServer = createServer({ key: PRIVATE_KEY, cert: CERTIFICATE }, APP);
 
-    httpsServer.listen(PORT, () => { logger.info(`Server is running via https://localhost:${PORT}`); })
+    httpsServer.listen(PORT, () => { Logger.info(`Server is running via https://localhost:${PORT}`); })
 } else {
-    APP.listen(PORT, () => { logger.info(`Server is running via http://localhost:${PORT}`); });
+    APP.listen(PORT, () => { Logger.info(`Server is running via http://localhost:${PORT}`); });
 }

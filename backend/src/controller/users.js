@@ -2,7 +2,7 @@ import { request, response } from "express";
 
 import { Decrypt, Encrypt } from "../helpers/encryption.js";
 import { UsersService } from '../services/users.js';
-import { logger } from "../config/logger/logger.js";
+import { Logger } from "../config/logger/logger.js";
 
 export const UsersController = {
     /**
@@ -15,10 +15,10 @@ export const UsersController = {
             const loginUser = await UsersService.login(req.body.name, req.body.password, req.body.getToken);
 
             res.json(loginUser);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'login failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -32,10 +32,10 @@ export const UsersController = {
             const newUserId = await UsersService.register(req.body.name, req.body.password, req.body.email);
     
             res.json(newUserId);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'create user failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -49,10 +49,10 @@ export const UsersController = {
             const resp = await UsersService.recover(req.body.login);
 
             res.json(Encrypt(resp));
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'start recover failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -61,10 +61,10 @@ export const UsersController = {
             const resp = await UsersService.changePass(req.body.newPass, req.body.email);
 
             res.json(Encrypt(resp));
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'change password failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -73,10 +73,10 @@ export const UsersController = {
             const userInfo = await UsersService.getInfo(req.params.id);
 
             res.json(userInfo);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'change password failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -85,10 +85,10 @@ export const UsersController = {
             const userInfo = await UsersService.changeName(req.body.newName, req.body.email);
 
             res.json(userInfo);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'change password failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -97,10 +97,10 @@ export const UsersController = {
             const allUsersInfo = await UsersService.getAllUsers();
 
             res.json(allUsersInfo);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'get all users failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -109,10 +109,10 @@ export const UsersController = {
             const userPayment = await UsersService.payment(req.body);
             console.log()
             res.json(userPayment);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'payment failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     }
 }

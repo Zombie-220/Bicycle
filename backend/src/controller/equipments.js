@@ -1,7 +1,7 @@
 import { request, response } from "express";
 
 import { EquipmentsService } from "../services/equipments.js";
-import { logger } from "../config/logger/logger.js";
+import { Logger } from "../config/logger/logger.js";
 
 export const EquipmentsCotroller = {
     /**
@@ -14,10 +14,10 @@ export const EquipmentsCotroller = {
             const equipments = await EquipmentsService.byAmount(req.params.amount);
 
             res.json(equipments);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'Get equipments by amount failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -31,10 +31,10 @@ export const EquipmentsCotroller = {
             const equipment = await EquipmentsService.getById(req.params.id);
 
             res.json(equipment);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'Get equipment by id failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -43,10 +43,10 @@ export const EquipmentsCotroller = {
             const equipmentMenu = await EquipmentsService.catalogMenu();
 
             res.json(equipmentMenu);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'Get catalog manu for equipment failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -55,10 +55,10 @@ export const EquipmentsCotroller = {
                 const equipmentChanged = await EquipmentsService.change(req.body);
     
                 res.json(equipmentChanged);
-                logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+                Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
             } catch (err) {
                 res.status(500).json({ message: 'change equipment error' });
-                logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+                Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
             }
         }
 }

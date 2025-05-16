@@ -1,7 +1,7 @@
 import { request, response } from "express";
 
 import { BicyclesService } from "../services/bicycles.js";
-import { logger } from "../config/logger/logger.js";
+import { Logger } from "../config/logger/logger.js";
 
 export const BicyclesController = {
     /**
@@ -14,10 +14,10 @@ export const BicyclesController = {
             const bicycles = await BicyclesService.getByAmount(req.params.amount);
 
             res.json(bicycles);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'Get bicycles by amount failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -31,10 +31,10 @@ export const BicyclesController = {
             const latestBicycles = await BicyclesService.getLatest(req.params.amount);
 
             res.json(latestBicycles);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'get latest bicycles failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -49,14 +49,14 @@ export const BicyclesController = {
                 const result = await BicyclesService.orderBy(req.query.field, req.query.summ);
 
                 res.json(result);
-                logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+                Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
             } else {
                 res.status(400).json({ message: 'not enough data' });
-                logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${'not enough data'}`);
+                Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${'not enough data'}`);
             }
         } catch (err) {
             res.status(500).json({ message: 'get order by bicycles failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -70,10 +70,10 @@ export const BicyclesController = {
             const bicycle = await BicyclesService.getById(req.params.id);
 
             res.json(bicycle);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'get bicycle by id failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -87,10 +87,10 @@ export const BicyclesController = {
             const filteredBicycles = await BicyclesService.filter(req.query);
 
             res.json(filteredBicycles);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'get bicycle with filter failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -104,10 +104,10 @@ export const BicyclesController = {
             const catalogMenu = await BicyclesService.catalogMenu();
 
             res.json(catalogMenu);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'get catalog page info failed' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 
@@ -116,10 +116,10 @@ export const BicyclesController = {
             const bicycleChanged = await BicyclesService.change(req.body);
 
             res.json(bicycleChanged);
-            logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {
             res.status(500).json({ message: 'change bicycle error' });
-            logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     }
 }

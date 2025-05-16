@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
 
-import { logger } from '../config/logger/logger.js';
+import { Logger } from '../config/logger/logger.js';
 import { __dirname } from './__dirname.js';
 import { parseToBase64 } from './base64.js';
 import { Encrypt } from './encryption.js';
@@ -76,7 +76,7 @@ export const SendRecoverCode = (to, token) => {
             </html>
         `
     }, (err, info) => {
-        if (err) { logger.crit(`Sending e-mail error: ${err}`); }
-        else { logger.info(`E-mail send: ${info.messageId}`); }
+        if (err) { Logger.crit(`Sending e-mail error: ${err}`); }
+        else { Logger.info(`E-mail send: ${info.messageId}`); }
     });
 }
