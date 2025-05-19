@@ -4,6 +4,7 @@ import { createServer } from 'https';
 
 import { CERTIFICATE, PORT, PRIVATE_KEY, FRON_PORT } from './config/env.js';
 import { Logger } from './config/logger/logger.js';
+import { SwaggerSetup } from './config/swagger.js';
 import { UsersRouter } from './routes/users.js';
 import { BicyclesRouter } from './routes/bicycles.js';
 import { EquipmentsRouter } from './routes/equipments.js';
@@ -20,6 +21,7 @@ APP.use(
 
 // APP.use('/config', ConfigRouter);
 
+SwaggerSetup(APP);
 APP.use('/users', UsersRouter);
 APP.use('/bicycles', BicyclesRouter);
 APP.use('/equipments', EquipmentsRouter);

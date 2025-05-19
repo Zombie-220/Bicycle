@@ -11,15 +11,48 @@ const usersCollection = DB.collection('users');
  * @property {string} password
  * @property {string[]} roles
  * @property {string} email
+ * @property {string} token
 */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: user id
+ *         name:
+ *           type: string
+ *           description: user name (larger than 8 characters)
+ *         password:
+ *           type: string
+ *           description: user password
+ *         roles:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: array of user roles
+ *         email:
+ *           type: string
+ *           description: user email
+ *         token:
+ *           anyOf:
+ *             - type: string
+ *               description: token for password recovering
+ *             - type: "null"
+ *               description: token can be null
+ */
 
 export const UsersModel = {
     /**
-     * @param {ObjectId} id 
+     * @param {ObjectId | number} id 
      * @returns {Promise<User>}
     */
     getInfoById: async function(id) {
-        const userInfo = await usersCollection.findOne({ _id: id });
+        const userInfo = await usersCollection.findOne({ _id: new ObjectId(id) });
         return userInfo ? userInfo : null;
     },
 
