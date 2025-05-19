@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { appendFileSync } from 'fs';
 import { ObjectId } from 'mongodb';
+import { __dirname } from '../../helpers/__dirname.js';
 
 const _purple = Symbol('_purple');
 const _white = Symbol('_white');
