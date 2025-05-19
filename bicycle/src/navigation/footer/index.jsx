@@ -13,9 +13,10 @@ export const Footer = () => {
     const location = useLocation();
 
     const pathArrayToDisplayNone = [
-        '/auth',
-        '/register',
-        '/auth/recover'
+        '/sign',
+        '/sign/in',
+        '/sign/up',
+        'sign/recover'
     ]
 
     useEffect(() => {

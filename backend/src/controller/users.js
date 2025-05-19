@@ -1,24 +1,51 @@
 import { request, response } from "express";
 
+import { PORT } from "../config/env.js";
 import { Decrypt, Encrypt } from "../helpers/encryption.js";
 import { UsersService } from '../services/users.js';
 import { Logger } from "../config/logger/logger.js";
+
+import { Error400, Error403, Error422, Error500 } from "../helpers/statusCode.js";
 
 export const UsersController = {
     /**
      * @param {request} req 
      * @param {response} res 
-     * @returns {void}
-    */
+     * @returns {Promise<void>}
+     */
     login: async function(req, res) {
         try {
-            const loginUser = await UsersService.login(req.body.name, req.body.password, req.body.getToken);
+            if (req.headers.referer === `http://localhost:${PORT}/docs/` || req.headers.referer === `https://localhost:${PORT}/docs/`) {
+                if (req.body.name === 'name_user_1' && req.body.password === 'pass_user_1') {
+                    res.json({
+                        id: '682afe52d4002b96bea855fa',
+                        roles: ['user'],
+                        token: req.body.token ? 'some symbols as token' : null
+                    });
+                    Logger.debug(`${req.method} ${req.baseUrl}${req.url}: get user by id from swagger`);
+                } else {
+                    Error403(res);
+                    Logger.debug(`${req.method} ${req.baseUrl}${req.url}: attempt to get another user from swagger`, req.body);
+                }
+            } else {
+                if (req.body.name && req.body.password && req.body.token) {
+                    const loginUser = await UsersService.login(req.body.name, req.body.password, req.body.token);
 
-            res.json(loginUser);
-            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+                    if (loginUser) {
+                        Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+                        res.json(loginUser);
+                    } else {
+                        Error422(res);
+                        Logger.warn(`${req.method} ${req.baseUrl}${req.url}: wrong data`, Decrypt(req.body));
+                    }
+                } else {
+                    Error400(res);
+                    Logger.warn(`${req.method} ${req.baseUrl}${req.url}: not enough data`, Decrypt(req.body));
+                }
+            }
         } catch (err) {
-            res.status(500).json({ message: 'login failed' });
-            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Error500(res);
+            Logger.crit(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`, Decrypt(req.body));
         }
     },
 

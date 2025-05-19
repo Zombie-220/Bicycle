@@ -12,22 +12,24 @@ export const UsersService = {
     /**
      * @param {string} name
      * @param {string} password
-     * @param {string} getToken
-     * @returns {Promise<{id: string, token: string}>}
+     * @param {string} token
+     * @returns {Promise<{id: string, roles: string[], token: string}> | Promise<null>}
     */
-    login: async function(name, password, getToken) {
+    login: async function(name, password, token) {
         const _name = Decrypt(name);
         const _password = Decrypt(password);
-        const _getToken = Decrypt(getToken);
+        const _getToken = Decrypt(token);
 
         const user = await UsersModel.getInfoByNameAndPass(_name, _password);
 
-        return ({
-            id: (user ? Encrypt(user._id) : null),
-            token: (user ? (CreateToken(user._id, user.roles, (_getToken ? 168 : 24))) : null)
-        });
+        if (user) {
+            return (Encrypt({
+                id: user._id,
+                roles: user.roles,
+                token: CreateToken(user._id, user.roles, (_getToken ? 168 : 24))
+            }));
+        } else { return (null); }
     },
-
 
     /**
      * @param {string} name 

@@ -1,0 +1,25 @@
+.signPage {
+    margin: 200px 300px;
+        &__header {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        &-link {
+            text-decoration: none;
+            font-family: 'Inter-Medium';
+            font-size: 18px;
+            color: #777;
+            transition: 200ms;
+            &:hover { opacity: 65%; }
+            &-active {
+                font-family: 'Inter-Medium';
+                font-size: 24px;
+                text-decoration: none;
+                color: #101010;
+                transition: 200ms;
+                &:first-child { margin-right: 20px; }
+                &:last-child { margin-left: 20px; }
+            }
+        }
+    }
+}

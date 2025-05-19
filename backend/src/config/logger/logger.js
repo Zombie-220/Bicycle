@@ -8,6 +8,7 @@ const _white = Symbol('_white');
 const _green = Symbol('_green');
 const _yellow = Symbol('_yellow');
 const _red = Symbol('_red');
+const _creamy = Symbol('_creamy');
 const _level = Symbol('_level');
 
 const _getCurrentTime = Symbol('_getCurrentTime');
@@ -19,6 +20,7 @@ class ClassLogger {
     [_green] = '#10AC68';
     [_yellow] = '#E5E510';
     [_red] = '#D73F28';
+    [_creamy] = '#F2E6CE';
     [_level] = 0;
 
     constructor() {}
@@ -40,16 +42,16 @@ class ClassLogger {
         let strForPrint = lateString;
         if (typeof(o) === 'string') {
             if (o.length > 100) {
-                strForPrint += `${chalk.hex(this[_purple]).bold('string')}: '${o.substring(0, 100)} ${chalk.hex(this[_purple]).bold(`... +${o.length-100} symbols`)}'`;
+                strForPrint += `${chalk.hex(this[_creamy]).italic('string')}: '${o.substring(0, 100)} ${chalk.hex(this[_creamy]).bold(`... +${o.length-100} symbols`)}'`;
             } else {
-                strForPrint += `${chalk.hex(this[_purple]).bold('string')}: '${o}'`;
+                strForPrint += `${chalk.hex(this[_creamy]).italic('string')}: '${o}'`;
             }
         } else if (typeof(o) === 'boolean') {
-            strForPrint += `${chalk.hex(this[_purple]).bold('boolean')}: ${o}`;
+            strForPrint += `${chalk.hex(this[_creamy]).italic('boolean')}: ${o}`;
         } else if (typeof(o) === 'number') {
-            strForPrint += `${chalk.hex(this[_purple]).bold('number')}: ${o}`;
+            strForPrint += `${chalk.hex(this[_creamy]).italic('number')}: ${o}`;
         } else if (Array.isArray(o)) {
-            strForPrint += `${chalk.hex(this[_purple]).bold('array')}: [`;
+            strForPrint += `${chalk.hex(this[_creamy]).italic('array')}: [`;
             this[_level] += 1;
             o.forEach((elem) => {
                 strForPrint += `\n${'    '.repeat(this[_level])}${this[_printObj](elem)}`;
@@ -66,14 +68,14 @@ class ClassLogger {
                 this[_level] -= 1;
                 strForPrint += `\n${'    '.repeat(this[_level])}}`;
             } else if (Object.prototype.toString.call(o) === '[object Date]') {
-                strForPrint += `${chalk.hex(this[_purple]).bold(`Date`)}: ${new Date().toString()}`;
+                strForPrint += `${chalk.hex(this[_creamy]).italic(`Date`)}: ${new Date().toString()}`;
             } else if (ObjectId.isValid(o)) {
-                strForPrint += `${chalk.hex(this[_purple]).bold(`ObjectId`)}: '${new ObjectId(o._id).toString()}'`;
+                strForPrint += `${chalk.hex(this[_creamy]).italic(`ObjectId`)}: '${new ObjectId(o._id).toString()}'`;
             } else {
-                strForPrint += `${chalk.hex(this[_purple]).bold(`${Object.prototype.toString.call(o)}`)}: ${o}`;
+                strForPrint += `${chalk.hex(this[_creamy]).italic(`${Object.prototype.toString.call(o)}`)}: ${o}`;
             }
         } else {
-            strForPrint += `${chalk.hex(this[_purple]).bold(`${typeof(o)}`)}: ${o}`;
+            strForPrint += `${chalk.hex(this[_creamy]).italic(`${typeof(o)}`)}: ${o}`;
         }
 
         return strForPrint;
@@ -100,6 +102,10 @@ class ClassLogger {
             if (err) { console.log(`${chalk.hex(this[_red]).bold("CAN'T WRITE TO FILE: ")} ${err}`); }
         });
         process.exit(1);
+    }
+
+    debug(message, data=null) {
+        console.log(`${chalk.hex(this[_purple]).bold('DEBUG')} --- ${chalk.hex(this[_purple]).italic(this[_getCurrentTime]())} --- ${chalk.hex(this[_purple]).visible(message)}${data !== null ? `: \n${this[_printObj](data)}` : ''}`);
     }
 }
 

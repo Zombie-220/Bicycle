@@ -1,24 +1,4 @@
 .authPage {
-    margin: 200px 300px;
-    &__header {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        &-link {
-            margin-right: 20px;
-            display: block;
-            color: #777;
-            font-size:  18px;
-            font-family: 'Inter-Medium';
-            text-decoration: none;
-            transition: 200ms;
-            &:hover { opacity: 65%; }
-            &-active {
-                color: #101010;
-                font-size: 24px;
-            }
-        }
-    }
     &__body {
         &-errorMessage {
             color: #F53A20;

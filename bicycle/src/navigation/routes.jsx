@@ -3,11 +3,13 @@ import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
 
+import { SignPage } from "../pages/Authorization";
+import { InPage } from "../pages/Authorization/in";
+
 import { MainPage } from "../pages/main";
 import { CatalogPage } from "../pages/Catalog/catalog";
 import { CatalogById } from "../pages/Catalog/catalogById";
 import { CartPage } from "../pages/cart";
-import { AuthPage } from "../pages/Authorization/auth";
 import { RegisterPage } from "../pages/Authorization/register";
 import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
 import { AccountPage } from "../pages/Account";
@@ -42,8 +44,18 @@ const authPages = [
 
 const notAuthPages = [
   {
-    path: '/auth',
-    Component: AuthPage
+    path: '/sign',
+    Component: SignPage,
+    children: [
+      {
+        path: 'in',
+        Component: InPage
+      },
+      {
+        path: 'up',
+        Component: RegisterPage
+      }
+    ]
   },
   {
     path: '/register',

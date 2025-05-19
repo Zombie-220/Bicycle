@@ -9,7 +9,7 @@ const options = {
         info: {
             title: 'API docs',
             version: '1.0.0',
-            description: 'Express REST API documentation for "World Bike"'
+            description: 'REST API documentation for "World Bike"'
         },
     },
     apis: [`${__dirname}/src/routes/*.js`, `${__dirname}/src/models/*.js`, `${__dirname}/src/config/swagger.js`]
@@ -25,6 +25,38 @@ export const SwaggerSetup = (app) => {
  * @swagger
  * components:
  *   responses:
+ *     400:
+ *       description: Bad request
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 description: error message
+ *                 example: bad request
+ *               error:
+ *                 type: string
+ *                 description: short error message
+ *                 example: badRequest
+ * 
+ *     403:
+ *       description: Forbidden
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 description: error message
+ *                 example: server refuse to answer
+ *               error:
+ *                 type: string
+ *                 description: short error message
+ *                 example: forbidden
+ * 
  *     404:
  *       description: Resource not found
  *       content:

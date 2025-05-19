@@ -69,7 +69,7 @@ export const UsersModel = {
     /**
      * @param {string} name 
      * @param {string} password 
-     * @returns {Promise<User>}
+     * @returns {Promise<User> | Promise<null>}
     */
     getInfoByNameAndPass: async function(name, password) {
         const userInfo = await usersCollection.findOne({ name: name, password: password });

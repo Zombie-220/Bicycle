@@ -16,5 +16,5 @@ export const DiffLink = ({ to, className, children }) => {
     const { isAuth } = useContext(AuthContext);
 
     if (isAuth) { return <Link to={to} className={className}>{children}</Link> }
-    else { return <Link to={'/auth'} className={className}>{children}</Link> }
+    else { return <Link to={'/sign/in'} className={className}>{children}</Link> }
 }

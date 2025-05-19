@@ -10,40 +10,66 @@ export const UsersRouter = Router();
  *   description: user management
  */
 
+UsersRouter.get('/info/:id', UsersController.getInfo);
+UsersRouter.get('/all', UsersController.getAllUsers);
+
 /**
  * @swagger
- * /users/info/{id}:
- *   get:
- *     summary: Get info about user by id
+ * /users/signIn/:
+ *   post:
+ *     summary: user authorization
  *     tags: [users]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *           description: user ID
- *           example: 6811b702a094dc67da32dd8c
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: user name (unique)
+ *                 example: name_user_1
+ *               password:
+ *                 type: string
+ *                 description: user password
+ *                 example: pass_user_1
+ *               token:
+ *                 type: string
+ *                 description: remember me token
+ *                 example: true
  *     responses:
  *       200:
- *         description: a single user info
+ *         description: user authorization successful
  *         content:
  *           application/json:
  *             schema:
- *               items:
- *                 type: object
- *                 properties:
- *                   name:
+ *               type: object
+ *               properties:
+ *                 id: 
+ *                   type: string
+ *                   description: user id
+ *                   example: 682afe52d4002b96bea855fa
+ *                 roles:
+ *                   type: array
+ *                   items:
  *                     type: string
- *                   email:
- *                     type: string
- *       404:
- *         $ref: '#/components/responses/404'
+ *                   description: array of user roles
+ *                   example: ['user']
+ *                 token:
+ *                   type: string
+ *                   description: browser memory token
+ *                   example: some symbols as token
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       403:
+ *         $ref: '#/components/responses/403'
+ *       422:
+ *         $ref: '#/components/responses/422'
  *       500:
  *         $ref: '#/components/responses/500'
  */
-UsersRouter.get('/info/:id', UsersController.getInfo);
-UsersRouter.get('/all', UsersController.getAllUsers);
-UsersRouter.post('/login', UsersController.login);
+UsersRouter.post('/signIn', UsersController.login);
 
 /**
  * @swagger

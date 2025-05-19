@@ -37,7 +37,7 @@ export const Header = () => {
 
     return (
         <header className='header' style={{background: background}}>
-            <Link className='header__link'> <img src={icon} alt="logo" /> </Link>
+            <Link className='header__link' to={'/'}> <img src={icon} alt="logo" /> </Link>
             <div className='header__wrapper'>
                 {isAdmin && (<Link to={'/admin'} className='header__link link_orange'>АДМИН-ПАНЕЛЬ</Link>)}
                 <Link to={'/catalog/bicycles?page=1'} className='header__link link_orange'>ВЕЛОСИПЕДЫ</Link>

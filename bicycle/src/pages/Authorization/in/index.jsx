@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
@@ -13,7 +13,7 @@ import { CheckboxButton } from '../../../components/Buttons/checkbox';
 
 import './style.scss';
 
-export const AuthPage = () => {
+export const InPage = () => {
     const { setIsAuth } = useContext(AuthContext);
     const { setIsAdmin } = useContext(AdminContext);
     const [formErr, setFormErr] = useState('');
@@ -21,39 +21,35 @@ export const AuthPage = () => {
     const navigate = useNavigate();
 
     function onSubmit(submitData) {
-        const encryptesSubmitData = Encrypt(submitData);
+        const encryptedSubmitData = Encrypt(submitData);
 
-        API_URL.post('/users/login', {
-            name: encryptesSubmitData.name,
-            password: encryptesSubmitData.password,
-            getToken: encryptesSubmitData.remembeMe
+        API_URL.post('/users/signIn', {
+            name: encryptedSubmitData.name,
+            password: encryptedSubmitData.password,
+            token: encryptedSubmitData.remembeMe
         }).then(({ data }) => {
-            if (data.id) {
-                const decryptedResponse = {
-                    id: Decrypt(data.id),
-                    token: data.token
-                };
-                setIsAuth(decryptedResponse.id);
-                Cookies.set('token', decryptedResponse.token, { expires: (submitData.remembeMe ? 7 : 1) });
-
-                const token = jwtDecode(decryptedResponse.token);
-                if (token.roles.includes('admin')) { setIsAdmin(true); }
-                navigate('/');
-            } else {
-                setError('name', { type: 'empty' });
-                setError('password', { type: 'incorrect' });
-            }
+            setFormErr('');
+            const decryptedRespData = Decrypt(data);
+            setIsAuth(decryptedRespData.id);
+            Cookies.set('token', decryptedRespData.token, { expires: (submitData.remembeMe ? 7 : 1) });
+            if (decryptedRespData.roles.includes('admin')) { setIsAdmin(true); }
+            navigate('/');
         }).catch((err) => {
-            setFormErr('Сайту не хорошо @_@. Попробуйте позже.');
+            const errStatus = err.response ? err.response.status : null;
+            if (errStatus) {
+                if (errStatus === 400) { setFormErr('Недостаточно данных для авторизации. Обратитесь к администратору'); }
+                else if (errStatus === 403) { setFormErr('Отказано в доступе'); }
+                else if (errStatus === 422) { setFormErr('Проверьте корректность введенных данных.'); }
+                else if (errStatus === 500) { setFormErr('Серверу не хорошо >_<. Попробуйте позже.'); }
+                else { setFormErr(`Что-то пошло не так. Код ошибки: ${errStatus}`); }
+            } else {
+                console.log(err);
+            }
         });
     }
 
     return (
         <div className="authPage">
-            <div className='authPage__header'>
-                <Link className='authPage__header-link authPage__header-link-active'>Войти</Link>
-                <Link to={'/register'} className='authPage__header-link'>Регистрация</Link>
-            </div>
             <form className='authPage__body' onSubmit={handleSubmit(onSubmit)}>
                 <ValidateInput
                     textLabel={"Имя пользователя"}
