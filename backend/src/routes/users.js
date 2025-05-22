@@ -73,9 +73,9 @@ UsersRouter.post('/signIn', UsersController.login);
 
 /**
  * @swagger
- * /users/register:
+ * /users/signUp:
  *   post:
- *     summary: User registration, if possible
+ *     summary: user registration
  *     tags: [users]
  *     requestBody:
  *       required: true
@@ -86,10 +86,16 @@ UsersRouter.post('/signIn', UsersController.login);
  *             properties:
  *               name:
  *                 type: string
+ *                 description: user name
+ *                 example: name_user_1_swagger
  *               password:
  *                 type: string
+ *                 description: user password
+ *                 example: pass_user_1
  *               email:
  *                 type: string
+ *                 description: user email
+ *                 example: example@gmail.com
  *     responses:
  *       200:
  *         description: user added
@@ -102,14 +108,27 @@ UsersRouter.post('/signIn', UsersController.login);
  *                   id:
  *                     type: string
  *                     description: new user id
- *                   message:
- *                      type: string
+ *                     example: 682afe52d4002b96bea855fa
+ *                   roles:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     description: array of user roles
+ *                     example: ['user']
+ *                   token:
+ *                     type: string
+ *                     description: browser memory token
+ *                     example: some symbols as token
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       403:
+ *         $ref: '#/components/responses/403'
  *       422:
  *         $ref: '#/components/responses/422'
  *       500:
  *         $ref: '#/components/responses/500'
  */
-UsersRouter.post('/register', UsersController.register);
+UsersRouter.post('/signUp', UsersController.register);
 UsersRouter.post('/recover', UsersController.recover);
 UsersRouter.post('/changePassword', UsersController.changePass);
 UsersRouter.post('/changeName', UsersController.changeName);

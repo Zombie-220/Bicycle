@@ -6,6 +6,7 @@ import { UsersService } from '../services/users.js';
 import { Logger } from "../config/logger/logger.js";
 
 import { Error400, Error403, Error422, Error500 } from "../helpers/statusCode.js";
+import { UsersModel } from "../models/users.js";
 
 export const UsersController = {
     /**
@@ -52,17 +53,46 @@ export const UsersController = {
     /**
      * @param {request} req 
      * @param {response} res 
-     * @returns {void}
+     * @returns {Promise<void>}
     */
     register: async function(req, res) {
         try {
-            const newUserId = await UsersService.register(req.body.name, req.body.password, req.body.email);
-    
-            res.json(newUserId);
-            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            if (req.headers.referer === `http://localhost:${PORT}/docs/` || req.headers.referer === `https://localhost:${PORT}/docs/`) {
+                if (req.body.name && req.body.password && req.body.email) {
+                    if (req.body.name.substring(req.body.name.length - 8) === '_swagger') {
+                        const newUser = await UsersModel.addUser(req.body.name, req.body.password, req.body.email);
+                        res.json({
+                            id: newUser.toString(),
+                            roles: ['user'],
+                            token: 'some symbols as token'
+                        });
+                        Logger.debug(`${req.method} ${req.baseUrl}${req.url}: register success`);
+                    } else {
+                        Error403(res, 'need (_swagger) at the end');
+                        Logger.debug(`${req.method} ${req.baseUrl}${req.url}: wrong name`, req.body);
+                    }
+                } else {
+                    Error400(res);
+                    Logger.debug(`${req.method} ${req.baseUrl}${req.url}: not enough data`, req.body);
+                }
+            } else {
+                if (req.body.name && req.body.password && req.body.email) {
+                    const newUserInfo = await UsersService.register(req.body.name, req.body.password, req.body.email);
+                    res.json(newUserInfo);
+                    Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+                } else {
+                    Error400(res);
+                    Logger.warn(`${req.method} ${req.baseUrl}${req.url}: not enough data`, Decrypt(req.body));
+                }
+            }
         } catch (err) {
-            res.status(500).json({ message: 'create user failed' });
-            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            if (err.code === 11000) {
+                Error422(res);
+                Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            } else {
+                Error500(res);
+                Logger.crit(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`, Decrypt(req.body));
+            }
         }
     },
 

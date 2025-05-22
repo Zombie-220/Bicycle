@@ -42,12 +42,12 @@ export const UsersService = {
         const _password = Decrypt(password);
         const _email = Decrypt(email);
 
-        if (!(await UsersModel.checkByName(_name))) {
-            const newId = await UsersModel.addUser(_name, _password, _email);
-            return { id: Encrypt(newId) };
-        } else {
-            return { id: Encrypt(null) };
-        }
+        const newId = await UsersModel.addUser(_name, _password, _email);
+        return Encrypt({
+            id: newId,
+            roles: ['user'],
+            token: CreateToken(newId, ['user'], 24)
+        });
     },
 
     /**
