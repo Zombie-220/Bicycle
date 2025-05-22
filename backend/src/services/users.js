@@ -35,7 +35,7 @@ export const UsersService = {
      * @param {string} name 
      * @param {string} password 
      * @param {string} email
-     * @returns {Promise<ObjectId | null>}
+     * @returns {Promise<{id: ObjectId, roles: string[], token: string}>}
     */
     register: async function(name, password, email) {
         const _name = Decrypt(name);
