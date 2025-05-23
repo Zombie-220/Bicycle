@@ -1,5 +1,4 @@
-.registerPage {
-    margin: 200px 300px;
+.upPage {
     &__header {
         display: flex;
         justify-content: left;
@@ -58,8 +57,4 @@
             &:hover { opacity: 65%; }
         }
     }
-}
-
-@media (max-width: 1100px) {
-    .registerPage { margin: 200px 50px; }
 }

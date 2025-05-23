@@ -2,13 +2,12 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
 
 import { API_URL } from '../../../requests/request';
 import { AuthContext, AdminContext } from '../../../App';
-import { ValidateInput } from '../../../components/ValidateInputs/Input';
 import { Decrypt, Encrypt } from '../../../helpers/AES';
 
+import { ValidateInput } from '../../../components/ValidateInputs/Input';
 import { CheckboxButton } from '../../../components/Buttons/checkbox';
 
 import './style.scss';
@@ -17,7 +16,7 @@ export const InPage = () => {
     const { setIsAuth } = useContext(AuthContext);
     const { setIsAdmin } = useContext(AdminContext);
     const [formErr, setFormErr] = useState('');
-    const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm();
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm();
     const navigate = useNavigate();
 
     function onSubmit(submitData) {
@@ -42,15 +41,13 @@ export const InPage = () => {
                 else if (errStatus === 422) { setFormErr('Проверьте корректность введенных данных.'); }
                 else if (errStatus === 500) { setFormErr('Серверу не хорошо >_<. Попробуйте позже.'); }
                 else { setFormErr(`Что-то пошло не так. Код ошибки: ${errStatus}`); }
-            } else {
-                console.log(err);
-            }
+            } else { setFormErr('Что-то пошло не так >_<".'); }
         });
     }
 
     return (
-        <div className="authPage">
-            <form className='authPage__body' onSubmit={handleSubmit(onSubmit)}>
+        <div className="inPage">
+            <form className='inPage__body' onSubmit={handleSubmit(onSubmit)}>
                 <ValidateInput
                     textLabel={"Имя пользователя"}
                     errors={errors}
@@ -64,14 +61,14 @@ export const InPage = () => {
                     formFunction={register}
                     type={"password"}
                 />
-                <p className='authPage__body-errorMessage'>{formErr}</p>
-                <button className='authPage__body-button' disabled={!isValid}>Войти</button>
-                <div className='authPage__body__footer'>
-                    <div className='authPage__body__footer__wrapper'>
+                <p className='inPage__body-errorMessage'>{formErr}</p>
+                <button className='inPage__body-button' disabled={!isValid}>Войти</button>
+                <div className='inPage__body__footer'>
+                    <div className='inPage__body__footer__wrapper'>
                         <CheckboxButton name={"remembeMe"} formFunction={register} />
-                        <label className='authPage__body__footer__wrapper-label' htmlFor="remembeMe">Запомнить меня</label>
+                        <label className='inPage__body__footer__wrapper-label' htmlFor="remembeMe">Запомнить меня</label>
                     </div>
-                    <Link to={'/auth/recover'} className='authPage__body__footer-link'>Забыли пароль?</Link>
+                    <Link to={'/auth/recover'} className='inPage__body__footer-link'>Забыли пароль?</Link>
                 </div>
             </form>
         </div>

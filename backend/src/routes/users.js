@@ -129,7 +129,15 @@ UsersRouter.post('/signIn', UsersController.login);
  *         $ref: '#/components/responses/500'
  */
 UsersRouter.post('/signUp', UsersController.register);
-UsersRouter.post('/recover', UsersController.recover);
+
+/**
+ * @swagger
+ * /users/recover:
+ *   patch:
+ *     summary: change user password
+ *     tags: [users]
+ */
+UsersRouter.patch('/recover', UsersController.recover);
 UsersRouter.post('/changePassword', UsersController.changePass);
 UsersRouter.post('/changeName', UsersController.changeName);
 UsersRouter.post('/payment', UsersController.payment);

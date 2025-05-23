@@ -3,15 +3,15 @@ import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "./errorPage";
 import { Layout } from "./layout";
 
-import { SignPage } from "../pages/Authorization";
-import { InPage } from "../pages/Authorization/in";
+import { SignPage } from "../pages/Sign";
+import { InPage } from "../pages/Sign/in";
+import { UpPage } from "../pages/Sign/up";
+import { RecoverPasswordPage } from "../pages/Sign/recoverPassword"; // тебя еще
 
 import { MainPage } from "../pages/main";
 import { CatalogPage } from "../pages/Catalog/catalog";
 import { CatalogById } from "../pages/Catalog/catalogById";
 import { CartPage } from "../pages/cart";
-import { RegisterPage } from "../pages/Authorization/register";
-import { RecoverPasswordPage } from "../pages/Authorization/recoverPassword";
 import { AccountPage } from "../pages/Account";
 import { RecoverPass } from "../pages/Account/recoverPass";
 import { AdminPage } from "../pages/Admin";
@@ -53,13 +53,9 @@ const notAuthPages = [
       },
       {
         path: 'up',
-        Component: RegisterPage
+        Component: UpPage
       }
     ]
-  },
-  {
-    path: '/register',
-    Component: RegisterPage
   },
   {
     path: '/auth/recover',

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Cookie from 'js-cookie';
 
 import { ValidateInput } from '../../../components/ValidateInputs/Input';
 import { API_URL } from '../../../requests/request';
@@ -9,7 +10,7 @@ import { Decrypt, Encrypt } from '../../../helpers/AES';
 
 import './style.scss';
 
-export const RegisterPage = () => {
+export const UpPage = () => {
     const { register, handleSubmit, setError, clearErrors, formState: { errors, isValid } } = useForm();
     const [formErr, setFormErr] = useState();
     const { setIsAuth } = useContext(AuthContext);
@@ -28,18 +29,18 @@ export const RegisterPage = () => {
 
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             if (formData.password_confirmed === formData.password) {
-                API_URL.post('/users/register', encryptedData)
-                .then(({ data }) => {
-                    const decryptedResponse = Decrypt(data);
-                    if (decryptedResponse.id) {
-                        setIsAuth(decryptedResponse.id);
-                        setFormErr('');
-                        navigate('/');
-                    } else {
-                        setError('name', { type: 'reserved' });
-                    }
-                    setFormErr('');
-                }).catch(() => { setFormErr('Сайту не хорошо @_@. Попробуйте позже.') })
+                API_URL.post('/users/signUp', encryptedData).then(({ data }) => {
+                    const decryptedResp = Decrypt(data);
+                    setIsAuth(decryptedResp.id);
+                    Cookie.set('token', decryptedResp.token);
+                    navigate('/');
+                }).catch((err) => {
+                    const errStatus = err.response.status;
+                    if (errStatus === 400) { setFormErr('Данных не достаточно. Обратитесь к администратору.'); }
+                    else if (errStatus === 422) { setFormErr('Данный email уже используется другим пользователем.'); }
+                    else if (errStatus === 500) { setFormErr('Серверу не хорошо >_<". Попробуйте позже'); }
+                    else { setFormErr(`Что-то пошло не так. Код ошибки: ${errStatus}`); }
+                })
             } else {
                 setError('password', { type: "empty" });
                 setError('password_confirmed', { type: "match" });
@@ -48,12 +49,8 @@ export const RegisterPage = () => {
     }
 
     return (
-        <div className="registerPage">
-            <div className='registerPage__header'>
-                <Link className='registerPage__header-link registerPage__header-link-active'>Регистрация</Link>
-                <Link to={'/auth'} className='registerPage__header-link'>Войти</Link>
-            </div>
-            <form className='registerPage__body' onSubmit={handleSubmit(onSubmit)}>
+        <div className="upPage">
+            <form className='upPage__body' onSubmit={handleSubmit(onSubmit)}>
                 <ValidateInput
                     textLabel={"Имя пользователя"}
                     errors={errors}
@@ -80,10 +77,10 @@ export const RegisterPage = () => {
                     formFunction={register}
                     type={"password"}
                 />
-                <p className='registerPage__body-errorMessage'>{formErr}</p>
-                <button className='registerPage__body-button' disabled={!isValid}>Регистрация</button>
+                <p className='upPage__body-errorMessage'>{formErr}</p>
+                <button className='upPage__body-button' disabled={!isValid}>Регистрация</button>
             </form>
-            <p className='registerPage-bottomText'>Уже регистрировались? <Link to={'/auth'} className='registerPage-bottomText-link'>Войти</Link></p>
+            <p className='upPage-bottomText'>Уже регистрировались? <Link to={'/auth'} className='upPage-bottomText-link'>Войти</Link></p>
         </div>
     );
 }
