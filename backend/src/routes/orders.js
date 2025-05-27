@@ -16,7 +16,7 @@ OrdersRouter.get('/all', OrdersController.getAll);
 /**
  * @swagger
  * /orders/createOrder:
- *   post:
+ *   put:
  *     summary: create order
  *     tags: [orders]
  *     requestBody:
@@ -80,12 +80,10 @@ OrdersRouter.get('/all', OrdersController.getAll);
  *         $ref: '#/components/responses/400'
  *       403:
  *         $ref: '#/components/responses/403'
- *       422:
- *         $ref: '#/components/responses/422'
  *       500:
  *         $ref: '#/components/responses/500'
  */
-OrdersRouter.post('/createOrder', OrdersController.createOrder);
+OrdersRouter.put('/createOrder', OrdersController.createOrder);
 OrdersRouter.post('/deleteItem', OrdersController.deleteItem);
 OrdersRouter.get('/getOrder/:id', OrdersController.getOrder);
 

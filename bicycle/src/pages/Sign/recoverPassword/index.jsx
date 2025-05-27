@@ -18,7 +18,7 @@ export const RecoverPasswordPage = () => {
     const token = query.get('token') ? query.get('token') : null;
 
     function createRecoverToken(formData) {
-        API_URL.post(`/users/recover`, {
+        API_URL.patch(`/users/recover`, {
             login: Encrypt(formData.name)
         }).then(({ data }) => {
             const respData = Decrypt(data).response;
@@ -35,7 +35,7 @@ export const RecoverPasswordPage = () => {
     }
 
     function changePassword(formData) {
-        API_URL.post('/users/changePassword', {
+        API_URL.patch('/users/changePassword', {
             newPass: formData.password,
             email: Decrypt(email)
         }).then(({data}) => {

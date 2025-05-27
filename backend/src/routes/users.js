@@ -10,7 +10,47 @@ export const UsersRouter = Router();
  *   description: user management
  */
 
+/**
+ * @swagger
+ * /users/info/{id}:
+ *   get:
+ *     summary: get info about user by id
+ *     tags: [users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:  
+ *           type: string
+ *         required: true
+ *         description: user id
+ *         example: 683076867056a9cec8965873
+ *     responses:
+ *       200:
+ *         desription: user found
+ *         content: 
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   username:
+ *                     type: string
+ *                     description: username
+ *                     example: userName_1
+ *                   email:
+ *                     type: string
+ *                     description: user email
+ *                     example: example@gmail.com
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       422:
+ *         $ref: '#/components/responses/422'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
 UsersRouter.get('/info/:id', UsersController.getInfo);
+
+// убрать
 UsersRouter.get('/all', UsersController.getAllUsers);
 
 /**
@@ -134,10 +174,163 @@ UsersRouter.post('/signUp', UsersController.register);
  * @swagger
  * /users/recover:
  *   patch:
- *     summary: change user password
+ *     summary: create token to change password
  *     tags: [users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               login:
+ *                 type: string
+ *                 description: user login
+ *                 example: userName_1
+ *     responses:
+ *       200:
+ *         description: user found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   result:
+ *                     type: boolean
+ *                     desription: user found
+ *                     example: true
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       500:
+ *         $ref: '#/components/responses/500'
  */
 UsersRouter.patch('/recover', UsersController.recover);
-UsersRouter.post('/changePassword', UsersController.changePass);
-UsersRouter.post('/changeName', UsersController.changeName);
-UsersRouter.post('/payment', UsersController.payment);
+
+/**
+ * @swagger
+ * /users/changePass:
+ *   patch:
+ *     summary: change password by token
+ *     tags: [users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 description: new user password
+ *               email:
+ *                 type: string
+ *                 description: user email
+ *                 example: example@gmail.com
+ *     responses:
+ *       200:
+ *         description: password recovered
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   result: 
+ *                     type: boolean
+ *                     description: password changed
+ *                     example: true
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
+UsersRouter.patch('/changePassword', UsersController.changePass);
+
+/**
+ * @swagger
+ * /users/changeName:
+ *   patch:
+ *     summary: can change username
+ *     tags: [users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newName:
+ *                 type: string
+ *                 description: new username
+ *                 example: userName_1
+ *               email:
+ *                 type: string
+ *                 description: user email
+ *                 example: example@gmail.com
+ *     responses:
+ *       200:
+ *         description: username changed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   result:
+ *                     type: boolean
+ *                     description: username changed
+ *                     example: true
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
+UsersRouter.patch('/changeName', UsersController.changeName);
+
+/**
+ * @swagger
+ * /user/payment:
+ *   patch:
+ *     summary: change order status
+ *     tags: [users, orders]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               orderId:
+ *                 type: string
+ *                 description: ordeer id
+ *                 example: 68175a242850f6c7aeb2add1
+ *               status:
+ *                 type: number
+ *                 description: new order status
+ *                 example: 1
+ *     responses:
+ *       200:
+ *         description: order status changed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   result:
+ *                     type: string
+ *                     description: result about operation
+ *                     example: true
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
+UsersRouter.patch('/payment', UsersController.payment);

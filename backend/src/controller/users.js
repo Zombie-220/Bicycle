@@ -164,7 +164,6 @@ export const UsersController = {
     payment: async function(req, res) {
         try {
             const userPayment = await UsersService.payment(req.body);
-            console.log()
             res.json(userPayment);
             Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
         } catch (err) {

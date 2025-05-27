@@ -46,7 +46,7 @@ export const CartPage = () => {
     }
 
     const sendOrder = () => {
-        API_URL.post('/orders/updateStatus', {
+        API_URL.patch('/orders/updateStatus', {
             orderId: Encrypt(JSON.parse(localStorage.getItem('OrId'))),
             status: Encrypt(1)
         }).then(({ data }) => {

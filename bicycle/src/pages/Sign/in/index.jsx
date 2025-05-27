@@ -16,7 +16,7 @@ export const InPage = () => {
     const { setIsAuth } = useContext(AuthContext);
     const { setIsAdmin } = useContext(AdminContext);
     const [formErr, setFormErr] = useState('');
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm();
+    const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm();
     const navigate = useNavigate();
 
     function onSubmit(submitData) {
