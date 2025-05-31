@@ -11,6 +11,40 @@ export const OrdersRouter = Router();
  *   description: order management
  */
 
+/**
+ * @swagger
+ * /orders/all:
+ *   get:
+ *     summary: get info about all orders
+ *     tags: [orders]
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: 677399f8a9f6f48076eff314
+ *                     type:
+ *                       type: string
+ *                       example: bicycles
+ *                     size:
+ *                       type: string
+ *                       example: S
+ *                     color:
+ *                       type: string
+ *                       example: Black
+ *                     amount:
+ *                       type: number
+ *                       example: 1
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
 OrdersRouter.get('/all', OrdersController.getAll);
 
 /**
@@ -84,8 +118,47 @@ OrdersRouter.get('/all', OrdersController.getAll);
  *         $ref: '#/components/responses/500'
  */
 OrdersRouter.put('/createOrder', OrdersController.createOrder);
-OrdersRouter.post('/deleteItem', OrdersController.deleteItem);
-OrdersRouter.get('/getOrder/:id', OrdersController.getOrder);
+
+/**
+ * @swagger
+ * /orders/deleteItem/{orderId}/{itemId}:
+ *   delete:
+ *     summary: delete item from order
+ *     tags: [orders]
+ *     parameters:
+ *       - in: path
+ *         name: orderId
+ *         schema:
+ *           type: string
+ *         description: order id
+ *         example: 68175a242850f6c7aeb2add1
+ *       - in: path
+ *         name: itemId
+ *         schema:
+ *           type: string
+ *         description: item id for removal
+ *         example: 677399f8a9f6f48076eff314
+ *     responses:
+ *       200:
+ *         desription: item deleted from order
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   result:
+ *                     type: boolean
+ *                     description: result about operation
+ *                     example: true
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
+OrdersRouter.delete('/deleteItem', OrdersController.deleteItem);
 
 /**
  * @swagger
@@ -138,3 +211,69 @@ OrdersRouter.get('/getOrder/:id', OrdersController.getOrder);
  *         $ref: '#/components/responses/500'
  */
 OrdersRouter.post('/updateStatus', OrdersController.updateStatus);
+
+/**
+ * @swagger
+ * /orders/{id}:
+ *   get:
+ *     summary: get info about order by id
+ *     tags: [orders]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: order id
+ *         example: 68175a242850f6c7aeb2add1
+ *     responses:
+ *       200:
+ *         desription: order info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   itemsInfo:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           example: 677399f8a9f6f48076eff314
+ *                         type:
+ *                           type: string
+ *                           example: bicycles
+ *                         size:
+ *                           type: string
+ *                           example: S
+ *                         color:
+ *                           type: string
+ *                           example: Black
+ *                         amount:
+ *                           type: number
+ *                           example: 1
+ *                     description: info about item
+ *                   userId:
+ *                     type: string
+ *                     description: user id
+ *                     example: 67798fe945c6d48433cdc50e
+ *                   datetime:
+ *                     type: string
+ *                     description: date of creating order
+ *                     example: 04-05-2025 19:14:28
+ *                   status:
+ *                     type: number
+ *                     description: order status
+ *                     example: 0
+ *                   paymentStatus:
+ *                     type: boolean
+ *                     description: status of payment
+ *                     example: false
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
+OrdersRouter.get('/:id', OrdersController.getOrder);

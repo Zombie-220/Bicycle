@@ -103,13 +103,17 @@ export const UsersController = {
     */
     recover: async function(req, res) {
         try {
-            const resp = await UsersService.recover(req.body.login);
+            if (req.headers.referer === `http://localhost:${PORT}/docs/` || req.headers.referer === `https://localhost:${PORT}/docs/`) {
 
-            res.json(Encrypt(resp));
-            Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            } else {
+                const resp = await UsersService.recover(req.body.login);
+    
+                res.json(Encrypt(resp));
+                Logger.info(`${req.method} ${req.baseUrl}${req.url}`);
+            }
         } catch (err) {
             res.status(500).json({ message: 'start recover failed' });
-            Logger.warn(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
+            Logger.crit(`${req.method} ${req.baseUrl}${req.url}: ${err.message}`);
         }
     },
 

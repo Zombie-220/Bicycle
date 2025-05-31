@@ -334,3 +334,37 @@ UsersRouter.patch('/changeName', UsersController.changeName);
  *         $ref: '#/components/responses/500'
  */
 UsersRouter.patch('/payment', UsersController.payment);
+
+/**
+ * @swagger
+ * /users/delete/{id}:
+ *   delete:
+ *     summary: delete user by id
+ *     tags: [users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: user id
+ *     responses:
+ *       200:
+ *         desription: user deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   result:
+ *                     type: boolean
+ *                     description: result about operaion
+ *                     example: true
+ *       400:
+ *         $ref: '#/components/responses/400'
+ *       404:
+ *         $ref: '#/components/responses/404'
+ *       500:
+ *         $ref: '#/components/responses/500'
+ */
